@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Add Contact</title>
+    <link rel="stylesheet" href="./styles/addContacts.css">
+    <link rel="stylesheet" href="./styles/addContactsResponsive.css">
+    <link rel="icon" type="image/x-icon" href="./img/logo_mobile.svg" />
+    <script src="./js/templates.js"></script>
+    <script src="./js/firebaseDatabaseFunctions.js"></script>
+    <script src="./js/firebaseUserRendering.js"></script>
+    <script src="./js/contacts.js"></script>
+</head>
+<body onload="loadAccountInitials()">
+    <div id="" class="addContactContainer addContactContainerCenter">
+        <div id="" class="popUpContainer popUpOpen">
+            <div class="popUpBanner">
+                <div class="popUpBannerContent">
+                    <img class="joinLogo" src="./img/join_popup.svg" alt="">
+                    <h1>Add contact</h1>
+                    <p>Tasks are better with a team!</p>
+                    <span class="popUpBannerContent span"></span>
+                </div>
+            </div>
+            <div class="popUpContent">
+                <div onclick="closePopup()" class="closePopUp addContactContainerCenter">
+                    <img src="./img/close.svg" alt="">
+                </div>
+                <div class="popUpImg contactImg addContactContainerCenter">
+                    <img class="contactSVG" src="./img/person_big.svg" alt="">
+                </div>
+                <div class="form">
+                    <form id="" onsubmit="addUser(); closePopup(); return false;" >
+                        <div class="input">
+                            <input id="name" class="inputInput"type="text" placeholder="Name" required >
+                            <div class="iconContainer">
+                                <img src="./img/person.svg" alt="Name Icon">
+                            </div>
+                        </div>
+                        <div class="input">
+                            <input id="email" class="inputInput "type="email" placeholder="Email" required >
+                            <div class="iconContainer">
+                                <img src="./img/mail.svg" alt="Mail Icon">
+                            </div>
+                        </div>
+                        <div class="input">
+                            <input id="phone" class="inputInput "type="number" pattern="^[0-9-+\s()]{6,16}" placeholder="Phone" required >
+                            <div class="iconContainer">
+                                <img src="./img/call.svg" alt="Phone Icon">
+                            </div>
+                        </div>
+                        <div class="popUpButton">
+                            <button onclick="closePopup()" id="" class="cancelButton">
+                                <p>Cancel</p>
+                                <img src="./img/icon_cancel.svg" alt="">
+                            </button>
+                            <button class="createContactButton">
+                                <p>Create contact</p>
+                                <img src="./img/check.svg" alt="">
+                            </button>
+                        </div>
+                    </form>
+</body>
+</html>

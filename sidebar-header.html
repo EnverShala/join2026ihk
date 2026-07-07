@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Sidebar header</title>
+    <link rel="stylesheet" href="./styles/sidebarHeader.css">
+    <link rel="icon" type="image/x-icon" href="./img/logo_mobile.svg" />
+    <!--Google Font Roboto-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Viga&display=swap" rel="stylesheet">
+    <script src="./js/firebaseDatabaseFunctions.js"></script>
+    <script src="./js/firebaseUserRendering.js"></script>
+</head>
+<body>
+
+    <!-- Header und Sidebar-->
+    <header class="desktop-header">
+        <h1>Kanban Project Management Tool</h1>
+        <div class="header-icons">
+          <a href="./help.html">
+              <img src="img/contacts/help.png" alt="icon help" width="32px" height="32px"><img>
+          </a>
+          <button class="profile-icon openModalHeader">
+              <div id="header-profile-icon" class="profile-name guest-font-size">G</div>
+          </button>
+      </div>
+    </header>
+
+    <dialog id="sub-menu-modal-desktop" class="sub-menu-bg">
+        <div id="sub-menu" class="sub-menu sub-menu-open">
+            <a class="help-link" href="./help.html">
+                <div>Help</div>
+            </a>
+            <a href="./legalNotice.html">
+                <div>Legal Notice</div>
+            </a>
+            <a href="./privacy.html">
+                <div>Privacy Policy</div>
+            </a>
+            <a> 
+                <div class="help-link" onclick="logOutUserAccount(); location.href='./login.html'">Log Out</div>
+            </a>
+        </div>
+    </dialog>
+    
+    <aside class="sidebar desktop-sidebar">
+      <div class="logo-sidebar">
+          <a href="summary.html"><img class="logo-join-white" src="img/contacts/logo_join_white.png" alt="logo"></a>
+      </div>
+      <nav class="menu-sidebar">
+          <ul class="container-nav-links">
+              <a href="summary.html" class="nav-links">
+                  <img class="nav-icons" src="img/contacts/summary_icon.svg" alt="icon summary">
+                  <li>Summary</li>
+              </a>
+              <a href="task.html" class="nav-links">
+                  <img class="nav-icons" src="img/contacts/addTask_icon.svg" alt="icon add task">
+                  <li>Add Task</li>
+              </div>
+              <a href="board.html" class="nav-links">
+                  <img class="nav-icons" src="img/contacts/board_icon.svg" alt="icon board">
+                  <li>Board</li>
+              </a>
+              <a href="contacts.html" class="nav-links">
+                  <img class="nav-icons" src="img/contacts/contacts_icon.svg" alt="contacts">
+                  <li>Contacts</li>
+              </a>
+          </ul>
+      </nav>
+      <nav>
+          <ul>
+              <div class="nav-links-footer">
+                  <li><a href="privacy.html">Privacy Policy</a></li>
+                  <li><a href="legalNotice.html">Legal notice</a></li>
+              </div>
+          </ul>
+      </nav>
+    </aside>
+    
+        <!--Mobile Header-->
+    <header class="mobile-header">
+          <a href="summary.html"><img class="logo-join-mobile" src="img/contacts/logo_blue_mobile.png" alt="logo"></a>
+          <button class="profile-icon openModalHeader">
+              <div id="header-profile-icon" class="profile-name guest-font-size">G</div>
+          </button>
+    </header>
+    
+    <dialog id="sub-menu-modal-mobile" class="sub-menu-bg">
+          <div id="sub-menu" class="sub-menu sub-menu-open">
+              <a class="help-link" href="./help.html">
+                  <div>Help</div>
+              </a>
+              <a href="./legalNotice.html">
+                  <div>Legal Notice</div>
+              </a>
+              <a href="./privacy.html">
+                  <div>Privacy Policy</div>
+              </a>
+              <a href="./login.html"> 
+                <div class="help-link" onclick="logOutUserAccount(); location.href='./login.html'">Log Out</div>
+              </a>
+          </div>
+    </dialog>
+
+    <!--Mobile Navbar-->
+    <nav class="mobile-nav">
+        <ul class="container-nav-links">
+          <a href="summary.html">
+            <div class="nav-links">
+              <img class="iconsSVG" src="img/contacts/summary_icon.svg"></img>
+              <li>Summary</li>
+            </div>
+          </a>
+          <a href="task.html">
+            <div class="nav-links">
+              <img class="iconsSVG" src="img/contacts/addTask_icon.svg"></img>
+              <li>Add Task</li>
+            </div>
+          </a>
+          <a href="board.html">
+            <div class="nav-links">
+              <img class="iconsSVG" src="img/contacts/board_icon.svg"></img>
+              <li>Board</li>
+            </div>
+          </a>
+          <a href="contacts.html">
+            <div class="nav-links">
+              <img class="iconsSVG" src="img/contacts/contacts_icon.svg"></img>
+              <li>Contacts</li>
+            </div>
+          </a>
+        </ul>
+      </nav>
+
+    <!-- End of Header und Sidebar-->
+    <script src="./js/sidebarHeader.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join - Login</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo_mobile.svg" />
+    <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="./styles/loginResponsive.css" />
+  </head>
+  <body id="myBody" onload="init()">
+    <div id="logo-container" class="logo-container start transition2s">
+      <img class="joinLogo" src="./img//login/join-logo2.svg" alt="Dein Logo"/>
+    </div>
+    <header class="top_bar">
+      <nav id="authOpt" class="auth_options d-none">
+        <p>Not a Join User?</p>
+        <a href="signup.html">
+          <div class="auth_signUp" onclick="">Sign Up</div>
+        </a>
+      </nav>
+    </header>
+
+    <div id="main_wrapper" class="main_wrapper d-none">
+      <div id="login_section" class="login_section d-none">
+        <h1>Log in</h1>
+        <img class="login_divider" src="./img/login/seperator.svg" alt="separator"/>
+        <div id="authForm" class="login_form">
+          <div id="email_wrapper" class="field_group field_group-margin32">
+            <input id="userEmail" oninput="loginOnInput()" type="email" placeholder="Email" autocomplete="email" style="cursor: auto;"/>
+            <img class="field_icon-email" src="./img/login/mail.svg" alt="mail"/>
+          </div>
+
+          <div class="error_email_wrapper d-none" id="error_email_message">
+            <div class="error_email_message">required</div>
+          </div>
+
+          <div id="password_wrapper" class="field_group">
+            <input oninput="loginOnInput()" id="userPassword" type="password" placeholder="Password" autocomplete="current-password" style="cursor: auto;"/>
+            <img id="password_toggle" class="field_icon-password" src="./img/login/lock.svg" alt="lock" onclick="togglePasswordIcon('password_toggle','userPassword')"/>
+          </div>
+
+          <div class="error_password_wrapper d-none" id="error_password_message">
+            <div class="error_password_message">required</div>
+          </div>
+
+          <div class="checkbox_area">
+            <input id="rememberMeButton" type="checkbox" />
+            <p>Remember me</p>
+          </div>
+
+          <div class="auth_buttons">
+            <button disabled type="submit" id="loginButton" class="btn_login" onclick="loginUser()">Log in</button>
+            <button id="guestButton" class="btn_guest" onclick="guestLogin()">Guest Log in</button>
+          </div>
+        </div>
+      </div>
+
+      <nav class="auth_options_mobile d-none">
+        <p>Not a Join User?</p>
+        <a href="signup.html">
+          <div class="auth_signUp" onclick="">Sign Up</div>
+        </a>
+      </nav>
+    </div>
+
+    <div class="msg-login" style="display:none;">
+      <p id="loginMessage">Login erfolgreich!</p>
+    </div>
+
+    <script src="./js/templates.js"></script>
+    <script src="./js/login.js"></script>
+    <script src="./js/firebaseDatabaseFunctions.js"></script>
+    <script src="./js/firebaseUserRendering.js"></script>
+    <script src="./js/signup.js"></script>
+
+    <footer id="footerID" class="site_footer d-none">
+      <div class="legal_links">
+        <a href="./privacy.html">Privacy policy</a>
+        <a href="./legalNotice.html">Legal notice</a>
+      </div>
+    </footer>
+  </body>
+</html>

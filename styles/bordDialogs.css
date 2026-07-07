@@ -1,0 +1,397 @@
+.dialogContainer {
+    position: fixed;
+    top: 0;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.125s ease, visibility 0.125s ease;
+    visibility: hidden;
+}
+
+.dialogContainerTask {
+    position: fixed;
+    top: 0;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.125s ease, visibility 0.125s ease;
+    visibility: hidden;
+}
+
+.dialogContainer .dialogAddTask .add-task-container {
+    margin-top: 0;
+    border-radius: 30px;
+    display: flex;
+    max-width: 1116px;
+    max-height: 870px;
+}
+
+.dialogAddTask {
+    height: 100%;
+    padding: 25px 0;
+}
+
+.addTaskContainer {
+    height: 60%;
+}
+
+.dialogContainer .dialogEditTask .add-task-container {
+    margin-top: 0;
+    display: flex;
+    max-width: 100%;
+    background-color: white;
+}
+
+.dialogContainer .dialogEditTask .form-container {
+    margin: 0;
+    max-width: 430px;
+    padding: 0;
+}
+
+
+.dialogContainer .dialogEditTask .heading {
+    display: none;
+}
+
+.dialogContainer .dialogEditTask .form-bottom {
+    display: none;
+}
+
+.containerCloseBtn {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.closeBtn {
+    margin-right: 50px;
+    height: 20px;
+}
+
+.dialog {
+    background-color: #FFFFFF;
+    width: 525px;
+    padding: 48px 0;
+    box-shadow: 0px 0px 4px 0px #00000029;
+    border-radius: 30px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 900px;
+
+}
+
+.dialogContainer.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dialogContainer.open .dialog {
+    transform: translateX(0);
+}
+
+.dialogContent {
+    position: relative;
+    height: 100%;
+    overflow-y: none;
+    width: 445px;
+
+}
+
+.okBtnContainer {
+    display: flex;
+    justify-content: end;
+}
+
+.okBtnContainer button {
+    display: flex;
+}
+
+.taskCardBig {
+    background-color: #ffffff;
+    border-radius: 24px;
+}
+
+.categoryBigBlue {
+    background-color: #0038FF;
+    padding: 4px 24px 4px 24px;
+    border-radius: 8px;
+    color: white;
+    font-size: 23px;
+    font-weight: 400;
+    margin-left: 32px;
+}
+
+.categoryBigGreen {
+    background-color: #1FD7C1;
+    padding: 4px 24px 4px 24px;
+    border-radius: 8px;
+    color: white;
+    font-size: 23px;
+    font-weight: 400;
+    margin-left: 32px;
+}
+
+
+.titelCardBig {
+    font-size: 61px;
+    font-weight: 700;
+    color: #2A3647;
+    margin: 24px 0 24px 0;
+    overflow-wrap: break-word;
+    word-break: word-wrap;
+}
+
+.descriptionCard {
+    word-break: word-wrap;
+    overflow-wrap: break-word;
+}
+
+.titelCard {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.descriptionCardBig {
+    font-size: 20px;
+    color: #000;
+    margin: 0 0 24px 0;
+    word-break: word-wrap;
+    overflow-wrap: break-word;
+}
+
+.footerCardBig img {
+    margin-right: 8px;
+}
+
+.footerCardBig p {
+    margin: 0;
+}
+
+.footerCardBig {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    font-size: 16px;
+    text-align: center;
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+}
+
+.footerCardEdit p {
+    margin: 0;
+}
+
+.footerCardEdit {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    font-size: 16px;
+    text-align: center;
+    position: fixed;
+    bottom: 22px;
+    right: 32px;
+}
+
+
+.footerCardBig .seperator {
+    height: 16px;
+}
+
+.taskCardBigHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.textareaContainer {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.textareaContainer textarea {
+    height: 100px !important;
+    width: 100% !important;
+    resize: none;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+
+.textareaContainer::after {
+    content: '';
+    position: absolute;
+    right: 11px;
+    bottom: 8px;
+    width: 18.9px;
+    height: 18.9px;
+    background: url('../assets/img/icons/textarea.svg') no-repeat;
+    background-size: cover;
+    cursor: nwse-resize;
+}
+
+.prioEdit {
+    width: 137px;
+    height: 56px;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
+.prioEditContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.subtaskEdit {
+    margin-top: 32px;
+}
+
+.subtaskEdit input {
+    margin-bottom: 10px;
+}
+
+.profileBadgesEdit {
+    gap: 8px;
+}
+
+.subtasksEditList {
+    padding-left: 50px;
+}
+
+.imgDelete:hover {
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(600%) hue-rotate(180deg);
+}
+
+.imgEdit:hover {
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(600%) hue-rotate(180deg);
+}
+
+.custom-scroll {
+    overflow-y: auto;
+    width: calc(100% - 20px);
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+    height: 95%;
+    margin-bottom: 20px;
+}
+
+.custom-scroll::-webkit-scrollbar {
+    width: 10px;
+    position: relative;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: white;
+
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: rgba(168, 168, 168, 1);
+    border-radius: 100px;
+    border: 8px solid rgb(131, 127, 127);
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgb(150, 150, 150);
+}
+
+.custom-scroll::-webkit-scrollbar-button:single-button {
+    background-repeat: no-repeat;
+    width: 4px;
+    height: 24px;
+}
+
+.custom-scroll::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url('../assets/img/contacts_img/scroll_up.svg');
+    background-position: center bottom;
+}
+
+.custom-scroll::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url('../assets/img/contacts_img/scroll_down.svg');
+    background-position: center top;
+}
+
+
+.dropdown-content.showDropdown {
+    display: block !important;
+}
+
+.dropdownCard {
+    display: none;
+}
+
+.dropdown-btn {
+    display: none;
+    cursor: pointer;
+    border: none;
+}
+
+.dropdownBtnContainer {
+    display: none;
+    background-color: #fff;
+    border: none;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2A3647;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1;
+    right: 90%;
+    left: -170px;
+    top: 0px;
+    padding: 10px 0;
+}
+
+.dropdown-content p {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content p:hover {
+    background-color: #4c6589;
+    color: black;
+}
+
+.taskCardTop {
+    display: flex;
+    justify-content: space-between;
+}

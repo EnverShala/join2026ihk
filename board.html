@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlID" style="overflow: scroll;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Board</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo_mobile.svg" />
+    <link rel="stylesheet" href="./styles/board.css">
+    <link rel="stylesheet" href="./styles/boardPopup.css">
+    <link rel="stylesheet" href="./styles/boardInput.css">
+    <link rel="stylesheet" href="./styles/boardResponsive.css">
+    <link rel="stylesheet" href="./styles/bordDialogs.css">
+    <link rel="stylesheet" href="./styles/bordDialogsResponsive.css">
+    <link rel="stylesheet" href="./styles/sidebarHeader.css">
+    <link rel="stylesheet" href="./styles/contacts.css">
+    <link rel="stylesheet" href="./styles/contactsResponsive.css">
+    <link rel="stylesheet" href="./styles/addTask.css">
+    <link rel="stylesheet" href="./styles/addTaskInput.css">
+    <link rel="stylesheet" href="./styles/addTaskResponsive.css">
+    <script src="./js/templates.js"></script>
+    <script src="./js/sidebarHeader.js"></script>
+
+    <!-- Test Link -->
+    
+
+</head>
+<body onload="renderTaskCards(); renderAssignedTo(); loadAccountInitials()">
+    <!-- Header and Sidebar-->
+    <header class="desktop-header">
+      <h1>Kanban Project Management Tool</h1>
+      <div class="header-icons">
+        <a href="./help.html">
+            <img src="img/contacts/help.png" alt="icon help" width="32px" height="32px"><img>
+        </a>
+        <button class="profile-icon openModalHeader">
+            <div id="header-profile-icon" class="profile-name guest-font-size"></div>
+        </button>
+    </div>
+  </header>
+  <dialog id="sub-menu-modal-desktop" class="sub-menu-bg">
+      <div id="sub-menu" class="sub-menu sub-menu-open">
+          <a class="help-link" href="./help.html">
+              <div>Help</div>
+          </a>
+          <a href="./legalNotice.html">
+              <div>Legal Notice</div>
+          </a>
+          <a href="./privacy.html">
+              <div>Privacy Policy</div>
+          </a>
+          <a href="./login.html"> 
+            <div class="help-link" onclick="logOutUserAccount(); location.href='./login.html'">Log Out</div>
+          </a>
+      </div>
+  </dialog>
+  
+  <aside class="sidebar desktop-sidebar">
+    <div class="logo-sidebar">
+        <a href="summary.html"><img class="logo-join-white" src="img/contacts/logo_join_white.png" alt="logo"></a>
+    </div>
+    <nav class="menu-sidebar">
+        <ul class="container-nav-links">
+            <a href="summary.html" class="nav-links">
+                <img class="nav-icons" src="img/contacts/summary_icon.svg" alt="icon summary">
+                <li>Summary</li>
+            </a>
+            <a href="task.html" class="nav-links">
+                <img class="nav-icons" src="img/contacts/addTask_icon.svg" alt="icon add task">
+                <li>Add Task</li>
+            </div>
+            <a href="board.html" class="nav-links">
+                <img class="nav-icons" src="img/contacts/board_icon.svg" alt="icon board">
+                <li>Board</li>
+            </a>
+            <a href="contacts.html" class="nav-links">
+                <img class="nav-icons" src="img/contacts/contacts_icon.svg" alt="contacts">
+                <li>Contacts</li>
+            </a>
+        </ul>
+    </nav>
+    <nav>
+        <ul>
+            <div class="nav-links-footer">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="legalNotice.html">Legal notice</a></li>
+            </div>
+        </ul>
+    </nav>
+  </aside>
+  
+    <!--Mobile Header-->
+    <header class="mobile-header">
+      <a href="summary.html"><img class="logo-join-mobile" src="img/contacts/logo_blue_mobile.png" alt="logo"></a>
+      <button class="profile-icon openModalHeader">
+          <div id="header-profile-icon" class="profile-name guest-font-size">G</div>
+      </button>
+  </header>
+  
+  <dialog id="sub-menu-modal-mobile" class="sub-menu-bg">
+      <div id="sub-menu" class="sub-menu sub-menu-open">
+          <a class="help-link" href="./help.html">
+              <div>Help</div>
+          </a>
+          <a href="./legalNotice.html">
+              <div>Legal Notice</div>
+          </a>
+          <a href="./privacy.html">
+              <div>Privacy Policy</div>
+          </a>
+          <a href="./login.html"> 
+              <div class="help-link" onclick="logOutUserAccount(); location.href='./login.html'">Log Out</div>
+          </a>
+      </div>
+  </dialog>
+
+  <!--Mobile Navbar-->
+  <nav class="mobile-nav">
+    <ul class="container-nav-links">
+      <a href="summary.html">
+        <div class="nav-links">
+          <img class="iconsSVG" src="img/contacts/summary_icon.svg"></img>
+          <li>Summary</li>
+        </div>
+      </a>
+      <a href="task.html">
+        <div class="nav-links">
+          <img class="iconsSVG" src="img/contacts/addTask_icon.svg"></img>
+          <li>Add Task</li>
+        </div>
+      </a>
+      <a href="board.html">
+        <div class="nav-links">
+          <img class="iconsSVG" src="img/contacts/board_icon.svg"></img>
+          <li>Board</li>
+        </div>
+      </a>
+      <a href="contacts.html">
+        <div class="nav-links">
+          <img class="iconsSVG" src="img/contacts/contacts_icon.svg"></img>
+          <li>Contacts</li>
+        </div>
+      </a>
+    </ul>
+  </nav>
+
+  <!-- End of Header und Sidebar-->
+    
+      <section class="boardSection">
+        <div class="boardHeader">
+          <div class="headerTitle">
+            <h1>Board</h1>
+          </div>
+          <div class="inputTaskBtn">
+            <div class="searchContainer">
+              <input id="searchBar" onkeyup="searchTasks()" class="searchBar" type="search" placeholder="Find Task">
+              <div class="seperator"></div>
+              <button class="searchIcon alsoOpenModal">
+                <img src="img/board/plus button.png" alt="">
+              </button>
+            </div>
+            <button id="openModal" class="addBtn"><span class="addBtnText">Add task </span><span>+</span></button>
+          </div>
+        </div>
+
+        <div class="statuses">
+          <!-- To Do Status -->
+          <div class="statusItem">
+            <div class="statusHeader">
+              <p>To do</p>
+              <button id="alsoOpenModal1" class="alsoOpenModal">
+                <img src="img/board/plus button.png" alt="">
+              </button>
+            </div>
+            <div class="taskBoard">
+              <div id="emptyTaskTodo" class="emptyTask">No tasks To do</div>
+            </div>
+            <div id="cardContainertoDo" class="cardContainer">
+              <!-- Card Layout Start -->
+           
+              <!-- Card Layout End -->
+            </div>
+          </div>
+        
+          <!-- In Progress Status -->
+          <div class="statusItem">
+            <div class="statusHeader">
+              <p>In progress</p>
+              <button id="alsoOpenModal2" class="alsoOpenModal">
+                <img src="img/board/plus button.png" alt="">
+              </button>
+            </div>
+            <div class="taskBoard">
+              <div id="emptyTaskInProgress" class="emptyTask">No tasks in Progress</div>
+            </div>
+            <div id="cardContainerinProgress" class="cardContainer">
+              <!-- Card Layout Start -->
+           
+              <!-- Card Layout End -->
+            </div>
+          </div>
+        
+          <!-- Await Feedback Status -->
+          <div class="statusItem">
+            <div class="statusHeader">
+              <p>Await feedback</p>
+              <button id="alsoOpenModal3" class="alsoOpenModal">
+                <img src="img/board/plus button.png" alt="">
+              </button>
+            </div>
+            <div id="emptyTaskAwait" class="taskBoard">
+              <div class="emptyTask">No tasks await feedback</div>
+            </div>
+            <div id="cardContainerawaitingFeedback" class="cardContainer">
+              <!-- Card Layout Start -->
+              
+              <!-- Card Layout End -->
+            </div>
+          </div>
+        
+          <!-- Done Status -->
+          <div class="statusItem">
+            <div class="statusHeader">
+              <p>Done</p>
+              <button id="alsoOpenModal4" class="alsoOpenModal">
+                <img src="img/board/plus button.png" alt="">
+              </button>
+            </div>
+            <div id="emptyTaskDone" class="taskBoard">
+              <div class="emptyTask">No tasks done</div>
+            </div>
+            <div id="cardContainerdone" class="cardContainer">
+              <!-- Card Layout Start -->
+          
+              <!-- Card Layout End -->
+            </div>
+          </div>
+        </div>
+        
+      </section>
+
+<!-- POP UP -->
+ <section onclick="closeDialog()" id="popupOnTaskSelectionID" class="popupOnTaskSelection">
+  <div id="popupOnTaskSelectionMainContainerID" onclick="event.stopPropagation()" class="popupOnTaskSelectionMainContainer">
+        <div class="popupKategorieOnTopMainContainer">
+          <h2 id="popUpUserStory">User Story</h2>
+          <div class="closePopupMainContainer">
+            <img onclick="closeDialog()" id="closePopupID" src="./img/close.svg" style="cursor: pointer;" alt="">
+          </div>
+        </div>
+          <h1 id="popupHeaderID" class="popupHeader"></h1>
+          <span id="popupSpanID" class="popupSpan"></span>
+          <div class="popupDateMainContainer">
+            <p class="popupDateTxt">Due date:</p>
+            <p id="dateId" class="popUpDate">10/05/2023</p>
+          </div>
+          <div class="popupPrioMainContainer">
+            <p class="popupPrioTxt">Priotity:</p>
+            <div class="popupPrioContainer">
+              <p id="prioId" class="popupPrio">Medium</p>
+              <img id="prioIdImg" class="popupCapaImg" src="./img/capa.png">
+            </div>
+          </div>
+          <div class="popupAssignedToMainContainer">
+            <div class="assignedToContainer">
+              <p class="assignedToTxt">Assigned To:</p>
+            </div>
+            <div class="popupTest">
+              <div id="popupContactEllipseID" class="popupAssignedUserMainContainer"></div>
+              <div id="popupContactNameID" class="popupAssignedUsersNameContainer"></div>
+            </div>
+          </div>
+          <div class="subtasksMainContainer">
+              <p class="subtasksTxt">Subtasks</p>
+              <div id="showSubtasksContainer" class="subtasks">
+              </div>
+          </div>
+          <!-- Anhänge View -->
+          <div id="attachmentsSection" class="attachmentsMainContainer" style="display:none;">
+            <div class="attachmentsHeader" onclick="toggleAttachmentsDropdown()">
+              <p class="attachmentsTxt">Anhänge</p>
+              <img id="attachmentsDropdownArrow" src="./img/arrow_drop_downaa.svg" alt="" class="attachmentsArrow">
+            </div>
+            <ul id="attachmentDropdownList" class="attachmentDropdownList" style="display:none;"></ul>
+          </div>
+          <!-- End Anhänge View -->
+          <div class="deleteAndEditMainContainer">
+            <div class="deleteContainer">
+                <div onclick="deleteTask(currentId)" class="deleteImgContainer"> 
+                  <img class="deleteImg" src="./img/delete.png">
+                  <p class="deleteTxt">Delete</p>
+                </div>
+            </div>
+                <div class="vector"></div>
+
+            <div class="editContainer">
+                <div onclick="editPopupTask()" class="editImgContainer"> 
+                  <img class="editImg" src="./img/edit.png">
+                  <p class="editTxt">Edit</p>
+                </div>
+            </div>
+          </div>
+  </div>
+
+<!--  EDIT POPUP  -->
+<div id="editPopUpID" onclick="closeAssignedto(), event.stopPropagation()" class="popupOnTaskEdit d-none">
+  <div class="editClosePopupMainContainer">
+    <img onclick="closeDialog()" id="closePopupID" src="./img/close.svg" style="cursor: pointer;" alt="">
+  </div>
+
+<div onclick="closeAssignedto()" class="scrollbar">
+  <!-- Begin Titel -->
+   <div class="editPopupTitelMainContainer">
+    <span class="editPopupTitelTxt">Title</span>
+    <input id="inputEdit" class="editTitelInput" type="text">
+  </div>
+  <!-- End Titel -->
+
+  <!-- Begin Description -->
+   <div class="editPopupDescriptionMainContainer">
+    <span class="editPopupDescriptionTxt">Description</span>
+    <input id="inputDescription" class="editDescriptionInput" type="text">
+  </div>
+  <!-- End Description -->
+
+  <!-- Begin Date -->
+   <div class="editPopupDateMainContainer">
+    <p class="editPopupDateTxt">Due date</p>
+    <input id="inputDueDate" class="editDateInput" type="date">
+  </div>
+  <!-- End Date -->
+
+  <!-- Begin Prio Buttons  -->
+   <div class="editPrio">
+    <label id="inputPrio"></label>
+    <div class="buttonsPrioOnEditPopUp">
+      <button onclick="clickOnUrgent()" type="button" id="urgent" class="btn-prio">
+        Urgent<img id="urgentID" src="./img/urgent.svg" class="">
+        <img id="urgent-whiteID" class="d-none" src="./img/urgent-white.svg">
+      </button>
+          
+      <button onclick="clickOnMedium()" type="button" id="medium" class="btn-prio">
+        Medium<img id="mediumID" src="./img/medium.svg" class="d-none">
+        <img id="medium-whiteID" class="" src="./img/medium-white.svg">
+      </button>
+          
+      <button onclick="clickOnLow()" type="button" id="low" class="btn-prio">
+        Low<img id="lowID" src="./img/low.svg" class="">
+        <img id="low-whiteID" class="d-none" src="./img/low-white.svg">
+      </button>
+    </div>
+  </div>
+  <!-- End Prio Buttons  -->
+
+  <!-- Begin Assigned to  -->
+   <div class="editPopupAssignedToMainContainer">
+    <p class="editAssignedToTxt">Assigned to</p>
+    <div class="editDropdown">
+      <div id="contacts-list" class="selectOnEditPopUp assigned-to" onclick="toggleDropdown()">
+        <input class="select-input placeholder" type="text" placeholder="Select contacts to assign" readonly/>
+        <span class="down-arrow">
+          <img src="img/arrow_drop_downaa.svg" alt="">
+        </span>
+      </div>
+      
+      <!-- Begin Contacts Assigned to-->
+       <ul id="myDropdown" class="dropdown-content"></ul>
+       <!-- End Contacts Assigned to-->
+       <div id="selected-contacts-container" class="selected-contacts"></div>
+      </div>
+  </div>
+  <!-- End Assigned to -->
+
+  <!--Begin subtask-->
+  <div class="editPopupSubtasksMainContainer">
+    <p class="editPopupSubtasksTxt">Subtask</p>
+    <div class="input-container-subtask">
+      <input id="addNewSubtaskInput" class="inputOnEditPopup subtask" type="text" placeholder="Add new subtask" onkeydown="subtaskOnKeyDown(-1)"/>
+      <div class="btn-subtask add">
+        <img src="./img/add.png" alt="Add" />
+      </div>
+      <div class="btn-subtask check-cancel">
+        <div class="cancel-subtask">
+          <img src="./img/close.png" alt="Cancel" />
+        </div>
+        <div class="divider-subtask"></div>
+        <div id="addNewSubtaskDiv" onclick="addNewSubtask()" class="check-subtask">
+          <img src="./img/check.png" alt="Check" />
+        </div>
+      </div>
+    </div>
+    <div class="container-subtasks-display">
+      <ul id="subtaskList" class="list-subtasks"></ul>
+    </div>
+  </div>
+  <!--End subtask-->
+  <!-- Begin Anhänge Upload Edit -->
+  <div class="editPopupSubtasksMainContainer">
+    <p class="editPopupSubtasksTxt">Anhänge</p>
+    <div class="attachment-upload-container">
+      <input type="file" id="imageUploadEdit" accept="image/*" multiple class="attachment-input" onchange="handleImageUpload('imageUploadEdit', 'edit')"/>
+      <label for="imageUploadEdit" class="attachment-upload-label">Bild hinzufügen</label>
+    </div>
+    <div id="attachmentPreviewEdit" class="attachment-preview"></div>
+    <div id="attachmentErrorEdit" class="attachment-error" style="display:none;"></div>
+  </div>
+  <!-- End Anhänge Upload Edit -->
+</div>
+
+<div class="okButtonMainContainer" >
+  <button onclick="editCurrentTask()" class="okButtonOnEditPopUp">OK</button>
+</div>
+</div>
+<!-- END Edit Popup -->
+</section>
+
+
+
+  <!-- Start AddTask PopUp Container -->
+  <section class="boardSectionPopup">
+    <dialog data-modal id="myModal">
+      <button class="addTaskPopupClose" id="closeModal">X</button>
+      <div onclick="closeCategory(),closeAssignedto()" class="mainContainerPopUp">
+        <div class="headerPopupContainer">
+            <h1 class="headerPopupText">Add Task</h1>
+        </div>
+            
+        <div class="inputGroupOnPopUp">
+                <label>Title<span class="required">*</span></label>
+                <input class="inputPopup" type="text" id="title" placeholder="Enter a title" />
+                <div id="title-required" class="requiredMessage">
+                  This field is required
+                </div>
+        </div>
+
+        <div class="inputGroupOnPopUp">
+                <label for="description">Description<span class="required">*</span></label>
+                <input id="description" class="inputPopup" placeholder="Enter a description"></input>
+                <div id="description-required" class="requiredMessage">
+                  This field is required
+                </div>
+        </div>
+
+        <div class="inputGroupOnPopUp">
+                <label class="margin" for="dropdown-container"
+                  >Assigned to<span class="required">*</span></label>
+                <div class="dropdown">
+                  <div id="contacts-listPopup" class="selectOnEditPopUp assigned-to" onclick="toggleDropdown('Popup')">
+                    <input class="select-input placeholder" type="text" placeholder="Select contacts to assign" readonly/>
+                    <span class="down-arrow" >
+                      <img src="img/arrow_drop_downaa.svg" alt="">
+                    </span>
+                  </div>
+                  <div id="selected-contacts-containerPopup" class="selectedContactsPopup"></div>
+
+                  <!-- Begin Contacts Assigned to-->
+                  <ul id="myDropdownPopup" class="dropdownContentPopup ">
+                  </ul>
+                  <!-- End Contacts Assigned to-->
+                  <div class="selected-contacts"></div>
+                </div>
+        </div>
+
+        <div id="assigned-to-required" class="requiredMessage">
+            This field is required
+        </div>
+       
+        <div class="inputGroupOnPopUp">
+            <label class="due-date" for="due-date-input"> Due date <span class="required">*</span></label>
+            <input class="inputPopup" type="date" id="due-date-input"/>
+            <div id="date-required" class="requiredMessage">This field is required</div>
+        </div>
+
+        <div class="inputGroupOnPopUp">
+            <label>Prio*</label>
+            <div class="buttonsPrioOnPopUp">
+              <button onclick="clickOnUrgent('Popup')" type="button" id="urgentPopup" class="btn-prio">
+                Urgent<img id="urgentIDPopup" src="./img/urgent.svg"/>
+                      <img id="urgent-whiteIDPopup" class="d-none" src="./img/urgent-white.svg"/>
+              </button>
+                  
+              <button onclick="clickOnMedium('Popup')" type="button" id="mediumPopup" class="btn-prio">
+                Medium<img id="mediumIDPopup" src="./img/medium.svg"/>
+                      <img id="medium-whiteIDPopup" class="d-none" src="./img/medium-white.svg"/>
+              </button>
+                
+              <button onclick="clickOnLow('Popup')" type="button" id="lowPopup" class="btn-prio">
+                Low<img id="lowIDPopup" src="./img/low.svg"/>
+                    <img id="low-whiteIDPopup" class="d-none" src="./img/low-white.svg"/>
+              </button>
+            </div>
+            <div id="prio-required" class="requiredMessage">This field is required
+            </div>  
+        </div>
+              
+        <div class="inputGroupOnPopUp">
+          <label for="category-selected">Category<span class="required">*</span></label>
+          <div class="dropdown">
+            <div id="category-container" class="selectPopup" onclick="toggleDropdownCategory()" >
+              <span id="category-displayed" class="btn-text">Select task category</span>
+              <span class="down-arrow" >
+                <img src="img/arrow_drop_downaa.svg" alt="">
+              </span>
+            </div>
+            <div id="category-required" class="requiredMessage">This field is required
+            </div>
+            <ul class="category scroll-disabled dropdown-content" id="myDropdownCategory" >
+              <li onclick="selectTechnicalStack(); toggleDropdownCategory()" id="categoryTechnicalStack" data-value="Technical stack" class="item category">
+                <span>Technical stack</span>
+              </li>
+              <li onclick="selectUserStory(); toggleDropdownCategory()" id="categoryUserStory" data-value="User-story" class="item category">
+                <span>User Story</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inputGroupOnPopUp">
+          <label for="subtasks">Subtasks<span class="required"></span></label>
+          <div class="input-container-subtask">
+            <input id="addSubtaskInputPopup" class="inputPopup" type="text" placeholder="Add new subtask" onkeydown="subtaskOnKeyDownPopup(-1)"/>
+            <div class="btn-subtask add" style="cursor: pointer" onclick="addSubtaskPopup()">
+              <img src="./img/add.png" alt="Add" />
+            </div>
+            <div class="btn-subtask check-cancel">
+              <div class="cancel-subtask">
+                <img src="./img/close.png" alt="Cancel" />
+              </div>
+              <div class="divider-subtask"></div>
+              <div class="check-subtask">
+                <img src="./img/check.png" alt="Check" />
+              </div>
+            </div>
+          </div>
+          <div class="container-subtasks-display">
+            <ul id="subtaskListPopup" class="list-subtasks"></ul>
+          </div>
+          <div id="subtasks-requiredPopup" class="requiredMessage">This field is required
+          </div>
+        </div>
+        <!-- Begin Anhänge Upload Popup -->
+        <div class="inputGroupOnPopUp">
+          <label>Anhänge</label>
+          <div class="attachment-upload-container">
+            <input type="file" id="imageUploadPopup" accept="image/*" multiple class="attachment-input" onchange="handleImageUpload('imageUploadPopup', 'popup')"/>
+            <label for="imageUploadPopup" class="attachment-upload-label">Bild hinzufügen</label>
+          </div>
+          <div id="attachmentPreviewPopup" class="attachment-preview"></div>
+          <div id="attachmentErrorPopup" class="attachment-error" style="display:none;"></div>
+        </div>
+        <!-- End Anhänge Upload Popup -->
+      </div>
+          
+        <div class="bottomAddTaskContainer">
+          <p class="required-note">
+            <span class="required">*This field is required</span> 
+          </p>
+          <div class="createClearButtonContainer">
+            <button onclick="clearForm('Popup')" type="button" class="btnClearOnPopup" id="clear-btn">Clear
+                <img id="cancel-icon" src="./img/close.png" alt="">
+            </button>
+            <button type="button" class="btnCreateOnPopup" onclick="validateAndCreateTask(event, 'Popup')">Create Task
+                <img src="./img/check_white.svg" alt="" />
+            </button>
+          </div>
+        </div>
+
+    <div class="msg-task-added" style="display:none;">
+      <p>Task added to board</p>
+      <img src="./img/board.png" alt="" />
+    </div>
+  </dialog>
+</section>
+
+<script src="./js/firebaseDatabaseFunctions.js"></script>
+<script src="./js/firebaseUserRendering.js"></script>
+  <script src="./js/taskAttachments.js"></script>
+  <script src="./js/board.js"></script>
+  <script src="./js/boardPopup.js"></script>
+  <script src="./js/boardDialogs.js"></script>
+  <script src="./js/taskBackendRest.js"></script>
+  <script src="./js/taskUIandBackend.js"></script>
+</body>
+</html>

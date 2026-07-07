@@ -1,0 +1,186 @@
+.scoll-disabled {
+    overflow-y: auto !important;
+}
+
+.back-placeholder::placeholder {
+    color: black;
+    opacity: 1;
+}
+
+.field-required {
+border-color: #FF8190;
+}
+
+.field-required-msg {
+    opacity: 0;
+    color: #FF8190;
+    font-size: 12px;
+    margin-top: -4px;
+}
+
+.margin-top-16 {
+margin-top: 16px;
+}
+
+.gap-24 {
+    gap: 24px;
+}
+
+.category-required-msg {
+    margin-top: 4px ;
+    margin-bottom: -16px;
+}
+.category-required-border {
+    border: 1px solid #FF8190;
+}
+
+
+.task-added-msg {
+    position: absolute;
+    top: calc(50% - 37px);
+    left: calc(50% - 163px);
+    width: 310px;
+    height: 74px;
+    display: none;
+    justify-content: space-between;
+    transform: translateY(1000%); 
+    padding: 25px 30px;
+    border-radius: 20px;
+    background-color: rgba(42, 54, 71, 1);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    transition: transform 125ms ease-in-out, opacity 125ms ease-in-out, visibility 125ms ease-in-out;
+}
+
+.task-added-msg-slide-in {
+    transform: translateY(0); 
+}
+
+.d-flex-visible {
+    display: flex ;
+}
+
+.transform-none {
+    transform: none;
+}
+
+
+.task-added-msg p {
+    font-size: 20px;
+    color: white;
+}
+.task-added-msg img {
+    height: 25px;
+    width: 30px;
+}
+
+
+
+.subtasks-list::-webkit-scrollbar {
+    width: 24px;
+}
+
+.subtasks-list::-webkit-scrollbar-thumb {
+    background: rgba(168, 168, 168, 1);
+    border-radius: 100px;
+    border: 8px solid white;
+}
+
+.subtasks-list::-webkit-scrollbar-thumb:hover {
+    background: rgb(150, 150, 150);
+}
+
+.subtasks-list::-webkit-scrollbar-track {
+    background: white;
+}
+
+.subtasks-list::-webkit-scrollbar-button:single-button {
+    background-repeat: no-repeat;
+    width: 4px;
+    height: 24px;
+}
+
+.subtasks-list::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url('../assets/img/contacts_img/scroll_up.svg');
+    background-position: center bottom;
+}
+
+.subtasks-list::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url('../assets/img/contacts_img/scroll_down.svg');
+    background-position: center top;
+}
+
+
+
+.list-items::-webkit-scrollbar {
+    width: 24px;
+}
+
+.list-items::-webkit-scrollbar-thumb {
+    background: rgba(168, 168, 168, 1);
+    border-radius: 100px;
+    border: 8px solid white;
+}
+
+.list-items::-webkit-scrollbar-thumb:hover {
+    background: rgb(150, 150, 150);
+}
+
+.list-items::-webkit-scrollbar-track {
+    background: white;
+}
+
+.list-items::-webkit-scrollbar-button:single-button {
+    background-repeat: no-repeat;
+    width: 4px;
+    height: 24px;
+}
+
+.list-items::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url('../assets/img/contacts_img/scroll_up.svg');
+    background-position: center bottom;
+}
+
+.list-items::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url('../assets/img/contacts_img/scroll_down.svg');
+    background-position: center top;
+}
+
+
+@media (max-width: 1024px) {
+
+    .form-container {
+        align-items: center;
+    }
+
+    .heading {
+        padding-left: 0;
+    }
+
+    .form-col-container {
+        margin: 0px;
+    }
+
+    .form-col-left,
+    .form-col-right,
+    .heading {
+        width: min(440px, 100%);
+    }
+
+    .form-bottom {
+        margin: 0 0 128px 0px;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 550px) {
+
+    #add-task-form {
+        padding: 0 10px;
+    }
+
+    .form-container {
+        align-items: center;
+    }
+}

@@ -1,0 +1,400 @@
+body {
+  background-color: #f6f7f8;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background-color: #f6f7f8;
+}
+
+.subtasksP {
+  margin-top: 8px;
+}
+
+.d-none {
+  display: none;
+}
+
+.overflowHidden {
+  overflow: hidden !important;
+}
+
+.imgDelete {
+  cursor: pointer;
+}
+
+.imgEdit {
+  cursor: pointer;
+}
+
+.boardSection {
+  display: flex;
+  flex-direction: column;
+  margin-left: 300px;
+  margin-right: 100px;
+  max-width: 1440px;
+}
+
+.boardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 180px;
+}
+
+.headerContent h1 {
+  font-weight: 700;
+  font-size: 61px;
+  line-height: 73.2px;
+}
+
+.addBtnText {
+  display: flex;
+  align-items: center;
+}
+
+.inputTaskBtn {
+  gap: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.statuses {
+  display: flex;
+  justify-content: space-between;
+}
+
+.statusItem {
+  display: flex;
+  flex-direction: column;
+  width: 252px;
+}
+
+.statusHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #42526e;
+}
+
+.emptyTask {
+  background-color: #e7e7e7;
+  border: 1px dashed #a8a8a8;
+  box-shadow: 0px 0px 4px 0px #00000029;
+  border-radius: 10px;
+  height: 48px;
+  line-height: 19.2px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #a8a8a8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  outline: 2px dashed transparent;
+  border-radius: 30px;
+  width: 103%;
+  gap: 10px;
+}
+
+.taskCard {
+  width: 220px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.categoryBlue {
+  background-color: #0038ff;
+  padding: 4px 16px 4px 16px;
+  border-radius: 8px;
+  color: white;
+}
+
+.categoryGreen {
+  background-color: #1fd7c1;
+  padding: 12px 16px 12px 16px;
+  border-radius: 8px;
+  color: white;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.titelCard {
+  line-height: 19.2px;
+  font-weight: 700;
+  height: 38px;
+  color: #2a3647;
+  margin: 24px 0 8px 0;
+}
+
+.descriptionCard {
+  line-height: 19.2px;
+  color: #a8a8a8;
+  height: 38px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0 0 24px 0;
+}
+
+.titleCard {
+  min-height: 38px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.cardTextGrey {
+  font-size: 20px;
+  color: #2a3647;
+}
+
+.cardTextBlack {
+  font-size: 20px;
+  color: #000;
+}
+
+.dateContainer {
+  margin: 0 0 24px 0;
+}
+
+.dateContainer p {
+  margin: 0 20px 0 0;
+}
+
+.prioContainer {
+  margin: 0 0 24px 0;
+}
+
+.prioContainer p {
+  margin: 0 30px 0 0;
+}
+
+.prioContainer img {
+  width: 20px;
+}
+
+.prioText {
+  margin-right: 5px !important;
+}
+
+.badgeImg {
+  width: 32px;
+  height: 32px;
+  background-color: blue;
+  border-radius: 50%;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.profileBadges {
+  padding: 0;
+  margin: 10px 0 0 0;
+  list-style-type: none;
+  font-size: 19px;
+}
+
+.profileBadgesBig {
+  list-style-type: none;
+  padding: 10px;
+}
+
+.date {
+  margin-right: 20px;
+}
+
+.priority {
+  margin-right: 25px;
+}
+
+.badgeContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.badgeContainer span {
+  margin-right: 10px;
+}
+
+.subtasksItem {
+  list-style-type: none;
+  padding-left: 16px;
+  margin: 4px 0;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.progressBarContainer {
+  width: 128px;
+  height: 8px;
+  background: #f4f4f4;
+  border-radius: 10px;
+}
+
+.progressBar {
+  border-radius: 10px;
+  height: 8px;
+  background-color: #4589ff;
+}
+
+.amountSubtasks {
+  font-size: 12px;
+  line-height: 14.4px;
+  color: black;
+}
+
+.footerCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 92%;
+}
+
+.profileBadges {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profileBadges div {
+  position: relative;
+  margin-left: -15px;
+}
+
+.profileBadges div:first-child {
+  margin-left: 0;
+}
+
+.badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+}
+
+.searchIcon {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+}
+
+.searchBar {
+  border: none;
+  outline: none;
+  font-weight: 400;
+  line-height: 24px;
+  font-size: 20px;
+}
+
+.searchBar::placeholder {
+  color: #d1d1d1;
+}
+
+.searchContainer {
+  border: 1px solid #ababab;
+  border-radius: 10px;
+  padding: 8px 16px;
+  display: flex;
+  gap: 10px;
+  background-color: #ffffff;
+}
+
+.addBtn {
+  transition: background-color 225ms ease, border 225ms ease;
+  background-color: #2a3647;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 25.2px;
+  color: #ffffff;
+  border: 1px solid #2a3647;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addBtnSmall {
+  display: none;
+}
+
+.seperator {
+  height: 32px;
+  gap: 32px;
+  width: 1px;
+  background-color: #d1d1d1;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.cardContainer.highlightDragArea {
+  outline-color: #ababab;
+}
+
+.dragging {
+  transform: rotate(5deg);
+}
+
+.closeEdit {
+  display: flex;
+  justify-content: end;
+}
+
+.inputEdit {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  margin-top: 8px;
+  margin-bottom: 32px;
+  padding: 0 10px;
+}
+
+.headerTitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+

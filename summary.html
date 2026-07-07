@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Summary</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo_mobile.svg" />
+    <link rel="stylesheet" href="./styles/summary.css">
+    <link rel="stylesheet" href="./styles/sidebarHeader.css">
+    <script src="./js/sidebarHeader.js"></script>
+    <script src="./js/templates.js"></script>
+    <script src="./js/firebaseDatabaseFunctions.js"></script>
+    <script src="./js/firebaseUserRendering.js"></script>
+    <script src="./js/summary.js"></script>
+
+</head>
+<body onload="loadSummaryInfos(); loadAccountInitials()">
+    <!-- Header und Sidebar-->
+    <header class="desktop-header">
+        <h1>Kanban Project Management Tool</h1>
+        <div class="header-icons">
+            <a href="./help.html">
+                <img src="img/contacts/help.png" alt="icon help" width="32px" height="32px"><img>
+            </a>
+            <button class="profile-icon openModalHeader">
+                <div id="header-profile-icon" class="profile-name guest-font-size"></div>
+            </button>
+        </div>
+    </header>
+
+    <dialog id="sub-menu-modal-desktop" class="sub-menu-bg">
+        <div id="sub-menu" class="sub-menu sub-menu-open">
+            <a class="help-link" href="./help.html">
+                <div>Help</div>
+            </a>
+            <a href="./legalNotice.html">
+                <div>Legal Notice</div>
+            </a>
+            <a href="./privacy.html">
+                <div>Privacy Policy</div>
+            </a>
+            <a> 
+                <div class="help-link" onclick="logOutUserAccount(); location.href='./login.html'">Log Out</div>
+            </a>
+        </div>
+    </dialog>
+
+    <aside class="sidebar desktop-sidebar">
+        <div class="logo-sidebar">
+            <a href="summary.html"><img class="logo-join-white" src="img/contacts/logo_join_white.png" alt="logo"></a>
+        </div>
+        <nav class="menu-sidebar">
+            <ul class="container-nav-links">
+                <a href="summary.html" class="nav-links">
+                    <img class="nav-icons" src="img/contacts/summary_icon.svg" alt="icon summary">
+                    <li>Summary</li>
+                </a>
+                <a href="task.html" class="nav-links">
+                    <img class="nav-icons" src="img/contacts/addTask_icon.svg" alt="icon add task">
+                    <li>Add Task</li>
+                </div>
+                <a href="board.html" class="nav-links">
+                    <img class="nav-icons" src="img/contacts/board_icon.svg" alt="icon board">
+                    <li>Board</li>
+                </a>
+                <a href="contacts.html" class="nav-links">
+                    <img class="nav-icons" src="img/contacts/contacts_icon.svg" alt="contacts">
+                    <li>Contacts</li>
+                </a>
+            </ul>
+        </nav>
+        <nav>
+            <ul>
+                <div class="nav-links-footer">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="legalNotice.html">Legal notice</a></li>
+                </div>
+            </ul>
+        </nav>
+    </aside>
+
+    <!--Mobile Header-->
+    <header class="mobile-header">
+        <a href="summary.html"><img class="logo-join-mobile" src="img/contacts/logo_blue_mobile.png" alt="logo"></a>
+        <button class="profile-icon openModalHeader">
+            <div id="header-profile-icon" class="profile-name guest-font-size">G</div>
+        </button>
+    </header>
+    
+    <dialog id="sub-menu-modal-mobile" class="sub-menu-bg">
+        <div id="sub-menu" class="sub-menu sub-menu-open">
+            <a class="help-link" href="./help.html">
+                <div>Help</div>
+            </a>
+            <a href="./legalNotice.html">
+                <div>Legal Notice</div>
+            </a>
+            <a href="./privacy.html">
+                <div>Privacy Policy</div>
+            </a>
+            <a href="./login.html"> 
+                <div class="help-link" onclick="logOutUserAccount(); location.href='./login.html'">Log Out</div>
+            </a>
+        </div>
+    </dialog>
+
+  <!--Mobile Navbar-->
+  <nav class="mobile-nav">
+    <ul class="container-nav-links">
+      <a href="summary.html">
+        <div class="nav-links">
+          <img class="iconsSVG" src="img/contacts/summary_icon.svg"></img>
+          <li>Summary</li>
+        </div>
+      </a>
+      <a href="task.html">
+        <div class="nav-links">
+          <img class="iconsSVG" src="img/contacts/addTask_icon.svg"></img>
+          <li>Add Task</li>
+        </div>
+      </a>
+      <a href="board.html">
+        <div class="nav-links">
+          <img class="iconsSVG" src="img/contacts/board_icon.svg"></img>
+          <li>Board</li>
+        </div>
+      </a>
+      <a href="contacts.html">
+        <div class="nav-links">
+          <img class="iconsSVG" src="img/contacts/contacts_icon.svg"></img>
+          <li>Contacts</li>
+        </div>
+      </a>
+    </ul>
+  </nav>
+
+  <!-- End of Header und Sidebar-->
+    <div class="main__container">
+        <!-- GREETING Mobile Version -->
+        <div id="overlay" class="summary__overlay__container d-none">
+            <div class="summary__greeting__container-mobile">
+                <div id="greeting__text-mobile" class="summary__greeting__formula-mobile"></div>
+                <div id="user__name-mobile" class="summary__greeting__name-mobile"></div>
+            </div>
+        </div>
+
+        <!--  SUMMARY Container -->
+        <div class="summary__container">
+            <div class="summary__header">
+                <h2>Join 360</h2>
+                <div class="seperator"></div>
+                <div class="summary__header-text">Key Metrics at a Glance</div>
+                <div class="seperator__horizental"></div>
+            </div>
+
+            <div class="summary__tiles__container">
+                    <!-- two tiles  -->
+                <div class="summary__first__section">
+                    <a href="./board.html" class="firstSectionContainer">
+                        <img class="summary__icons onloadImg" src="./img/editSummary.svg" alt="edit">
+                        <img class="summary__icons hoverImg" src="./img/editSummaryHover.svg" alt="edit">
+                        <div class="summary__tiles__text">
+                             <div id="summary__todo" class="summary__tiles__number"></div>
+                             <div class="summary__text__top-and-bottom">To-do</div>
+                        </div>
+                    </a>
+
+                    <a href="./board.html" class="firstSectionContainer">
+                        <img class="summary__icons onloadImg" src="./img/checkSummary.svg" alt="check">
+                        <img class="summary__icons hoverImg" src="./img/checkSummaryHover.svg" alt="check">
+                        <div class="summary__tiles__text">
+                            <div id="summary__done" class="summary__tiles__number"></div>
+                            <div class="summary__text__top-and-bottom">Done</div>
+                        </div>                        
+                    </a>
+                </div>
+
+                    <!-- one tile/s  -->
+                <div class="summary__second__section">
+                    <a href="./board.html" class="secondSectionContainer">
+                        <div class="second__section__first__tile">
+                            <img class="summary__icons" src="./img/urgentSummary.svg" alt="urgent">
+                            <div class="summary__tiles__text">
+                                <div id="summary__urgent" class="summary__tiles__number"></div>
+                                <div class="summary__text__middle">Urgent</div>
+                            </div>
+                        </div>
+                        <img class="summary__tiles__seperator">
+                        <div>
+                            <div id="summary__date" class="summary__deadline__date"></div>
+                            <div class="summary__deadline__text">Upcoming deadline</div>
+                        </div>
+                    </a>
+                </div>
+
+                    <!-- 3 tiles  -->
+                <div class="summary__third__section">
+                        <a href="./board.html" class="thirdSectionContainer">
+                             <div id="summary__tasks" class="summary__tiles__number"></div>
+                             <div class="summary__text__top-and-bottom">Tasks in<br>Board</div>
+                        </a>
+
+                        <a href="./board.html" class="thirdSectionContainer">
+                            <div id="summary__progress" class="summary__tiles__number"></div>
+                            <div class="summary__text__top-and-bottom">Tasks in<br>Progress</div>
+                        </a>
+
+                        <a href="./board.html" class="thirdSectionContainer">
+                            <div id="summary__feedback" class="summary__tiles__number"></div>
+                            <div class="summary__text__top-and-bottom summary__text__top-and-bottom-text_align">Awaiting<br>Feedback</div>
+                        </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="summary__greeting__desktop" class="summary__greeting__container">
+            <div id="greeting__text" class="summary__greeting__formula"></div>
+            <div id="user__name" class="summary__greeting__name">Guest</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,697 @@
+
+
+.statusHeader img {
+    transition: content 225ms;
+    cursor: pointer;
+  }
+  
+  .addBtn:hover {
+    transition: 225ms;
+    background-color: #29abe2;
+    border: 1px solid #29abe2;
+  }
+  
+  #subtaskList {
+    height: auto;
+  }
+  
+  .descriptionCardBig {
+    white-space: pre-wrap;
+  }
+  
+  .popupOnTaskSelection {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.125s ease, visibility 0.125s ease;
+    visibility: hidden;
+  }
+  
+  .popupOnTaskSelectionMainContainer,
+  .popupOnTaskEdit {
+    background-color: #ffffff;
+    width: 525px;
+    max-height: 80% !important;
+    padding: 48px 0;
+    box-shadow: 0px 0px 4px 0px #00000029;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    /* transform: translateX(100%);
+    transition: transform 0.3s ease; */
+  }
+  .popupOnTaskSelectionMainContainer::-webkit-scrollbar {
+    width: 8px;
+  }
+  .popupOnTaskSelectionMainContainer::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 100px;
+  }
+  
+  h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    padding: 4px 24px 4px 24px;
+    gap: 10px;
+    border-radius: 8px;
+    background: #0038ff;
+    color: white;
+    font-weight: 300;
+    text-wrap: nowrap;
+    margin-top: 0;
+  }
+  
+  .popupKategorieOnTopMainContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 445px;
+    height: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .closePopupMainContainer {
+    width: 24px;
+    height: 24px;
+    top: 4px;
+    left: 4px;
+    gap: 0px;
+    opacity: 0px;
+  }
+  
+  .closeImg {
+    width: 13.15px;
+    height: 13.15px;
+    top: 9.43px;
+    left: 9.42px;
+    gap: 0px;
+    opacity: 0px;
+  }
+  
+  .popupHeader {
+    width: 445px;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .popupSpan {
+    width: 445px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .popupDateMainContainer {
+    display: flex;
+    width: 445px;
+    height: 24px;
+    gap: 25px;
+    opacity: 0px;
+    margin-bottom: 24px;
+  }
+  
+  .popupDateTxt {
+    width: 92px;
+    height: 24px;
+    gap: 0px;
+    opacity: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+  }
+  
+  .popUpDate {
+    width: 111px;
+    height: 24px;
+    gap: 0px;
+    opacity: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+  }
+  
+  .popupPrioMainContainer {
+    width: 445px;
+    height: 32px;
+    gap: 25px;
+    opacity: 0px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .popupPrioTxt {
+    width: 73px;
+    height: 24px;
+    gap: 0px;
+    opacity: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+  }
+  
+  .popupPrioContainer {
+    display: flex;
+    align-items: center;
+    width: 139px;
+    height: 32px;
+    padding: 4px 18px 4px 18px;
+    gap: 10px;
+    border-radius: 10px 0px 0px 0px;
+    opacity: 0px;
+  }
+  
+  .popupPrio {
+    height: 24px;
+    gap: 0px;
+    opacity: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+  }
+  
+  .popupCapaImg {
+    width: 24px;
+    height: 16px;
+    gap: 0px;
+    opacity: 0px;
+  }
+  
+  .popupAssignetToMainContainer {
+    width: 445px;
+    height: 208px;
+    gap: 8px;
+    opacity: 0px;
+    margin-bottom: 24px;
+  }
+  
+  .popupTest {
+    display: flex;
+    align-items: center;
+  }
+  
+  .assignedToTxt {
+    width: 445px;
+    height: 24px;
+    gap: 0px;
+    opacity: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+  }
+  
+  .assignedToContainer {
+    width: 445px;
+    height: 24px;
+    gap: 0px;
+    opacity: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  
+  .popupAssignedUsersNameContainer {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    text-align: left;
+    margin-left: 14px;
+    gap: 22px;
+  }
+  
+  .popupAssignedUserMainContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 40px;
+    gap: 8px;
+    opacity: 0px;
+  }
+  
+  .popupUserContainer {
+    width: 445px;
+    height: 56px;
+    padding: 7px 16px 7px 16px;
+    gap: 0px;
+    border-radius: 10px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .popupNameIcon {
+    width: 42px;
+    height: 42px;
+    gap: 0px;
+    border: 2px 0px 0px 0px;
+    opacity: 0px;
+    margin-right: 24px;
+  }
+  
+  .popupContactName {
+    width: 158px;
+    height: 23px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Open Sans;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 22.8px;
+    text-align: left;
+  }
+  
+  .subtasksMainContainer {
+    width: 445px;
+    margin-top: 20px;
+  }
+  
+  .subtasksTxt {
+    width: 445px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .subtasks {
+    width: 445px;
+    gap: 4px;
+  }
+  
+  .popupCheckboxContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .popupCheckbox {
+    width: 24px;
+    height: 24px;
+    padding: 4px 0px 0px 0px;
+    gap: 0px;
+    border-radius: 3px 0px 0px 0px;
+    opacity: 0px;
+    margin-right: 20px;
+  }
+  
+  .checkboxTxt {
+    width: 272px;
+    height: 19px;
+    gap: 0px;
+    opacity: 0px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+  }
+  
+  .deleteAndEditMainContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+    height: 24px;
+    width: 100%;
+  }
+  
+  .deleteContainer,
+  .editContainer {
+    display: flex;
+    align-items: center;
+    width: 81px;
+    height: 24px;
+    gap: 8px;
+    opacity: 0px;
+  }
+  
+  .deleteImgContainer {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    gap: 0px;
+    opacity: 0px;
+    margin-right: 40px;
+    cursor: pointer;
+  }
+  
+  .deleteImg {
+    width: 18px;
+    height: 20px;
+    margin-bottom: 4px;
+    left: 4px;
+    gap: 0px;
+    opacity: 0px;
+    margin-right: 4px;
+  }
+  
+  .editImgContainer {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    gap: 0px;
+    opacity: 0px;
+    cursor: pointer;
+  }
+  
+  .editImgContainer:hover,
+  .deleteImgContainer:hover {
+    color: #29abe2;
+  }
+  
+  .editImg {
+    width: 18px;
+    height: 20px;
+    left: 4px;
+    gap: 0px;
+    opacity: 0px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+
+/* ── Anhänge Upload ── */
+.attachment-input {
+  display: none;
+}
+
+.attachment-upload-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.attachment-upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #2a3647;
+  transition: background-color 0.2s;
+}
+
+.attachment-upload-label:hover {
+  background-color: #e2e8f0;
+}
+
+.attachment-preview {
+  margin-top: 6px;
+}
+
+.attachment-preview-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.attachment-file-name {
+  flex: 1;
+  font-size: 14px;
+  color: #2a3647;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
+}
+
+.attachment-remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.attachment-remove-btn:hover {
+  color: #e00;
+  background-color: rgba(200, 0, 0, 0.07);
+}
+
+.attachment-error {
+  color: #ff3f5b;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ── Anhänge View (Task-Popup) ── */
+.attachmentsMainContainer {
+  width: 85%;
+  max-width: 445px;
+  margin-top: 20px;
+}
+
+.attachmentsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 4px 0;
+  user-select: none;
+}
+
+.attachmentsTxt {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  margin: 0;
+}
+
+.attachmentsArrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.attachmentDropdownList {
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+}
+
+.attachment-list-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.15s;
+}
+
+.attachment-list-item:hover {
+  background-color: #eef2ff;
+}
+
+.attachment-list-name {
+  font-size: 16px;
+  color: #2a3647;
+  text-decoration: underline;
+}
+
+/* ── Lightbox / Image Viewer ── */
+.attachment-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.82);
+  cursor: pointer;
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 1;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.18);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 14px;
+  border-radius: 6px;
+  transition: background-color 0.15s;
+}
+
+.lightbox-close-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Upload-Vorschau Thumbnail ── */
+.attachment-thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: 1px solid #c7d2fe;
+}
+
+/* ── Ticketansicht Thumbnail + Download ── */
+.attachment-list-item {
+  gap: 10px;
+}
+
+.attachment-list-thumb {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.attachment-download-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: #2a3647;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.attachment-download-btn:hover {
+  background-color: #eef2ff;
+}
+
+/* ── Lightbox Navigation + Metadaten ── */
+.lightbox-content {
+  flex-direction: column;
+}
+
+.lightbox-nav-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.lightbox-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-nav-btn {
+  background: rgba(255, 255, 255, 0.18);
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 12px 14px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: background-color 0.15s;
+}
+
+.lightbox-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.lightbox-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 6px;
+}
+
+.lightbox-meta-name {
+  font-size: 14px;
+  color: #f0f0f0;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.lightbox-meta-type,
+.lightbox-meta-size {
+  font-size: 14px;
+  color: #bbb;
+}
+
+.lightbox-download-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 4px 14px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.lightbox-download-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

@@ -1,0 +1,94 @@
+
+@media (max-width: 1440px) {
+    .dropdownBtnContainer {
+        display: block;
+        background-color: #fff;
+        padding-top: 8px;
+    }
+
+    .dropdown-btn {
+        display: flex;
+        cursor: pointer;
+    }
+}
+
+@media (max-width: 1140px) {
+    .prioBtn {
+        flex-direction: row;
+    }
+
+    .dropdownBtnContainer {
+        display: block;
+        background-color: #fff;
+
+    }
+
+    .dropdown-btn {
+        display: flex;
+        cursor: pointer;
+    }
+}
+
+@media (max-width: 427px) {
+
+    .custom-scroll {
+        width: unset;
+        margin-right: 0;
+    }
+
+    .attachmentsMainContainer {
+        max-width: 100%;
+    }
+
+    .attachment-upload-label {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+    .attachment-file-name {
+        max-width: 140px;
+        font-size: 14px;
+    }
+
+    .attachment-thumb {
+        width: 36px;
+        height: 36px;
+    }
+
+    .attachment-preview-item {
+        padding: 5px 8px;
+    }
+
+    .attachmentsTxt {
+        font-size: 16px;
+    }
+
+    .attachment-list-name {
+        font-size: 14px;
+    }
+
+    .lightbox-close-btn {
+        top: -36px;
+        padding: 4px 10px;
+        font-size: 16px;
+    }
+
+    .prioBtn {
+        flex-direction: row;
+    }
+
+    .dropdownBtnContainer {
+        display: block;
+        background-color: #fff;
+
+    }
+
+    #cardContainerdone {
+        margin-bottom: 50px;
+    }
+
+    .dropdown-btn {
+        display: flex;
+        cursor: pointer;
+    }
+}

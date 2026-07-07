@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join - Add Task</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo_mobile.svg" />
+    <link rel="stylesheet" href="./styles/addTask.css" />
+    <link rel="stylesheet" href="./styles/addTaskInput.css" />
+    <link rel="stylesheet" href="./styles/addTaskResponsive.css" />
+    <link rel="stylesheet" href="./styles/sidebarHeader.css" />
+    <link rel="stylesheet" href="./styles/contacts.css" />
+    <link rel="stylesheet" href="./styles/contactsResponsive.css" />
+    <link rel="stylesheet" href="./styles/board.css" />
+    <link rel="stylesheet" href="./styles/boardPopup.css" />
+    <link rel="stylesheet" href="./styles/boardInput.css" />
+    <link rel="stylesheet" href="./styles/boardResponsive.css" />
+    <script src="./js/templates.js"></script>
+    <script src="./js/taskAttachments.js"></script>
+    <script src="./js/firebaseDatabaseFunctions.js"></script>
+    <script src="./js/firebaseUserRendering.js"></script>
+    <script src="./js/taskBackendRest.js"></script>
+    <script src="./js/taskUIandBackend.js"></script>
+    <script src="./js/sidebarHeader.js"></script>
+  </head>
+
+  <body onload="renderAssignedTo(); clickOnMedium(); loadAccountInitials()">
+    <!-- Header und Sidebar-->
+    <header class="desktop-header">
+      <h1>Kanban Project Management Tool</h1>
+      <div class="header-icons">
+        <a href="./help.html">
+            <img src="img/contacts/help.png" alt="icon help" width="32px" height="32px"><img>
+        </a>
+        <button class="profile-icon openModalHeader">
+            <div id="header-profile-icon" class="profile-name guest-font-size"></div>
+        </button>
+    </div>
+        </button>
+      </div>
+    </header>
+    <dialog id="sub-menu-modal-desktop" class="sub-menu-bg">
+      <div id="sub-menu" class="sub-menu sub-menu-open">
+        <a class="help-link" href="./help.html">
+          <div>Help</div>
+        </a>
+        <a href="./legalNotice.html">
+          <div>Legal Notice</div>
+        </a>
+        <a href="./privacy.html">
+          <div>Privacy Policy</div>
+        </a>
+        <a> 
+          <div class="help-link" onclick="logOutUserAccount(); location.href='./login.html'">Log Out</div>
+      </a>
+      </div>
+    </dialog>
+
+    <aside class="sidebar desktop-sidebar">
+      <div class="logo-sidebar">
+          <a href="summary.html"><img class="logo-join-white" src="img/contacts/logo_join_white.png" alt="logo"></a>
+      </div>
+      <nav class="menu-sidebar">
+          <ul class="container-nav-links">
+              <a href="summary.html" class="nav-links">
+                  <img class="nav-icons" src="img/contacts/summary_icon.svg" alt="icon summary">
+                  <li>Summary</li>
+              </a>
+              <a href="task.html" class="nav-links">
+                  <img class="nav-icons" src="img/contacts/addTask_icon.svg" alt="icon add task">
+                  <li>Add Task</li>
+              </div>
+              <a href="board.html" class="nav-links">
+                  <img class="nav-icons" src="img/contacts/board_icon.svg" alt="icon board">
+                  <li>Board</li>
+              </a>
+              <a href="contacts.html" class="nav-links">
+                  <img class="nav-icons" src="img/contacts/contacts_icon.svg" alt="contacts">
+                  <li>Contacts</li>
+              </a>
+          </ul>
+      </nav>
+      <nav>
+          <ul>
+              <div class="nav-links-footer">
+                  <li><a href="privacy.html">Privacy Policy</a></li>
+                  <li><a href="legalNotice.html">Legal notice</a></li>
+              </div>
+          </ul>
+      </nav>
+    </aside>
+
+        <!--Mobile Header-->
+    <header class="mobile-header">
+          <a href="summary.html"><img class="logo-join-mobile" src="img/contacts/logo_blue_mobile.png" alt="logo"></a>
+          <button class="profile-icon openModalHeader">
+              <div id="header-profile-icon" class="profile-name guest-font-size">G</div>
+          </button>
+    </header>
+    
+    <dialog id="sub-menu-modal-mobile" class="sub-menu-bg">
+          <div id="sub-menu" class="sub-menu sub-menu-open">
+              <a class="help-link" href="./help.html">
+                  <div>Help</div>
+              </a>
+              <a href="./legalNotice.html">
+                  <div>Legal Notice</div>
+              </a>
+              <a href="./privacy.html">
+                  <div>Privacy Policy</div>
+              </a>
+              <a href="./login.html"> 
+                <div class="help-link" onclick="logOutUserAccount(); location.href='./login.html'">Log Out</div>
+              </a>
+          </div>
+    </dialog>
+
+    <!--Mobile Navbar-->
+    <nav class="mobile-nav">
+      <ul class="container-nav-links">
+        <a href="summary.html">
+          <div class="nav-links">
+            <img class="iconsSVG" src="img/contacts/summary_icon.svg"></img>
+            <li>Summary</li>
+          </div>
+        </a>
+        <a href="task.html">
+          <div class="nav-links">
+            <img class="iconsSVG" src="img/contacts/addTask_icon.svg"></img>
+            <li>Add Task</li>
+          </div>
+        </a>
+        <a href="board.html">
+          <div class="nav-links">
+            <img class="iconsSVG" src="img/contacts/board_icon.svg"></img>
+            <li>Board</li>
+          </div>
+        </a>
+        <a href="contacts.html">
+          <div class="nav-links">
+            <img class="iconsSVG" src="img/contacts/contacts_icon.svg"></img>
+            <li>Contacts</li>
+          </div>
+        </a>
+      </ul>
+    </nav>
+
+    <!-- End of Header und Sidebar-->
+
+    <!-- Start Task Container -->
+    <div class="taskContainer" onclick="closeAssignedto(), closeCategory()">
+      <div class="header">
+        <h1>Add Task</h1>
+      </div>
+
+      <form>
+          <div class="addTaskLeft">
+            <div class="inputGroup">
+              <label for="title">Title<span class="starFromRequired">*</span></label>
+              <input class="input" type="text" id="title" placeholder="Enter a title"/>
+              <div id="title-required" class="requiredMessage">
+                This field is required
+              </div>
+            </div>
+            <div class="inputGroup">
+              <label for="description">Description<span class="starFromRequired">*</span></label>
+              <input id="description" class="inputDescription" placeholder="Enter a description"/>
+              <div id="description-required" class="requiredMessage">
+                This field is required
+              </div>
+            </div>
+            <div class="inputGroup">
+              <label class="margin" for="dropdown-container"
+                >Assigned to<span class="starFromRequired">*</span></label
+              >
+              <div class="dropdown">
+                <div id="contacts-list" class="select assigned-to" onclick="toggleDropdown()">
+                  <input class="select-input placeholder" type="text" placeholder="Select contacts to assign" readonly/>
+                  <span class="down-arrow">
+                    <img src="img/arrow_drop_downaa.svg" alt="" />
+                  </span>
+                </div>
+                
+
+                <!-- Begin Contacts Assigned to-->
+                <ul id="myDropdown" class="dropdown-content"></ul>
+                <!-- End Contacts Assigned to-->
+                <div id="selected-contacts-container" class="selected-contacts"></div>
+              </div>
+            </div>
+            <div id="assigned-to-required" class="requiredMessage">
+              This field is required
+            </div>
+          </div>
+          <div class="col-middle"></div>
+          <div class="col-right">
+            <div class="inputGroup">
+              <label class="due-date" for="due-date-input"
+                >Due date<span class="starFromRequired">*</span></label
+              >
+              <input class="input" type="date" id="due-date-input" />
+              <div id="date-required" class="requiredMessage">
+                This field is required
+              </div>
+            </div>
+            <div class="inputGroup">
+              <label>Prio<span class="starFromRequired">*</span></label>
+              <div class="buttons-prio">
+                <button onclick="clickOnUrgent()" type="button" id="urgent" class="btn-prio">
+                  Urgent
+                  <img id="urgentID" src="./img/urgent.svg"/>
+                  <img id="urgent-whiteID" class="d-none" src="./img/urgent-white.svg"/>
+                </button>
+                
+                  <button onclick="clickOnMedium()" type="button" id="medium" class="btn-prio">
+                    Medium
+                    <img id="mediumID" src="./img/medium.svg"/>
+                    <img id="medium-whiteID" class="d-none" src="./img/medium-white.svg"/>
+                  </button>
+                
+                <button onclick="clickOnLow()" type="button" id="low" class="btn-prio">
+                  Low
+                  <img id="lowID" src="./img/low.svg"/>
+                  <img id="low-whiteID" class="d-none" src="./img/low-white.svg"/>
+                </button>
+              </div>
+              <div id="prio-required" class="requiredMessage">
+                This field is required
+              </div>
+            </div>
+            <div class="inputGroup">
+              <label for="category-selected">
+                Category
+                <span class="starFromRequired">*</span></label>
+              <div class="dropdown">
+                <div id="category-container" class="select category" onclick="toggleDropdownCategory()">
+                  <span id="category-displayed" class="btn-text">Select task category</span>
+                  <span class="down-arrow">
+                    <img src="img/arrow_drop_downaa.svg" alt="" />
+                  </span>
+                </div>
+                <div id="category-required" class="requiredMessage">
+                  This field is required
+                </div>
+                <ul class="category scroll-disabled dropdown-content" id="myDropdownCategory">
+                  <li onclick="selectTechnicalStack()" id="categoryTechnicalStack" data-value="Technical stack" class="item category">
+                    <span>Technical stack</span>
+                  </li>
+                  <li onclick="selectUserStory()" id="categoryUserStory" data-value="User-story" class="item category">
+                    <span>User Story</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!--Begin subtask-->
+            <div class="inputGroup">
+              <label for="subtasks"
+                >Subtasks<span class="starFromRequired">*</span></label>
+              <div class="input-container-subtask">
+                <input id="addNewSubtaskInput" class="input subtask" type="text" placeholder="Add new subtask"/>
+                <div class="btn-subtask add">
+                  <img src="./img/add.png" alt="Add" />
+                </div>
+                <div class="btn-subtask check-cancel">
+                  <div class="cancel-subtask">
+                    <img src="./img/close.png" alt="Cancel" />
+                  </div>
+                  <div class="divider-subtask"></div>
+                  <div class="check-subtask">
+                    <img src="./img/check.png" alt="Check" />
+                  </div>
+                </div>
+              </div>
+              <div class="container-subtasks-display">
+                <ul id="subtaskList" class="list-subtasks"></ul>
+              </div>
+              <div id="subtasks-required" class="requiredMessage">
+                This field is required
+              </div>
+            </div>
+            <!--End subtask-->
+            <!-- Begin Anhänge Upload -->
+            <div class="inputGroup">
+              <label>Anhänge</label>
+              <div class="attachment-upload-container">
+                <input type="file" id="imageUpload" accept="image/*" multiple class="attachment-input" onchange="handleImageUpload('imageUpload', '')"/>
+                <label for="imageUpload" class="attachment-upload-label">Bild hinzufügen</label>
+              </div>
+              <div id="attachmentPreview" class="attachment-preview"></div>
+              <div id="attachmentError" class="attachment-error" style="display:none;"></div>
+            </div>
+            <!-- End Anhänge Upload -->
+          </div>
+      </form>
+      
+      <div class="bottom-form">
+        <p class="required-note">
+          <p class="starFromRequired">*</p>
+          <span class="required">This field is required</span>
+        </p>
+        <div class="actions-form">
+          <button onclick="renderAssignedTo(); clearForm()" type="button" class="btn-clear" id="clear-btn">
+            Clear
+            <img id="cancel-icon" src="./img/close.png" alt=""/>
+          </button>
+          <button type="button" class="btn-create" onclick="validateAndCreateTask(event)">
+            Create Task
+            <img src="./img/check_white.svg" alt=""/>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="msg-task-added">Task added to board</div>
+    <!-- End Task Container -->
+  </body>
+</html>

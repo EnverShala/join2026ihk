@@ -1,0 +1,389 @@
+body {
+  margin: 0;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.contacts-main-container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 456px;
+  height: calc(100vh - 97px);
+  top: 96px;
+  left: 232px;
+  background-color: #ffffff;
+  box-shadow: 6px 0px 6px 0px lightgray;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: -1;
+}
+
+.contacts-first-letter-container {
+  display: flex;
+  align-items: center;
+  width: 352px;
+  height: 58px;
+  padding-left: 36px;
+  gap: 8px;
+}
+
+.contacts-first-letter {
+  width: 14px;
+  height: 24px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-list-name {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.ellipse-list {
+  width: 42px;
+  height: 42px;
+  gap: 0px;
+  border: 2px 0px 0px 0px;
+  opacity: 0px;
+  background-color: #ff7a00;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+  color: white;
+}
+
+.contact-list-email {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2px;
+  text-align: left;
+  color: #007cee;
+}
+
+.border-container {
+  width: Fill 352px;
+  height: 16px;
+  padding: 8px, 0px, 8px, 0px;
+  gap: 10px;
+}
+
+.border {
+  width: 352px;
+  border: 1px solid #d1d1d1;
+}
+
+.contact-container {
+  box-sizing: border-box;
+  display: flex;
+  width: 352px;
+  gap: 35px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px 0px 0px 0px;
+}
+
+.contact-container:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.contact-container-no-hover:hover {
+  background-color: inherit !important;
+}
+
+.contact {
+  width: 140px;
+  height: 48px;
+  gap: 5px;
+  opacity: 0px;
+}
+
+/* Button zum Hinzufügen neuer Kontakte */
+.add-contact-container {
+  padding: 22.5px 52px 22.5px 52px;
+}
+
+.add-contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 352px;
+  height: 56px;
+  border-radius: 10px;
+  border: none;
+  opacity: 0px;
+  cursor: pointer;
+  background-color: #2a3647;
+}
+
+.add-button-text {
+  font-size: 21px;
+  font-weight: 700;
+  text-align: left;
+  color: #ffffff;
+}
+
+.person-add-png {
+  height: 32px;
+  width: 32px;
+  margin-left: 20px;
+}
+
+.add-contact:hover {
+  background-color: rgba(43, 169, 227, 1);
+  border: none;
+}
+
+/* display-contact-header */
+.display-contact-header {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  width: 569px;
+  height: 73px;
+  top: 206px;
+  left: 743px;
+  gap: 30px;
+  opacity: 0px;
+}
+
+.h1Contacts {
+  width: 274px;
+  height: 73px;
+  font-size: 61px;
+  font-weight: 700;
+  line-height: 73.2px;
+  text-align: left;
+  color: #000000;
+}
+
+.border-vertical {
+  width: 0px;
+  height: 59px;
+  border: 3px 0px 0px 0px;
+  opacity: 0px;
+  border: 2px solid #29abe2;
+}
+
+.span-txt {
+  width: 235px;
+  height: 32px;
+  font-size: 27px;
+  font-weight: 400;
+  text-align: left;
+  color: #2a3647;
+}
+
+.display-contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  width: 461px;
+  height: 364px;
+  top: 311px;
+  left: 750px;
+  gap: 21px;
+  animation: slideIn 1s forwards;
+}
+
+.ellipse-container {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  gap: 10px;
+  border-radius: 70px 0px 0px 0px;
+  border: 3px 0px 0px 0px;
+  opacity: 0px;
+}
+
+.ellipse {
+  background-color: #ff7a00;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 47px;
+  font-weight: 300;
+}
+
+.contact-name-main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 461px;
+  height: 120px;
+  gap: 54px;
+}
+
+.contact-name-container {
+  width: 287px;
+  height: 88px;
+  gap: 8px;
+}
+.edit:hover,
+.delete:hover {
+  color: #1d82ef;
+}
+
+.display-name-contact {
+  width: 287px;
+  height: 88px;
+  gap: 8px;
+  opacity: 0px;
+}
+
+.contact-name {
+  width: 287px;
+  height: 56px;
+  font-size: 47px;
+  font-weight: 500;
+  line-height: 56.4px;
+  text-align: left;
+  text-wrap: nowrap;
+}
+
+.edit-delete-container {
+  width: 159px;
+  height: 24px;
+  gap: 16px;
+}
+
+.edit-delete-container {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2px;
+  text-align: left;
+  display: flex;
+  width: 62px;
+  height: 24px;
+  gap: 13px;
+  opacity: 0px;
+}
+
+.edit,
+.delete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.edit-icon {
+  width: 18.28px;
+  height: 18.25px;
+  top: 2.75px;
+  left: 3px;
+  gap: 0px;
+  opacity: 0px;
+}
+
+.delte-icon {
+  width: 24px;
+  height: 24px;
+  gap: 0px;
+  opacity: 0px;
+}
+
+.contact-information-container {
+  width: 207px;
+  height: 74px;
+  padding-top: 15px;
+  gap: 59px;
+  opacity: 0px;
+}
+
+.contact-information-txt {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.email-and-phone-container {
+  width: 140px;
+  height: 128px;
+  gap: 22px;
+  opacity: 0px;
+}
+
+.email-container {
+  width: 140px;
+  height: 53px;
+  gap: 15px;
+  opacity: 0px;
+}
+
+.phone-container {
+  width: 124px;
+  height: 53px;
+  gap: 15px;
+  opacity: 0px;
+}
+
+.email-headtxt {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.2px;
+  text-align: left;
+}
+
+.email {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2px;
+  text-wrap: nowrap;
+  text-align: left;
+  color: #007cee;
+}
+
+.phone-headtxt {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.2px;
+  text-align: left;
+}
+
+.phone {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2px;
+  text-align: left;
+  color: #007cee;
+}
+
+.back-arrow-on-responsive {
+  position: absolute;
+  padding: 4px 4px 0px 4px;
+  border-radius: 100px;
+  top: 20px;
+  left: 80px;
+}
+
+.back-arrow-on-responsive:hover {
+  background-color: #0c2e621f;
+  cursor: pointer;
+}

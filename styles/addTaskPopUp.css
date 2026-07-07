@@ -1,0 +1,191 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.taskContainer {
+    background-color: white;
+    border-radius: 24px;
+    padding: 30px;
+    width: 600px;
+    max-width: 90%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.containerForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.addTaskContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.addTaskLeft, .col-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.inputGroup {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input, textarea, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: none;
+    height: 80px;
+}
+
+.buttons-prio {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-prio {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-prio.active {
+    background-color: #ffb218;
+    color: white;
+    border-color: #ffb218;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+    padding: 12px 16px;
+}
+
+.list-item {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.list-item:hover {
+    background-color: #ddd;
+}
+
+.bottom-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.actions-form {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-clear, .btn-create {
+    border: 1px solid #2A3647;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: white;
+}
+
+.btn-create {
+    background-color: #2A3647;
+    color: white;
+    font-weight: 700;
+}
+
+.btn-clear:hover {
+    border-color: rgba(43, 169, 227, 1);
+    color: rgba(43, 169, 227, 1);
+}
+
+.btn-create:hover {
+    background-color: rgba(43, 169, 227, 1);
+    border: none;
+}
+
+.msg-task-added {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(43, 169, 227, 1);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+@media screen and (max-width: 768px) {
+    .taskContainer {
+        width: 90%;
+        max-width: 100%;
+    }
+
+    .addTaskContainer {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .btn-prio {
+        font-size: 14px;
+    }
+}

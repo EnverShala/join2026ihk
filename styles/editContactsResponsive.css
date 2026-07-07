@@ -1,0 +1,346 @@
+
+@media (max-width: 1630px) {
+    .popUpContainer {
+      left: 5%;
+    }
+  }
+  
+  @media (max-width: 1525px) {
+    .popUpContainer {
+      left: 7%;
+    }
+  }
+  @media (max-width: 1463px) {
+    .popUpContainer {
+      left: 8%;
+    }
+  }
+  
+  @media (max-width: 1435px) {
+    .popUpContainer {
+      left: 8%;
+    }
+    .popUpBanner {
+      width: 520px;
+    }
+  
+    .popUpContent {
+      width: 520px;
+    }
+  
+    .contactImg {
+      margin-right: -64px;
+      min-width: 90px;
+      height: 90px;
+    }
+  
+    .popUpButton {
+      gap: 20px;
+      margin-top: -35%;
+    }
+  
+    .createContactButton {
+      margin-top: 120%;
+      height: fit-content;
+      margin-block-start: auto;
+    }
+  
+    .cancelButton {
+      margin-top: 120%;
+    }
+  }
+  
+  @media (max-width: 1311px) {
+    .popUpBanner {
+      width: 420px;
+      height: 480px;
+    }
+  
+    .popUpContent {
+      width: 420px;
+      height: auto;
+    }
+  
+    .contactImg {
+      margin-right: -64px;
+      min-width: 90px;
+      height: 90px;
+    }
+  
+    .createContactButton {
+      width: 100px;
+      height: 30px;
+    }
+  
+    .cancelButton {
+      width: 100px;
+      height: 30px;
+    }
+  
+    .popUpButton {
+      position: absolute;
+      display: flex;
+      gap: 16px;
+      top: 400px;
+      right: -10px;
+      margin-top: -140%;
+      margin-right: -5%;
+    }
+  
+    .form form {
+      width: 350px;
+      margin-left: 85px;
+    }
+  
+    .closePopUp {
+      margin-right: -30px;
+      margin-top: -30px;
+    }
+  
+    .contactImg {
+      margin-right: -165px;
+      margin-top: -160px;
+    }
+  }
+  
+  @media (max-width: 1140px) {
+    .popUpContainer {
+      left: 10%;
+    }
+  }
+  
+  @media (max-width: 1091px) {
+    .addContactContainer {
+      flex-direction: row;
+    }
+  
+    .addContactContainerCenter {
+      flex-direction: row;
+    }
+  
+    .popUpBanner {
+      width: 320px;
+      height: 480px;
+    }
+  
+    .popUpContent {
+      width: 420px;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .popUpContainer {
+      left: 0%;
+    }
+  }
+  
+  @media (max-width: 760px) {
+    .mobile-header {
+      display: flex;
+      padding: 1em;
+      z-index: 1;
+    }
+    .popUpContainer {
+      display: flex;
+      flex-direction: column;
+      z-index: 999;
+    }
+    .joinPopupImg {
+      display: none;
+    }
+  
+    .popUpBanner {
+      width: 500px;
+      height: 352px;
+      margin-top: -250px;
+      border-radius: 0;
+    }
+  
+    .popUpContent {
+      width: 420px;
+      margin: 0;
+      height: 500px;
+      border-radius: 0px 0px 30px 30px;
+      z-index: 9999;
+    }
+    .mobile-nav {
+      z-index: 1;
+    }
+  
+    .popUpBannerContent h1 {
+      font-size: 48px;
+    }
+  
+    .popUpBannerContent p {
+      font-size: 24px;
+      font-weight: 300;
+    }
+  
+    .addContactJoinLogo {
+      display: none;
+    }
+  
+    .contactImg {
+      margin-right: -420px;
+      margin-top: -260px;
+    }
+  
+    .popUpBanner {
+      margin-top: 10px;
+      height: 250px;
+      width: 100%;
+      border-radius: 30px 30px 0px 0px;
+    }
+  
+    .contactImg {
+      margin-right: -89%;
+      margin-top: -250px;
+    }
+  
+    .closePopUp {
+      margin-top: -65%;
+      background-color: white;
+    }
+  
+    .createContactButton,
+    .cancelButton {
+      height: 20px;
+      width: 16%;
+      padding-inline-start: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .crossSVG {
+      display: none;
+    }
+    .checkSVG {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .popUpButton {
+      left: 0px;
+      margin-right: 0;
+      flex-direction: row-reverse;
+    }
+  }
+  
+  @media (max-width: 455px) {
+    .popUpBanner {
+      width: 100%;
+    }
+  
+    .popUpContent {
+      width: 100%;
+    }
+    .closePopUp {
+      margin-top: -75%;
+      background-color: white;
+    }
+    .contactImg {
+      margin-right: -110%;
+      margin-top: -250px;
+    }
+    .popUpContainer {
+      max-width: 100%;
+    }
+    .popUpContent {
+      width: 100%;
+    }
+    .form form {
+      width: 60%;
+      margin-left: 39%;
+    }
+    .input {
+      width: 300px;
+      left: -30px;
+    }
+    .inputInput {
+      width: 210px;
+    }
+    .createContactButton {
+      width: 20%;
+      text-wrap: nowrap;
+    }
+    .popUpButton {
+      top: 400px;
+      margin-left: 8%;
+      margin-top: -140%;
+    }
+  }
+  
+  @media (max-width: 380px) {
+      .popUpBanner {
+        height: 250px;
+        width: 100%;
+        left: 0%;
+      }
+      .popUpContent {
+        height: 400px;
+        width: 100%;
+        left: 0%;
+      }
+      .form {
+        top: 50px;
+      }
+      .input {
+        width: 100%;
+        margin-left: 35px;
+      }
+      .closePopUp {
+        margin-top: -75%;
+        margin-left: 10%;
+      }
+      .createContactButton {
+        width: 20%;
+        text-wrap: nowrap;
+      }
+      .popUpButton {
+        top: 400px;
+        margin-left: 10%;
+        margin-top: -140%;
+      }
+      .contactImg {
+        margin-right: -115%;
+      }
+      .personImgOnPopUp {
+        height: 60px;
+      }
+    }
+    @media (max-width: 350px) {
+      .input {
+        width: 100%;
+        margin-left: 35px;
+      }
+      .closePopUp {
+        margin-top: -80%;
+        margin-left: 10%;
+      }
+      .contactImg {
+        margin-right: -120%;
+      }
+    }
+    @media (max-width: 335px) {
+      .input {
+          width: 100%;
+          margin-left: 18%;
+        }
+      .contactImg {
+        margin-right: -125%;
+      }
+    }
+  
+    @media (max-width: 328px) {
+      .contactImg {
+        margin-right: -130%;
+      }
+      .closePopUp {
+          margin-top: -85%;
+          margin-left: 10%;
+        }
+        .popUpButton {
+          margin-left: 12%; 
+        }
+    }

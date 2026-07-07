@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Sign up</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo_mobile.svg" />
+    <link rel="stylesheet" href="./styles/signup.css">
+    <script src="./js/signup.js"></script>
+</head>
+<body>
+    <header class="top__bar">
+        <img id="site__logo" class="site__logo" src="./img/logo_desktop.svg" alt="Logo" />
+    </header>
+
+    <div class="content__box">
+        <div class="registration__box">
+            <div class="title__box">
+                <div class="back__button" onclick="history.back()">
+                    <img src="./img/arrow-left-line.svg" alt="back"/>
+                </div>
+                <div class="signUpContainer">
+                    <h1>Sign Up</h1>
+                    <img class="divider__img" src="./img/seperator.svg" alt="separator" />
+                </div>
+            </div>
+    
+            <div id="register" class="registration__form">
+                <div id="nameBox" class="input__box input__box--spaced margin-bottom24px" style="cursor: auto;">
+                    <input id="fullName" oninput="checkName(); checkSignUpButton()" type="text" placeholder="Name" autocomplete="name" style="cursor: auto;"/>
+                    <img class="input__icon" src="./img/person.svg" alt="person" />
+                </div>
+                <div id="requiredName" class="requiredMessage d-none">
+                    Please enter your full name!
+                  </div>
+    
+                <div id="emailBox" class="input__box input__box--spaced margin-bottom24px" style="cursor: auto;">
+                    <input id="userEmail" type="email" placeholder="Email" autocomplete="email" style="cursor: auto;" oninput="checkEmail(); checkSignUpButton()" />
+                    <img class="input__icon" src="./img/mail.svg" alt="mail" />
+                </div>
+                <div id="requiredEmail" class="requiredMessage d-none">
+                    Please enter a valid email address!
+                  </div>
+    
+                <!-- Password -->
+                <div id="passwordBox" class="input__box input__box--spaced margin-bottom24px" style="cursor: auto;">
+                    <input style="cursor: auto;" id="userPassword" type="password" placeholder="Password" autocomplete="current-password" oninput="checkPassword(); checkSignUpButton()">
+                    <img id="password__toggle" class="password__icon cursor-pointer" src="./img/lock.svg" alt="lock" onclick="togglePasswordIcon('password__toggle','userPassword')" />
+                </div>
+                <div id="requiredPassword" class="requiredMessage d-none">
+                    Please enter a password with at least 6 characters!
+                  </div>
+    
+                <!-- Confirm Password -->
+                <div id="confirmPasswordBox" class="input__box  margin-bottom24px" style="cursor: auto;">
+                    <input style="cursor: auto;" id="confirmPassword" type="password" placeholder="Confirm Password" autocomplete="off" oninput="clearPasswordMismatchMessage(); checkSignUpButton()">
+                    <img id="confirmPassword__toggle" class="password__icon cursor-pointer" src="./img/lock.svg" alt="lock" onclick="togglePasswordIcon('confirmPassword__toggle','confirmPassword')" />
+                </div>
+                <div id="requiredConfirmation" class="requiredMessage d-none">
+                    The entered passwords don't match!
+                  </div>
+    
+                <!-- If passwords do not match, show message -->
+                <div class="error__box">
+                    <div class="error__message" id="passwordMismatchMessage"></div>
+                </div>
+    
+                <div class="checkbox__wrapper">
+                    <input type="checkbox" id="agreeCheckbox" onclick="toggleCheckbox('agreeCheckbox'); checkPrivacyPolicy(); checkSignUpButton()" data-checked="false"/></input>
+                    <div>
+                        <div id="agreementText">
+                            I agree to the
+                            <a id="agreementLink" href="./privacy.html" class="privacy__link">&nbspPrivacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="button__box">
+                    <button id="registerButton" class="submit__button__disabled" onclick="">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="msg-signup" style="display:none;">
+        <p id="signupMessage">Signup erfolgreich!</p>
+      </div>
+
+    <footer class="site__footer footer__links">
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./legalNotice.html">Legal Notice</a>
+    </footer>
+    <script src="./js/templates.js"></script>
+    <script src="./js/firebaseDatabaseFunctions.js"></script>
+    <script src="./js/firebaseUserRendering.js"></script>
+</body>
+</html>

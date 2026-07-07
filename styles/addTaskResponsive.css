@@ -1,0 +1,154 @@
+
+
+@media (max-width: 1390px) {
+    .taskContainer {
+      margin-bottom: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 240px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 500px;
+      gap: 0;
+    }
+    .col-middle {
+      display: none;
+    }
+    .bottom-form {
+      max-width: 440px;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 50px;
+    }
+    .btn-subtask {
+      position: unset;
+      margin-left: -35px;
+      transform: unset;
+    }
+  }
+  @media (max-width: 800px) {
+    .taskContainer {
+      margin-left: 0px;
+    }
+    .mobile-header  {
+      height: 60px
+    }
+  }
+  @media (max-width: 576px) {
+    input {
+      padding: 0;
+    }
+    .addTaskLeft,
+    .inputGroup,
+    .bottom-form,
+    .header,
+    form {
+      width: 330px !important;
+    }
+    .input,
+    .inputDescription,
+    .select,
+    .buttons-prio {
+      width: 285px;
+    }
+    .mobile-nav,
+    .container-nav-links,
+    a {
+      width: 90%;
+    }
+    .input,
+    .inputDescription,
+    .select-input,
+    .bottom-form {
+      font-size: 16px;
+    }
+    button {
+      padding-block: 0;
+      padding-inline: 0;
+    }
+    .buttons-prio {
+      gap: 5px;
+    }
+    .inputGroup .buttons-prio{
+      width: 330px;
+    }
+    .btn-prio,
+    .btn-prio.active {
+      font-size: 16px;
+    }
+    .btn-prio {
+      width: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-clear,
+    .btn-create,
+    .btn-text {
+      font-size: 16px;
+    }
+    .circle {
+      width: 32px;
+      height: 32px;
+    }
+  
+  
+   
+  
+  }
+  @media (max-width: 376px) {
+    .taskContainer {
+      margin-bottom: 0px;
+    }
+    .bottom-form{
+      margin-bottom: 150px;
+      margin-top: 20px;
+    }
+    .addTaskLeft,
+    .inputGroup,
+    .bottom-form,
+    .header,
+    form {
+      width: 280px !important;
+    }
+    .input,
+    .inputDescription,
+    .select,
+    .buttons-prio {
+      width: 240px;
+    }
+    .input,
+    .inputDescription,
+    .select-input,
+    .bottom-form {
+      font-size: 14px;
+    }
+    .header {
+      text-wrap: nowrap;
+    }
+    .inputGroup .buttons-prio{
+      width: 280px;
+    }
+    .btn-prio,
+    .btn-prio.active {
+      font-size: 14px;
+    }
+    .btn-clear,
+    .btn-create {
+      font-size: 14px;
+      height: 60px;
+      width: 120px;
+      margin-top: 20px;
+    }
+    .circle {
+      width: 32px;
+      height: 32px;
+    }
+  
+    
+  }
+  
