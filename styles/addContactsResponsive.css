@@ -144,6 +144,10 @@
     display: none !important;
   }
 
+  .closePopUp {
+    display: none !important;
+  }
+
   .popUpContent {
     position: relative;
     width: 100%;
