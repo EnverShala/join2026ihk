@@ -31,23 +31,41 @@
     .boardSection {
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: stretch;
       margin-right: 100px;
     }
     .addBtnText {
       display: none;
     }
-    .statusItem,
+    .statusItem {
+      width: 100%;
+    }
     .taskCard {
-      width: 320px;
+      width: 252px;
+      flex-shrink: 0;
     }
     .statuses {
       flex-direction: column;
       margin-bottom: 200px;
       margin-top: 50px;
       width: 100%;
-      justify-content: center;
-      align-items: center;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 30px;
+    }
+    .taskBoard,
+    .emptyTask {
+      width: 100%;
+    }
+    .cardContainer {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: 100%;
+      gap: 16px;
+      padding: 4px 4px 12px 4px;
     }
     .searchContainer {
       justify-content: space-between;
@@ -250,10 +268,11 @@
       width: 150px !important;
     }
     .statuses,
-    .statusItem,
+    .statusItem {
+      width: 100% !important;
+    }
     .taskCard {
-      width: 260px !important;
-      margin-left: -4px;
+      width: 240px !important;
     }
     #myModal {
       width: 300px;
