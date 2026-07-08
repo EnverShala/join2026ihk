@@ -121,10 +121,6 @@
     }
   }
   @media (max-width: 576px) {
-    .mobile-nav,
-    .container-nav-links {
-      width: 100% !important;
-    }
     .selectPopup {
       display: flex;
       justify-content: space-between;

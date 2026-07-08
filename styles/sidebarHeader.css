@@ -291,13 +291,15 @@ a {
   .nav-links {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     padding: 0;
     text-wrap: nowrap;
-    width: 90px;
+    width: 20px;
+    gap: 5px;
   }
   .mobile-nav li {
-    font-size: 1rem;
+    font-size: 14px;
   }
   .nav-links:hover {
     background-color: #091931;
@@ -335,8 +337,5 @@ a {
   .textContentPrivacy p {
     font-size: 14px;
   }
-  .a,
-  .nav-links {
-    width: 70px !important;
-  }
+
 }
