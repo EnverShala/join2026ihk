@@ -283,10 +283,15 @@ a {
   }
   .container-nav-links {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    align-items: stretch;
     width: 100%;
     gap: 0;
+  }
+  .container-nav-links a {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .nav-links {
     display: flex;
@@ -295,7 +300,8 @@ a {
     justify-content: center;
     padding: 0;
     text-wrap: nowrap;
-    width: 20px;
+    width: 100%;
+    height: 100%;
     gap: 5px;
   }
   .mobile-nav li {
@@ -306,7 +312,6 @@ a {
     color: white;
     border-radius: 10px;
     cursor: pointer;
-    height: 96px;
   }
 }
 @media (max-width: 700px) {
