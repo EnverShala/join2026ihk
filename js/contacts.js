@@ -44,7 +44,8 @@ function addNewUser() {
   fetch("addContacts.html")
     .then((response) => response.text())
     .then((data) => {
-      document.getElementById("popup-body").innerHTML = data;
+      const doc = new DOMParser().parseFromString(data, "text/html");
+      document.getElementById("popup-body").innerHTML = doc.body.innerHTML;
       document.getElementById("popup").style.display = "block";
     });
 }
@@ -69,7 +70,8 @@ function editUserPopup() {
   fetch("editContacts.html")
     .then((response) => response.text())
     .then((data) => {
-      document.getElementById("popup-body").innerHTML = data;
+      const doc = new DOMParser().parseFromString(data, "text/html");
+      document.getElementById("popup-body").innerHTML = doc.body.innerHTML;
       document.getElementById("popup").style.display = "block";
 
       document.getElementById("name").value = users[currentUser].name;
