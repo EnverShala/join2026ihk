@@ -214,9 +214,9 @@
       z-index: 1;
     }
     .display-contact {
-      height: auto;
+      height: calc(100dvh - 280px - 96px);
       overflow-y: auto;
-      max-height: calc(100dvh - 280px - 96px - 10px);
+      justify-content: flex-start;
     }
     .email {
       text-wrap: wrap;
