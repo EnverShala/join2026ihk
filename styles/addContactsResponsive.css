@@ -262,6 +262,32 @@
   .add-contact-dialog .popUpButton {
     margin: 10px 0 0 0 !important;
   }
+
+  .banner-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .banner-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .banner-close-btn img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+  }
 }
 
 @media (max-width: 420px) {

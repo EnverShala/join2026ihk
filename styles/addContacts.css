@@ -128,8 +128,16 @@ body {
   position: relative;
   top: auto;
   right: auto;
-  margin-top: 20px;
+  margin-top: 0;
   margin-left: 0;
+}
+
+.banner-title-row {
+  display: contents;
+}
+
+.banner-close-btn {
+  display: none;
 }
 
 .addContactContainerCenter {

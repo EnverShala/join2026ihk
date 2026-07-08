@@ -230,6 +230,14 @@ button {
   cursor: pointer;
 }
 
+.banner-title-row {
+  display: contents;
+}
+
+.banner-close-btn {
+  display: none;
+}
+
 .cancelButton {
   transition: 75ms;
   display: flex;
