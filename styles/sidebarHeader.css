@@ -344,3 +344,31 @@ a {
   }
 
 }
+
+/* Desktop sidebar height responsiveness */
+@media (max-height: 700px) and (min-width: 801px) {
+  .sidebar {
+    gap: 40px;
+    padding-top: 30px;
+  }
+  .logo-sidebar {
+    margin-bottom: 0;
+  }
+  .nav-links-footer {
+    flex-direction: row;
+    font-size: 12px;
+    gap: 12px;
+    bottom: 1rem;
+    left: 1rem;
+  }
+}
+
+@media (max-height: 550px) and (min-width: 801px) {
+  .sidebar {
+    gap: 16px;
+    padding-top: 16px;
+  }
+  .nav-links {
+    padding: 5px 30px;
+  }
+}
