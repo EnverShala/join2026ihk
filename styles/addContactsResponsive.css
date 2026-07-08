@@ -141,7 +141,7 @@
   }
 
   .contactImg {
-    display: none;
+    display: none !important;
   }
 
   .popUpContent {
