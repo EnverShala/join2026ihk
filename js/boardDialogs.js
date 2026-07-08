@@ -132,7 +132,7 @@ function getTaskNrFromCurrentId() {
   function closeDialog() {
     document.getElementById("popupOnTaskSelectionID").style.visibility = "hidden";
     document.getElementById("editPopUpID").classList.add("d-none");
-    document.getElementById('htmlID').style.overflow="scroll";
+    document.getElementById('htmlID').style.overflow="auto";
     if (typeof clearAttachmentState === "function") clearAttachmentState("edit");
     if (typeof closeImageViewer === "function") closeImageViewer();
     setTimeout(() => {

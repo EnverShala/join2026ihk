@@ -134,7 +134,7 @@
    ** closes the modal
    */
   function closeModal() {
-    document.getElementById('htmlID').style.overflow="scroll"
+    document.getElementById('htmlID').style.overflow="auto"
     popupIdString = "";
     taskLevel = "To do";
   }

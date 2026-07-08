@@ -122,8 +122,7 @@
   }
   @media (max-width: 576px) {
     .mobile-nav,
-    .container-nav-links,
-    a {
+    .container-nav-links {
       width: 100% !important;
     }
     .selectPopup {
@@ -228,6 +227,7 @@
   }
   @media (max-width: 800px) {
     .popupOnTaskSelection {
+      position: fixed;
       bottom: 96px;
       align-items: flex-start;
       padding-top: 20px;
