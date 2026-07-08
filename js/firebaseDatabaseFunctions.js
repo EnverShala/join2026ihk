@@ -353,13 +353,11 @@ async function loadAccounts() {
  * If no username is found in local storage, displays "Guest" initials.
  */
 function loadAccountInitials() {
+  const icons = document.querySelectorAll("#header-profile-icon");
+  if (!icons.length) return;
   let accountName = localStorage.getItem("username");
-  if(accountName) {
-    accountName = accountName == "" ? "Guest" : accountName;
-    document.getElementById("header-profile-icon").innerHTML = getUserInitials(accountName);
-  } else {
-    document.getElementById("header-profile-icon").innerHTML = getUserInitials("Guest");
-  }
+  const initials = getUserInitials(accountName && accountName !== "" ? accountName : "Guest");
+  icons.forEach(icon => (icon.innerHTML = initials));
 }
 
 /**

@@ -105,7 +105,9 @@ async function deleteUser(id) {
       if (j > 15) { j = 1; }
     }
   
-    document.getElementById("contact-list").innerHTML = html;
+    const contactList = document.getElementById("contact-list");
+    if (!contactList) return;
+    contactList.innerHTML = html;
     removeHover();
   }
   
