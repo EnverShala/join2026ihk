@@ -31,6 +31,7 @@ async function loadSummaryInfos() {
  * @param {number} sumFeedback The number of "Awaiting Feedback" tasks.
  */
 function updateSummaryInfos(sumTodo, sumDone, sumUrgent, sumTasks, sumProgress, sumFeedback) {
+  if (!document.getElementById("summary__todo")) return;
   document.getElementById("summary__todo").innerHTML = sumTodo;
   document.getElementById("summary__done").innerHTML = sumDone;
   document.getElementById("summary__urgent").innerHTML = sumUrgent;
@@ -101,6 +102,7 @@ function greetUser() {
       greeting = "Good Evening,";
   }
 
+  if (!document.getElementById("greeting__text")) return;
   document.getElementById("greeting__text").innerText = greeting;
 
   if(userName) {
