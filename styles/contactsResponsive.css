@@ -211,6 +211,16 @@
       width: 100%;
       padding-top: 50px;
       left: 0;
+      z-index: 1;
+    }
+    .display-contact {
+      height: auto;
+      overflow-y: auto;
+      max-height: calc(100dvh - 280px - 96px - 10px);
+    }
+    .email {
+      text-wrap: wrap;
+      word-break: break-all;
     }
     .display-contact-header,
     .display-contact {

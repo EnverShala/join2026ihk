@@ -92,3 +92,11 @@
         cursor: pointer;
     }
 }
+
+@media (max-width: 800px) {
+  .dialogContainer,
+  .dialogContainerTask {
+    padding-bottom: 96px;
+    box-sizing: border-box;
+  }
+}

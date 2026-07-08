@@ -226,6 +226,18 @@
       width: 290px;
     }
   }
+  @media (max-width: 800px) {
+    .popupOnTaskSelection {
+      bottom: 96px;
+      align-items: flex-start;
+      padding-top: 20px;
+    }
+    .popupOnTaskSelectionMainContainer,
+    .popupOnTaskEdit {
+      max-height: calc(100dvh - 96px - 40px) !important;
+      overflow-y: auto;
+    }
+  }
   @media (max-width: 480px) {
     .headerTitle h1 {
       font-size: 50px;
