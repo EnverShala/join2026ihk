@@ -236,6 +236,7 @@
     .popupOnTaskEdit {
       max-height: calc(100dvh - 96px - 40px) !important;
       overflow-y: auto;
+      justify-content: flex-start;
     }
   }
   @media (max-width: 480px) {
