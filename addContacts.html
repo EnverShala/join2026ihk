@@ -13,8 +13,8 @@
     <script src="./js/contacts.js"></script>
 </head>
 <body onload="loadAccountInitials()">
-    <div id="" class="addContactContainer addContactContainerCenter">
-        <div id="" class="popUpContainer popUpOpen">
+    <div class="addContactContainer addContactContainerCenter">
+        <div class="popUpContainer popUpOpen">
             <div class="popUpBanner">
                 <div class="popUpBannerContent">
                     <img class="joinLogo" src="./img/join_popup.svg" alt="">
@@ -31,35 +31,41 @@
                     <img class="contactSVG" src="./img/person_big.svg" alt="">
                 </div>
                 <div class="form">
-                    <form id="" onsubmit="addUser(); closePopup(); return false;" >
+                    <form id="addContactForm" onsubmit="return handleAddContact();">
                         <div class="input">
-                            <input id="name" class="inputInput"type="text" placeholder="Name" required >
+                            <input id="name" class="inputInput" type="text" placeholder="Name" required>
                             <div class="iconContainer">
                                 <img src="./img/person.svg" alt="Name Icon">
                             </div>
                         </div>
+                        <div id="name-error" class="input-error" style="display:none;">Name darf nicht leer sein.</div>
                         <div class="input">
-                            <input id="email" class="inputInput "type="email" placeholder="Email" required >
+                            <input id="email" class="inputInput" type="email" placeholder="Email" required>
                             <div class="iconContainer">
                                 <img src="./img/mail.svg" alt="Mail Icon">
                             </div>
                         </div>
+                        <div id="email-error" class="input-error" style="display:none;">Bitte gültige E-Mail eingeben (z.B. name@example.de).</div>
                         <div class="input">
-                            <input id="phone" class="inputInput "type="number" pattern="^[0-9-+\s()]{6,16}" placeholder="Phone" required >
+                            <input id="phone" class="inputInput" type="number" pattern="^[0-9-+\s()]{6,16}" placeholder="Phone" required>
                             <div class="iconContainer">
                                 <img src="./img/call.svg" alt="Phone Icon">
                             </div>
                         </div>
                         <div class="popUpButton">
-                            <button onclick="closePopup()" id="" class="cancelButton">
+                            <button type="button" onclick="closePopup()" class="cancelButton">
                                 <p>Cancel</p>
                                 <img src="./img/icon_cancel.svg" alt="">
                             </button>
-                            <button class="createContactButton">
+                            <button type="submit" class="createContactButton">
                                 <p>Create contact</p>
                                 <img src="./img/check.svg" alt="">
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

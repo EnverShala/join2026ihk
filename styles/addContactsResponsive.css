@@ -1,233 +1,272 @@
 
-
 @media (max-width: 1250px) {
-    .popUpBanner {
-      width: 520px;
-    }
-  
-    .popUpContent {
-      width: 520px;
-    }
-  
-    .contactImg {
-      margin-right: -64px;
-      height: 90px;
-      width: 90px;
-    }
-  
-    .popUpButton {
-      gap: 20px;
-      margin-top: -100%;
-    }
-  
-    .createContactButton {
-      margin-top: 120%;
-      height: fit-content;
-      margin-block-start: auto;
-    }
-  
-    .cancelButton {
-      margin-top: 120%;
-    }
+  .popUpBanner {
+    width: 520px;
   }
-  
-  @media (max-width: 1150px) {
-    .popUpBanner {
-      width: 420px;
-      height: 480px;
-    }
-  
-    .popUpContent {
-      width: 420px;
-      height: auto;
-    }
-    
-    .popUpButton {
-      position: absolute;
-      display: flex;
-      gap: 16px;
-      top: 400px;
-      right: -10px;
-      margin-top: -140%;
-      margin-right: -5%;
-    }
-  
-    .form form {
-      width: 350px;
-      margin-left: 85px;
-    }
-  
-    .closePopUp {
-      margin-right: -30px;
-      margin-top: -30px;
-    }
-  
-    .contactImg {
-      margin-right: -165px;
-      margin-top: -160px;
-    }
+
+  .popUpContent {
+    width: 520px;
   }
-  
-  @media (max-width: 850px) {
-    .addContactContainer {
-      flex-direction: row;
-    }
-  
-    .addContactContainerCenter {
-      flex-direction: row;
-      margin-top: 50px;
-    }
-  
-    .popUpBanner {
-      width: 320px;
-      height: 480px;
-    }
-  
-    .popUpContent {
-      width: 420px;
-    }
-  
-    .joinLogo {
-      margin-bottom: 30px;
-    }
-  
-    .contactImg {
-      margin-top: -180px;
-    }
+
+  .contactImg {
+    margin-right: -64px;
+    height: 90px;
+    width: 90px;
   }
-  
-  @media (max-width: 760px) {
-    .addContactContainerCenter {
-      margin-top: 0;
-    }
-    .popUpContainer {
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .joinLogo {
-      display: none;
-    }
-  
-    .cancelButton {
-      display: none;
-    }
-  
-    .popUpBanner {
-      width: 100%;
-      height: 220px;
-      margin-top: -150px;
-      border-radius: 30px 30px 0px 0px;
-    }
-  
-    .popUpContent {
-      width: 420px;
-      height: 400px;
-      border-radius: 0px 0px 30px 30px;
-    }
-  
-    .popUpBannerContent h1 {
-      font-size: 48px;
-    }
-  
-    .popUpBannerContent p {
-      font-size: 24px;
-      font-weight: 300;
-    }
-  
-    .popUpButton {
-      margin-top: -35%;
-      margin-right: -11%;
-    }
-  
-    .form {
-      margin-top: -80px;
-    }
-  
-    .addContactJoinLogo {
-      display: none;
-    }
-  
-    .contactImg {
-      margin-right: -420px;
-      margin-top: -260px;
-    }
-  
-    .contactImg {
-      margin-right: -89%;
-      margin-top: -250px;
-    }
-  
-    .closePopUp {
-      margin-top: -60%;
-      background-color: white;
-    }
-  
-    .createContactButton {
-      margin-left: 12%;
-      width: 50%;
-    }
-  
-  
+
+  .popUpButton {
+    gap: 20px;
+    margin-top: -100%;
   }
-  
-  @media (max-width: 420px) {
-    .popUpContent {
-      width: 300px;
-      height: 380px;
-    }
-  
-    .popUpBanner {
-      width: 300px;
-      height: 200px;
-      margin-top: -100px;
-    }
-  
-    .form {
-      margin-top: -100px;
-      width: 200px;
-      display: flex;
-      justify-content: center;
-      left: 10px;
-    }
-  
-    .inputInput {
-      width: 200px;
-    }
-  
-    .popUpButton {
-      margin-top: -75%;
-      margin-right: -42%;
-    }
-  
-    h1 {
-      font-size: 32px !important;
-    }
-  
-    p {
-      font-size: 16px !important;
-    }
-  
-    .createContactButton {
-      width: 45%;
-      text-wrap: nowrap;
-      margin-left: 32.5%;
-    }
-  
-    .contactImg {
-      margin-right: -420px;
-      margin-top: -235px;
-      width: 60px;
-      height: 60px;
-    }
-  
-    .contactSVG {
-      height: 40px;
-      width: 40px;
-    }
-  
-    .closePopUp {
-      margin-top: -75%;
-    }
+
+  .createContactButton {
+    margin-top: 120%;
+    height: fit-content;
+    margin-block-start: auto;
   }
-  
+
+  .cancelButton {
+    margin-top: 120%;
+  }
+}
+
+@media (max-width: 1150px) {
+  .popUpBanner {
+    width: 420px;
+    height: 480px;
+  }
+
+  .popUpContent {
+    width: 420px;
+    height: auto;
+  }
+
+  .popUpButton {
+    position: absolute;
+    display: flex;
+    gap: 16px;
+    top: 400px;
+    right: -10px;
+    margin-top: -140%;
+    margin-right: -5%;
+  }
+
+  .form form {
+    width: 350px;
+    margin-left: 85px;
+  }
+
+  .closePopUp {
+    margin-right: -30px;
+    margin-top: -30px;
+  }
+
+  .contactImg {
+    margin-right: -165px;
+    margin-top: -160px;
+  }
+}
+
+@media (max-width: 850px) {
+  .addContactContainer {
+    flex-direction: row;
+  }
+
+  .addContactContainerCenter {
+    flex-direction: row;
+    margin-top: 50px;
+  }
+
+  .popUpBanner {
+    width: 320px;
+    height: 480px;
+  }
+
+  .popUpContent {
+    width: 420px;
+  }
+
+  .joinLogo {
+    margin-bottom: 30px;
+  }
+
+  .contactImg {
+    margin-top: -180px;
+  }
+}
+
+@media (max-width: 760px) {
+  .addContactContainerCenter {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .popUpContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 30px;
+  }
+
+  .popUpBanner {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 120px;
+    padding: 24px 24px 70px 24px;
+    border-radius: 30px 30px 0 0;
+    margin: 0;
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  .popUpBannerContent h1 {
+    font-size: 40px;
+  }
+
+  .popUpBannerContent p {
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  .joinLogo {
+    display: none;
+  }
+
+  .addContactJoinLogo {
+    display: none;
+  }
+
+  .contactImg {
+    position: absolute;
+    left: 24px;
+    bottom: -45px;
+    right: auto;
+    margin: 0;
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+    z-index: 2;
+  }
+
+  .popUpContent {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 340px;
+    border-radius: 0 0 30px 30px;
+    padding: 60px 24px 24px;
+    box-sizing: border-box;
+  }
+
+  .closePopUp {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    margin: 0;
+    background-color: white;
+  }
+
+  .form {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  .form form {
+    width: 100%;
+    margin: 0;
+    gap: 16px;
+  }
+
+  .input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .inputInput {
+    width: calc(100% - 44px);
+    font-size: 14px;
+  }
+
+  .popUpButton {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: flex-end;
+    margin: 16px 0 0 0;
+  }
+
+  .cancelButton {
+    display: flex !important;
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+
+  .createContactButton {
+    margin: 0;
+    width: auto;
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .addContactContainerCenter {
+    padding: 10px;
+  }
+
+  .popUpContainer {
+    max-width: 100%;
+  }
+
+  .popUpBanner {
+    padding: 20px 16px 60px 16px;
+    min-height: 110px;
+  }
+
+  .popUpBannerContent h1 {
+    font-size: 32px !important;
+  }
+
+  .popUpBannerContent p {
+    font-size: 16px !important;
+  }
+
+  .contactImg {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    bottom: -38px;
+    left: 16px;
+  }
+
+  .popUpContent {
+    padding: 52px 16px 20px;
+  }
+
+  .inputInput {
+    font-size: 14px;
+    width: calc(100% - 44px);
+  }
+
+  .popUpButton {
+    gap: 8px;
+  }
+
+  .createContactButton,
+  .cancelButton {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}

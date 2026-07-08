@@ -342,7 +342,7 @@
       left: 10px;
     }
     .display-contact-header {
-      width: 450px;
+      width: calc(100vw - 40px);
     }
     .h1Contacts {
       font-size: 32px;

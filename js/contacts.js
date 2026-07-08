@@ -1,3 +1,39 @@
+function validateContactForm() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const nameError = document.getElementById("name-error");
+  const emailError = document.getElementById("email-error");
+  let valid = true;
+
+  if (!name) {
+    if (nameError) nameError.style.display = "block";
+    valid = false;
+  } else {
+    if (nameError) nameError.style.display = "none";
+  }
+
+  if (!isEmailValid(email)) {
+    if (emailError) emailError.style.display = "block";
+    valid = false;
+  } else {
+    if (emailError) emailError.style.display = "none";
+  }
+
+  return valid;
+}
+
+function handleAddContact() {
+  if (!validateContactForm()) return false;
+  addUser().then(() => closePopup());
+  return false;
+}
+
+function handleEditContact() {
+  if (!validateContactForm()) return false;
+  editUser(users[currentUser].id, users[currentUser]);
+  return false;
+}
+
 /**
  * Loads the content of "addContacts.html" and displays it in a pop-up.
  *

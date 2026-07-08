@@ -13,8 +13,8 @@
     <script src="./js/contacts.js"></script>
 </head>
 <body>
-    <div id="" class="addContactContainer addContactContainerCenter">
-        <div id="" class="popUpContainer popUpOpen">
+    <div class="addContactContainer addContactContainerCenter">
+        <div class="popUpContainer popUpOpen">
             <div class="popUpBanner">
                 <div class="popUpBannerContent">
                     <div>
@@ -32,19 +32,21 @@
                     <img class="personImgOnPopUp" src="./img/person_big.svg" alt="">
                 </div>
                 <div class="form">
-                    <form id="" onsubmit="editUser(users[currentUser].id, users[currentUser]); return false;">
+                    <form id="editContactForm" onsubmit="return handleEditContact();">
                         <div class="input">
                             <input id="name" class="inputInput" type="text" placeholder="Name" required>
                             <div class="iconContainer">
                                 <img src="./img/person.svg" alt="Name Icon">
                             </div>
                         </div>
+                        <div id="name-error" class="input-error" style="display:none;">Name darf nicht leer sein.</div>
                         <div class="input">
                             <input id="email" class="inputInput" type="email" placeholder="Email" required>
                             <div class="iconContainer">
                                 <img src="./img/mail.svg" alt="Mail Icon">
                             </div>
                         </div>
+                        <div id="email-error" class="input-error" style="display:none;">Bitte gültige E-Mail eingeben (z.B. name@example.de).</div>
                         <div class="input">
                             <input id="phone" class="inputInput" type="number" pattern="^[0-9-+\s()]{6,16}" placeholder="Phone" required>
                             <div class="iconContainer">
@@ -52,19 +54,23 @@
                             </div>
                         </div>
                         <div class="popUpButton">
-                        <button class="createContactButton">
-                            <p>Save</p>
-                            <div>
-                                <img class="checkSVG" src="./img/check.svg" alt="">
-                            </div>
-                        </button>
-                        <button onclick="deleteUser()" id="" class="cancelButton">
-                            <p>Delete</p>
-                            <div>
-                                <img class="crossSVG" src="./img/icon_cancel.svg" alt="">
-                            </div>
-                        </button>
-                    </div>
-                    </form>            
+                            <button type="submit" class="createContactButton">
+                                <p>Save</p>
+                                <div>
+                                    <img class="checkSVG" src="./img/check.svg" alt="">
+                                </div>
+                            </button>
+                            <button type="button" onclick="deleteUser(getUserId(users[currentUser].email))" class="cancelButton">
+                                <p>Delete</p>
+                                <div>
+                                    <img class="crossSVG" src="./img/icon_cancel.svg" alt="">
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

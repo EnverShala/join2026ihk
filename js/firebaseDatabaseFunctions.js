@@ -174,11 +174,7 @@ function dontRememberUserAccount(userEmail) {
  *                    false otherwise.
  */
  function isEmailValid(email) {
-  return (email.includes("@") &&
-          email.includes(".") &&
-          email.length >= 8 &&
-          (email[email.length - 3] == "." || email[email.length - 4] == ".") &&
-          (email[email.length - 4] != "@" && email[email.length - 5] != "@"));
+  return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim());
 }
 
 /**

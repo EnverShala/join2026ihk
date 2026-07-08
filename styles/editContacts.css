@@ -196,8 +196,16 @@ input {
 }
 
 .inputInput {
-  font-size: 20px;
+  font-size: 16px;
   border: 0px;
+}
+
+.input-error {
+  color: red;
+  font-size: 12px;
+  margin-top: -20px;
+  padding-left: 4px;
+  font-weight: 400;
 }
 
 .landscape-warning {
