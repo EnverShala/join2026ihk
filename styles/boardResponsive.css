@@ -109,6 +109,10 @@
   @media (max-width: 800px) {
     .boardSection {
       margin: 0;
+      padding-left: 16px;
+      padding-right: 16px;
+      box-sizing: border-box;
+      width: 100%;
     }
   }
   @media (max-width: 830px) {
