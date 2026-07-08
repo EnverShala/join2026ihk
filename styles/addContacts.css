@@ -121,6 +121,17 @@ body {
   margin-top: 20px;
 }
 
+/* editContacts.css sets position:absolute + margin-top:70%, and addContactsResponsive.css
+   sets top:400px (designed for absolute positioning). Together they create a huge gap.
+   Higher specificity resets everything so the button flows naturally in the flex column. */
+.add-contact-dialog .popUpButton {
+  position: relative;
+  top: auto;
+  right: auto;
+  margin-top: 20px;
+  margin-left: 0;
+}
+
 .addContactContainerCenter {
   display: flex;
   align-items: center;
