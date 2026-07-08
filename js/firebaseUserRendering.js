@@ -138,6 +138,7 @@ async function deleteUser(id) {
    * @param {number} id - User ID (-1 to clear).
    */
   async function loadUserInformation(id) {
+    if (!document.getElementById("contact-name")) return;
     document.getElementById("contact-name").innerHTML = id == -1 ? "" : users[id].name;
     document.getElementById("contact-email").innerHTML = id == -1 ? "" : users[id].email;
     document.getElementById("contact-phone").innerHTML = id == -1 ? "" : users[id].phone;
