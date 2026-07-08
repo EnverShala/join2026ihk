@@ -32,6 +32,7 @@ function showLoginContainer() {
  * Logs in the user as a guest and redirects to the summary page.
  */
 function guestLogin() {
+  sessionStorage.setItem("guestLoggedIn", "true");
   window.location.href = "summary.html";
 }
 

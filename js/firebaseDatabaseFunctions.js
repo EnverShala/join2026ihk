@@ -241,6 +241,7 @@ function logInUserAccount(accountEmail) {
 function logOutUserAccount() {
   localStorage.setItem("loggedInAccount", "");
   localStorage.setItem("username", "");
+  sessionStorage.removeItem("guestLoggedIn");
 
   setTimeout(() => {
 
@@ -358,6 +359,39 @@ function loadAccountInitials() {
   let accountName = localStorage.getItem("username");
   const initials = getUserInitials(accountName && accountName !== "" ? accountName : "Guest");
   icons.forEach(icon => (icon.innerHTML = initials));
+}
+
+/**
+ * Shrinks the contact name font size until the text fits its container without overflow.
+ * Scales down from 47px to a minimum of 22px.
+ */
+function fitNameToContainer() {
+  const span = document.getElementById("contact-name");
+  if (!span) return;
+  const container = span.closest(".contact-name");
+  if (!container || container.clientWidth === 0) return;
+
+  span.style.fontSize = "";
+  const maxSize = parseInt(getComputedStyle(span).fontSize) || 40;
+  for (let size = maxSize; size >= 16; size--) {
+    span.style.fontSize = size + "px";
+    if (span.scrollWidth <= container.clientWidth) break;
+  }
+}
+
+/**
+ * Hides the desktop sidebar (and adjusts layout) when neither a registered user
+ * nor a guest session is active. Called on privacy/legal notice pages.
+ */
+function hideNavIfNotLoggedIn() {
+  const loggedInAccount = localStorage.getItem("loggedInAccount");
+  const guestLoggedIn = sessionStorage.getItem("guestLoggedIn");
+  const isLoggedIn = (loggedInAccount && loggedInAccount !== "") || guestLoggedIn === "true";
+  if (!isLoggedIn) {
+    const sidebar = document.querySelector(".desktop-sidebar");
+    if (sidebar) sidebar.style.display = "none";
+    document.body.classList.add("no-sidebar");
+  }
 }
 
 /**

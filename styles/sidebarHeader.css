@@ -217,7 +217,7 @@ a {
   flex-direction: column;
   justify-content: center;
   text-wrap: wrap;
-  margin: 50px 50px 100px 100px;
+  margin: 50px 50px 100px 282px;
   flex: 1;
 }
 
@@ -343,6 +343,13 @@ a {
     font-size: 14px;
   }
 
+}
+
+/* No sidebar layout (unauthenticated access to privacy/legal pages) */
+body.no-sidebar .textContentPrivacy,
+body.no-sidebar .textContentLegalNotice,
+body.no-sidebar .textContentHelp {
+  margin-left: 50px;
 }
 
 /* Desktop sidebar height responsiveness */

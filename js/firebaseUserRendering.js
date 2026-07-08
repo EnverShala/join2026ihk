@@ -152,8 +152,9 @@ async function deleteUser(id) {
       let userEllipseColor = document.getElementById(`userColor${id}`).className.split(" ")[1];
   
       document.getElementById("ellipse").className = `ellipse ${userEllipseColor}`;
-  
+
       highlightUser(id);
+      fitNameToContainer();
     }
     currentUser = id;
   }
@@ -196,6 +197,7 @@ async function deleteUser(id) {
   function showContactsInDetailInResponsiveMode() {
     document.getElementById("display-contact-headerID").style.display = "flex";
     document.getElementById("display-contactID").style.display = "flex";
+    fitNameToContainer();
   }
   
   /**

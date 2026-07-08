@@ -142,6 +142,7 @@
     justify-content: space-between;
     gap: 16px;
     width: 100%;
+    margin-top: 40px;
   }
 
   .banner-close-btn {
@@ -155,6 +156,11 @@
     height: 32px;
     cursor: pointer;
     flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .banner-close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
   }
 
   .banner-close-btn img {
