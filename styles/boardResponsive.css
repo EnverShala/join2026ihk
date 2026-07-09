@@ -254,7 +254,7 @@
   @media (max-width: 480px) {
     .headerTitle h1 {
       font-size: 42px;
-      margin-right: 32px;
+      margin-right: 16px;
     }
     .searchBar {
       width: 60px;
