@@ -7,10 +7,19 @@ let currentUser = -1;
 let currentId = -1;
 
 /**
- * Initializes the index.html page by redirecting the user to the login page (login.html).
+ * Router for index.html: clears the guest session flag on every landing, then
+ * routes real users (localStorage.loggedInAccount) to summary.html and everyone
+ * else (guests, logged-out users, first-time visitors) to login.html.
+ * Ensures guests re-authenticate each time they hit index.html.
  */
 function indexHtmlInit() {
-  window.location.href = "login.html";
+  sessionStorage.removeItem("guestLoggedIn");
+  const loggedInAccount = localStorage.getItem("loggedInAccount");
+  if (loggedInAccount && loggedInAccount !== "") {
+    window.location.href = "summary.html";
+  } else {
+    window.location.href = "login.html";
+  }
 }
 
 /**
