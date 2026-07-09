@@ -257,7 +257,8 @@
       margin-right: 32px;
     }
     .searchBar {
-      width: 100px;
+      width: 60px;
+      font-size: 14px;
     }
     .addBtn {
       margin-left: -70px;
