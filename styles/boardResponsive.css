@@ -16,9 +16,6 @@
     .statuses {
       gap: 20px;
     }
-    .searchBar {
-      width: 120px;
-    }
     .addBtn {
       text-wrap: nowrap;
     }
@@ -66,12 +63,6 @@
       width: 100%;
       gap: 16px;
       padding: 4px 4px 12px 4px;
-    }
-    .searchContainer {
-      justify-content: space-between;
-      margin-top: 160px;
-      margin-left: -180px;
-      width: 350px;
     }
     .addBtn {
       margin-left: -80px;
@@ -262,14 +253,8 @@
       font-size: 50px;
       margin-right: 32px;
     }
-    .searchContainer {
-      width: 260px;
-    }
     .addBtn {
       margin-left: -70px;
-    }
-    .searchBar {
-      width: 150px !important;
     }
     .statuses,
     .statusItem {
