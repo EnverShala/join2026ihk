@@ -31,35 +31,144 @@
     }
   }
   @media (max-width: 800px) {
-    .taskContainer {
-      margin-left: 0px;
+    .mobile-header {
+      height: 60px;
     }
-    .mobile-header  {
-      height: 60px
+
+    body.task-page {
+      height: 100dvh;
+      margin: 0;
+      max-width: none;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.task-page .mobile-header {
+      flex-shrink: 0;
+    }
+
+    body.task-page .taskContainer {
+      flex: 1 1 auto;
+      min-height: 0;
+      margin: 0;
+      padding: 12px 16px 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background-color: #f6f7f8;
+      box-sizing: border-box;
+      -webkit-overflow-scrolling: touch;
+      display: block;
+      width: 100%;
+    }
+
+    body.task-page .taskContainer .header {
+      width: auto;
+      margin: 0 0 16px;
+    }
+
+    body.task-page .taskContainer .header h1 {
+      font-size: 40px;
+    }
+
+    body.task-page .taskContainer form {
+      width: 100%;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    body.task-page .taskContainer .addTaskLeft,
+    body.task-page .taskContainer .col-right {
+      width: 100%;
+    }
+
+    body.task-page .taskContainer .input,
+    body.task-page .taskContainer .inputDescription,
+    body.task-page .taskContainer .select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    body.task-page .taskContainer .buttons-prio {
+      width: 100%;
+    }
+
+    body.task-page .taskContainer .bottom-form {
+      position: sticky;
+      bottom: 96px;
+      width: calc(100% + 32px);
+      max-width: none;
+      margin: 12px -16px 0;
+      padding: 8px 16px;
+      background-color: #f6f7f8;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      flex-wrap: nowrap;
+      align-items: center;
+      z-index: 5;
+      box-sizing: border-box;
+      font-size: 12px;
+    }
+
+    body.task-page .taskContainer .bottom-form .required-note {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin: 0;
+    }
+
+    body.task-page .taskContainer .bottom-form .required {
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    body.task-page .taskContainer .bottom-form .starFromRequired {
+      font-size: 12px;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    body.task-page .taskContainer .bottom-form .actions-form {
+      gap: 8px;
+    }
+
+    body.task-page .taskContainer .bottom-form .btn-clear,
+    body.task-page .taskContainer .bottom-form .btn-create {
+      padding: 6px 10px;
+      font-size: 13px;
+      gap: 4px;
+      border-radius: 8px;
+    }
+
+    body.task-page .taskContainer .bottom-form .btn-clear img,
+    body.task-page .taskContainer .bottom-form .btn-create img {
+      width: 14px;
+      height: 14px;
     }
   }
   @media (max-width: 576px) {
     input {
       padding: 0;
     }
-    .addTaskLeft,
-    .inputGroup,
-    .bottom-form,
-    .header,
-    form {
-      width: 330px !important;
+    .taskContainer .addTaskLeft,
+    .taskContainer .inputGroup,
+    .taskContainer .bottom-form,
+    .taskContainer .header,
+    .taskContainer form {
+      width: 100% !important;
+    }
+    .taskContainer .input,
+    .taskContainer .inputDescription,
+    .taskContainer .select,
+    .taskContainer .buttons-prio {
+      width: 100%;
     }
     .input,
     .inputDescription,
-    .select,
-    .buttons-prio {
-      width: 285px;
-    }
-    .input,
-    .inputDescription,
-    .select-input,
-    .bottom-form {
+    .select-input {
       font-size: 14px;
+    }
+    .bottom-form {
+      font-size: 12px;
     }
     button {
       padding-block: 0;
@@ -68,82 +177,72 @@
     .buttons-prio {
       gap: 5px;
     }
-    .inputGroup .buttons-prio{
-      width: 330px;
-    }
     .btn-prio,
     .btn-prio.active {
       font-size: 16px;
     }
     .btn-prio {
-      width: 120px;
+      flex: 1;
+      min-width: 0;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .btn-clear,
-    .btn-create,
     .btn-text {
       font-size: 16px;
+    }
+    body.task-page .taskContainer .bottom-form .btn-clear,
+    body.task-page .taskContainer .bottom-form .btn-create {
+      font-size: 13px;
+      padding: 6px 10px;
     }
     .circle {
       width: 32px;
       height: 32px;
     }
-  
-  
-   
-  
   }
   @media (max-width: 376px) {
-    .taskContainer {
-      margin-bottom: 0px;
+    .taskContainer .addTaskLeft,
+    .taskContainer .inputGroup,
+    .taskContainer .bottom-form,
+    .taskContainer .header,
+    .taskContainer form {
+      width: 100% !important;
     }
-    .bottom-form{
-      margin-bottom: 150px;
-      margin-top: 20px;
+    .taskContainer .input,
+    .taskContainer .inputDescription,
+    .taskContainer .select,
+    .taskContainer .buttons-prio {
+      width: 100%;
     }
-    .addTaskLeft,
-    .inputGroup,
-    .bottom-form,
-    .header,
-    form {
-      width: 280px !important;
-    }
-    .input,
-    .inputDescription,
-    .select,
-    .buttons-prio {
-      width: 240px;
+    .taskContainer .bottom-form {
+      margin-bottom: 0;
+      margin-top: 0;
     }
     .input,
     .inputDescription,
-    .select-input,
-    .bottom-form {
+    .select-input {
       font-size: 14px;
+    }
+    .bottom-form {
+      font-size: 12px;
     }
     .header {
       text-wrap: nowrap;
-    }
-    .inputGroup .buttons-prio{
-      width: 280px;
     }
     .btn-prio,
     .btn-prio.active {
       font-size: 14px;
     }
-    .btn-clear,
-    .btn-create {
-      font-size: 14px;
-      height: 60px;
-      width: 120px;
-      margin-top: 20px;
+    body.task-page .taskContainer .bottom-form .btn-clear,
+    body.task-page .taskContainer .bottom-form .btn-create {
+      font-size: 12px;
+      height: auto;
+      padding: 6px 8px;
+      margin-top: 0;
     }
     .circle {
       width: 32px;
       height: 32px;
     }
-  
-    
   }
-  
