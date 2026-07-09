@@ -192,7 +192,7 @@ function bindDropdownOutsideClose(dropdown, container) {
     if (container && container.contains(event.target)) return;
     if (dropdown.contains(event.target)) return;
     dropdown.classList.remove("show");
-    if (container) container.classList.remove("show-menu");
+    if (container) container.classList.remove("dropdown-open");
     document.removeEventListener("click", handler, true);
   };
   setTimeout(() => document.addEventListener("click", handler, true), 0);
@@ -209,7 +209,7 @@ function toggleDropdown(id = "") {
   if (!dropdown) return;
   const willOpen = !dropdown.classList.contains("show");
   dropdown.classList.toggle("show", willOpen);
-  if (container) container.classList.toggle("show-menu", willOpen);
+  if (container) container.classList.toggle("dropdown-open", willOpen);
   if (willOpen) bindDropdownOutsideClose(dropdown, container);
 }
 
@@ -234,7 +234,7 @@ function toggleDropdownCategory() {
   if (!dropdown) return;
   const willOpen = !dropdown.classList.contains("show");
   dropdown.classList.toggle("show", willOpen);
-  if (container) container.classList.toggle("show-menu", willOpen);
+  if (container) container.classList.toggle("dropdown-open", willOpen);
   if (willOpen) bindDropdownOutsideClose(dropdown, container);
 }
 

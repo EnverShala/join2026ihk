@@ -170,12 +170,14 @@ form {
 
 .selectOnEditPopUp .down-arrow,
 .selectPopup .down-arrow {
+  flex-shrink: 0;
   transition: transform 125ms ease;
 }
 
 .select.show-menu .down-arrow,
-.selectOnEditPopUp.show-menu .down-arrow,
-.selectPopup.show-menu .down-arrow {
+.select.dropdown-open .down-arrow,
+.selectOnEditPopUp.dropdown-open .down-arrow,
+.selectPopup.dropdown-open .down-arrow {
   transform: rotate(-180deg);
 }
 
