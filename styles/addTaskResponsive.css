@@ -144,6 +144,23 @@
       width: 14px;
       height: 14px;
     }
+
+    body.task-page .taskContainer .container-subtasks-display {
+      max-height: 130px;
+    }
+
+    body.task-page .taskContainer .container-subtasks-display ul {
+      margin-top: 8px;
+    }
+
+    body.task-page .taskContainer .inputGroup:has(> .attachment-upload-container) {
+      margin-top: -8px;
+    }
+
+    body.task-page .taskContainer .attachment-upload-container {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
   @media (max-width: 576px) {
     input {

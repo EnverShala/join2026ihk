@@ -307,6 +307,12 @@ form {
   margin: 0 5px;
 }
 
+.container-subtasks-display {
+  max-height: 150px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .container-subtasks-display ul {
   list-style-type: none;
   padding: 0;

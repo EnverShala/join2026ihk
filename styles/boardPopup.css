@@ -301,6 +301,12 @@
     width: 445px;
     gap: 4px;
   }
+
+  #showSubtasksContainer.subtasks {
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
   
   .popupCheckboxContainer {
     display: flex;
