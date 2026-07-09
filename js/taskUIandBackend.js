@@ -182,53 +182,60 @@ function clickOnLow(id = "") {
 }
 
 /**
+ * Binds a one-shot capture-phase click listener that closes the dropdown when
+ * the click lands outside both the trigger container and the dropdown itself.
+ * Capture-phase ensures the listener fires even when an ancestor (e.g. the
+ * edit popup) calls `event.stopPropagation()` in the bubble phase.
+ */
+function bindDropdownOutsideClose(dropdown, container) {
+  const handler = (event) => {
+    if (container && container.contains(event.target)) return;
+    if (dropdown.contains(event.target)) return;
+    dropdown.classList.remove("show");
+    if (container) container.classList.remove("show-menu");
+    document.removeEventListener("click", handler, true);
+  };
+  setTimeout(() => document.addEventListener("click", handler, true), 0);
+}
+
+/**
  * Toggles the visibility of a dropdown menu.
  * @param {string} [id=""] An optional ID, likely used for distinguishing between
  *                          different dropdown menus.
  */
 function toggleDropdown(id = "") {
-  document.getElementById("myDropdown" + id).classList.toggle("show");
+  const dropdown = document.getElementById("myDropdown" + id);
+  const container = document.getElementById("contacts-list" + id);
+  if (!dropdown) return;
+  const willOpen = !dropdown.classList.contains("show");
+  dropdown.classList.toggle("show", willOpen);
+  if (container) container.classList.toggle("show-menu", willOpen);
+  if (willOpen) bindDropdownOutsideClose(dropdown, container);
 }
 
 /**
- * Closes the assigned-to dropdown menu when the user clicks outside of it.
- * Adds a global click event listener that checks if the click occurred
- * outside the dropdown and, if so, closes the dropdown.
- * @param {string} [id=""] An optional ID, likely used for distinguishing between
- *                          different dropdown menus.
+ * Kept for backward compatibility with inline onclick handlers.
+ * The outside-close logic now lives inside `toggleDropdown` itself.
  */
-function closeAssignedto(id = "") {
-  let dropdown = document.getElementById('myDropdown' + id);
-  let container = document.getElementById('contacts-list' + id);
-
-  document.addEventListener('click', (event) => {
-  if (!container.contains(event.target) && dropdown.classList.contains('show')) {
-    dropdown.classList.remove('show');
-  }
-});
-}
+function closeAssignedto(id = "") {}
 
 /**
- * Closes the category dropdown menu when the user clicks outside of it.
- * Adds a global click event listener that checks if the click occurred
- * outside the dropdown and, if so, closes the dropdown.
+ * Kept for backward compatibility with inline onclick handlers.
+ * The outside-close logic now lives inside `toggleDropdownCategory` itself.
  */
-function closeCategory() {
-  let dropdown = document.getElementById('myDropdownCategory');
-  let container = document.getElementById('category-container'); 
-
-  document.addEventListener('click', (event) => {
-  if (!container.contains(event.target) && dropdown.classList.contains('show')) {
-    dropdown.classList.remove('show');
-  }
-});
-}
+function closeCategory() {}
 
 /**
  * Toggles the visibility of the category dropdown menu.
  */
 function toggleDropdownCategory() {
-  document.getElementById("myDropdownCategory").classList.toggle("show");
+  const dropdown = document.getElementById("myDropdownCategory");
+  const container = document.getElementById("category-container");
+  if (!dropdown) return;
+  const willOpen = !dropdown.classList.contains("show");
+  dropdown.classList.toggle("show", willOpen);
+  if (container) container.classList.toggle("show-menu", willOpen);
+  if (willOpen) bindDropdownOutsideClose(dropdown, container);
 }
 
 /**

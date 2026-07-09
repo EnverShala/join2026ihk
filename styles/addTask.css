@@ -168,7 +168,14 @@ form {
   transition: 125ms;
 }
 
-.select.show-menu .down-arrow {
+.selectOnEditPopUp .down-arrow,
+.selectPopup .down-arrow {
+  transition: transform 125ms ease;
+}
+
+.select.show-menu .down-arrow,
+.selectOnEditPopUp.show-menu .down-arrow,
+.selectPopup.show-menu .down-arrow {
   transform: rotate(-180deg);
 }
 
