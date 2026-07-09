@@ -395,6 +395,14 @@ function fitNameToContainer() {
  * active page in the sidebar footer.
  */
 function hideNavIfNotLoggedIn() {
+  const currentPage = (window.location.pathname.split("/").pop() || "").toLowerCase();
+  document.querySelectorAll(".nav-links-footer a").forEach(a => {
+    const href = (a.getAttribute("href") || "").toLowerCase();
+    if (href && (href === currentPage || currentPage.endsWith("/" + href))) {
+      a.classList.add("active");
+    }
+  });
+
   const loggedInAccount = localStorage.getItem("loggedInAccount");
   const guestLoggedIn = sessionStorage.getItem("guestLoggedIn");
   const isLoggedIn = (loggedInAccount && loggedInAccount !== "") || guestLoggedIn === "true";
@@ -423,14 +431,6 @@ function hideNavIfNotLoggedIn() {
   document.querySelectorAll(".desktop-header .header-icons").forEach(el => (el.style.display = "none"));
   document.querySelectorAll(".mobile-header .profile-icon").forEach(el => (el.style.display = "none"));
   document.querySelectorAll(".mobile-nav").forEach(el => (el.style.display = "none"));
-
-  const currentPage = (window.location.pathname.split("/").pop() || "").toLowerCase();
-  document.querySelectorAll(".nav-links-footer a").forEach(a => {
-    const href = (a.getAttribute("href") || "").toLowerCase();
-    if (href && (href === currentPage || currentPage.endsWith("/" + href))) {
-      a.classList.add("active");
-    }
-  });
 }
 
 /**

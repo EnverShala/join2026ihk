@@ -215,7 +215,7 @@ async function deleteUser(id) {
       backArrow.classList.remove("d-none");
       fitNameToContainer();
     } else {
-      header.style.display = "none";
+      header.style.display = "flex";
       detail.style.display = "none";
       addBtn.style.display = "";
       list.classList.remove("d-none");
@@ -243,7 +243,7 @@ async function deleteUser(id) {
    */
   function showContactListAgainInResponsiveMode() {
     if (window.innerWidth <= CONTACTS_MOBILE_MAX) {
-      document.getElementById("display-contact-headerID").style.display = "none";
+      document.getElementById("display-contact-headerID").style.display = "flex";
       document.getElementById("display-contactID").style.display = "none";
       document.getElementById("contact-list").classList.remove("d-none");
       document.getElementById("add-contact-containerID").style.display = "flex";

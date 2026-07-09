@@ -301,9 +301,36 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .display-contact-header,
     .display-contact {
       display: none;
+    }
+    .display-contact-header {
+      display: flex;
+      position: static;
+      top: unset;
+      left: unset;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      order: -1;
+      padding: 4px 8px 12px;
+      gap: 16px;
+      box-sizing: border-box;
+    }
+    .display-contact-header .h1Contacts {
+      font-size: 32px;
+      width: auto;
+      height: auto;
+      line-height: 1.1;
+    }
+    .display-contact-header .span-txt {
+      font-size: 16px;
+      width: auto;
+      height: auto;
+    }
+    .display-contact-header .border-vertical {
+      height: 28px;
+      border-width: 2px;
     }
     .contact-list {
       width: 100%;

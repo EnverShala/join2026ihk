@@ -178,14 +178,32 @@ header {
   flex-direction: column;
   position: fixed;
   bottom: 4rem;
-  left: 3.5rem;
-  gap: 20px;
+  left: 0;
+  width: 232px;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
   font-weight: 100;
+  box-sizing: border-box;
+}
+
+.nav-links-footer li {
+  list-style: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links-footer a {
+  display: block;
+  padding: 8px 3.5rem;
+  color: #a8a8a8;
+  text-decoration: none;
 }
 
 .nav-links-footer a:hover {
   color: #29abe2;
-  transform: scale(1.2);
+  background-color: rgba(9, 26, 49, 0.5);
 }
 
 ul {
@@ -371,8 +389,6 @@ a {
 .nav-links-footer a.active {
   color: white;
   background-color: #091a31;
-  padding: 6px 12px;
-  border-radius: 6px;
 }
 
 /* Desktop sidebar height responsiveness */
@@ -389,6 +405,11 @@ a {
     font-size: 13px;
     gap: 12px;
     bottom: 1rem;
-    left: 1rem;
+    left: 0;
+    width: 232px;
+    justify-content: center;
+  }
+  .nav-links-footer a {
+    padding: 4px 8px;
   }
 }
