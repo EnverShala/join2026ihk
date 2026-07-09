@@ -463,6 +463,9 @@
     }
   }
   @media (max-width: 420px) {
+    .contact-container {
+      gap: 8px;
+    }
     .display-contact,
     .display-contact-header {
       left: 20px;
