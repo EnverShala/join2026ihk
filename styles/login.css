@@ -1,6 +1,7 @@
 /* Hauptcontainer und allgemeine Einstellungen */
 body {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 1440px;
   font-family: "inter", sans-serif;
   min-height: 100dvh;
   display: flex;
@@ -382,10 +383,10 @@ button:disabled:hover {
   width: 100px;
 }
 
-.start {
+.logo-container.start {
   top: 50%;
   left: 50%;
-  transform: scale(3);
+  transform: translate(-50%, -50%) scale(3);
 }
 
 .blueBG {

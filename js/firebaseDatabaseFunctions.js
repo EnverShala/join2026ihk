@@ -380,18 +380,48 @@ function fitNameToContainer() {
 }
 
 /**
- * Hides the desktop sidebar (and adjusts layout) when neither a registered user
- * nor a guest session is active. Called on privacy/legal notice pages.
+ * When no user session is active on privacy/legal/help pages, restructures the
+ * chrome for guest visitors: hides the main nav, exposes a Log In link in the
+ * sidebar, hides the header account menu and mobile bottom nav, and marks the
+ * active page in the sidebar footer.
  */
 function hideNavIfNotLoggedIn() {
   const loggedInAccount = localStorage.getItem("loggedInAccount");
   const guestLoggedIn = sessionStorage.getItem("guestLoggedIn");
   const isLoggedIn = (loggedInAccount && loggedInAccount !== "") || guestLoggedIn === "true";
-  if (!isLoggedIn) {
-    const sidebar = document.querySelector(".desktop-sidebar");
-    if (sidebar) sidebar.style.display = "none";
-    document.body.classList.add("no-sidebar");
+  if (isLoggedIn) return;
+
+  document.body.classList.add("guest-view");
+
+  document.querySelectorAll(".desktop-sidebar .menu-sidebar").forEach(el => el.remove());
+
+  const sidebar = document.querySelector(".desktop-sidebar");
+  if (sidebar && !sidebar.querySelector(".login-sidebar-link")) {
+    const loginLink = document.createElement("a");
+    loginLink.href = "./login.html";
+    loginLink.className = "login-sidebar-link";
+    loginLink.innerHTML =
+      '<svg class="login-sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>' +
+      '<span>Log In</span>';
+    const logo = sidebar.querySelector(".logo-sidebar");
+    if (logo && logo.parentNode) {
+      logo.insertAdjacentElement("afterend", loginLink);
+    } else {
+      sidebar.prepend(loginLink);
+    }
   }
+
+  document.querySelectorAll(".desktop-header .header-icons").forEach(el => (el.style.display = "none"));
+  document.querySelectorAll(".mobile-header .profile-icon").forEach(el => (el.style.display = "none"));
+  document.querySelectorAll(".mobile-nav").forEach(el => (el.style.display = "none"));
+
+  const currentPage = (window.location.pathname.split("/").pop() || "").toLowerCase();
+  document.querySelectorAll(".nav-links-footer a").forEach(a => {
+    const href = (a.getAttribute("href") || "").toLowerCase();
+    if (href && (href === currentPage || currentPage.endsWith("/" + href))) {
+      a.classList.add("active");
+    }
+  });
 }
 
 /**

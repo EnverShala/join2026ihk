@@ -1,7 +1,8 @@
 body {
   background-color: #f6f7f8;
   font-family: "Roboto", sans-serif;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 1440px;
   overflow-x: hidden;
 }
 
@@ -345,11 +346,33 @@ a {
 
 }
 
-/* No sidebar layout (unauthenticated access to privacy/legal pages) */
-body.no-sidebar .textContentPrivacy,
-body.no-sidebar .textContentLegalNotice,
-body.no-sidebar .textContentHelp {
-  margin-left: 50px;
+/* Guest sidebar layout (unauthenticated access to privacy/legal/help pages) */
+.login-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #cdcdcd;
+  padding: 12px 24px;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-sidebar-link:hover {
+  color: white;
+  background-color: #091a31;
+}
+
+.login-sidebar-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-links-footer a.active {
+  color: white;
+  background-color: #091a31;
+  padding: 6px 12px;
+  border-radius: 6px;
 }
 
 /* Desktop sidebar height responsiveness */
