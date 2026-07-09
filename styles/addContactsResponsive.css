@@ -211,6 +211,11 @@
     padding: 12px 16px;
   }
 
+  .cancelButton:hover {
+    padding: 12px 16px;
+    border: 1px solid rgba(43, 169, 227, 1);
+  }
+
   .createContactButton {
     margin: 0;
     width: auto;
@@ -345,5 +350,10 @@
   .cancelButton {
     font-size: 14px;
     padding: 10px 12px;
+  }
+
+  .cancelButton:hover {
+    padding: 10px 12px;
+    border: 1px solid rgba(43, 169, 227, 1);
   }
 }
