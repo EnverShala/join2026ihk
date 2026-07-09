@@ -34,6 +34,9 @@
     .addBtnText {
       display: none;
     }
+    #openModal {
+      display: none;
+    }
     .statusItem {
       width: 100%;
     }
