@@ -199,16 +199,24 @@
     .editAssignedInput,
     .editSubtaskInput {
       width: 300px;
-      height: 48px;
-      border: 1px solid #d1d1d1;
+      max-width: 300px;
+      box-sizing: border-box;
+      height: auto;
+      border: 1px solid #dfdede;
       border-radius: 10px;
       margin-top: 8px;
-      margin-bottom: 24px;
-      padding: 0 10px;
+      margin-bottom: 16px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 16px;
     }
     .selectOnEditPopUp,
     .inputOnEditPopup  {
       width: 300px;
+      max-width: 300px;
+      box-sizing: border-box;
+      padding: 10px 16px;
+      font-size: 16px;
     }
   
     .editPrio {
@@ -344,11 +352,19 @@
     .editAssignedInput,
     .editSubtaskInput {
       width: 255px;
+      max-width: 255px;
+      box-sizing: border-box;
+      padding: 10px 14px;
+      font-size: 15px;
     }
-  
+
     .selectOnEditPopUp,
     .inputOnEditPopup  {
       width: 255px;
+      max-width: 255px;
+      box-sizing: border-box;
+      padding: 10px 14px;
+      font-size: 15px;
     }
   
     .editPrio {

@@ -75,6 +75,7 @@
       width: 100%;
       align-items: stretch;
       gap: 0;
+      padding-bottom: 120px;
     }
 
     body.task-page .taskContainer .addTaskLeft,
