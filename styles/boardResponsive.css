@@ -111,6 +111,13 @@
       box-sizing: border-box;
       width: 100%;
     }
+    .boardHeader {
+      height: auto;
+    }
+    .statuses {
+      margin-top: 16px;
+      margin-bottom: 112px;
+    }
   }
   @media (max-width: 830px) {
     .popupOnTaskSelectionMainContainer,
@@ -221,11 +228,15 @@
       padding: 10px 16px;
       font-size: 16px;
     }
-  
-    .editPrio {
-      width: 320px;
+
+    .editDropdown {
+      width: 300px;
     }
-  
+
+    .editPrio {
+      width: 300px;
+    }
+
     .popupKategorieOnTopMainContainer {
       display: flex;
       justify-content: space-between;
@@ -369,13 +380,17 @@
       padding: 10px 14px;
       font-size: 15px;
     }
-  
+
+    .editDropdown {
+      width: 255px;
+    }
+
     .editPrio {
-      width: 280px;
+      width: 255px;
     }
 
     .buttonsPrioOnEditPopUp {
-      width: 280px;
+      width: 255px;
       gap: 4px;
     }
 
