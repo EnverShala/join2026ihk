@@ -160,51 +160,89 @@ async function deleteUser(id) {
   }
   
   /**
-   * Hides the contacts list and shows the back arrow in responsive mode (screen width <= 799px).
+   * Mobile breakpoint — kept in sync with the sidebar/contacts CSS
+   * `max-width: 800px` media queries so the layout switches cleanly.
+   */
+  const CONTACTS_MOBILE_MAX = 800;
+
+  /**
+   * Hides the contacts list and shows the back arrow when a contact is opened
+   * in mobile view (viewport <= CONTACTS_MOBILE_MAX).
    */
   function hideContactsListInResponsiveMode() {
-    if (window.innerWidth <= 799) {
+    if (window.innerWidth <= CONTACTS_MOBILE_MAX) {
       document.getElementById("contact-list").classList.add("d-none");
       document.getElementById("add-contact-containerID").style.display = "none";
       document.getElementById("back-arrow-on-responsiveID").classList.remove("d-none");
       showContactsInDetailInResponsiveMode();
     }
   }
-  
+
   /**
-   * Adjusts the UI when the window is resized. Shows the contact list and related elements
-   * for screens >= 800px, otherwise hides them in responsive mode.
+   * Reconciles the contacts layout for the current viewport width and
+   * selection state. Called on resize and after user selection changes.
+   * - Desktop (> CONTACTS_MOBILE_MAX): clear inline styles, list + detail visible via CSS.
+   * - Mobile with a contact selected: show detail, hide list, show back arrow.
+   * - Mobile without a contact selected: show list, hide detail (avoids the
+   *   empty "Contacts / Better with a team" screen that the previous handler
+   *   left behind when shrinking the browser).
    */
-  window.onresize = function showContactListOnExitResponsiveMode() {
-    if(!window.location.href.includes("contacts.html")) { return; }
-  
-    if (window.innerWidth >= 800) {
-      document.getElementById("display-contact-headerID").style.display = "flex";
-      document.getElementById("display-contactID").style.display = "block";
-      document.getElementById("add-contact-containerID").style.display = "flex";
-      document.getElementById("contact-list").classList.remove("d-none");
-      document.getElementById("back-arrow-on-responsiveID").classList.add("d-none");
+  function applyContactsLayoutForWidth() {
+    const header = document.getElementById("display-contact-headerID");
+    const detail = document.getElementById("display-contactID");
+    const addBtn = document.getElementById("add-contact-containerID");
+    const list = document.getElementById("contact-list");
+    const backArrow = document.getElementById("back-arrow-on-responsiveID");
+    if (!header || !detail || !addBtn || !list || !backArrow) return;
+
+    const hasSelection = typeof currentUser !== "undefined" && currentUser !== null && currentUser !== -1;
+
+    if (window.innerWidth > CONTACTS_MOBILE_MAX) {
+      header.style.display = "";
+      detail.style.display = "";
+      addBtn.style.display = "";
+      list.classList.remove("d-none");
+      backArrow.classList.add("d-none");
+      if (hasSelection) fitNameToContainer();
+      return;
     }
-    else if (hideContactsListInResponsiveMode()) {
-      hideContactsListInResponsiveMode();
+
+    if (hasSelection) {
+      header.style.display = "flex";
+      detail.style.display = "flex";
+      addBtn.style.display = "none";
+      list.classList.add("d-none");
+      backArrow.classList.remove("d-none");
+      fitNameToContainer();
+    } else {
+      header.style.display = "none";
+      detail.style.display = "none";
+      addBtn.style.display = "";
+      list.classList.remove("d-none");
+      backArrow.classList.add("d-none");
     }
   }
-  
-  
+
+  window.onresize = function showContactListOnExitResponsiveMode() {
+    if (!window.location.href.includes("contacts.html")) return;
+    applyContactsLayoutForWidth();
+  };
+
+
   /**
-   * Displays the contact details section in responsive mode by setting the appropriate styles.
+   * Displays the contact details section in mobile view when a contact is opened.
    */
   function showContactsInDetailInResponsiveMode() {
     document.getElementById("display-contact-headerID").style.display = "flex";
     document.getElementById("display-contactID").style.display = "flex";
     fitNameToContainer();
   }
-  
+
   /**
-   * Shows the contact list and hides the contact details in responsive mode (screen width < 800px).
+   * Back-arrow handler: returns from a contact detail to the list in mobile view.
    */
   function showContactListAgainInResponsiveMode() {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth <= CONTACTS_MOBILE_MAX) {
       document.getElementById("display-contact-headerID").style.display = "none";
       document.getElementById("display-contactID").style.display = "none";
       document.getElementById("contact-list").classList.remove("d-none");
