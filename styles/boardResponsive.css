@@ -189,7 +189,7 @@
     .editPopupDateTxt,
     .editAssignedToTxt,
     .editPopupSubtasksTxt {
-      font-size: 14px;
+      font-size: 20px;
     }
   
     .editInputGroup,
@@ -368,12 +368,20 @@
     }
   
     .editPrio {
-      width: 200px;
+      width: 280px;
     }
-  
+
     .buttonsPrioOnEditPopUp {
-      width: 200px;
-      gap: 0;
+      width: 280px;
+      gap: 4px;
+    }
+
+    .editPopupTitelTxt,
+    .editPopupDescriptionTxt,
+    .editPopupDateTxt,
+    .editAssignedToTxt,
+    .editPopupSubtasksTxt {
+      font-size: 18px;
     }
   
     .okButtonMainContainer {
