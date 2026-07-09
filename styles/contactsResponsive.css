@@ -199,7 +199,8 @@
   @media (max-width: 799px) {
     .contacts-main-container {
       width: 100%;
-      padding-top: 50px;
+      padding: 12px 16px 120px;
+      box-sizing: border-box;
       left: 0;
       z-index: 1;
       height: calc(100dvh - 96px - 96px);
@@ -224,35 +225,85 @@
     }
     .contact-list {
       width: 100%;
-      margin-bottom: 150px;
+      align-items: stretch;
+      margin-bottom: 0;
     }
-    .border-container,
-    .add-contact-container {
+    .border-container {
       width: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      padding: 0;
+      padding: 4px 0 8px;
       margin: 0;
+      height: auto;
     }
-    .contact-container,
-    .contacts-first-letter-container {
-      width: 500px;
-      padding-left: 0;
-      padding-right: 0;
-      display: flex;
-      justify-content: center;
-    }
-    .add-contact,
     .border {
-      width: 500px;
+      width: 100%;
+      border-color: #d1d1d1;
+    }
+    .contacts-first-letter-container {
+      width: 100%;
+      padding: 16px 8px 4px;
+      gap: 0;
+      justify-content: flex-start;
+      height: auto;
+    }
+    .contacts-first-letter {
+      font-size: 20px;
+    }
+    .contact-container {
+      width: 100%;
+      padding: 10px 12px;
+      gap: 16px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
     }
     .contact-list-name {
-      width: 400px;
+      width: auto;
+      font-size: 20px;
     }
+    .contact-list-email {
+      font-size: 14px;
+      max-width: none;
+    }
+
+    /* Floating Action Button (add new contact) */
     .add-contact-container {
-      margin-bottom: 20px;
+      position: fixed;
+      right: 16px;
+      bottom: calc(96px + 16px);
+      left: auto;
+      width: auto;
+      padding: 0;
+      margin: 0;
+      z-index: 20;
+      display: flex;
     }
+    .add-contact-container .add-contact {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      padding: 0;
+      background-color: #2a3647;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    }
+    .add-contact-container .add-contact:hover {
+      background-color: rgba(43, 169, 227, 1);
+    }
+    .add-button-text {
+      display: none;
+    }
+    .person-add-png {
+      margin: 0;
+      width: 24px;
+      height: 24px;
+    }
+
     .display-contact-header {
       width: 550px;
       top: 180px;
@@ -303,11 +354,6 @@
     }
   }
   @media (max-width: 535px) {
-    .add-contact,
-    .border,
-    .contact-container {
-      width: 400px;
-    }
     .display-contact-header {
       left: 40px;
       width: 450px;
@@ -335,11 +381,6 @@
     }
   }
   @media (max-width: 420px) {
-    .add-contact,
-    .border,
-    .contact-container {
-      width: 280px;
-    }
     .display-contact,
     .display-contact-header {
       left: 20px;
