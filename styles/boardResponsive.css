@@ -162,9 +162,12 @@
     }
   }
   @media (max-width: 560px) {
+    .popupOnTaskEdit .scrollbar {
+      gap: 12px;
+    }
     .popupOnTaskSelectionMainContainer,
     .popupOnTaskEdit {
-      width: 400px;
+      width: 380px;
       height: 80%;
       overflow-x: hidden;
     }
@@ -194,23 +197,24 @@
     .editPopupSubtasksMainContainer {
       width: 320px;
     }
-  
+
     .editPopupTitelTxt,
     .editPopupDescriptionTxt,
     .editPopupDateTxt,
     .editAssignedToTxt,
     .editPopupSubtasksTxt {
-      font-size: 20px;
+      font-size: 16px;
     }
-  
+
+    /* Inputs / selects match Add Task popup at @560 (popup 380, inputs 280) */
     .editInputGroup,
     .editTitelInput,
     .editDescriptionInput,
     .editDateInput,
     .editAssignedInput,
     .editSubtaskInput {
-      width: 300px;
-      max-width: 300px;
+      width: 280px;
+      max-width: 280px;
       box-sizing: border-box;
       height: auto;
       border: 1px solid #dfdede;
@@ -223,19 +227,19 @@
     }
     .selectOnEditPopUp,
     .inputOnEditPopup  {
-      width: 300px;
-      max-width: 300px;
+      width: 280px;
+      max-width: 280px;
       box-sizing: border-box;
       padding: 10px 16px;
       font-size: 16px;
     }
 
     .editDropdown {
-      width: 300px;
+      width: 280px;
     }
 
     .editPrio {
-      width: 300px;
+      width: 280px;
     }
 
     .popupKategorieOnTopMainContainer {
@@ -346,28 +350,28 @@
       top: 30px;
     }
   
-    /* editPopup */
+    /* editPopup — match Add Task popup widths at @480 (popup 300px, content 240px) */
     .popupOnTaskSelectionMainContainer,
     .popupOnTaskEdit {
-      width: 320px;
+      width: 300px;
     }
-  
+
     .editPopupTitelMainContainer,
     .editPopupDateMainContainer,
     .editPopupAssignedToMainContainer,
     .editPopupDescriptionMainContainer,
     .editPopupSubtasksMainContainer {
-      width: 280px;
+      width: 260px;
     }
-  
+
     .editInputGroup,
     .editTitelInput,
     .editDescriptionInput,
     .editDateInput,
     .editAssignedInput,
     .editSubtaskInput {
-      width: 255px;
-      max-width: 255px;
+      width: 240px;
+      max-width: 240px;
       box-sizing: border-box;
       padding: 10px 14px;
       font-size: 15px;
@@ -375,35 +379,35 @@
 
     .selectOnEditPopUp,
     .inputOnEditPopup  {
-      width: 255px;
-      max-width: 255px;
+      width: 240px;
+      max-width: 240px;
       box-sizing: border-box;
       padding: 10px 14px;
       font-size: 15px;
     }
 
     .editDropdown {
-      width: 255px;
+      width: 240px;
     }
 
     .editPrio {
-      width: 255px;
+      width: 240px;
     }
 
     .buttonsPrioOnEditPopUp {
-      width: 255px;
+      width: 240px;
       gap: 6px;
     }
 
     .buttonsPrioOnEditPopUp .btn-prio {
-      padding: 10px 6px;
-      font-size: 14px;
+      padding: 10px 4px;
+      font-size: 13px;
       gap: 4px;
     }
 
     .buttonsPrioOnEditPopUp .btn-prio img {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
     }
 
     .editPopupTitelTxt,
@@ -411,7 +415,7 @@
     .editPopupDateTxt,
     .editAssignedToTxt,
     .editPopupSubtasksTxt {
-      font-size: 18px;
+      font-size: 16px;
     }
   
     .okButtonMainContainer {

@@ -541,15 +541,27 @@
 
   }
   @media (max-width: 425px) and (max-height: 730px) {
-    .display-contact,
-    .display-contact-header {
-      margin-top: -30px;
-    }
     .display-contact {
       margin-top: -70px;
     }
     .back-arrow-on-responsive {
       top: 0;
+    }
+  }
+
+  /* Mobile flow reset for the section header — defeats the legacy fixed-position
+     overrides at smaller breakpoints that assumed the header was still absolutely
+     positioned to the right of the contact list. */
+  @media (max-width: 800px) {
+    .display-contact-header {
+      position: static;
+      top: unset;
+      left: unset;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 16px 8px 12px;
+      box-sizing: border-box;
     }
   }
   @keyframes slideIn {
