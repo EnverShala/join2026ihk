@@ -414,22 +414,24 @@
     .contacts-first-letter {
       font-size: 20px;
     }
-    .contact-container {
-      width: 100%;
-      padding: 10px 12px;
-      gap: 16px;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+    .contact {
+      flex: 0 1 74vw !important;
+      min-width: 0 !important;
+      height: auto !important;
+      overflow: hidden !important;
     }
     .contact-list-name {
-      width: auto;
       font-size: 20px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .contact-list-email {
       font-size: 14px;
-      max-width: none;
+      overflow: hidden !important;
+      white-space: normal !important;
+      overflow-wrap: anywhere !important;
+      word-break: break-all !important;
+      text-overflow: unset !important;
     }
 
     /* Floating Action Button (add new contact) */
@@ -467,131 +469,225 @@
       height: 24px;
     }
 
-    .display-contact-header {
-      width: 550px;
-      top: 180px;
-      left: 150px;
-    }
-    .h1Contacts {
-      font-size: 61px;
-      width: 260px;
+    .display-contact-header .h1Contacts {
+      font-size: 32px;
+      width: auto;
       margin-right: 0px;
     }
-    .span-txt {
-      font-size: 24px;
-      height: 30px;
-      margin-top: 0px;
-      text-wrap: nowrap;
+    .display-contact-header .span-txt {
+      font-size: 16px;
+      height: auto;
+      margin-top: 0;
+      white-space: normal;
     }
+
+    /* Mobile contact detail — normal flow (no more fixed left: 150px offsets) */
     .display-contact {
-      top: 280px;
-      left: 150px;
+      position: static !important;
+      top: unset !important;
+      left: unset !important;
+      right: unset !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      padding: 8px 16px 96px;
+      box-sizing: border-box;
+      gap: 20px;
+      animation: none;
+    }
+    .contact-name-main-container {
+      width: 100%;
+      height: auto;
+      gap: 16px;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0;
+    }
+    .ellipse-container {
+      width: 80px;
+      height: 80px;
+      flex: 0 0 80px;
+      border: none;
+    }
+    .ellipse {
+      width: 72px;
+      height: 72px;
+      font-size: 30px;
+      border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    }
+    .contact-name-main-container {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    .contact-name-container {
+      flex: 0 0 auto !important;
+      width: 500px;
+      max-width: 500px;
+      min-width: 0;
+      height: auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-name {
+      width: auto !important;
+      max-width: 100% !important;
+      height: auto !important;
+      font-size: 28px;
+      line-height: 1.15;
+      white-space: normal !important;
+      text-wrap: wrap !important;
+      overflow-wrap: anywhere !important;
+      word-break: break-word !important;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .span-contact-name {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.15;
+      white-space: normal !important;
+      text-wrap: wrap !important;
+      overflow-wrap: anywhere !important;
+      word-break: break-word !important;
+      max-width: 100%;
+    }
+    .edit-delete-container {
+      width: auto;
+      height: auto;
+      gap: 12px;
+      display: flex;
+      align-items: center;
+      opacity: 1;
+    }
+    .edit,
+    .delete {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+    .edit-icon,
+    .delete-icon {
+      width: 16px;
+      height: 16px;
+    }
+    .contact-information-container {
+      width: auto;
+      height: auto;
+      padding-top: 4px;
+      opacity: 1;
+    }
+    .contact-information-txt {
+      font-size: 18px;
+      font-weight: 400;
+    }
+    .email-and-phone-container {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      opacity: 1;
+    }
+    .email-container,
+    .phone-container {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      opacity: 1;
+    }
+    .email-headtxt,
+    .phone-headtxt {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .email {
+      display: block;
+      font-size: 15px;
+      line-height: 1.4;
+      white-space: normal !important;
+      overflow-wrap: anywhere !important;
+      word-break: break-all !important;
+      text-overflow: unset !important;
+      overflow: hidden !important;
+      max-width: 500px;
+      width: 100%;
+    }
+    .email-container,
+    .phone-container {
+      width: 500px !important;
+      max-width: 100% !important;
+      overflow: hidden;
+    }
+    .phone {
+      font-size: 15px;
+      line-height: 1.4;
     }
     .back-arrow-on-responsive {
       top: 66px;
+      left: 8px;
     }
   }
-  @media (max-width: 696px) {
-    .display-contact-header {
-      width: 550px;
-      top: 180px;
-      left: 80px;
+  @media (max-width: 600px) {
+    .contact-name-container {
+      width: 300px;
+      max-width: 300px;
     }
-    .display-contact {
-      left: 80px;
+    .email-container,
+    .phone-container {
+      width: 300px !important;
     }
-    .back-arrow-on-responsive {
-      left: 30px;
-    }
-  }
-  @media (max-width: 570px) {
-    .h1Contacts {
-      font-size: 48px;
-      width: 220px;
-    }
-    .display-contact-header {
-      width: 450px;
-    }
-    .span-txt {
-      margin-top: 8px;
-    }
-  }
-  @media (max-width: 535px) {
-    .display-contact-header {
-      left: 40px;
-      width: 450px;
-    }
-    .h1Contacts {
-      font-size: 40px;
-      width: 170px;
-    }
-    .span-txt {
-      font-size: 20px;
-    }
-    .display-contact {
-      left: 40px;
-    }
-    .back-arrow-on-responsive {
-      top: 65px;
-    }
-    .ellipse {
-      height: 64px;
-      width: 64px;
-      font-size: 32px;
-    }
-    .contact-name-main-container {
-      gap: 0;
+    .email {
+      max-width: 300px;
     }
   }
   @media (max-width: 420px) {
     .contact-container {
       gap: 8px;
     }
-    .display-contact,
-    .display-contact-header {
-      left: 20px;
-    }
     .back-arrow-on-responsive {
-      left: 10px;
+      left: 8px;
     }
-    .display-contact-header {
-      width: calc(100vw - 40px);
-    }
-    .h1Contacts {
-      font-size: 32px;
-      width: 140px;
-    }
-    .span-txt {
-      font-size: 16px;
-    }
-    .contact-name-main-container {
-      width: auto;
-      gap: 8px;
-      justify-content: flex-start;
-      padding-left: 8px;
-    }
-    .contact-name-container {
-      margin-right: 0;
+    .ellipse-container {
+      width: 64px;
+      height: 64px;
+      flex: 0 0 64px;
     }
     .ellipse {
-      margin-right: 0;
+      height: 60px;
+      width: 60px;
+      font-size: 24px;
     }
+    .contact-name-container {
+      width: 220px;
+      max-width: 220px;
+    }
+    .email-container,
+    .phone-container {
+      width: 260px !important;
+    }
+    .email {
+      max-width: 260px;
+    }
+    .contact-name,
     .span-contact-name {
-      font-size: 26px;
+      font-size: 24px;
     }
-    .edit-icon {
-      width: 18px;
-      height: 18px;
-    }
+    .edit-icon,
     .delete-icon {
-      width: 18px;
-      height: 18px;
+      width: 15px;
+      height: 15px;
     }
     .edit,
     .delete {
-      font-size: 18px;
+      font-size: 13px;
     }
-
   }
   @media (max-width: 425px) and (max-height: 730px) {
     .display-contact {
