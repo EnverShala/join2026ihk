@@ -1,25 +1,30 @@
-function validateContactForm() {
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const nameError = document.getElementById("name-error");
-  const emailError = document.getElementById("email-error");
+const CONTACT_PHONE_REGEX = /^[0-9\-+\s()]{6,16}$/;
+
+/**
+ * Validates a single contact-form field and shows/hides its error message.
+ * Used for onblur/oninput on the name/email/phone inputs so the user gets
+ * inline feedback without the browser's default HTML5 popup.
+ * @param {"name"|"email"|"phone"} field
+ * @returns {boolean} whether the field is currently valid
+ */
+function validateContactField(field) {
+  const input = document.getElementById(field);
+  const errorEl = document.getElementById(field + "-error");
+  if (!input || !errorEl) return true;
+  const value = input.value.trim();
   let valid = true;
-
-  if (!name) {
-    if (nameError) nameError.style.display = "block";
-    valid = false;
-  } else {
-    if (nameError) nameError.style.display = "none";
-  }
-
-  if (!isEmailValid(email)) {
-    if (emailError) emailError.style.display = "block";
-    valid = false;
-  } else {
-    if (emailError) emailError.style.display = "none";
-  }
-
+  if (field === "name") valid = value.length > 0;
+  else if (field === "email") valid = isEmailValid(value);
+  else if (field === "phone") valid = CONTACT_PHONE_REGEX.test(value);
+  errorEl.style.display = valid ? "none" : "block";
   return valid;
+}
+
+function validateContactForm() {
+  const nameOk = validateContactField("name");
+  const emailOk = validateContactField("email");
+  const phoneOk = validateContactField("phone");
+  return nameOk && emailOk && phoneOk;
 }
 
 function handleAddContact() {

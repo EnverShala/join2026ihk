@@ -27,7 +27,7 @@
     
             <div id="register" class="registration__form">
                 <div id="nameBox" class="input__box input__box--spaced margin-bottom24px" style="cursor: auto;">
-                    <input id="fullName" oninput="checkName(); checkSignUpButton()" type="text" placeholder="Name" autocomplete="name" style="cursor: auto;"/>
+                    <input id="fullName" oninput="checkName(); checkSignUpButton()" onblur="markSignupFieldTouched('fullName')" type="text" placeholder="Name" autocomplete="name" style="cursor: auto;"/>
                     <img class="input__icon" src="./img/person.svg" alt="person" />
                 </div>
                 <div id="requiredName" class="requiredMessage d-none">
@@ -35,7 +35,7 @@
                   </div>
     
                 <div id="emailBox" class="input__box input__box--spaced margin-bottom24px" style="cursor: auto;">
-                    <input id="userEmail" type="email" placeholder="Email" autocomplete="email" style="cursor: auto;" oninput="checkEmail(); checkSignUpButton()" />
+                    <input id="userEmail" type="email" placeholder="Email" autocomplete="email" style="cursor: auto;" oninput="checkEmail(); checkSignUpButton()" onblur="markSignupFieldTouched('userEmail')" />
                     <img class="input__icon" src="./img/mail.svg" alt="mail" />
                 </div>
                 <div id="requiredEmail" class="requiredMessage d-none">
@@ -44,7 +44,7 @@
     
                 <!-- Password -->
                 <div id="passwordBox" class="input__box input__box--spaced margin-bottom24px" style="cursor: auto;">
-                    <input style="cursor: auto;" id="userPassword" type="password" placeholder="Password" autocomplete="current-password" oninput="checkPassword(); checkSignUpButton()">
+                    <input style="cursor: auto;" id="userPassword" type="password" placeholder="Password" autocomplete="current-password" oninput="checkPassword(); checkSignUpButton()" onblur="markSignupFieldTouched('userPassword')">
                     <img id="password__toggle" class="password__icon cursor-pointer" src="./img/lock.svg" alt="lock" onclick="togglePasswordIcon('password__toggle','userPassword')" />
                 </div>
                 <div id="requiredPassword" class="requiredMessage d-none">
@@ -53,7 +53,7 @@
     
                 <!-- Confirm Password -->
                 <div id="confirmPasswordBox" class="input__box  margin-bottom24px" style="cursor: auto;">
-                    <input style="cursor: auto;" id="confirmPassword" type="password" placeholder="Confirm Password" autocomplete="off" oninput="clearPasswordMismatchMessage(); checkSignUpButton()">
+                    <input style="cursor: auto;" id="confirmPassword" type="password" placeholder="Confirm Password" autocomplete="off" oninput="clearPasswordMismatchMessage(); checkSignUpButton()" onblur="markSignupFieldTouched('confirmPassword')">
                     <img id="confirmPassword__toggle" class="password__icon cursor-pointer" src="./img/lock.svg" alt="lock" onclick="togglePasswordIcon('confirmPassword__toggle','confirmPassword')" />
                 </div>
                 <div id="requiredConfirmation" class="requiredMessage d-none">

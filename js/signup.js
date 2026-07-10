@@ -1,4 +1,21 @@
 /**
+ * Tracks which signup fields have been blurred at least once. Required
+ * messages are only surfaced after the user has left a field, so the very
+ * first keystroke does not trigger a red error.
+ */
+const touchedSignupFields = new Set();
+
+/**
+ * Marks a signup field as touched and re-runs validation so the appropriate
+ * required message (if any) shows immediately on blur.
+ * @param {string} fieldId The id of the input element (fullName, userEmail, ...).
+ */
+function markSignupFieldTouched(fieldId) {
+  touchedSignupFields.add(fieldId);
+  checkSignUpButton();
+}
+
+/**
  * Toggles the disabled state of the register button.
  */
 function toggleSignUpButton() {
@@ -72,17 +89,19 @@ function checkSignUpConditions() {
 function checkEmail() {
   let email = document.getElementById("userEmail").value.trim();
   let messageContainer = document.getElementById("requiredEmail");
+  let emailBox = document.getElementById("emailBox");
 
   if (isEmailValid(email)) {
     messageContainer.classList.add("d-none");
-    document.getElementById("emailBox").classList.add("margin-bottom24px");
+    emailBox.classList.add("margin-bottom24px");
     return true;
-  } else if (email == "") {
+  }
+  if (email == "" || !touchedSignupFields.has("userEmail")) {
     messageContainer.classList.add("d-none");
-    document.getElementById("emailBox").classList.add("margin-bottom24px");
+    emailBox.classList.add("margin-bottom24px");
   } else {
     messageContainer.classList.remove("d-none");
-    document.getElementById("emailBox").classList.remove("margin-bottom24px");
+    emailBox.classList.remove("margin-bottom24px");
   }
   return false;
 }
@@ -94,20 +113,27 @@ function checkEmail() {
  */
 function clearPasswordMismatchMessage() {
   let messageContainer = document.getElementById("requiredConfirmation");
+  let confirmBox = document.getElementById("confirmPasswordBox");
+  let confirmValue = document.getElementById("confirmPassword").value.trim();
+  let passwordValue = document.getElementById("userPassword").value.trim();
 
-  if (document.getElementById("confirmPassword").value.trim() == "") {
+  if (confirmValue == "") {
     messageContainer.classList.add("d-none");
-    document.getElementById("confirmPasswordBox").classList.add("margin-bottom24px");
+    confirmBox.classList.add("margin-bottom24px");
     return false;
   }
 
-  if (document.getElementById("userPassword").value.trim() == document.getElementById("confirmPassword").value.trim()) {
+  if (passwordValue == confirmValue) {
     messageContainer.classList.add("d-none");
-    document.getElementById("confirmPasswordBox").classList.add("margin-bottom24px");
+    confirmBox.classList.add("margin-bottom24px");
     return true;
+  }
+  if (!touchedSignupFields.has("confirmPassword")) {
+    messageContainer.classList.add("d-none");
+    confirmBox.classList.add("margin-bottom24px");
   } else {
     messageContainer.classList.remove("d-none");
-    document.getElementById("confirmPasswordBox").classList.remove("margin-bottom24px");
+    confirmBox.classList.remove("margin-bottom24px");
   }
   return false;
 }
@@ -119,18 +145,20 @@ function clearPasswordMismatchMessage() {
  */
 function checkPassword() {
   let messageContainer = document.getElementById("requiredPassword");
-
+  let passwordBox = document.getElementById("passwordBox");
   let password = document.getElementById("userPassword").value;
 
   if (password.length >= 6) {
     messageContainer.classList.add("d-none");
-    document.getElementById("passwordBox").classList.add("margin-bottom24px");
+    passwordBox.classList.add("margin-bottom24px");
+    clearPasswordMismatchMessage();
     return true;
-  } else if (password == "") {
+  }
+  if (password == "" || !touchedSignupFields.has("userPassword")) {
     messageContainer.classList.add("d-none");
-    document.getElementById("passwordBox").classList.add("margin-bottom24px");
+    passwordBox.classList.add("margin-bottom24px");
   } else {
-    document.getElementById("passwordBox").classList.remove("margin-bottom24px");
+    passwordBox.classList.remove("margin-bottom24px");
     messageContainer.classList.remove("d-none");
   }
 
@@ -146,19 +174,20 @@ function checkPassword() {
  */
 function checkName() {
   let messageContainer = document.getElementById("requiredName");
-
+  let nameBox = document.getElementById("nameBox");
   let name = document.getElementById("fullName").value.trim();
 
   if (name.length >= 5 && name.split(" ").length > 1) {
     messageContainer.classList.add("d-none");
-    document.getElementById("nameBox").classList.add("margin-bottom24px");
+    nameBox.classList.add("margin-bottom24px");
     return true;
-  } else if (name == "") {
+  }
+  if (name == "" || !touchedSignupFields.has("fullName")) {
     messageContainer.classList.add("d-none");
-    document.getElementById("nameBox").classList.add("margin-bottom24px");
+    nameBox.classList.add("margin-bottom24px");
   } else {
     messageContainer.classList.remove("d-none");
-    document.getElementById("nameBox").classList.remove("margin-bottom24px");
+    nameBox.classList.remove("margin-bottom24px");
   }
 
   return false;

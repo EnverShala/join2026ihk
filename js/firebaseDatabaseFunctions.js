@@ -360,21 +360,28 @@ async function loadAccounts() {
 
 /**
  * Loads and displays the user's initials in the header profile icon.
- * If no username is found in local storage, displays "Guest" initials.
+ * Shows real user initials when logged in, "G" for guest sessions,
+ * and nothing when neither is active.
  */
 function loadAccountInitials() {
   const icons = document.querySelectorAll("#header-profile-icon");
   if (!icons.length) return;
 
   const loggedInAccount = localStorage.getItem("loggedInAccount");
+  const guestLoggedIn = sessionStorage.getItem("guestLoggedIn") === "true";
   const isRealUser = loggedInAccount && loggedInAccount !== "";
-  if (!isRealUser) return;
+  if (!isRealUser && !guestLoggedIn) return;
 
   document.querySelectorAll(".desktop-header .header-icons").forEach(el => (el.style.display = "flex"));
   document.querySelectorAll(".mobile-header .profile-icon").forEach(el => (el.style.display = "flex"));
 
-  let accountName = localStorage.getItem("username");
-  const initials = getUserInitials(accountName && accountName !== "" ? accountName : "Guest");
+  let initials;
+  if (isRealUser) {
+    const accountName = localStorage.getItem("username");
+    initials = getUserInitials(accountName && accountName !== "" ? accountName : "Guest");
+  } else {
+    initials = "G";
+  }
   icons.forEach(icon => (icon.innerHTML = initials));
 }
 
@@ -404,12 +411,16 @@ function fitNameToContainer() {
  */
 function hideNavIfNotLoggedIn() {
   const currentPage = (window.location.pathname.split("/").pop() || "").toLowerCase();
-  document.querySelectorAll(".nav-links-footer a").forEach(a => {
-    const href = (a.getAttribute("href") || "").toLowerCase();
-    if (href && (href === currentPage || currentPage.endsWith("/" + href))) {
-      a.classList.add("active");
-    }
-  });
+  const markActive = (selector) => {
+    document.querySelectorAll(selector).forEach(a => {
+      const href = (a.getAttribute("href") || "").toLowerCase();
+      if (href && (href === currentPage || currentPage.endsWith("/" + href))) {
+        a.classList.add("active");
+      }
+    });
+  };
+  markActive(".nav-links-footer a");
+  markActive(".menu-sidebar .nav-links");
 
   const loggedInAccount = localStorage.getItem("loggedInAccount");
   const guestLoggedIn = sessionStorage.getItem("guestLoggedIn");

@@ -185,11 +185,12 @@ body {
 }
 
 .span-txt {
-  width: 235px;
-  height: 32px;
+  width: auto;
+  height: auto;
   font-size: 27px;
   font-weight: 400;
   text-align: left;
+  white-space: nowrap;
   color: #2a3647;
 }
 

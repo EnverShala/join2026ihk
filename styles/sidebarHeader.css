@@ -255,6 +255,7 @@ a {
   justify-content: center;
   text-wrap: wrap;
   margin: 50px 50px 100px 282px;
+  max-width: 1088px;
   flex: 1;
 }
 
@@ -303,6 +304,22 @@ a {
   .mobile-header {
     display: flex;
     padding: 1em;
+    height: 60px;
+    box-sizing: border-box;
+    z-index: 100;
+  }
+  body.body-fixed-chrome {
+    padding-top: 60px;
+  }
+  body.body-fixed-chrome .mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: white;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     z-index: 100;
   }
   .mobile-nav {
@@ -407,6 +424,22 @@ a {
 .nav-links-footer a.active {
   color: white;
   background-color: #091a31;
+}
+
+.menu-sidebar .nav-links,
+.menu-sidebar .nav-links li,
+.menu-sidebar .nav-links.active,
+.menu-sidebar .nav-links.active li {
+  font-weight: 400;
+}
+
+.menu-sidebar .nav-links.active {
+  background-color: #091a31;
+  color: white;
+}
+
+.menu-sidebar .nav-links.active li {
+  color: white;
 }
 
 /* Desktop sidebar height responsiveness */
