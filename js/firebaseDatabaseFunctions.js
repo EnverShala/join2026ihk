@@ -365,6 +365,14 @@ async function loadAccounts() {
 function loadAccountInitials() {
   const icons = document.querySelectorAll("#header-profile-icon");
   if (!icons.length) return;
+
+  const loggedInAccount = localStorage.getItem("loggedInAccount");
+  const isRealUser = loggedInAccount && loggedInAccount !== "";
+  if (!isRealUser) return;
+
+  document.querySelectorAll(".desktop-header .header-icons").forEach(el => (el.style.display = "flex"));
+  document.querySelectorAll(".mobile-header .profile-icon").forEach(el => (el.style.display = "flex"));
+
   let accountName = localStorage.getItem("username");
   const initials = getUserInitials(accountName && accountName !== "" ? accountName : "Guest");
   icons.forEach(icon => (icon.innerHTML = initials));

@@ -1,5 +1,6 @@
 /* Hauptcontainer und allgemeine Einstellungen */
 body {
+  position: relative;
   margin: 0 auto;
   max-width: 1440px;
   font-family: "inter", sans-serif;

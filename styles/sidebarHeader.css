@@ -1,8 +1,7 @@
 body {
   background-color: #f6f7f8;
   font-family: "Roboto", sans-serif;
-  margin: 0 auto;
-  max-width: 1440px;
+  margin: 0;
   overflow-x: hidden;
 }
 
@@ -27,12 +26,31 @@ header {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
+.desktop-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+@media (min-width: 801px) {
+  body {
+    padding-top: 96px;
+  }
+}
+
 .header-icons {
   display: flex;
   align-items: center;
   gap: 20px;
   padding-right: 50px;
   cursor: pointer;
+}
+
+.desktop-header .header-icons,
+.mobile-header .profile-icon {
+  display: none;
 }
 
 .profile-icon {
@@ -401,15 +419,10 @@ a {
     margin-bottom: 0;
   }
   .nav-links-footer {
-    flex-direction: row;
     font-size: 13px;
-    gap: 12px;
-    bottom: 1rem;
-    left: 0;
-    width: 232px;
-    justify-content: center;
+    bottom: 2rem;
   }
   .nav-links-footer a {
-    padding: 4px 8px;
+    padding: 6px 3rem;
   }
 }
