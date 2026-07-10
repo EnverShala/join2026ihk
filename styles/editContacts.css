@@ -22,11 +22,12 @@ body {
 }
 
 .popUpBannerContent h1 {
-  font-size: 61px;
+  font-size: 48px;
+  white-space: nowrap;
 }
 
 .popUpBannerContent p {
-  font-size: 27px;
+  font-size: 21px;
 }
 
 @keyframes slideIn {
@@ -53,6 +54,13 @@ body {
   animation: slideIn 1s forwards;
 }
 
+@media (min-width: 801px) {
+  .addContactContainer {
+    padding-left: 232px;
+    box-sizing: border-box;
+  }
+}
+
 .popUpContainer {
   position: relative;
   top: 0px;
@@ -70,7 +78,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 50px;
+  padding: 40px;
   border-radius: 30px 0px 0px 30px;
   background-color: #2a3647;
 }
@@ -83,7 +91,7 @@ body {
 }
 
 .popUpBannerContent span {
-  width: 90px;
+  width: 70px;
   height: 3px;
   background-color: rgba(41, 171, 226, 1);
   border-radius: 10px;
@@ -91,24 +99,24 @@ body {
 }
 
 .joinPopupImg {
-  height: 62px;
-  width: 62px;
+  height: 48px;
+  width: 48px;
 }
 
 .popUpContent {
   position: relative;
-  width: 745px;
-  height: 594px;
+  width: 570px;
+  height: 460px;
   background-color: white;
   border-radius: 0px 30px 30px 0px;
 }
 
 .closePopUp {
   position: absolute;
-  top: 48px;
-  height: 32px;
-  width: 32px;
-  right: 48px;
+  top: 36px;
+  height: 26px;
+  width: 26px;
+  right: 36px;
   border-radius: 30px;
   cursor: pointer;
   z-index: 2;
@@ -116,9 +124,17 @@ body {
 
 .popUpButton {
   display: flex;
-  width: 370px;
-  gap: 20px;
+  gap: 16px;
   margin-top: 0;
+}
+
+.popUpButton .cancelButton,
+.popUpButton .createContactButton {
+  flex-shrink: 0;
+}
+
+.popUpButton p {
+  white-space: nowrap;
 }
 
 .addContactContainerCenter {
@@ -129,43 +145,43 @@ body {
 
 .popUpImg {
   position: absolute;
-  top: 204px;
-  right: 540px;
+  top: 158px;
+  right: 415px;
 }
 
 .iconContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .contactImg {
-  font-size: 47px;
-  min-width: 120px;
+  font-size: 37px;
+  min-width: 94px;
   font-weight: 500;
-  height: 120px;
-  border-radius: 70px;
+  height: 94px;
+  border-radius: 60px;
   color: white;
   background-color: rgba(209, 209, 209, 1);
-  border: 3px solid white;
+  border: 2px solid white;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .form {
   position: absolute;
-  width: 425px;
-  height: 210px;
-  top: 134px;
-  right: 48px;
+  width: 360px;
+  height: 175px;
+  top: 105px;
+  right: 32px;
 }
 
 .form form {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  width: 390px;
+  gap: 24px;
+  width: 340px;
 }
 
 .pop-up-close {
@@ -178,7 +194,7 @@ body {
 
 .input {
   position: relative;
-  padding: 13px 21px;
+  padding: 10px 16px;
   border-radius: 10px;
   border: 1px solid rgba(209, 209, 209, 1);
   z-index: 2;
@@ -190,15 +206,15 @@ input {
 
 .input div {
   position: absolute;
-  top: 14px;
-  right: 20px;
+  top: 11px;
+  right: 16px;
 }
 
 .inputInput {
-  font-size: 16px;
+  font-size: 15px;
   border: 0px;
   width: 100%;
-  padding: 0 32px 0 0;
+  padding: 0 28px 0 0;
   box-sizing: border-box;
   background: transparent;
   outline: none;
@@ -247,16 +263,16 @@ button {
   display: flex;
   align-items: center;
   border-radius: 10px;
-  padding: 15px;
+  padding: 12px;
   gap: 4px;
   border: 1px solid #2a3647;
   color: #2a3647;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .cancelButton:hover {
   cursor: pointer;
-  padding: 14px;
+  padding: 11px;
   color: rgba(43, 169, 227, 1);
   border: 2px solid rgba(43, 169, 227, 1);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
@@ -268,12 +284,10 @@ button {
   align-items: center;
   gap: 4px;
   border-radius: 10px;
-  padding: 16px;
+  padding: 13px;
   color: white;
   background-color: #2a3647;
-  font-size: 21px;
-  /* margin-left: 180px; */
-  /* margin-top: -135px; */
+  font-size: 17px;
 }
 
 .createContactButton:hover {

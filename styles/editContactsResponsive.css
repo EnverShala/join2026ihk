@@ -1,72 +1,44 @@
 
-@media (max-width: 1250px) {
+@media (max-width: 1050px) {
   .popUpBanner {
-    width: 520px;
+    padding: 32px;
+  }
+
+  .popUpBannerContent h1 {
+    font-size: 40px;
+  }
+
+  .popUpBannerContent p {
+    font-size: 18px;
   }
 
   .popUpContent {
-    width: 520px;
+    width: 480px;
+    height: 420px;
   }
 
   .contactImg {
-    margin-right: -64px;
-    min-width: 90px;
-    height: 90px;
-    width: 90px;
+    min-width: 82px;
+    height: 82px;
+    width: 82px;
+    font-size: 32px;
+    border-radius: 50px;
   }
 
-  .popUpButton {
-    gap: 20px;
-    margin-top: 0;
+  .popUpImg {
+    top: 138px;
+    right: 355px;
   }
 
-  .createContactButton {
-    height: fit-content;
-    margin-block-start: auto;
-  }
-
-  .cancelButton {
-    margin-top: 0;
-  }
-}
-
-@media (max-width: 1150px) {
-  .popUpBanner {
-    width: 420px;
-    height: 480px;
-  }
-
-  .popUpContent {
-    width: 420px;
-    height: auto;
-  }
-
-  .popUpButton {
-    display: flex;
-    gap: 16px;
-    margin-top: 0;
-    margin-right: 0;
-  }
-
-  .createContactButton,
-  .cancelButton {
-    height: auto;
-    width: auto;
+  .form {
+    width: 320px;
+    top: 88px;
+    right: 24px;
   }
 
   .form form {
-    width: 350px;
-    margin-left: 85px;
-  }
-
-  .closePopUp {
-    margin-right: -30px;
-    margin-top: -30px;
-  }
-
-  .contactImg {
-    margin-right: -165px;
-    margin-top: -160px;
+    width: 300px;
+    gap: 20px;
   }
 }
 
