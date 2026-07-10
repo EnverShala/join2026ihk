@@ -1,27 +1,5 @@
 
-@media (max-width: 1630px) {
-  .popUpContainer {
-    left: 5%;
-  }
-}
-
-@media (max-width: 1525px) {
-  .popUpContainer {
-    left: 7%;
-  }
-}
-
-@media (max-width: 1463px) {
-  .popUpContainer {
-    left: 8%;
-  }
-}
-
-@media (max-width: 1435px) {
-  .popUpContainer {
-    left: 8%;
-  }
-
+@media (max-width: 1250px) {
   .popUpBanner {
     width: 520px;
   }
@@ -34,11 +12,12 @@
     margin-right: -64px;
     min-width: 90px;
     height: 90px;
+    width: 90px;
   }
 
   .popUpButton {
     gap: 20px;
-    margin-top: -35%;
+    margin-top: 0;
   }
 
   .createContactButton {
@@ -51,7 +30,7 @@
   }
 }
 
-@media (max-width: 1311px) {
+@media (max-width: 1150px) {
   .popUpBanner {
     width: 420px;
     height: 480px;
@@ -62,30 +41,17 @@
     height: auto;
   }
 
-  .contactImg {
-    margin-right: -64px;
-    min-width: 90px;
-    height: 90px;
-  }
-
-  .createContactButton {
-    width: 100px;
-    height: 30px;
-  }
-
-  .cancelButton {
-    width: 100px;
-    height: 30px;
-  }
-
   .popUpButton {
-    position: absolute;
     display: flex;
     gap: 16px;
-    top: 400px;
-    right: -10px;
-    margin-top: -140%;
-    margin-right: -5%;
+    margin-top: 0;
+    margin-right: 0;
+  }
+
+  .createContactButton,
+  .cancelButton {
+    height: auto;
+    width: auto;
   }
 
   .form form {
@@ -104,13 +70,7 @@
   }
 }
 
-@media (max-width: 1140px) {
-  .popUpContainer {
-    left: 10%;
-  }
-}
-
-@media (max-width: 1091px) {
+@media (max-width: 850px) {
   .addContactContainer {
     flex-direction: row;
   }
@@ -126,12 +86,6 @@
 
   .popUpContent {
     width: 420px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .popUpContainer {
-    left: 0%;
   }
 }
 
