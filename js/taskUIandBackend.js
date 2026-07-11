@@ -405,6 +405,13 @@ function clearForm(id = "") {
   let isPopup = id == "Popup" ? "addSubtaskInputPopup" : "addNewSubtaskInput";
   document.getElementById(isPopup).value = '';
 
+  if (id === "" && typeof window.__resetAddTaskSubtasks === "function") {
+    window.__resetAddTaskSubtasks();
+  }
+  if (id === "Popup" && typeof subtasksArrayPopup !== "undefined") {
+    subtasksArrayPopup.length = 0;
+  }
+
   document.getElementById('selected-contacts-container' + id).innerHTML = '';
 
   const checkboxes = document.querySelectorAll(`#myDropdown${id} input[type="checkbox"]`);

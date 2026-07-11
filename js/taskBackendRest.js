@@ -149,6 +149,11 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteSubtask();
   }
 
+  window.__resetAddTaskSubtasks = () => {
+    subtasks.length = 0;
+    renderSubtasks();
+  };
+
   styleSubtaskInput();
 });
 
