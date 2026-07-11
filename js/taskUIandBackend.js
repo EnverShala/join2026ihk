@@ -328,12 +328,32 @@ function toggleBackground(checkbox) {
     listItem.style.backgroundColor = "";
     listItem.style.color = "black";
 
-    const circles = selectedContactsContainer.querySelectorAll(".circle");
+    const circles = selectedContactsContainer.querySelectorAll(".circle:not(.overflow-chip)");
     circles.forEach((circle) => {
       if (circle.textContent.trim() === contactCircle.textContent.trim()) {
         selectedContactsContainer.removeChild(circle);
       }
     });
+  }
+  applySelectedContactsOverflow(selectedContactsContainer);
+}
+
+/**
+ * Zeigt maximal 5 Kontakt-Kreise; alle darüber werden versteckt und durch
+ * einen "+N"-Chip am Ende zusammengefasst.
+ * @param {HTMLElement} container
+ */
+function applySelectedContactsOverflow(container) {
+  if (!container) return;
+  const MAX_VISIBLE = 5;
+  container.querySelectorAll(".circle.overflow-chip").forEach(chip => chip.remove());
+  const circles = Array.from(container.querySelectorAll(".circle"));
+  circles.forEach((c, i) => { c.style.display = (i < MAX_VISIBLE) ? "" : "none"; });
+  if (circles.length > MAX_VISIBLE) {
+    const chip = document.createElement("div");
+    chip.className = "circle overflow-chip";
+    chip.textContent = "+" + (circles.length - MAX_VISIBLE);
+    container.appendChild(chip);
   }
 }
 

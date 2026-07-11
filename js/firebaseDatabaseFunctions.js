@@ -413,14 +413,18 @@ function hideNavIfNotLoggedIn() {
   const currentPage = (window.location.pathname.split("/").pop() || "").toLowerCase();
   const markActive = (selector) => {
     document.querySelectorAll(selector).forEach(a => {
-      const href = (a.getAttribute("href") || "").toLowerCase();
-      if (href && (href === currentPage || currentPage.endsWith("/" + href))) {
+      let href = (a.getAttribute("href") || "").toLowerCase();
+      if (!href) return;
+      href = href.replace(/^\.\//, "");
+      if (href === currentPage || currentPage.endsWith("/" + href)) {
         a.classList.add("active");
       }
     });
   };
   markActive(".nav-links-footer a");
   markActive(".menu-sidebar .nav-links");
+  markActive(".mobile-nav .container-nav-links > a");
+  markActive(".sub-menu a");
 
   const loggedInAccount = localStorage.getItem("loggedInAccount");
   const guestLoggedIn = sessionStorage.getItem("guestLoggedIn");

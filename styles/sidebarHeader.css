@@ -455,6 +455,21 @@ body.logged-in .menu-sidebar {
   color: white;
 }
 
+.mobile-nav .container-nav-links > a.active .nav-links {
+  background-color: #091a31;
+  color: white;
+  border-radius: 10px;
+}
+
+.mobile-nav .container-nav-links > a.active .nav-links li {
+  color: white;
+}
+
+.sub-menu a.active {
+  background-color: rgba(42, 61, 89, 1);
+  color: white;
+}
+
 /* Desktop sidebar height responsiveness */
 @media (max-height: 700px) and (min-width: 801px) {
   .sidebar {

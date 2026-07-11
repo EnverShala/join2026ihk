@@ -16,7 +16,7 @@ function validateContactField(field) {
   if (field === "name") valid = value.length > 0;
   else if (field === "email") valid = isEmailValid(value);
   else if (field === "phone") valid = CONTACT_PHONE_REGEX.test(value);
-  errorEl.style.display = valid ? "none" : "block";
+  errorEl.style.visibility = valid ? "hidden" : "visible";
   return valid;
 }
 

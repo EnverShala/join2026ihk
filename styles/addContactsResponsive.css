@@ -7,10 +7,10 @@
     padding: 32px;
   }
   .popUpBannerContent h1 {
-    font-size: 40px;
+    font-size: 28px;
   }
   .popUpBannerContent p {
-    font-size: 18px;
+    font-size: 14px;
   }
   .popUpBannerContent span {
     width: 60px;
@@ -34,11 +34,8 @@
     font-size: 28px;
     border-radius: 50px;
   }
-  .popUpImg {
-    top: 52px;
-  }
   .form form {
-    gap: 14px;
+    gap: 4px;
   }
 }
 
@@ -47,10 +44,10 @@
     padding: 24px;
   }
   .popUpBannerContent h1 {
-    font-size: 34px;
+    font-size: 26px;
   }
   .popUpBannerContent p {
-    font-size: 16px;
+    font-size: 13px;
   }
   .popUpBannerContent span {
     width: 52px;
@@ -74,11 +71,13 @@
     font-size: 24px;
     border-radius: 40px;
   }
-  .popUpImg {
-    top: 46px;
+  .contactSVG,
+  .personImgOnPopUp {
+    width: 48px;
+    height: 48px;
   }
   .form form {
-    gap: 12px;
+    gap: 4px;
   }
   .input {
     padding: 8px 14px;
@@ -105,10 +104,10 @@
     padding: 20px;
   }
   .popUpBannerContent h1 {
-    font-size: 28px;
+    font-size: 22px;
   }
   .popUpBannerContent p {
-    font-size: 14px;
+    font-size: 12px;
   }
   .popUpBannerContent span {
     width: 44px;
@@ -136,11 +135,13 @@
     border-radius: 40px;
     border-width: 2px;
   }
-  .popUpImg {
-    top: 40px;
+  .contactSVG,
+  .personImgOnPopUp {
+    width: 48px;
+    height: 48px;
   }
   .form form {
-    gap: 10px;
+    gap: 4px;
   }
   .popUpButton {
     gap: 8px;
@@ -205,7 +206,30 @@
   }
 
   .contactImg {
-    display: none !important;
+    display: flex !important;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    font-size: 26px;
+    border-radius: 50%;
+    z-index: 2;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .contactSVG,
+  .personImgOnPopUp {
+    width: 48px;
+    height: 48px;
   }
 
   .closePopUp {
@@ -243,7 +267,7 @@
   .form form {
     width: 100%;
     margin: 0;
-    gap: 8px;
+    gap: 4px;
   }
 
   .input {
@@ -264,8 +288,8 @@
     display: flex;
     flex-direction: row;
     gap: 12px;
-    justify-content: flex-end;
-    margin: 10px 0 0 0;
+    justify-content: center;
+    margin: 16px 0 8px 0;
   }
 
   .cancelButton {
@@ -295,13 +319,15 @@
 
   .add-contact-dialog .popUpContainer {
     align-self: flex-start !important;
-    height: min(440px, calc(100dvh - 172px)) !important;
-    overflow: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   .add-contact-dialog .popUpBanner {
-    padding: 16px 16px 10px !important;
+    padding: 16px 16px 44px !important;
     min-height: unset !important;
+    overflow: visible !important;
   }
 
   .add-contact-dialog .popUpBannerContent h1 {
@@ -315,19 +341,19 @@
   .add-contact-dialog .popUpContent {
     height: auto !important;
     min-height: 0 !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    padding: 10px 16px !important;
+    overflow: visible !important;
+    padding: 48px 16px 16px !important;
   }
 
   /* editContactsResponsive.css (loads after) sets gap:16px and margin:16px on these —
      keep tighter spacing for the add contact dialog on mobile */
   .add-contact-dialog .form form {
-    gap: 8px !important;
+    gap: 4px !important;
   }
 
   .add-contact-dialog .popUpButton {
-    margin: 10px 0 0 0 !important;
+    justify-content: center !important;
+    margin: 16px 0 8px 0 !important;
   }
 
   .banner-title-row {
