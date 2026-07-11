@@ -425,7 +425,10 @@ function hideNavIfNotLoggedIn() {
   const loggedInAccount = localStorage.getItem("loggedInAccount");
   const guestLoggedIn = sessionStorage.getItem("guestLoggedIn");
   const isLoggedIn = (loggedInAccount && loggedInAccount !== "") || guestLoggedIn === "true";
-  if (isLoggedIn) return;
+  if (isLoggedIn) {
+    document.body.classList.add("logged-in");
+    return;
+  }
 
   document.body.classList.add("guest-view");
 

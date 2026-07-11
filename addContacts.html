@@ -13,7 +13,7 @@
     <script src="./js/contacts.js"></script>
 </head>
 <body onload="loadAccountInitials()">
-    <div class="addContactContainer addContactContainerCenter add-contact-dialog">
+    <div class="addContactContainer addContactContainerCenter add-contact-dialog" onclick="if(event.target===this)closePopup()">
         <div class="popUpContainer popUpOpen">
             <div class="popUpBanner">
                 <div class="popUpBannerContent">

@@ -182,6 +182,10 @@ label {
   width: 400px;
 }
 
+.editPopupAttachmentsContainer {
+  margin-top: 20px;
+}
+
 .editPopupTitelTxt,
 .editPopupDescriptionTxt,
 .editPopupDateTxt,

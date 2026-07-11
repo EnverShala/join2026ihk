@@ -82,7 +82,24 @@ function editUserPopup() {
       document.getElementById("name").value = users[currentUser].name;
       document.getElementById("email").value = users[currentUser].email;
       document.getElementById("phone").value = users[currentUser].phone;
+
+      renderEditPopupAvatar();
     });
+}
+
+/**
+ * Replaces the placeholder image inside the edit-contact popup with the current
+ * contact's initials and background color, sourced from the sidebar list entry.
+ */
+function renderEditPopupAvatar() {
+  const popUpImg = document.querySelector(".popUpImg");
+  if (!popUpImg || currentUser == null || !users[currentUser]) return;
+  const listAvatarEl = document.getElementById(`userColor${currentUser}`);
+  popUpImg.innerHTML = getUserInitials(users[currentUser].name);
+  if (!listAvatarEl) return;
+  const colorClass = Array.from(listAvatarEl.classList).find(c => c.startsWith("initialsColor"));
+  if (colorClass) popUpImg.classList.add(colorClass);
+  popUpImg.style.backgroundColor = window.getComputedStyle(listAvatarEl).backgroundColor;
 }
 
 /**

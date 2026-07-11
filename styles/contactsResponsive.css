@@ -630,8 +630,13 @@
       line-height: 1.4;
     }
     .back-arrow-on-responsive {
-      top: 66px;
-      left: 8px;
+      position: relative;
+      top: auto;
+      left: auto;
+      order: -2;
+      align-self: flex-start;
+      margin: 0 0 12px 0;
+      padding: 4px 8px;
     }
   }
   @media (max-width: 600px) {
@@ -652,7 +657,7 @@
       gap: 8px;
     }
     .back-arrow-on-responsive {
-      left: 8px;
+      margin-bottom: 10px;
     }
     .ellipse-container {
       width: 64px;
@@ -691,10 +696,10 @@
   }
   @media (max-width: 425px) and (max-height: 730px) {
     .display-contact {
-      margin-top: -70px;
+      margin-top: 0;
     }
     .back-arrow-on-responsive {
-      top: 0;
+      margin-bottom: 8px;
     }
   }
 

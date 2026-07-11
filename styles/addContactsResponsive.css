@@ -20,32 +20,25 @@
     width: 44px;
   }
   .popUpContent {
-    width: 460px;
-    height: 420px;
+    width: 400px;
+    min-height: 320px;
+    padding: 24px 24px 20px 76px;
   }
   .closePopUp {
-    top: 28px;
-    right: 28px;
+    top: 18px;
+    right: 18px;
   }
   .contactImg {
-    height: 78px;
-    width: 78px;
-    font-size: 30px;
+    height: 72px;
+    width: 72px;
+    font-size: 28px;
     border-radius: 50px;
   }
   .popUpImg {
-    top: 138px;
-    right: 380px;
-  }
-  .form {
-    width: 320px;
-    top: 88px;
-    right: 24px;
-    height: auto;
+    top: 52px;
   }
   .form form {
-    width: 300px;
-    gap: 20px;
+    gap: 14px;
   }
 }
 
@@ -67,32 +60,25 @@
     width: 38px;
   }
   .popUpContent {
-    width: 380px;
-    height: 380px;
+    width: 360px;
+    min-height: 300px;
+    padding: 20px 20px 18px 68px;
   }
   .closePopUp {
-    top: 20px;
-    right: 20px;
+    top: 14px;
+    right: 14px;
   }
   .contactImg {
-    height: 68px;
-    width: 68px;
-    font-size: 26px;
+    height: 62px;
+    width: 62px;
+    font-size: 24px;
     border-radius: 40px;
   }
   .popUpImg {
-    top: 128px;
-    right: 320px;
-  }
-  .form {
-    width: 260px;
-    top: 76px;
-    right: 20px;
-    height: auto;
+    top: 46px;
   }
   .form form {
-    width: 240px;
-    gap: 16px;
+    gap: 12px;
   }
   .input {
     padding: 8px 14px;
@@ -104,13 +90,13 @@
   .inputInput {
     font-size: 14px;
   }
-  .cancelButton {
-    font-size: 14px;
-    padding: 10px;
-  }
+  .cancelButton,
   .createContactButton {
-    font-size: 15px;
-    padding: 11px;
+    font-size: 14px;
+    padding: 9px 12px;
+  }
+  .cancelButton:hover {
+    padding: 8px 11px;
   }
 }
 
@@ -133,44 +119,40 @@
     width: 32px;
   }
   .popUpContent {
-    width: 300px;
-    height: 340px;
+    width: 320px;
+    min-height: 280px;
+    padding: 18px 18px 16px 60px;
   }
   .closePopUp {
-    top: 16px;
-    right: 16px;
+    top: 12px;
+    right: 12px;
     height: 22px;
     width: 22px;
   }
   .contactImg {
-    height: 60px;
-    width: 60px;
-    font-size: 22px;
+    height: 54px;
+    width: 54px;
+    font-size: 20px;
     border-radius: 40px;
     border-width: 2px;
   }
   .popUpImg {
-    top: 114px;
-    right: 258px;
-  }
-  .form {
-    width: 210px;
-    top: 66px;
-    right: 16px;
-    height: auto;
+    top: 40px;
   }
   .form form {
-    width: 200px;
-    gap: 12px;
+    gap: 10px;
   }
   .popUpButton {
     gap: 8px;
-    margin-top: 4px;
+    margin-top: 12px;
   }
   .cancelButton,
   .createContactButton {
     font-size: 13px;
-    padding: 8px 10px;
+    padding: 7px 10px;
+  }
+  .cancelButton:hover {
+    padding: 6px 9px;
   }
 }
 
@@ -202,6 +184,7 @@
     margin: 0;
     overflow: visible;
     box-sizing: border-box;
+    align-items: center;
   }
 
   .popUpBannerContent h1 {
@@ -287,20 +270,20 @@
 
   .cancelButton {
     display: flex !important;
-    font-size: 16px;
-    padding: 12px 16px;
+    font-size: 14px;
+    padding: 8px 14px;
   }
 
   .cancelButton:hover {
-    padding: 12px 16px;
+    padding: 8px 14px;
     border: 1px solid rgba(43, 169, 227, 1);
   }
 
   .createContactButton {
     margin: 0;
     width: auto;
-    font-size: 16px;
-    padding: 12px 16px;
+    font-size: 14px;
+    padding: 8px 14px;
   }
 }
 
@@ -428,12 +411,12 @@
 
   .createContactButton,
   .cancelButton {
-    font-size: 14px;
-    padding: 10px 12px;
+    font-size: 13px;
+    padding: 6px 12px;
   }
 
   .cancelButton:hover {
-    padding: 10px 12px;
+    padding: 6px 12px;
     border: 1px solid rgba(43, 169, 227, 1);
   }
 }

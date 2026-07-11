@@ -3,7 +3,7 @@ body {
   position: relative;
   margin: 0 auto;
   max-width: 1440px;
-  font-family: "inter", sans-serif;
+  font-family: "Inter", sans-serif;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@ a {
   height: 493px;
   border-radius: 30px;
   background-color: #ffffff;
-  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.14);
 }
 
 .login_section h1 {
@@ -126,7 +126,7 @@ a {
   align-items: center;
   border-radius: 10px;
   padding: 12px 21px 12px 21px;
-  border: 1px solid #d1d1d1;
+  border: 1px solid #686868;
   cursor: pointer;
 }
 
@@ -149,13 +149,13 @@ a {
 }
 
 .field_icon-email {
-  width: 30px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
 }
 
 .field_icon-password {
-  width: 30px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
 }
 
 .auth_buttons {

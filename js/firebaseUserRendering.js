@@ -26,9 +26,10 @@ async function deleteUser(id) {
     }
   
     await fetch(FIREBASE_URL + `/users/${id}` + ".json", { method: "DELETE", });
-  
+
     await renderContacts();
     loadUserInformation(-1);
+    if (typeof closePopup === "function") closePopup();
   }
   
   /**

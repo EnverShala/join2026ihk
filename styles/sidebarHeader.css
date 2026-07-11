@@ -220,8 +220,8 @@ header {
 }
 
 .nav-links-footer a:hover {
-  color: #29abe2;
-  background-color: rgba(9, 26, 49, 0.5);
+  color: white;
+  background-color: #091a31;
 }
 
 ul {
@@ -403,12 +403,14 @@ a {
 .login-sidebar-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 1rem;
   color: #cdcdcd;
-  padding: 12px 24px;
+  padding: 8px 53px;
   font-size: 16px;
   text-decoration: none;
   cursor: pointer;
+  align-self: stretch;
+  box-sizing: border-box;
 }
 
 .login-sidebar-link:hover {
@@ -424,6 +426,17 @@ a {
 .nav-links-footer a.active {
   color: white;
   background-color: #091a31;
+}
+
+/* Sidebar nav is hidden until hideNavIfNotLoggedIn() confirms the user is
+   logged in and adds .logged-in to <body>. Prevents flash of the four nav
+   links on protected pages before the auth check runs. */
+.menu-sidebar {
+  display: none;
+}
+
+body.logged-in .menu-sidebar {
+  display: block;
 }
 
 .menu-sidebar .nav-links,

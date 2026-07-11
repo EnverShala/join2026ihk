@@ -76,7 +76,7 @@ body {
 
 .popUpBanner {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   padding: 40px;
   border-radius: 30px 0px 0px 30px;
@@ -105,18 +105,23 @@ body {
 
 .popUpContent {
   position: relative;
-  width: 570px;
-  height: 460px;
+  width: 440px;
+  min-height: 340px;
   background-color: white;
   border-radius: 0px 30px 30px 0px;
+  padding: 28px 28px 22px 84px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .closePopUp {
   position: absolute;
-  top: 36px;
-  height: 26px;
-  width: 26px;
-  right: 36px;
+  top: 22px;
+  height: 24px;
+  width: 24px;
+  right: 22px;
   border-radius: 30px;
   cursor: pointer;
   z-index: 2;
@@ -124,13 +129,10 @@ body {
 
 .popUpButton {
   display: flex;
-  gap: 16px;
-  margin-top: 0;
-}
-
-.popUpButton .cancelButton,
-.popUpButton .createContactButton {
-  flex-shrink: 0;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
 }
 
 .popUpButton p {
@@ -145,8 +147,10 @@ body {
 
 .popUpImg {
   position: absolute;
-  top: 158px;
-  right: 415px;
+  top: 60px;
+  left: 0;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 .iconContainer {
@@ -170,18 +174,15 @@ body {
 }
 
 .form {
-  position: absolute;
-  width: 360px;
-  height: 175px;
-  top: 105px;
-  right: 32px;
+  position: relative;
+  width: 100%;
 }
 
 .form form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  width: 340px;
+  gap: 20px;
+  width: 100%;
 }
 
 .pop-up-close {
@@ -263,16 +264,17 @@ button {
   display: flex;
   align-items: center;
   border-radius: 10px;
-  padding: 12px;
+  padding: 10px 14px;
   gap: 4px;
   border: 1px solid #2a3647;
   color: #2a3647;
-  font-size: 16px;
+  font-size: 15px;
+  white-space: nowrap;
 }
 
 .cancelButton:hover {
   cursor: pointer;
-  padding: 11px;
+  padding: 9px 13px;
   color: rgba(43, 169, 227, 1);
   border: 2px solid rgba(43, 169, 227, 1);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
@@ -284,10 +286,11 @@ button {
   align-items: center;
   gap: 4px;
   border-radius: 10px;
-  padding: 13px;
+  padding: 10px 14px;
   color: white;
   background-color: #2a3647;
-  font-size: 17px;
+  font-size: 15px;
+  white-space: nowrap;
 }
 
 .createContactButton:hover {
