@@ -247,24 +247,34 @@ function clearForm(id = "") {
   clearPrioButtons(id);
   clickOnMedium(id);
   closeAssignedto(id);
-  let isPopup = id == "Popup" ? "addSubtaskInputPopup" : "addNewSubtaskInput";
-  document.getElementById(isPopup).value = '';
+  clearSubtaskInputAndState(id);
+  document.getElementById('selected-contacts-container' + id).innerHTML = '';
+  resetAssignedCheckboxes(id);
+  const attachCtx = id === "Popup" ? "popup" : "";
+  if (typeof removeAttachment === "function") removeAttachment(attachCtx);
+}
+
+/** Clears the subtask input field and any subtask-array state for the form. */
+function clearSubtaskInputAndState(id) {
+  const inputId = id == "Popup" ? "addSubtaskInputPopup" : "addNewSubtaskInput";
+  document.getElementById(inputId).value = '';
   if (id === "" && typeof window.__resetAddTaskSubtasks === "function") {
     window.__resetAddTaskSubtasks();
   }
   if (id === "Popup" && typeof subtasksArrayPopup !== "undefined") {
     subtasksArrayPopup.length = 0;
   }
-  document.getElementById('selected-contacts-container' + id).innerHTML = '';
+}
+
+/** Unchecks every assigned-user checkbox in the given form and resets item styling. */
+function resetAssignedCheckboxes(id) {
   const checkboxes = document.querySelectorAll(`#myDropdown${id} input[type="checkbox"]`);
-  checkboxes.forEach(checkbox => {
+  checkboxes.forEach((checkbox) => {
     checkbox.checked = false;
     const listItem = checkbox.closest(".list-item");
     listItem.style.backgroundColor = '';
     listItem.style.color = 'black';
   });
-  const attachCtx = id === "Popup" ? "popup" : "";
-  if (typeof removeAttachment === "function") removeAttachment(attachCtx);
 }
 
 /** Shows the "task added" toast and redirects to the board after 3s. */

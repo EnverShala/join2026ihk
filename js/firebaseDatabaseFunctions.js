@@ -40,23 +40,27 @@ async function loadTasks(path = "/tasks") {
   tasks = [];
   let userResponse = await fetch(FIREBASE_URL + path + ".json");
   let responseToJson = await userResponse.json();
-  if (responseToJson) {
-    Object.keys(responseToJson).forEach((key) => {
-      tasks.push({
-        id: key,
-        title: responseToJson[key]["title"],
-        description: responseToJson[key]["description"],
-        date: responseToJson[key]["date"],
-        category: responseToJson[key]["category"],
-        priority: responseToJson[key]["priority"],
-        level: responseToJson[key]["level"],
-        subtasks: responseToJson[key]["subtasks"],
-        assigned: responseToJson[key]["assigned"],
-        subtasksDone: responseToJson[key]["subtasksDone"],
-        attachments: responseToJson[key]["attachments"] || "",
-      });
-    });
-  }
+  if (!responseToJson) return;
+  Object.keys(responseToJson).forEach((key) => {
+    tasks.push(mapTaskRecord(key, responseToJson[key]));
+  });
+}
+
+/** Builds a task object from a raw Firebase record. */
+function mapTaskRecord(id, raw) {
+  return {
+    id: id,
+    title: raw["title"],
+    description: raw["description"],
+    date: raw["date"],
+    category: raw["category"],
+    priority: raw["priority"],
+    level: raw["level"],
+    subtasks: raw["subtasks"],
+    assigned: raw["assigned"],
+    subtasksDone: raw["subtasksDone"],
+    attachments: raw["attachments"] || "",
+  };
 }
 
 /** Saves task data to Firebase using POST. */
@@ -168,22 +172,26 @@ async function loginUser() {
   await loadAccounts();
   for (let i = 0; i < accounts.length; i++) {
     if (accounts[i].email == userEmail) {
-      if (accounts[i].password == userPassword) {
-        if (document.getElementById("rememberMeButton").checked) {
-          rememberUserAccount(userEmail);
-        } else {
-          dontRememberUserAccount(userEmail);
-        }
-        logInUserAccount(userEmail);
-        showLoginMessage("Login erfolgreich!", 1);
-        return;
-      } else {
-        showLoginMessage("Login fehlgeschlagen!", 0);
-        return;
-      }
+      finalizeLoginAttempt(accounts[i], userEmail, userPassword);
+      return;
     }
   }
   showLoginMessage("Zu dieser E-Mail existiert kein Account!", 0);
+}
+
+/** Handles a login attempt once the matching account is found. */
+function finalizeLoginAttempt(account, userEmail, userPassword) {
+  if (account.password != userPassword) {
+    showLoginMessage("Login fehlgeschlagen!", 0);
+    return;
+  }
+  if (document.getElementById("rememberMeButton").checked) {
+    rememberUserAccount(userEmail);
+  } else {
+    dontRememberUserAccount(userEmail);
+  }
+  logInUserAccount(userEmail);
+  showLoginMessage("Login erfolgreich!", 1);
 }
 
 /** Signs up a new user unless an account with the same email already exists. */

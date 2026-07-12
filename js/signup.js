@@ -117,25 +117,19 @@ function clearPasswordMismatchMessage() {
   let confirmValue = document.getElementById("confirmPassword").value.trim();
   let passwordValue = document.getElementById("userPassword").value.trim();
 
-  if (confirmValue == "") {
-    messageContainer.classList.add("d-none");
-    confirmBox.classList.add("margin-bottom24px");
-    return false;
-  }
-
-  if (passwordValue == confirmValue) {
-    messageContainer.classList.add("d-none");
-    confirmBox.classList.add("margin-bottom24px");
-    return true;
-  }
-  if (!touchedSignupFields.has("confirmPassword")) {
-    messageContainer.classList.add("d-none");
-    confirmBox.classList.add("margin-bottom24px");
-  } else {
-    messageContainer.classList.remove("d-none");
-    confirmBox.classList.remove("margin-bottom24px");
-  }
+  if (confirmValue == "") return hideConfirmError(messageContainer, confirmBox, false);
+  if (passwordValue == confirmValue) return hideConfirmError(messageContainer, confirmBox, true);
+  if (!touchedSignupFields.has("confirmPassword")) return hideConfirmError(messageContainer, confirmBox, false);
+  messageContainer.classList.remove("d-none");
+  confirmBox.classList.remove("margin-bottom24px");
   return false;
+}
+
+/** Hides the confirm-password error and returns the given result flag. */
+function hideConfirmError(messageContainer, confirmBox, result) {
+  messageContainer.classList.add("d-none");
+  confirmBox.classList.add("margin-bottom24px");
+  return result;
 }
 
 /**

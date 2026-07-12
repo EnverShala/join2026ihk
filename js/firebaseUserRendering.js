@@ -5,30 +5,29 @@
  */
 async function deleteUser(id) {
   await loadTasks("/tasks");
-
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].id == id) {
-      for (let j = 0; j < tasks.length; j++) {
-        if (tasks[j].assigned.includes(users[i].name)) {
-          tasks[j].assigned = tasks[j].assigned.replace(users[i].name, "");
-          tasks[j].assigned = tasks[j].assigned.replace(",,", ",");
-          if (tasks[j].assigned[tasks[j].assigned.length - 1] == ",") {
-            tasks[j].assigned = tasks[j].assigned.slice(0, -1);
-          }
-          if (tasks[j].assigned[0] == ",") {
-            tasks[j].assigned = tasks[j].assigned.slice(1);
-          }
-          await editTask(tasks[j].id, tasks[j]);
-        }
-      }
-    }
-  }
-
+  const user = users.find((u) => u.id == id);
+  if (user) await removeUserFromAssignedTasks(user.name);
   await fetch(FIREBASE_URL + `/users/${id}` + ".json", { method: "DELETE" });
-
   await renderContacts();
   loadUserInformation(-1);
   if (typeof closePopup === "function") closePopup();
+}
+
+/** Strips the given name from every task's `assigned` field and persists. */
+async function removeUserFromAssignedTasks(userName) {
+  for (let j = 0; j < tasks.length; j++) {
+    if (!tasks[j].assigned.includes(userName)) continue;
+    tasks[j].assigned = normalizeAssignedString(tasks[j].assigned.replace(userName, ""));
+    await editTask(tasks[j].id, tasks[j]);
+  }
+}
+
+/** Cleans double/leading/trailing commas from an assigned-users string. */
+function normalizeAssignedString(str) {
+  let out = str.replace(",,", ",");
+  if (out[out.length - 1] == ",") out = out.slice(0, -1);
+  if (out[0] == ",") out = out.slice(1);
+  return out;
 }
 
 /**
@@ -158,39 +157,58 @@ function hideContactsListInResponsiveMode() {
  * - Mobile without selection: list visible, detail hidden.
  */
 function applyContactsLayoutForWidth() {
-  const header = document.getElementById("display-contact-headerID");
-  const detail = document.getElementById("display-contactID");
-  const addBtn = document.getElementById("add-contact-containerID");
-  const list = document.getElementById("contact-list");
-  const backArrow = document.getElementById("back-arrow-on-responsiveID");
-  if (!header || !detail || !addBtn || !list || !backArrow) return;
-
+  const els = getContactsLayoutElements();
+  if (!els) return;
   const hasSelection = typeof currentUser !== "undefined" && currentUser !== null && currentUser !== -1;
-
   if (window.innerWidth > CONTACTS_MOBILE_MAX) {
-    header.style.display = "";
-    detail.style.display = "";
-    addBtn.style.display = "";
-    list.classList.remove("d-none");
-    backArrow.classList.add("d-none");
-    if (hasSelection) fitNameToContainer();
-    return;
-  }
-
-  if (hasSelection) {
-    header.style.display = "flex";
-    detail.style.display = "flex";
-    addBtn.style.display = "none";
-    list.classList.add("d-none");
-    backArrow.classList.remove("d-none");
-    fitNameToContainer();
+    applyDesktopContactsLayout(els, hasSelection);
+  } else if (hasSelection) {
+    applyMobileContactsDetailLayout(els);
   } else {
-    header.style.display = "flex";
-    detail.style.display = "none";
-    addBtn.style.display = "";
-    list.classList.remove("d-none");
-    backArrow.classList.add("d-none");
+    applyMobileContactsListLayout(els);
   }
+}
+
+/** Collects the DOM elements needed by `applyContactsLayoutForWidth`. */
+function getContactsLayoutElements() {
+  const els = {
+    header: document.getElementById("display-contact-headerID"),
+    detail: document.getElementById("display-contactID"),
+    addBtn: document.getElementById("add-contact-containerID"),
+    list: document.getElementById("contact-list"),
+    backArrow: document.getElementById("back-arrow-on-responsiveID"),
+  };
+  if (!els.header || !els.detail || !els.addBtn || !els.list || !els.backArrow) return null;
+  return els;
+}
+
+/** Desktop layout: everything visible; refit the name if a contact is selected. */
+function applyDesktopContactsLayout(els, hasSelection) {
+  els.header.style.display = "";
+  els.detail.style.display = "";
+  els.addBtn.style.display = "";
+  els.list.classList.remove("d-none");
+  els.backArrow.classList.add("d-none");
+  if (hasSelection) fitNameToContainer();
+}
+
+/** Mobile with selection: detail visible, list hidden, back-arrow shown. */
+function applyMobileContactsDetailLayout(els) {
+  els.header.style.display = "flex";
+  els.detail.style.display = "flex";
+  els.addBtn.style.display = "none";
+  els.list.classList.add("d-none");
+  els.backArrow.classList.remove("d-none");
+  fitNameToContainer();
+}
+
+/** Mobile without selection: list visible, detail hidden. */
+function applyMobileContactsListLayout(els) {
+  els.header.style.display = "flex";
+  els.detail.style.display = "none";
+  els.addBtn.style.display = "";
+  els.list.classList.remove("d-none");
+  els.backArrow.classList.add("d-none");
 }
 
 window.onresize = function showContactListOnExitResponsiveMode() {

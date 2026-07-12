@@ -207,30 +207,18 @@ async function getUserColor(userName) {
  * @param {string} cardContainerIdName "To do" | "In Progress" | "Awaiting Feedback" | "Done".
  * @returns {string} The container element id, or "" when the name is invalid.
  */
+const CARD_CONTAINER_MAP = {
+  "To do": { container: "cardContainertoDo", empty: "emptyTaskTodo" },
+  "In Progress": { container: "cardContainerinProgress", empty: "emptyTaskInProgress" },
+  "Awaiting Feedback": { container: "cardContainerawaitingFeedback", empty: "emptyTaskAwait" },
+  "Done": { container: "cardContainerdone", empty: "emptyTaskDone" },
+};
+
 function getCardContainerId(cardContainerIdName) {
-  let result;
-  switch (cardContainerIdName) {
-    case "To do":
-      result = "cardContainertoDo";
-      document.getElementById("emptyTaskTodo").classList.add("d-none");
-      break;
-    case "In Progress":
-      result = "cardContainerinProgress";
-      document.getElementById("emptyTaskInProgress").classList.add("d-none");
-      break;
-    case "Awaiting Feedback":
-      result = "cardContainerawaitingFeedback";
-      document.getElementById("emptyTaskAwait").classList.add("d-none");
-      break;
-    case "Done":
-      result = "cardContainerdone";
-      document.getElementById("emptyTaskDone").classList.add("d-none");
-      break;
-    default:
-      result = "";
-      break;
-  }
-  return result;
+  const entry = CARD_CONTAINER_MAP[cardContainerIdName];
+  if (!entry) return "";
+  document.getElementById(entry.empty).classList.add("d-none");
+  return entry.container;
 }
 
 /** Renders all task cards from the loaded tasks list. */

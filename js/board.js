@@ -14,34 +14,39 @@ function addDragAndDropEvents() {
   const dropZones = document.querySelectorAll(
     "#cardContainertoDo, #cardContainerinProgress, #cardContainerawaitingFeedback, #cardContainerdone"
   );
+  draggedCards.forEach((card) => bindDragStart(card));
+  dropZones.forEach((zone) => bindDropZone(zone));
+}
 
-  draggedCards.forEach((card) => {
-    card.ondragstart = (event) => {
-      event.dataTransfer.setData("text", event.target.id);
-    };
-  });
+/** Wires the dragstart event on a task card so it sets its own id as payload. */
+function bindDragStart(card) {
+  card.ondragstart = (event) => {
+    event.dataTransfer.setData("text", event.target.id);
+  };
+}
 
-  dropZones.forEach((zone) => {
-    zone.ondragover = (event) => {
-      event.preventDefault();
-      event.currentTarget.style.border = "dotted 2px grey";
-    };
+/** Wires dragover/dragleave/drop handlers on a single drop zone. */
+function bindDropZone(zone) {
+  zone.ondragover = (event) => {
+    event.preventDefault();
+    event.currentTarget.style.border = "dotted 2px grey";
+  };
+  zone.ondragleave = (event) => {
+    event.currentTarget.style.backgroundColor = "";
+    event.currentTarget.style.border = "none";
+  };
+  zone.ondrop = handleDropZoneDrop;
+}
 
-    zone.ondragleave = (event) => {
-      event.currentTarget.style.backgroundColor = "";
-      event.currentTarget.style.border = "none";
-    };
-
-    zone.ondrop = (event) => {
-      event.preventDefault();
-      event.currentTarget.style.backgroundColor = "";
-      const data = event.dataTransfer.getData("text");
-      const card = document.getElementById(data);
-      event.currentTarget.appendChild(card);
-      event.currentTarget.style.border = "none";
-      dragAndDropOnDrop(event.currentTarget.id, data);
-    };
-  });
+/** Handles a drop: appends the card, resets styles, updates the task level. */
+function handleDropZoneDrop(event) {
+  event.preventDefault();
+  event.currentTarget.style.backgroundColor = "";
+  const data = event.dataTransfer.getData("text");
+  const card = document.getElementById(data);
+  event.currentTarget.appendChild(card);
+  event.currentTarget.style.border = "none";
+  dragAndDropOnDrop(event.currentTarget.id, data);
 }
 
 /**
@@ -124,29 +129,16 @@ function getNewDragAndDropContainerName(targetId) {
  * and shows or hides corresponding "empty task" messages based on whether the containers are empty.
  */
 function checkTaskLevels() {
-  if (document.getElementById("cardContainertoDo").childElementCount == 0) {
-    document.getElementById("emptyTaskTodo").classList.remove("d-none");
-  } else {
-    document.getElementById("emptyTaskTodo").classList.add("d-none");
-  }
+  toggleEmptyState("cardContainertoDo", "emptyTaskTodo");
+  toggleEmptyState("cardContainerinProgress", "emptyTaskInProgress");
+  toggleEmptyState("cardContainerawaitingFeedback", "emptyTaskAwait");
+  toggleEmptyState("cardContainerdone", "emptyTaskDone");
+}
 
-  if (document.getElementById("cardContainerinProgress").childElementCount == 0) {
-    document.getElementById("emptyTaskInProgress").classList.remove("d-none");
-  } else {
-    document.getElementById("emptyTaskInProgress").classList.add("d-none");
-  }
-
-  if (document.getElementById("cardContainerawaitingFeedback").childElementCount == 0) {
-    document.getElementById("emptyTaskAwait").classList.remove("d-none");
-  } else {
-    document.getElementById("emptyTaskAwait").classList.add("d-none");
-  }
-
-  if (document.getElementById("cardContainerdone").childElementCount == 0) {
-    document.getElementById("emptyTaskDone").classList.remove("d-none");
-  } else {
-    document.getElementById("emptyTaskDone").classList.add("d-none");
-  }
+/** Shows the empty-state hint if the container has no child cards, hides otherwise. */
+function toggleEmptyState(containerId, emptyHintId) {
+  const isEmpty = document.getElementById(containerId).childElementCount == 0;
+  document.getElementById(emptyHintId).classList.toggle("d-none", !isEmpty);
 }
 
 /**
@@ -351,26 +343,26 @@ function subtaskOnKeyDownPopup(position) {
  */
 function editPopupTask() {
   clearForm();
-
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].id == currentId) {
-      document.getElementById("inputEdit").value = tasks[i].title;
-      document.getElementById("inputDescription").value = tasks[i].description;
-      document.getElementById("inputDueDate").value = tasks[i].date;
-      subtasksArray = tasks[i].subtasks.split("|");
-      let assignedArray = tasks[i].assigned.split(",");
-
-      clearPrioButtons();
-      activatePrioButton(tasks[i].priority);
-      renderSubtasks();
-      toggleAssignedUsers(assignedArray);
-      if (typeof loadAttachmentForEdit === "function") {
-        loadAttachmentForEdit(tasks[i].attachments || "");
-      }
-    }
+    if (tasks[i].id == currentId) applyTaskToEditForm(tasks[i]);
   }
   document.getElementById("popupOnTaskSelectionMainContainerID").classList.add("d-none");
   document.getElementById("editPopUpID").classList.remove("d-none");
+}
+
+/** Fills the edit-popup form fields and controls from a task record. */
+function applyTaskToEditForm(task) {
+  document.getElementById("inputEdit").value = task.title;
+  document.getElementById("inputDescription").value = task.description;
+  document.getElementById("inputDueDate").value = task.date;
+  subtasksArray = task.subtasks.split("|");
+  clearPrioButtons();
+  activatePrioButton(task.priority);
+  renderSubtasks();
+  toggleAssignedUsers(task.assigned.split(","));
+  if (typeof loadAttachmentForEdit === "function") {
+    loadAttachmentForEdit(task.attachments || "");
+  }
 }
 
 /**

@@ -195,7 +195,14 @@ function _createLightboxElement() {
   const lb = document.createElement('div');
   lb.id = 'attachmentLightbox';
   lb.className = 'attachment-lightbox';
-  lb.innerHTML = `
+  lb.innerHTML = _lightboxTemplate();
+  document.body.appendChild(lb);
+  return lb;
+}
+
+/** HTML template for the lightbox root element. */
+function _lightboxTemplate() {
+  return `
     <div class="lightbox-backdrop" onclick="closeImageViewer()"></div>
     <div class="lightbox-content">
       <button type="button" class="lightbox-close-btn" onclick="closeImageViewer()" aria-label="Schließen">&#x2715;</button>
@@ -213,8 +220,6 @@ function _createLightboxElement() {
         <button type="button" class="lightbox-nav-btn lightbox-next" onclick="_navigateLightbox(1)" aria-label="Nächstes Bild">&#x276F;</button>
       </div>
     </div>`;
-  document.body.appendChild(lb);
-  return lb;
 }
 
 /** Opens the lightbox for the given attachment index. */
