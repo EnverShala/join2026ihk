@@ -131,11 +131,11 @@ a {
 }
 
 .field_group-margin32 {
-  margin-bottom: 32px;
+  margin-bottom: 12px;
 }
 
 .field_group-margin44 {
-  margin-bottom: 44px;
+  margin-bottom: 24px;
 }
 
 .field_group input {
@@ -283,9 +283,15 @@ button:disabled:hover {
 .error_password_wrapper,
 .error_email_wrapper {
   width: clamp(240px, 422px, 80%);
-  margin-top: 8px;
-  height: 15.6px;
+  margin-top: 4px;
+  height: 16px;
   content: none;
+}
+
+.error_password_wrapper.d-none,
+.error_email_wrapper.d-none {
+  display: block;
+  visibility: hidden;
 }
 
 .error_password_message,

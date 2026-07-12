@@ -42,21 +42,21 @@
                                 <img src="./img/person.svg" alt="Name Icon">
                             </div>
                         </div>
-                        <div id="name-error" class="input-error">Bitte einen Namen eingeben.</div>
+                        <div id="name-error" class="input-error">Name erforderlich</div>
                         <div class="input">
                             <input id="email" class="inputInput" type="email" placeholder="Email" onblur="validateContactField('email')" oninput="validateContactField('email')">
                             <div class="iconContainer">
                                 <img src="./img/mail.svg" alt="Mail Icon">
                             </div>
                         </div>
-                        <div id="email-error" class="input-error">Bitte gültige E-Mail eingeben.</div>
+                        <div id="email-error" class="input-error">Gültige E-Mail eingeben</div>
                         <div class="input">
-                            <input id="phone" class="inputInput" type="tel" placeholder="Phone" onblur="validateContactField('phone')" oninput="validateContactField('phone')">
+                            <input id="phone" class="inputInput" type="tel" placeholder="Phone" inputmode="numeric" pattern="[0-9]*" autocomplete="tel" onblur="validateContactField('phone')" oninput="filterPhoneInput(this); validateContactField('phone')" onkeypress="return /[0-9]/.test(event.key)">
                             <div class="iconContainer">
                                 <img src="./img/call.svg" alt="Phone Icon">
                             </div>
                         </div>
-                        <div id="phone-error" class="input-error">Bitte gültige Telefonnummer eingeben.</div>
+                        <div id="phone-error" class="input-error">Nur Zahlen, 6-16 Stellen</div>
                         <div class="popUpButton">
                             <button type="button" onclick="deleteUser(getUserId(users[currentUser].email))" class="cancelButton">
                                 <p>Delete</p>

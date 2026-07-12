@@ -52,24 +52,19 @@ function getUpcomingDeadline() {
   let allDates = [];
   let taskDate = "";
 
-  for (let i = 0; i < tasks.length; i++) {    
+  for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].priority == "Urgent") {
-      taskDate = taskDate = tasks[i].date.toString().replace("-", "");
+      taskDate = tasks[i].date.toString().replace("-", "");
       taskDate = taskDate.replace("-", "");
-
       allDates.push(taskDate);
     }
   }
 
   upcomingDeadline = Math.min(...allDates);
-
   upcomingDeadline = numberToDate(upcomingDeadline.toString());
 
-  if(upcomingDeadline == 0 || allDates.length == 0) {
-    return "";
-  } else {
-    return upcomingDeadline;
-  }
+  if (upcomingDeadline == 0 || allDates.length == 0) return "";
+  return upcomingDeadline;
 }
 
 /**
@@ -91,22 +86,20 @@ function greetUser() {
   const now = new Date();
   const hour = now.getHours();
   let greeting;
-
   let userName = localStorage.getItem("username");
 
   if (hour < 12) {
-      greeting = "Good Morning,";
+    greeting = "Good Morning,";
   } else if (hour < 18) {
-      greeting = "Good Afternoon,";
+    greeting = "Good Afternoon,";
   } else {
-      greeting = "Good Evening,";
+    greeting = "Good Evening,";
   }
 
   if (!document.getElementById("greeting__text")) return;
   document.getElementById("greeting__text").innerText = greeting;
 
-  if(userName) {
+  if (userName) {
     document.getElementById("user__name").innerHTML = userName == "" ? "Guest" : userName;
   }
 }
-

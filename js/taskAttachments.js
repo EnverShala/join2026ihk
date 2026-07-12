@@ -8,42 +8,24 @@ const _ALLOWED_EXT = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'];
 const _MAX_BYTES = 1 * 1024 * 1024;
 const _MAX_DIMENSION = 800;
 
-/**
- * Formats a byte count into a human-readable size string.
- * @param {number} bytes - Number of bytes to format.
- * @returns {string} Formatted string, e.g. "128.0 KB" or "2.3 MB".
- */
+/** Formats bytes as "B", "KB", or "MB". */
 function _formatFileSize(bytes) {
   if (bytes < 1024) return bytes + ' B';
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
-/**
- * Calculates scaled width and height so the larger dimension equals _MAX_DIMENSION.
- * @param {number} w - Original image width in pixels.
- * @param {number} h - Original image height in pixels.
- * @returns {{w: number, h: number}} Scaled dimensions.
- */
+/** Scales (w, h) so the larger side equals _MAX_DIMENSION. */
 function _scaleDimensions(w, h) {
-  if (w >= h) {
-    return { w: _MAX_DIMENSION, h: Math.round((h * _MAX_DIMENSION) / w) };
-  }
+  if (w >= h) return { w: _MAX_DIMENSION, h: Math.round((h * _MAX_DIMENSION) / w) };
   return { w: Math.round((w * _MAX_DIMENSION) / h), h: _MAX_DIMENSION };
 }
 
-/**
- * Draws the image onto a canvas at the (possibly scaled) target size and returns a data URL.
- * @param {HTMLImageElement} img - The loaded image element.
- * @param {File} file - The original file, used to determine the output MIME type.
- * @returns {string} Base64-encoded data URL of the compressed image.
- */
+/** Draws the image onto a canvas at target size and returns a data URL. */
 function _drawCompressedCanvas(img, file) {
   let w = img.width;
   let h = img.height;
-  if (w > _MAX_DIMENSION || h > _MAX_DIMENSION) {
-    ({ w, h } = _scaleDimensions(w, h));
-  }
+  if (w > _MAX_DIMENSION || h > _MAX_DIMENSION) ({ w, h } = _scaleDimensions(w, h));
   const canvas = document.createElement('canvas');
   canvas.width = w;
   canvas.height = h;
@@ -52,12 +34,7 @@ function _drawCompressedCanvas(img, file) {
   return canvas.toDataURL(mime, 0.82);
 }
 
-/**
- * Compresses an image file using a canvas element.
- * Scales the image so neither dimension exceeds _MAX_DIMENSION pixels.
- * @param {File} file - The image file to compress.
- * @returns {Promise<string>} Resolves to a base64-encoded data URL of the compressed image.
- */
+/** Compresses an image file via canvas; resolves with a base64 data URL. */
 function _compressImage(file) {
   return new Promise(function (resolve, reject) {
     const reader = new FileReader();
@@ -72,16 +49,10 @@ function _compressImage(file) {
   });
 }
 
-/**
- * Validates a file against allowed MIME types, extensions, and maximum size.
- * Displays an error in the given context if validation fails.
- * @param {File} file - The file to validate.
- * @param {string} context - Upload context: 'edit', 'popup', or '' for the task form.
- * @returns {boolean} True if valid, false otherwise.
- */
+/** Validates MIME, extension, and size. Shows an inline error if invalid. */
 function _validateFile(file, context) {
   if (!_ALLOWED_MIME.includes(file.type)) {
-    _showAttachmentError(context, '"' + _esc(file.name) + '" ist keine gültige Bilddatei (JPG, PNG, GIF, WebP, BMP).');
+    _showAttachmentError(context, '"' + _esc(file.name) + '" ist keine gültige Bilddatei.');
     return false;
   }
   const ext = file.name.split('.').pop().toLowerCase();
@@ -90,20 +61,13 @@ function _validateFile(file, context) {
     return false;
   }
   if (file.size > _MAX_BYTES) {
-    _showAttachmentError(context, '"' + _esc(file.name) + '" überschreitet die maximale Größe von 1 MB.');
+    _showAttachmentError(context, '"' + _esc(file.name) + '" ist größer als 1 MB.');
     return false;
   }
   return true;
 }
 
-/**
- * Pushes a compressed attachment into the correct store and re-renders the preview.
- * Stores name, type, original size (bytes), and base64 as metadata.
- * @param {string} base64 - Base64-encoded data URL of the compressed image.
- * @param {File} file - Original file supplying name, type, and size metadata.
- * @param {string} context - Upload context: 'edit', 'popup', or '' for the task form.
- * @returns {void}
- */
+/** Stores a compressed attachment and re-renders the preview for its context. */
 function _storeAttachment(base64, file, context) {
   const att = { name: file.name, type: file.type, size: file.size, base64: base64 };
   if (context === 'edit') {
@@ -116,12 +80,7 @@ function _storeAttachment(base64, file, context) {
   }
 }
 
-/**
- * Validates a single file and, if valid, compresses and stores it.
- * @param {File} file - The file to process.
- * @param {string} context - Upload context: 'edit', 'popup', or '' for the task form.
- * @returns {void}
- */
+/** Validates then compresses/stores a single file. */
 function _processFile(file, context) {
   if (!_validateFile(file, context)) return;
   _hideAttachmentError(context);
@@ -132,12 +91,7 @@ function _processFile(file, context) {
   });
 }
 
-/**
- * Handles image file selection. Validates and compresses each selected file.
- * @param {string} inputId - The ID of the file input element.
- * @param {string} context - Upload context: 'edit', 'popup', or '' for the task form.
- * @returns {void}
- */
+/** Entry point for file input change: processes each selected file. */
 function handleImageUpload(inputId, context) {
   const input = document.getElementById(inputId);
   if (!input || !input.files || input.files.length === 0) return;
@@ -145,13 +99,7 @@ function handleImageUpload(inputId, context) {
   input.value = '';
 }
 
-/**
- * Builds the HTML for a single attachment thumbnail item in the upload preview.
- * @param {{name: string, base64: string}} att - The attachment object.
- * @param {number} i - Zero-based index of this attachment.
- * @param {string} context - Upload context for onclick handlers.
- * @returns {string} HTML string for the preview item.
- */
+/** Builds HTML for one upload-preview thumbnail. */
 function _buildPreviewItemHtml(att, i, context) {
   return `<div class="attachment-preview-item">
     <img class="attachment-thumb" src="${att.base64}" alt="${_esc(att.name)}"
@@ -164,13 +112,7 @@ function _buildPreviewItemHtml(att, i, context) {
   </div>`;
 }
 
-/**
- * Renders all attachment previews (with thumbnails) inside the given container.
- * @param {string} containerId - The ID of the preview container element.
- * @param {Array<{name: string, base64: string, type: string, size: number}>} attachments - Attachments to show.
- * @param {string} context - Context string forwarded to onclick handlers.
- * @returns {void}
- */
+/** Renders all upload-preview items into `containerId`. */
 function _renderAllPreviews(containerId, attachments, context) {
   const el = document.getElementById(containerId);
   if (!el) return;
@@ -180,23 +122,13 @@ function _renderAllPreviews(containerId, attachments, context) {
   }).join('');
 }
 
-/**
- * Opens the lightbox viewer from an upload preview using the correct attachment store.
- * @param {string} context - Upload context: 'edit', 'popup', or '' for the task form.
- * @param {number} index - Zero-based index of the attachment to preview.
- * @returns {void}
- */
+/** Opens the lightbox from an upload preview. */
 function openUploadPreview(context, index) {
   _viewAttachments = context === 'edit' ? _editAttachments : _taskAttachments;
   openImageViewer(index);
 }
 
-/**
- * Removes the attachment at the given index from the specified context and re-renders.
- * @param {string} context - Context: 'edit', 'popup', or '' for the task form.
- * @param {number} index - Zero-based index of the attachment to remove.
- * @returns {void}
- */
+/** Removes an attachment from its context store and re-renders. */
 function removeAttachment(context, index) {
   if (context === 'edit') {
     _editAttachments.splice(index, 1);
@@ -210,21 +142,13 @@ function removeAttachment(context, index) {
   }
 }
 
-/**
- * Returns the current attachments for the given context as a JSON string.
- * @param {string} context - 'edit' returns edit attachments, otherwise task attachments.
- * @returns {string} JSON string of the attachment array, or empty string if none exist.
- */
+/** Returns the current attachments for the given context as a JSON string. */
 function getAttachmentJson(context) {
   const arr = context === 'edit' ? _editAttachments : _taskAttachments;
   return arr.length > 0 ? JSON.stringify(arr) : '';
 }
 
-/**
- * Clears all attachments and the preview UI for the given context.
- * @param {string} context - Context: 'edit', 'popup', or '' for the task form.
- * @returns {void}
- */
+/** Clears attachments and the preview DOM for the given context. */
 function clearAttachmentState(context) {
   if (context === 'edit') {
     _editAttachments = [];
@@ -238,34 +162,21 @@ function clearAttachmentState(context) {
   }
 }
 
-/**
- * Displays an error message in the attachment error element for the given context.
- * @param {string} context - Context: 'edit', 'popup', or '' for the task form.
- * @param {string} msg - The error message to display.
- * @returns {void}
- */
+/** Shows an inline attachment error for the given context. */
 function _showAttachmentError(context, msg) {
   const id = 'attachmentError' + (context === 'edit' ? 'Edit' : context === 'popup' ? 'Popup' : '');
   const el = document.getElementById(id);
   if (el) { el.textContent = msg; el.style.display = 'block'; }
 }
 
-/**
- * Hides the attachment error element for the given context.
- * @param {string} context - Context: 'edit', 'popup', or '' for the task form.
- * @returns {void}
- */
+/** Hides the inline attachment error for the given context. */
 function _hideAttachmentError(context) {
   const id = 'attachmentError' + (context === 'edit' ? 'Edit' : context === 'popup' ? 'Popup' : '');
   const el = document.getElementById(id);
   if (el) el.style.display = 'none';
 }
 
-/**
- * Updates the lightbox image, metadata labels, download link, and navigation button visibility.
- * @param {number} index - Zero-based index of the attachment in _viewAttachments to display.
- * @returns {void}
- */
+/** Updates the lightbox image, metadata, download link, and nav visibility. */
 function _updateLightboxContent(index) {
   const att = _viewAttachments[index];
   document.getElementById('lightboxImg').src = att.base64;
@@ -279,10 +190,7 @@ function _updateLightboxContent(index) {
   document.querySelector('.lightbox-next').style.visibility = index < _viewAttachments.length - 1 ? 'visible' : 'hidden';
 }
 
-/**
- * Creates and appends the lightbox DOM element with navigation, metadata, and download support.
- * @returns {HTMLElement} The newly created lightbox element.
- */
+/** Creates and appends the lightbox DOM element. */
 function _createLightboxElement() {
   const lb = document.createElement('div');
   lb.id = 'attachmentLightbox';
@@ -309,12 +217,7 @@ function _createLightboxElement() {
   return lb;
 }
 
-/**
- * Opens the lightbox image viewer for the attachment at the given index.
- * Creates the lightbox DOM element on first call if it does not yet exist.
- * @param {number} index - Zero-based index of the attachment in _viewAttachments.
- * @returns {void}
- */
+/** Opens the lightbox for the given attachment index. */
 function openImageViewer(index) {
   if (!_viewAttachments[index] || !_viewAttachments[index].base64) return;
   _currentLightboxIndex = index;
@@ -323,11 +226,7 @@ function openImageViewer(index) {
   lb.style.display = 'flex';
 }
 
-/**
- * Navigates to the previous or next attachment in the open lightbox.
- * @param {number} direction - -1 to go to the previous image, 1 for the next.
- * @returns {void}
- */
+/** Moves the lightbox by `direction` (-1 previous, 1 next). */
 function _navigateLightbox(direction) {
   const next = _currentLightboxIndex + direction;
   if (next < 0 || next >= _viewAttachments.length) return;
@@ -335,36 +234,21 @@ function _navigateLightbox(direction) {
   _updateLightboxContent(next);
 }
 
-/**
- * Closes the image lightbox viewer if it is open.
- * @returns {void}
- */
+/** Closes the lightbox if it is open. */
 function closeImageViewer() {
   const lb = document.getElementById('attachmentLightbox');
   if (lb) lb.style.display = 'none';
 }
 
-/**
- * Parses a JSON string of attachments into an array, normalizing legacy single-object format.
- * @param {string} json - JSON string to parse.
- * @returns {Array<{name: string, base64: string, type: string, size: number}>} Parsed array or [].
- */
+/** Parses attachments JSON. Normalizes legacy single-object format to array. */
 function _parseAttachmentsJson(json) {
   let parsed;
   try { parsed = JSON.parse(json); } catch (e) { return []; }
-  if (!Array.isArray(parsed)) {
-    parsed = (parsed && parsed.base64) ? [parsed] : [];
-  }
+  if (!Array.isArray(parsed)) parsed = (parsed && parsed.base64) ? [parsed] : [];
   return parsed;
 }
 
-/**
- * Builds the HTML for a single attachment list item in the task detail view.
- * Includes a thumbnail, clickable filename, and a download link.
- * @param {{name: string, base64: string, type: string, size: number}} att - Attachment object.
- * @param {number} i - Zero-based index used in onclick handlers.
- * @returns {string} HTML string for the list item.
- */
+/** Builds HTML for one attachment list item in the task detail view. */
 function _buildListItemHtml(att, i) {
   return `<li class="attachment-list-item">
     <img class="attachment-list-thumb" src="${att.base64}" alt="${_esc(att.name || 'Bild')}"
@@ -375,11 +259,7 @@ function _buildListItemHtml(att, i) {
   </li>`;
 }
 
-/**
- * Renders attachment list items inside the dropdown. Hides the list (collapsed by default).
- * @param {Array<{name: string, base64: string, type: string, size: number}>} attachments - List to render.
- * @returns {void}
- */
+/** Renders attachment list items inside the dropdown (initially collapsed). */
 function _renderAttachmentList(attachments) {
   const list = document.getElementById('attachmentDropdownList');
   if (!list) return;
@@ -387,12 +267,7 @@ function _renderAttachmentList(attachments) {
   list.style.display = 'none';
 }
 
-/**
- * Renders the attachments section in the task detail popup.
- * Hides the section if there are no valid attachments to display.
- * @param {string} attachmentsJson - JSON string of attachment objects.
- * @returns {void}
- */
+/** Renders the attachments section in the task detail popup. */
 function renderAttachmentsSection(attachmentsJson) {
   const section = document.getElementById('attachmentsSection');
   if (!section) return;
@@ -407,10 +282,7 @@ function renderAttachmentsSection(attachmentsJson) {
   if (arrow) arrow.style.transform = 'rotate(0deg)';
 }
 
-/**
- * Toggles the visibility of the attachments dropdown list and rotates the arrow icon.
- * @returns {void}
- */
+/** Toggles the attachments dropdown list and arrow rotation. */
 function toggleAttachmentsDropdown() {
   const list = document.getElementById('attachmentDropdownList');
   const arrow = document.getElementById('attachmentsDropdownArrow');
@@ -420,12 +292,7 @@ function toggleAttachmentsDropdown() {
   if (arrow) arrow.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
 }
 
-/**
- * Loads existing attachments into the edit context from a JSON string.
- * Resets previously loaded edit attachments before loading.
- * @param {string} attachmentsJson - JSON string of attachment objects to restore.
- * @returns {void}
- */
+/** Restores attachments into the edit context from a JSON string. */
 function loadAttachmentForEdit(attachmentsJson) {
   _editAttachments = [];
   const preview = document.getElementById('attachmentPreviewEdit');
@@ -433,19 +300,13 @@ function loadAttachmentForEdit(attachmentsJson) {
   if (!attachmentsJson) return;
   try {
     let parsed = JSON.parse(attachmentsJson);
-    if (!Array.isArray(parsed)) {
-      parsed = (parsed && parsed.base64) ? [parsed] : [];
-    }
+    if (!Array.isArray(parsed)) parsed = (parsed && parsed.base64) ? [parsed] : [];
     _editAttachments = parsed.filter(function (a) { return a && a.base64; });
     _renderAllPreviews('attachmentPreviewEdit', _editAttachments, 'edit');
   } catch (e) { /* ungültiges JSON, ignorieren */ }
 }
 
-/**
- * Escapes HTML special characters in a string to prevent XSS injection.
- * @param {string} str - The raw string to escape.
- * @returns {string} The HTML-escaped string.
- */
+/** HTML-escapes a string to prevent XSS injection. */
 function _esc(str) {
   return String(str).replace(/[&<>"']/g, function (m) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];

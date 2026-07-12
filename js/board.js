@@ -11,24 +11,35 @@ let pos;
  */
 function addDragAndDropEvents() {
   const draggedCards = document.querySelectorAll(".taskCard");
-  const dropZones = document.querySelectorAll("#cardContainertoDo, #cardContainerinProgress, #cardContainerawaitingFeedback, #cardContainerdone");
+  const dropZones = document.querySelectorAll(
+    "#cardContainertoDo, #cardContainerinProgress, #cardContainerawaitingFeedback, #cardContainerdone"
+  );
 
-  draggedCards.forEach((card) => { card.ondragstart = (event) => { event.dataTransfer.setData("text", event.target.id); }; });
+  draggedCards.forEach((card) => {
+    card.ondragstart = (event) => {
+      event.dataTransfer.setData("text", event.target.id);
+    };
+  });
 
   dropZones.forEach((zone) => {
-    zone.ondragover = (event) => { event.preventDefault(); event.currentTarget.style.border = "dotted 2px grey";  };
+    zone.ondragover = (event) => {
+      event.preventDefault();
+      event.currentTarget.style.border = "dotted 2px grey";
+    };
 
     zone.ondragleave = (event) => {
-      event.currentTarget.style.backgroundColor = ""; event.currentTarget.style.border = "none";
+      event.currentTarget.style.backgroundColor = "";
+      event.currentTarget.style.border = "none";
     };
 
     zone.ondrop = (event) => {
       event.preventDefault();
       event.currentTarget.style.backgroundColor = "";
-      const data = event.dataTransfer.getData("text"), card = document.getElementById(data);
+      const data = event.dataTransfer.getData("text");
+      const card = document.getElementById(data);
       event.currentTarget.appendChild(card);
       event.currentTarget.style.border = "none";
-      dragAndDropOnDrop(event.currentTarget.id, data)
+      dragAndDropOnDrop(event.currentTarget.id, data);
     };
   });
 }
@@ -305,7 +316,7 @@ function subtaskOnKeyDown(position) {
   } else {
     if (event.key == "Escape") {
       document.getElementById("addNewSubtaskInput").value = "";
-    } 
+    }
     if (event.key == "Enter") {
       addNewSubtask();
     }

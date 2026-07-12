@@ -1,10 +1,7 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const subtaskInput = document.getElementById("addNewSubtaskInput");
   const subtaskBtnAdd = document.querySelector(".btn-subtask.add");
-  const subtaskBtnCheckCancel = document.querySelector(
-    ".btn-subtask.check-cancel"
-  );
+  const subtaskBtnCheckCancel = document.querySelector(".btn-subtask.check-cancel");
   const subtaskCancelBtn = document.querySelector(".cancel-subtask");
   const subtaskCheckBtn = document.querySelector(".check-subtask");
 

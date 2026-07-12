@@ -261,8 +261,25 @@ a {
 
 .requiredMessage {
   color: red;
-  font-size: 0.9em;
-  margin: 8px;
+  font-size: 12px;
+  line-height: 16px;
+  margin: 0 8px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.requiredMessage.d-none {
+  display: flex !important;
+  visibility: hidden;
+}
+
+.input__box.input__box--spaced {
+  margin-bottom: 0;
+}
+
+.input__box.margin-bottom24px {
+  margin-bottom: 0;
 }
 
 @media (max-width: 1000px) {
@@ -289,64 +306,136 @@ a {
     padding: 4px 24px;
   }
 }
-@media (max-width: 600px) and (max-height: 800px) {
-  .registration__box {
-    height: auto;
-  }
-  .title__box {
-    margin-top: -40px;
-  }
-  .divider__img {
-    margin-top: 5px;
-  }
-  .submit__button,.submit__button__disabled {
-    width: 120px;
-    height: 50px;
-  }
-  .checkbox__wrapper{
-    margin-bottom: 10px;
-    margin-top: -35px;
-  }
-}
-@media (max-width: 565px) {
-  .input__box {
-    width: 100%;
-  }
-  .input__box input {
-    width: 80%;
-  }
-  .title__box {
-    gap: 50px;
-    margin-left: -50px;
-  }
-}
-@media (max-width: 480px) {
-  .registration__form {
-    width: 100%;
-  }
-  .registration__box {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: auto;
-  }
-  .input__box {
-    width: 80%;
-  }
-  .content__box {
+@media (max-width: 600px) {
+  html,
+  body {
+    height: 100dvh;
     overflow: hidden;
   }
+  body {
+    max-width: 100%;
+  }
+  .top__bar {
+    height: 56px;
+    margin-top: 8px;
+    margin-left: 20px;
+  }
+  .site__logo {
+    height: 44px;
+    width: 36px;
+  }
+  .content__box {
+    flex: 1;
+    align-items: flex-start;
+    padding: 4px 0;
+    overflow: hidden;
+  }
+  .registration__box {
+    width: 92%;
+    max-width: 396px;
+    height: auto;
+    padding: 12px 0 8px;
+    gap: 4px;
+  }
   .registration__box h1 {
-    font-size: 50px;
+    font-size: 36px;
+    height: auto;
+    line-height: 1.1;
+  }
+  .divider__img {
+    width: 100px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+  .title__box {
+    gap: 40px;
+    margin-left: -60px;
+    width: 100%;
+  }
+  .input__box,
+  .input__box.input__box--spaced,
+  .input__box.margin-bottom24px {
+    width: 88%;
+    margin-bottom: 0;
+    padding: 8px 16px;
   }
   .input__box input {
-    width: 80%;
+    font-size: 16px;
+    width: calc(100% - 30px);
+  }
+  .requiredMessage {
+    height: 16px;
+    font-size: 11px;
+    margin: 0 8px;
+  }
+  .checkbox__wrapper {
+    margin: 4px 0;
+    font-size: 12px;
+  }
+  .submit__button,
+  .submit__button__disabled {
+    width: 140px;
+    height: 44px;
+    font-size: 15px;
+    padding: 8px 16px;
+  }
+  .button__box {
+    height: auto;
+    margin-top: 2px;
+  }
+  .site__footer {
+    padding: 6px 0;
+  }
+  .site__footer a {
+    font-size: 12px;
+    padding-bottom: 8px;
+    min-width: 90px;
   }
 }
-
+@media (max-width: 600px) and (max-height: 700px) {
+  .top__bar {
+    height: 40px;
+    margin-top: 4px;
+  }
+  .site__logo {
+    height: 34px;
+    width: 28px;
+  }
+  .registration__box h1 {
+    font-size: 30px;
+  }
+  .divider__img {
+    margin-top: 2px;
+    margin-bottom: 4px;
+  }
+  .input__box,
+  .input__box.input__box--spaced,
+  .input__box.margin-bottom24px {
+    padding: 6px 14px;
+  }
+  .input__box input {
+    font-size: 14px;
+  }
+  .requiredMessage {
+    height: 14px;
+    font-size: 10px;
+  }
+  .submit__button,
+  .submit__button__disabled {
+    height: 40px;
+    font-size: 14px;
+  }
+  .site__footer a {
+    padding-bottom: 0;
+  }
+}
 @media (max-width: 400px) {
   .title__box {
-    gap: 30px;
-    margin-left: -30px;
+    gap: 24px;
+    margin-left: -40px;
+  }
+  .registration__box h1 {
+    font-size: 32px;
   }
 }
 
