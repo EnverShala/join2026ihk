@@ -337,7 +337,7 @@ a {
     gap: 8px;
   }
   .registration__box h1 {
-    font-size: 56px;
+    font-size: 44px;
     height: auto;
     line-height: 1.1;
   }
@@ -405,7 +405,7 @@ a {
     gap: 4px;
   }
   .registration__box h1 {
-    font-size: 44px;
+    font-size: 38px;
   }
   .divider__img {
     margin-top: 4px;
@@ -439,9 +439,6 @@ a {
   .title__box {
     gap: 40px;
     margin-left: -60px;
-  }
-  .registration__box h1 {
-    font-size: 48px;
   }
 }
 
