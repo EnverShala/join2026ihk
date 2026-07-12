@@ -325,7 +325,7 @@ a {
   }
   .content__box {
     flex: 1;
-    align-items: flex-start;
+    align-items: center;
     padding: 8px 0;
     overflow: hidden;
   }
