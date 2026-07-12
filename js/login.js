@@ -1,31 +1,34 @@
 /**
- * Initializes the application by removing the "start" class from the logo container,
- * setting the background to white, and showing the login container after a delay.
+ * Initializes the login page: kicks off the logo intro animation and reveals
+ * the login card after 1.5s. Safe against missing elements.
  */
 function init() {
-  document.getElementById("logo-container").classList.remove("start");
-  document.getElementById("myBody").style.background = "white";
+  const logo = document.getElementById("logo-container");
+  const body = document.getElementById("myBody");
+  if (logo) logo.classList.remove("start");
+  if (body) body.style.background = "white";
   setTimeout(showLoginContainer, 1500);
 }
 
-/**
- * Shows the login container if no user is logged in, otherwise redirects to the summary page.
- */
+/** Reveals the login container, or redirects to summary if a user is logged in. */
 function showLoginContainer() {
   let loggedInAccount = localStorage.getItem("loggedInAccount");
-  if (loggedInAccount) {
-    if (loggedInAccount != "") {
-      location.href = "./summary.html";
-      return;
-    }
+  if (loggedInAccount && loggedInAccount != "") {
+    location.href = "./summary.html";
+    return;
   }
+  revealLoginElements();
+}
 
-  document.getElementById("main_wrapper").classList.remove("d-none");
-  document.getElementById("footerID").classList.remove("d-none");
-  document.getElementById("authOpt").classList.remove("d-none");
-  document.getElementById("logo-container").classList.remove("d-none");
-  document.getElementById("login_section").classList.remove("d-none");
-  document.getElementById("logo-container").classList.remove("transition2s");
+/** Removes the initial `d-none`/animation classes from the login layout elements. */
+function revealLoginElements() {
+  const ids = ["main_wrapper", "footerID", "authOpt", "logo-container", "login_section"];
+  ids.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove("d-none");
+  });
+  const logo = document.getElementById("logo-container");
+  if (logo) logo.classList.remove("transition2s");
 }
 
 /**
