@@ -267,17 +267,16 @@ a {
   height: 20px;
   display: flex;
   align-items: center;
+  visibility: visible;
+  opacity: 1;
 }
 
 .requiredMessage.d-none {
   display: flex !important;
-  visibility: hidden;
+  visibility: hidden !important;
 }
 
-.input__box.input__box--spaced {
-  margin-bottom: 0;
-}
-
+.input__box.input__box--spaced,
 .input__box.margin-bottom24px {
   margin-bottom: 0;
 }
@@ -316,40 +315,40 @@ a {
     max-width: 100%;
   }
   .top__bar {
-    height: 56px;
-    margin-top: 8px;
-    margin-left: 20px;
+    height: 60px;
+    margin-top: 12px;
+    margin-left: 24px;
   }
   .site__logo {
-    height: 44px;
-    width: 36px;
+    height: 56px;
+    width: 46px;
   }
   .content__box {
     flex: 1;
     align-items: flex-start;
-    padding: 4px 0;
+    padding: 8px 0;
     overflow: hidden;
   }
   .registration__box {
     width: 92%;
     max-width: 396px;
     height: auto;
-    padding: 12px 0 8px;
-    gap: 4px;
+    padding: 20px 0 16px;
+    gap: 8px;
   }
   .registration__box h1 {
-    font-size: 36px;
+    font-size: 56px;
     height: auto;
     line-height: 1.1;
   }
   .divider__img {
-    width: 100px;
-    margin-top: 4px;
-    margin-bottom: 8px;
+    width: 130px;
+    margin-top: 8px;
+    margin-bottom: 16px;
   }
   .title__box {
-    gap: 40px;
-    margin-left: -60px;
+    gap: 60px;
+    margin-left: -80px;
     width: 100%;
   }
   .input__box,
@@ -357,85 +356,92 @@ a {
   .input__box.margin-bottom24px {
     width: 88%;
     margin-bottom: 0;
-    padding: 8px 16px;
+    padding: 10px 18px;
   }
   .input__box input {
-    font-size: 16px;
+    font-size: 18px;
     width: calc(100% - 30px);
   }
   .requiredMessage {
-    height: 16px;
-    font-size: 11px;
+    height: 18px;
+    font-size: 12px;
     margin: 0 8px;
   }
   .checkbox__wrapper {
-    margin: 4px 0;
-    font-size: 12px;
+    margin: 8px 0;
+    font-size: 13px;
   }
   .submit__button,
   .submit__button__disabled {
-    width: 140px;
-    height: 44px;
+    width: 170px;
+    height: 48px;
     font-size: 15px;
-    padding: 8px 16px;
+    padding: 8px 20px;
   }
   .button__box {
     height: auto;
-    margin-top: 2px;
-  }
-  .site__footer {
-    padding: 6px 0;
-  }
-  .site__footer a {
-    font-size: 12px;
-    padding-bottom: 8px;
-    min-width: 90px;
-  }
-}
-@media (max-width: 600px) and (max-height: 700px) {
-  .top__bar {
-    height: 40px;
     margin-top: 4px;
   }
+  .site__footer {
+    padding: 8px 0;
+  }
+  .site__footer a {
+    font-size: 13px;
+    padding-bottom: 12px;
+    min-width: 100px;
+  }
+}
+@media (max-width: 600px) and (max-height: 720px) {
+  .top__bar {
+    height: 48px;
+    margin-top: 6px;
+  }
   .site__logo {
-    height: 34px;
-    width: 28px;
+    height: 42px;
+    width: 34px;
+  }
+  .registration__box {
+    padding: 12px 0 10px;
+    gap: 4px;
   }
   .registration__box h1 {
-    font-size: 30px;
+    font-size: 44px;
   }
   .divider__img {
-    margin-top: 2px;
-    margin-bottom: 4px;
+    margin-top: 4px;
+    margin-bottom: 8px;
   }
   .input__box,
   .input__box.input__box--spaced,
   .input__box.margin-bottom24px {
-    padding: 6px 14px;
+    padding: 8px 16px;
   }
   .input__box input {
-    font-size: 14px;
+    font-size: 16px;
   }
   .requiredMessage {
-    height: 14px;
-    font-size: 10px;
+    height: 16px;
+    font-size: 11px;
   }
   .submit__button,
   .submit__button__disabled {
-    height: 40px;
+    height: 44px;
     font-size: 14px;
   }
+  .site__footer {
+    padding: 4px 0;
+  }
   .site__footer a {
-    padding-bottom: 0;
+    padding-bottom: 4px;
   }
 }
 @media (max-width: 400px) {
   .title__box {
-    gap: 24px;
-    margin-left: -40px;
+    gap: 40px;
+    margin-left: -60px;
   }
   .registration__box h1 {
-    font-size: 32px;
+    font-size: 48px;
   }
 }
 

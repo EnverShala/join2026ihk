@@ -75,62 +75,62 @@
     .main_wrapper {
       flex-direction: column;
       overflow: hidden;
-      padding-bottom: 8px;
+      padding-bottom: 12px;
     }
     .top_bar {
-      height: 56px;
+      height: 64px;
     }
     .logo-container {
-      top: 12px;
-      left: 16px;
+      top: 18px;
+      left: 18px;
     }
     .joinLogo {
-      height: 44px;
-      width: 36px;
+      height: 48px;
+      width: 40px;
       margin-top: 0;
     }
     .login_form {
       width: auto;
     }
     .login_section {
-      margin-top: 4px;
+      margin-top: 8px;
       width: 90dvw;
       max-width: 396px;
       height: auto;
-      padding: 20px 16px 20px;
-      gap: 6px;
+      padding: 28px 16px 28px;
+      gap: 12px;
     }
     .login_section h1 {
       width: auto;
       height: auto;
-      font-size: 40px;
+      font-size: 44px;
       line-height: 1.1;
       margin: 0;
     }
     .login_divider {
-      width: 100px;
-      margin-bottom: 10px;
+      width: 110px;
+      margin-bottom: 16px;
     }
     .field_group {
       width: 88%;
-      padding: 8px 14px;
+      padding: 10px 16px;
     }
     .field_group input {
-      font-size: 16px;
+      font-size: 17px;
     }
     .field_group-margin32 {
-      margin-bottom: 4px;
+      margin-bottom: 10px;
     }
     .error_email_wrapper,
     .error_password_wrapper {
       width: 88%;
-      margin-top: 2px;
-      height: 14px;
+      margin-top: 4px;
+      height: 16px;
     }
     .error_email_message,
     .error_password_message {
-      font-size: 11px;
-      line-height: 14px;
+      font-size: 12px;
+      line-height: 16px;
     }
     .checkbox_area {
       display: none;
@@ -141,14 +141,14 @@
       align-items: center;
       width: auto;
       height: auto;
-      gap: 10px;
-      margin-top: 6px;
+      gap: 16px;
+      margin-top: 12px;
     }
     .btn_login,
     .btn_guest {
-      width: 160px;
-      height: 42px;
-      font-size: 14px;
+      width: 170px;
+      height: 48px;
+      font-size: 15px;
       gap: 0;
     }
     .auth_options {
@@ -160,62 +160,62 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-      margin-top: 8px;
-      gap: 12px;
+      margin-top: 16px;
+      gap: 14px;
     }
     .auth_options_mobile p {
-      font-size: 13px;
+      font-size: 15px;
       width: auto;
       margin: 0;
     }
     .auth_signUp {
       width: auto;
       height: auto;
-      padding: 8px 14px;
-      font-size: 13px;
+      padding: 10px 16px;
+      font-size: 14px;
       border-radius: 8px;
     }
     .site_footer {
-      padding: 6px 0;
+      padding: 8px 0;
     }
     .site_footer a {
-      font-size: 12px;
+      font-size: 14px;
     }
     .legal_links {
-      height: 18px;
-      gap: 16px;
+      height: 20px;
+      gap: 20px;
     }
   }
-  @media (max-width: 600px) and (max-height: 700px) {
+  @media (max-width: 600px) and (max-height: 720px) {
     .top_bar {
-      height: 40px;
+      height: 48px;
     }
     .joinLogo {
-      height: 34px;
-      width: 28px;
+      height: 38px;
+      width: 32px;
     }
     .login_section {
-      margin-top: 2px;
+      margin-top: 4px;
       height: auto;
-      padding: 12px 16px 12px;
-      gap: 4px;
+      padding: 18px 16px 18px;
+      gap: 8px;
     }
     .login_section h1 {
-      font-size: 32px;
+      font-size: 38px;
     }
     .login_divider {
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
     .auth_options_mobile p {
-      font-size: 12px;
+      font-size: 13px;
     }
     .btn_login,
     .btn_guest {
-      height: 38px;
-      font-size: 13px;
+      height: 44px;
+      font-size: 14px;
     }
     .site_footer {
-      padding: 2px 0;
+      padding: 4px 0;
     }
   }
   @keyframes fadeIn {
