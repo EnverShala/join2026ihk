@@ -1,7 +1,11 @@
 let popupIdString = "";
 let taskLevel = "To do";
 
-/** Reads all task-form fields into a plain object. @param {string} id @return {Object} */
+/**
+ * Reads all task-form fields into a plain object.
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {Object} Object with title, description, date, category, prio, subtasks and assigned.
+ */
 function readTaskFormValues(id) {
   return {
     title: document.getElementById("title").value,
@@ -14,7 +18,11 @@ function readTaskFormValues(id) {
   };
 }
 
-/** Creates a new task from the form fields and saves it to Firebase. @param {string} id */
+/**
+ * Creates a new task from the form fields and saves it to Firebase.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {Promise<void>} Resolved after the task has been saved.
+ */
 async function createTask(id = "") {
   const ctx = id === "Popup" ? "popup" : "";
   const attachment = typeof getAttachmentJson === "function" ? getAttachmentJson(ctx) : "";
@@ -26,7 +34,11 @@ async function createTask(id = "") {
   if (typeof clearAttachmentState === "function") clearAttachmentState(ctx);
 }
 
-/** Joins the text of an <ul>'s children with "|" separators. @param {HTMLCollection} listChildren @return {string} */
+/**
+ * Joins the text of an ul's children with "|" separators.
+ * @param {HTMLCollection} listChildren - The child elements of a subtask list.
+ * @returns {string} Pipe-separated subtask string.
+ */
 function subtaskListToString(listChildren = []) {
   let taskSubtasks = "";
   if (listChildren.length > 0) {
@@ -40,7 +52,17 @@ function subtaskListToString(listChildren = []) {
 
 /**
  * Builds a plain task object from the given field values.
- * @param {string} newTitle @param {string} newDescription @param {string} newDate @param {string} oldCategory @param {string} newPrio @param {string} oldLevel @param {string} newSubtasks @param {string} newAssigned @param {string} subtasksDone @param {string} attachments @return {Object}
+ * @param {string} newTitle - The task title.
+ * @param {string} newDescription - The task description.
+ * @param {string} newDate - The due date (YYYY-MM-DD).
+ * @param {string} oldCategory - The category label.
+ * @param {string} newPrio - The priority ("Urgent" | "Medium" | "Low" | "None").
+ * @param {string} oldLevel - The board column ("To do" | "In progress" | ...).
+ * @param {string} newSubtasks - The pipe-separated subtask string.
+ * @param {string} newAssigned - The comma-separated assigned users.
+ * @param {string} [subtasksDone=""] - Pipe-separated completed subtasks.
+ * @param {string} [attachments=""] - Attachments as JSON string or empty.
+ * @returns {Object} The composed task object.
  */
 function createTaskArray(newTitle, newDescription, newDate, oldCategory, newPrio, oldLevel, newSubtasks, newAssigned, subtasksDone = "", attachments = "") {
   return {
@@ -57,7 +79,11 @@ function createTaskArray(newTitle, newDescription, newDate, oldCategory, newPrio
   };
 }
 
-/** Returns the currently selected task priority ("Urgent" / "Medium" / "Low" / "None"). @param {string} id @return {string} */
+/**
+ * Returns the currently selected task priority.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {string} One of "Urgent", "Medium", "Low" or "None".
+ */
 function getTaskPrio(id = "") {
   if (document.getElementById("urgent" + id).className.includes("btn-bg-change-urgent-onclick")) return "Urgent";
   if (document.getElementById("medium" + id).className.includes("btn-bg-change-medium-onclick")) return "Medium";
@@ -65,55 +91,78 @@ function getTaskPrio(id = "") {
   return "None";
 }
 
-/** Resets all priority buttons to their default styling. @param {string} id */
-function clearPrioButtons(id = "") {
-  document.getElementById('urgent' + id).className = "btn-prio";
-  document.getElementById('urgent-whiteID' + id).className = "d-none";
-  document.getElementById('urgentID' + id).className = "";
-  document.getElementById('urgent' + id).style.boxShadow = "";
-
-  document.getElementById('medium' + id).className = "btn-prio";
-  document.getElementById('medium-whiteID' + id).className = "d-none";
-  document.getElementById('mediumID' + id).className = "";
-  document.getElementById('medium' + id).style.boxShadow = "";
-
-  document.getElementById('low' + id).className = "btn-prio";
-  document.getElementById('low-whiteID' + id).className = "d-none";
-  document.getElementById('lowID' + id).className = "";
-  document.getElementById('low' + id).style.boxShadow = "";
+/**
+ * Resets a single priority button (urgent/medium/low) to its default styling.
+ * @param {string} name - The priority name ("urgent", "medium" or "low").
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
+function resetPrioButton(name, id) {
+  document.getElementById(name + id).className = "btn-prio";
+  document.getElementById(name + "-whiteID" + id).className = "d-none";
+  document.getElementById(name + "ID" + id).className = "";
+  document.getElementById(name + id).style.boxShadow = "";
 }
 
-/** Toggles the "Urgent" priority button. @param {string} id */
+/**
+ * Resets all priority buttons to their default styling.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
+function clearPrioButtons(id = "") {
+  resetPrioButton("urgent", id);
+  resetPrioButton("medium", id);
+  resetPrioButton("low", id);
+}
+
+/**
+ * Activates a single priority button visually.
+ * @param {string} name - The priority name ("urgent", "medium" or "low").
+ * @param {string} activeClass - The active CSS class ("btn-bg-change-urgent-onclick" ...).
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
+function _setPrioButtonActive(name, activeClass, id) {
+  const btn = document.getElementById(name + id);
+  if (!btn) return;
+  btn.className = "btn-prio " + activeClass + " prio-txt-color-set-white";
+  btn.style.boxShadow = "none";
+  document.getElementById(name + "ID" + id).className = "d-none";
+  document.getElementById(name + "-whiteID" + id).className = "";
+}
+
+/**
+ * Toggles the "Urgent" priority button.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
 function clickOnUrgent(id = "") {
   if (getTaskPrio(id) == "Urgent") { clearPrioButtons(id); return; }
   clearPrioButtons(id);
-  document.getElementById("urgent" + id).className = "btn-prio btn-bg-change-urgent-onclick prio-txt-color-set-white";
-  document.getElementById("urgent" + id).style.boxShadow = "none";
-  document.getElementById("urgentID" + id).className = "d-none";
-  document.getElementById("urgent-whiteID" + id).className = "";
+  _setPrioButtonActive("urgent", "btn-bg-change-urgent-onclick", id);
 }
 
-/** Toggles the "Medium" priority button. @param {string} id */
+/**
+ * Toggles the "Medium" priority button.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
 function clickOnMedium(id = "") {
   if (getTaskPrio(id) == "Medium") { clearPrioButtons(id); return; }
   clearPrioButtons(id);
-  document.getElementById("medium" + id).className = "btn-prio btn-bg-change-medium-onclick prio-txt-color-set-white";
-  document.getElementById("medium" + id).style.boxShadow = "none";
-  document.getElementById("mediumID" + id).className = "d-none";
-  document.getElementById("medium-whiteID" + id).className = "";
+  _setPrioButtonActive("medium", "btn-bg-change-medium-onclick", id);
 }
 
-/** Toggles the "Low" priority button. @param {string} id */
+/**
+ * Toggles the "Low" priority button.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
 function clickOnLow(id = "") {
   if (getTaskPrio(id) == "Low") { clearPrioButtons(id); return; }
   clearPrioButtons(id);
-  document.getElementById("low" + id).className = "btn-prio btn-bg-change-low-onclick prio-txt-color-set-white";
-  document.getElementById("low" + id).style.boxShadow = "none";
-  document.getElementById("lowID" + id).className = "d-none";
-  document.getElementById("low-whiteID" + id).className = "";
+  _setPrioButtonActive("low", "btn-bg-change-low-onclick", id);
 }
 
-/** Adds a one-shot capture-phase outside-click listener to close a dropdown. @param {HTMLElement} dropdown @param {HTMLElement} container */
+/**
+ * Adds a one-shot capture-phase outside-click listener to close a dropdown.
+ * @param {HTMLElement} dropdown - The dropdown element that should close on outside click.
+ * @param {HTMLElement} container - The container element wrapping the dropdown trigger.
+ */
 function bindDropdownOutsideClose(dropdown, container) {
   const handler = (event) => {
     if (container && container.contains(event.target)) return;
@@ -125,7 +174,10 @@ function bindDropdownOutsideClose(dropdown, container) {
   setTimeout(() => document.addEventListener("click", handler, true), 0);
 }
 
-/** Toggles the assigned-to dropdown. @param {string} id */
+/**
+ * Toggles the assigned-to dropdown open/closed.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
 function toggleDropdown(id = "") {
   const dropdown = document.getElementById("myDropdown" + id);
   const container = document.getElementById("contacts-list" + id);
@@ -136,13 +188,20 @@ function toggleDropdown(id = "") {
   if (willOpen) bindDropdownOutsideClose(dropdown, container);
 }
 
-/** Kept for backward compatibility with inline onclick handlers. */
+/**
+ * Kept for backward compatibility with inline onclick handlers.
+ * @param {string} [id=""] - Context suffix (unused).
+ */
 function closeAssignedto(id = "") {}
 
-/** Kept for backward compatibility with inline onclick handlers. */
+/**
+ * Kept for backward compatibility with inline onclick handlers.
+ */
 function closeCategory() {}
 
-/** Toggles the category dropdown. */
+/**
+ * Toggles the category dropdown open/closed.
+ */
 function toggleDropdownCategory() {
   const dropdown = document.getElementById("myDropdownCategory");
   const container = document.getElementById("category-container");
@@ -153,7 +212,11 @@ function toggleDropdownCategory() {
   if (willOpen) bindDropdownOutsideClose(dropdown, container);
 }
 
-/** Returns a comma-separated string of names of assigned users. @param {string} id @return {string} */
+/**
+ * Returns a comma-separated string of names of assigned users.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {string} Comma-separated user names.
+ */
 function getAssignedUsers(id = "") {
   let newAssigned = "";
   if (users.length > 0) {
@@ -166,11 +229,25 @@ function getAssignedUsers(id = "") {
   return newAssigned;
 }
 
-/** Renders the assigned-to user list in the dropdown. Deduplicates by email. @param {string} id */
+/**
+ * Builds the deduplicated list of unique assigned-user names.
+ * @returns {string[]} Array of unique trimmed user names.
+ */
+function getUniqueAssignedNames() {
+  const seen = new Set();
+  return users
+    .filter(u => !seen.has(u.email) && seen.add(u.email))
+    .map(u => u.name.trim());
+}
+
+/**
+ * Renders the assigned-to user list in the dropdown, deduplicated by email.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {Promise<void>} Resolves after users are loaded and rendered.
+ */
 async function renderAssignedTo(id = "") {
   await loadUsers("/users");
-  const seen = new Set();
-  const uniqueNames = users.filter(u => !seen.has(u.email) && seen.add(u.email)).map(u => u.name.trim());
+  const uniqueNames = getUniqueAssignedNames();
   let html = "", j = 1;
   for (let i = 0; i < uniqueNames.length; i++) {
     html += createRenderAssignedToUserTemplate(i, j, getUserInitials(uniqueNames[i]), uniqueNames[i], id);
@@ -179,31 +256,59 @@ async function renderAssignedTo(id = "") {
   document.getElementById("myDropdown" + id).innerHTML = html;
 }
 
-/** Toggles a checkbox and updates its background/text styling. @param {string} checkboxId */
+/**
+ * Toggles a checkbox and updates its background/text styling.
+ * @param {string} checkboxId - The DOM id of the checkbox to toggle.
+ */
 function toggleCheckbox(checkboxId) {
   const checkbox = document.getElementById(checkboxId);
   checkbox.checked = !checkbox.checked;
   toggleBackground(checkbox);
 }
 
-/** Applies background/text color changes for the assigned-contact list item. @param {HTMLInputElement} checkbox */
+/**
+ * Applies the visual "selected" state to the list item of a checkbox.
+ * @param {HTMLElement} listItem - The list item element.
+ * @param {boolean} checked - Whether the checkbox is checked.
+ */
+function applyListItemSelectedStyle(listItem, checked) {
+  listItem.style.backgroundColor = checked ? "#2a3647" : "";
+  listItem.style.color = checked ? "white" : "black";
+}
+
+/**
+ * Adds or removes the contact-chip in the selected-contacts container.
+ * @param {HTMLElement} container - The selected-contacts container.
+ * @param {HTMLElement} circle - The cloned circle element for the contact.
+ * @param {boolean} checked - Whether the checkbox is checked.
+ */
+function syncSelectedContactChip(container, circle, checked) {
+  if (checked) {
+    container.appendChild(circle);
+    return;
+  }
+  container.querySelectorAll(".circle:not(.overflow-chip)").forEach(c => {
+    if (c.textContent.trim() === circle.textContent.trim()) container.removeChild(c);
+  });
+}
+
+/**
+ * Applies background/text color changes for the assigned-contact list item.
+ * @param {HTMLInputElement} checkbox - The checkbox element that was toggled.
+ */
 function toggleBackground(checkbox) {
   const listItem = checkbox.closest(".list-item");
   const circle = listItem.querySelector(".circle").cloneNode(true);
   const container = document.getElementById("selected-contacts-container" + popupIdString);
-  listItem.style.backgroundColor = checkbox.checked ? "#2a3647" : "";
-  listItem.style.color = checkbox.checked ? "white" : "black";
-  if (checkbox.checked) {
-    container.appendChild(circle);
-  } else {
-    container.querySelectorAll(".circle:not(.overflow-chip)").forEach(c => {
-      if (c.textContent.trim() === circle.textContent.trim()) container.removeChild(c);
-    });
-  }
+  applyListItemSelectedStyle(listItem, checkbox.checked);
+  syncSelectedContactChip(container, circle, checkbox.checked);
   applySelectedContactsOverflow(container);
 }
 
-/** Shows max 5 contact circles + a "+N" overflow chip. @param {HTMLElement} container */
+/**
+ * Shows max 5 contact circles and hides the rest, then appends a "+N" overflow chip.
+ * @param {HTMLElement} container - The selected-contacts container.
+ */
 function applySelectedContactsOverflow(container) {
   if (!container) return;
   const MAX_VISIBLE = 5;
@@ -218,21 +323,34 @@ function applySelectedContactsOverflow(container) {
   }
 }
 
-/** Clears the primary form field values and hides all "required" hints. @param {string} id */
-function clearFormFields(id) {
-  document.getElementById('title').value = '';
-  document.getElementById('description').value = '';
-  document.getElementById('due-date-input').value = '';
+/**
+ * Hides all "required" hint messages of the task form.
+ */
+function hideRequiredHints() {
   document.getElementById('title-required').style.display = 'none';
   document.getElementById('date-required').style.display = 'none';
   document.getElementById('category-required').style.display = 'none';
   document.getElementById('description-required').style.display = 'none';
   document.getElementById('assigned-to-required').style.display = 'none';
   document.getElementById('prio-required').style.display = 'none';
+}
+
+/**
+ * Clears the primary form field values and hides all "required" hints.
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
+function clearFormFields(id) {
+  document.getElementById('title').value = '';
+  document.getElementById('description').value = '';
+  document.getElementById('due-date-input').value = '';
+  hideRequiredHints();
   document.getElementById('subtaskList' + id).innerHTML = '';
 }
 
-/** Clears the entire task input form, resetting all fields and states. @param {string} id */
+/**
+ * Clears the entire task input form, resetting all fields and states.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
 function clearForm(id = "") {
   clearFormFields(id);
   document.getElementById('category-displayed').textContent = 'Select task category';
@@ -246,7 +364,10 @@ function clearForm(id = "") {
   if (typeof removeAttachment === "function") removeAttachment(attachCtx);
 }
 
-/** Clears the subtask input field and any subtask-array state for the form. @param {string} id */
+/**
+ * Clears the subtask input field and any subtask-array state for the form.
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
 function clearSubtaskInputAndState(id) {
   const inputId = id == "Popup" ? "addSubtaskInputPopup" : "addNewSubtaskInput";
   document.getElementById(inputId).value = '';
@@ -258,7 +379,10 @@ function clearSubtaskInputAndState(id) {
   }
 }
 
-/** Unchecks every assigned-user checkbox in the given form and resets item styling. @param {string} id */
+/**
+ * Unchecks every assigned-user checkbox in the given form and resets item styling.
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ */
 function resetAssignedCheckboxes(id) {
   const checkboxes = document.querySelectorAll(`#myDropdown${id} input[type="checkbox"]`);
   checkboxes.forEach((checkbox) => {
@@ -269,7 +393,9 @@ function resetAssignedCheckboxes(id) {
   });
 }
 
-/** Shows the "task added" toast and redirects to the board after 3s. */
+/**
+ * Shows the "task added" toast and redirects to the board after 3 seconds.
+ */
 function showSuccessMessage() {
   const successMessage = document.querySelector('.msg-task-added');
   successMessage.style.display = 'flex';

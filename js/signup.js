@@ -1,50 +1,63 @@
-/** Tracks blurred signup fields so required errors only show after blur. */
 const touchedSignupFields = new Set();
 
-/** Marks a signup field as touched and re-runs validation. @param {string} fieldId */
+/**
+ * Markiert ein Signup-Feld als berührt und aktualisiert den Submit-Button.
+ *
+ * @param {string} fieldId - Die ID des berührten Formularfeldes.
+ */
 function markSignupFieldTouched(fieldId) {
   touchedSignupFields.add(fieldId);
   checkSignUpButton();
 }
 
-/** Toggles the disabled state of the register button. */
+/**
+ * Schaltet den Disabled-Zustand des Registrierungs-Buttons um.
+ */
 function toggleSignUpButton() {
   document.getElementById("registerButton").disabled =
     document.getElementById("registerButton").disabled == true ? false : true;
 }
 
-/** Returns true if privacy checkbox is checked; else marks text red. @return {boolean} */
+/**
+ * Prüft die Datenschutz-Checkbox und markiert die Zustimmungstexte bei Bedarf rot.
+ *
+ * @returns {boolean} True wenn die Checkbox aktiviert ist.
+ */
 function checkPrivacyPolicy() {
   let agreeCheckbox = document.getElementById("agreeCheckbox").checked;
-
   if (agreeCheckbox) {
     document.getElementById("agreementText").classList.remove("redFont");
     document.getElementById("agreementLink").classList.remove("redFont");
     return true;
-  } else {
-    document.getElementById("agreementText").classList.add("redFont");
-    document.getElementById("agreementLink").classList.add("redFont");
   }
-
+  document.getElementById("agreementText").classList.add("redFont");
+  document.getElementById("agreementLink").classList.add("redFont");
   return false;
 }
 
-/** Enables/disables the register button based on signup conditions. @return {boolean} */
+/**
+ * Aktiviert oder deaktiviert den Registrierungs-Button basierend auf den Signup-Bedingungen.
+ *
+ * @returns {boolean} True wenn alle Bedingungen erfüllt sind.
+ */
 function checkSignUpButton() {
   let registerButton = document.getElementById("registerButton");
-
   if (checkSignUpConditions()) {
     registerButton.className = "submit__button";
     registerButton.disabled = false;
     return true;
-  } else {
-    registerButton.className = "submit__button__disabled";
-    registerButton.disabled = true;
-    return false;
   }
+  registerButton.className = "submit__button__disabled";
+  registerButton.disabled = true;
+  return false;
 }
 
-/** Submit handler: validates all fields, calls registerUser if valid. @param {Event} event @return {boolean} */
+/**
+ * Submit-Handler des Signup-Formulars; markiert alle Felder und ruft bei Gültigkeit registerUser auf.
+ *
+ * @param {Event} event - Das Submit-Event.
+ * @returns {boolean} Immer false, um das Standard-Submit zu verhindern.
+ */
 function handleSignUpSubmit(event) {
   event.preventDefault();
   ["fullName", "userEmail", "userPassword", "confirmPassword"].forEach(function (id) {
@@ -54,15 +67,24 @@ function handleSignUpSubmit(event) {
   return false;
 }
 
-/** Returns true if name, email, password and privacy are all valid. @return {boolean} */
+/**
+ * Prüft, ob Name, Email, Passwort, Passwortabgleich und Datenschutz alle gültig sind.
+ *
+ * @returns {boolean} True wenn alle Prüfungen bestehen.
+ */
 function checkSignUpConditions() {
   return checkName() && checkEmail() && checkPassword() &&
     clearPasswordMismatchMessage() && checkPrivacyPolicy();
 }
 
 /**
- * Applies the shared show/hide-error pattern to a signup field.
- * @param {string} boxId @param {string} msgId @param {string} fieldId @param {boolean} isValid @param {boolean} isEmpty
+ * Wendet das Show/Hide-Fehlermuster auf ein Signup-Feld an.
+ *
+ * @param {string} boxId - Die ID der umgebenden Box.
+ * @param {string} msgId - Die ID des Fehlermeldung-Elements.
+ * @param {string} fieldId - Die ID des Formularfeldes.
+ * @param {boolean} isValid - Ob der aktuelle Wert gültig ist.
+ * @param {boolean} isEmpty - Ob das Feld leer ist.
  */
 function _applySignupFieldState(boxId, msgId, fieldId, isValid, isEmpty) {
   const box = document.getElementById(boxId);
@@ -72,7 +94,11 @@ function _applySignupFieldState(boxId, msgId, fieldId, isValid, isEmpty) {
   box.classList.toggle("margin-bottom24px", !showError);
 }
 
-/** Validates the signup email and toggles its required message. @return {boolean} */
+/**
+ * Validiert die Signup-Email und schaltet die Fehlermeldung um.
+ *
+ * @returns {boolean} True wenn die Email gültig ist.
+ */
 function checkEmail() {
   const email = document.getElementById("userEmail").value.trim();
   const valid = isEmailValid(email);
@@ -80,13 +106,16 @@ function checkEmail() {
   return valid;
 }
 
-/** Returns true if password and confirmation match (or confirm empty). @return {boolean} */
+/**
+ * Prüft, ob Passwort und Passwort-Bestätigung übereinstimmen (oder Bestätigung leer ist).
+ *
+ * @returns {boolean} True wenn kein Konflikt vorliegt.
+ */
 function clearPasswordMismatchMessage() {
   let messageContainer = document.getElementById("requiredConfirmation");
   let confirmBox = document.getElementById("confirmPasswordBox");
   let confirmValue = document.getElementById("confirmPassword").value.trim();
   let passwordValue = document.getElementById("userPassword").value.trim();
-
   if (confirmValue == "") return hideConfirmError(messageContainer, confirmBox, false);
   if (passwordValue == confirmValue) return hideConfirmError(messageContainer, confirmBox, true);
   if (!touchedSignupFields.has("confirmPassword")) return hideConfirmError(messageContainer, confirmBox, false);
@@ -95,14 +124,25 @@ function clearPasswordMismatchMessage() {
   return false;
 }
 
-/** Hides the confirm-password error and returns the given result flag. @param {HTMLElement} messageContainer @param {HTMLElement} confirmBox @param {boolean} result @return {boolean} */
+/**
+ * Blendet die Confirm-Password-Fehlermeldung aus und gibt das übergebene Ergebnis zurück.
+ *
+ * @param {HTMLElement} messageContainer - Der Container der Fehlermeldung.
+ * @param {HTMLElement} confirmBox - Die umgebende Box des Bestätigungsfeldes.
+ * @param {boolean} result - Der Rückgabewert, der weitergereicht werden soll.
+ * @returns {boolean} Der übergebene `result`-Wert.
+ */
 function hideConfirmError(messageContainer, confirmBox, result) {
   messageContainer.classList.add("d-none");
   confirmBox.classList.add("margin-bottom24px");
   return result;
 }
 
-/** Validates the signup password (min. 6 chars) and toggles error. @return {boolean} */
+/**
+ * Validiert das Signup-Passwort (mindestens 6 Zeichen) und schaltet die Fehlermeldung um.
+ *
+ * @returns {boolean} True wenn das Passwort mindestens 6 Zeichen hat.
+ */
 function checkPassword() {
   const password = document.getElementById("userPassword").value;
   const valid = password.length >= 6;
@@ -111,7 +151,11 @@ function checkPassword() {
   return valid;
 }
 
-/** Validates the signup name (>=5 chars, contains space). @return {boolean} */
+/**
+ * Validiert den Signup-Namen (mindestens 5 Zeichen, mindestens ein Leerzeichen).
+ *
+ * @returns {boolean} True wenn der Name gültig ist.
+ */
 function checkName() {
   const name = document.getElementById("fullName").value.trim();
   const valid = name.length >= 5 && name.split(" ").length > 1;
@@ -119,11 +163,15 @@ function checkName() {
   return valid;
 }
 
-/** Toggles password visibility and its lock/unlock icon. @param {string} iconId @param {string} passwordInputfieldId */
+/**
+ * Schaltet die Passwort-Sichtbarkeit und das zugehörige Lock/Unlock-Icon um.
+ *
+ * @param {string} iconId - Die ID des Icon-Elements.
+ * @param {string} passwordInputfieldId - Die ID des zugehörigen Passwort-Eingabefeldes.
+ */
 function togglePasswordIcon(iconId, passwordInputfieldId) {
   let icon = document.getElementById(iconId);
   inputField = document.getElementById(passwordInputfieldId);
-
   if (icon.src.includes("unlock")) {
     inputField.type = "password";
     icon.src = "./img/lock.svg";
@@ -133,11 +181,14 @@ function togglePasswordIcon(iconId, passwordInputfieldId) {
   }
 }
 
-/** Toggles a checkbox's data-checked state and visual style. @param {string} checkboxId */
+/**
+ * Schaltet den data-checked-Zustand und die visuelle Darstellung einer Checkbox um.
+ *
+ * @param {string} checkboxId - Die ID der umzuschaltenden Checkbox.
+ */
 function toggleCheckbox(checkboxId) {
   const checkbox = document.getElementById(checkboxId);
   checkbox.dataset.checked = checkbox.dataset.checked == true ? false : true;
-
   if (checkbox.checked) {
     checkbox.style.backgroundColor = "#2a3647";
     checkbox.style.color = "white";
@@ -147,16 +198,18 @@ function toggleCheckbox(checkboxId) {
   }
 }
 
-/** Shows a signup toast; redirects to login on success after 3s. @param {string} messageText @param {number} success */
+/**
+ * Zeigt einen Signup-Toast und leitet bei Erfolg nach 3 Sekunden zur Login-Seite weiter.
+ *
+ * @param {string} messageText - Der anzuzeigende Nachrichtentext.
+ * @param {number} success - Truthy wenn nach 3s zur Login-Seite weitergeleitet werden soll.
+ */
 function showSignupMessage(messageText, success) {
   const successMessage = document.querySelector(".msg-signup");
   successMessage.style.display = "flex";
   document.getElementById("signupMessage").textContent = messageText;
-
   setTimeout(() => {
     successMessage.style.display = "none";
-    if (success) {
-      window.location.href = "login.html";
-    }
+    if (success) window.location.href = "login.html";
   }, 3000);
 }

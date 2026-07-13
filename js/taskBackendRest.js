@@ -1,227 +1,365 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const subtaskInput = document.getElementById("addNewSubtaskInput");
-  const subtaskBtnAdd = document.querySelector(".btn-subtask.add");
-  const subtaskBtnCheckCancel = document.querySelector(".btn-subtask.check-cancel");
-  const subtaskCancelBtn = document.querySelector(".cancel-subtask");
-  const subtaskCheckBtn = document.querySelector(".check-subtask");
+let _subtaskInput;
+let _subtaskBtnAdd;
+let _subtaskBtnCheckCancel;
+let _subtaskCancelBtn;
+let _subtaskCheckBtn;
+let _subtasks = [];
 
-  let subtasks = [];
+/**
+ * Caches the subtask input, buttons and container references from the DOM.
+ *
+ * @returns {void}
+ */
+function _cacheSubtaskRefs() {
+  _subtaskInput = document.getElementById("addNewSubtaskInput");
+  _subtaskBtnAdd = document.querySelector(".btn-subtask.add");
+  _subtaskBtnCheckCancel = document.querySelector(".btn-subtask.check-cancel");
+  _subtaskCancelBtn = document.querySelector(".cancel-subtask");
+  _subtaskCheckBtn = document.querySelector(".check-subtask");
+}
 
-  function showSubtaskInputMode() {
-    subtaskBtnAdd.style.display = "none";
-    subtaskBtnCheckCancel.style.display = "flex";
-  }
+/**
+ * Switches the subtask input area into "typing" mode (hide add, show check/cancel).
+ *
+ * @returns {void}
+ */
+function showSubtaskInputMode() {
+  _subtaskBtnAdd.style.display = "none";
+  _subtaskBtnCheckCancel.style.display = "flex";
+}
 
-  function styleSubtaskInput() {
-    subtaskBtnAdd.addEventListener("click", () => { showSubtaskInputMode(); subtaskInput.focus(); });
-    subtaskInput.addEventListener("focus", showSubtaskInputMode);
-    subtaskCancelBtn.addEventListener("click", () => {
-      subtaskBtnAdd.style.display = "flex";
-      subtaskBtnCheckCancel.style.display = "none";
-      subtaskInput.value = "";
-    });
-  }
+/**
+ * Switches the subtask input area back into "idle" mode (show add, hide check/cancel).
+ *
+ * @returns {void}
+ */
+function _resetSubtaskInputMode() {
+  _subtaskBtnAdd.style.display = "flex";
+  _subtaskBtnCheckCancel.style.display = "none";
+  _subtaskInput.value = "";
+}
 
-  /** Wires delete-buttons on subtask list items to remove + re-render. */
-  function deleteSubtask() {
-    const subtaskListItems = document.querySelectorAll(".subtask-list-item");
+/**
+ * Wires the subtask input, add button, focus, and cancel button interactions.
+ *
+ * @returns {void}
+ */
+function styleSubtaskInput() {
+  _subtaskBtnAdd.addEventListener("click", () => { showSubtaskInputMode(); _subtaskInput.focus(); });
+  _subtaskInput.addEventListener("focus", showSubtaskInputMode);
+  _subtaskCancelBtn.addEventListener("click", _resetSubtaskInputMode);
+}
 
-    subtaskListItems.forEach((item, index) => {
-      const deleteSubtaskBtn = item.querySelector(".delete-subtask-btn");
-      deleteSubtaskBtn.addEventListener("click", () => {
-        subtasks.splice(index, 1);
-        renderSubtasks();
-      });
-    });
-  }
-
-  function _switchSubtaskItemToInput(item) {
-    if (item.querySelector(".edit-subtask-input")) return;
-    const text = item.querySelector(".li-text").textContent.trim();
-    item.innerHTML = createListItemTextContentTemplate(text);
-    item.classList.add("subtask-list-item-edit");
-    deleteSubtask();
-    confirmSubtaskEdit();
-  }
-
-  /** Wires edit/dblclick on subtask items to switch them into an input. */
-  function editSubTask() {
-    document.querySelectorAll(".subtask-list-item").forEach((item) => {
-      const handleEdit = () => _switchSubtaskItemToInput(item);
-      item.querySelector(".edit-subtask-btn").addEventListener("click", handleEdit);
-      item.addEventListener("dblclick", handleEdit);
-    });
-  }
-
-  /** Wires confirm-buttons on subtask edit inputs to save + re-render. */
-  function confirmSubtaskEdit() {
-    document.querySelectorAll(".subtask-list-item-edit").forEach((item) => {
-      item.querySelector(".confirm-subtask-edit-btn").addEventListener("click", () => {
-        const input = item.querySelector(".edit-subtask-input");
-        if (input.value === "") return;
-        subtasks[item.getAttribute("data-index")] = input.value;
-        renderSubtasks();
-      });
-    });
-  }
-
-  /** Adds the current input value as a new subtask and re-renders. */
-  function addSubtask() {
-    if (subtaskInput.value.trim() !== "") {
-      subtasks.push(subtaskInput.value.trim());
+/**
+ * Wires delete-buttons on subtask list items to remove the item and re-render.
+ *
+ * @returns {void}
+ */
+function deleteSubtask() {
+  const subtaskListItems = document.querySelectorAll(".subtask-list-item");
+  subtaskListItems.forEach((item, index) => {
+    const deleteSubtaskBtn = item.querySelector(".delete-subtask-btn");
+    deleteSubtaskBtn.addEventListener("click", () => {
+      _subtasks.splice(index, 1);
       renderSubtasks();
-      subtaskInput.value = "";
-      subtaskBtnAdd.style.display = "flex";
-      subtaskBtnCheckCancel.style.display = "none";
-    }
-  }
-
-  subtaskCheckBtn.addEventListener("click", addSubtask);
-
-  subtaskInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      addSubtask();
-    }
-  });
-
-
-  function renderSubtasks() {
-    const subtasksList = document.querySelector(".list-subtasks");
-    subtasksList.innerHTML = "";
-    subtasks.forEach((item, index) => {
-      subtasksList.innerHTML += createSubtaskListItemAddTaskTemplate(index, item);
     });
-    editSubTask();
-    deleteSubtask();
-  }
+  });
+}
 
+/**
+ * Replaces a subtask list item's content with an inline edit input.
+ *
+ * @param {HTMLElement} item - The subtask list item to switch into edit mode.
+ * @returns {void}
+ */
+function _switchSubtaskItemToInput(item) {
+  if (item.querySelector(".edit-subtask-input")) return;
+  const text = item.querySelector(".li-text").textContent.trim();
+  item.innerHTML = createListItemTextContentTemplate(text);
+  item.classList.add("subtask-list-item-edit");
+  deleteSubtask();
+  confirmSubtaskEdit();
+}
+
+/**
+ * Wires edit-button click and dblclick on subtask items to switch them into an input.
+ *
+ * @returns {void}
+ */
+function editSubTask() {
+  document.querySelectorAll(".subtask-list-item").forEach((item) => {
+    const handleEdit = () => _switchSubtaskItemToInput(item);
+    item.querySelector(".edit-subtask-btn").addEventListener("click", handleEdit);
+    item.addEventListener("dblclick", handleEdit);
+  });
+}
+
+/**
+ * Persists a single subtask-edit input into the local subtasks array.
+ *
+ * @param {HTMLElement} item - The list item currently being edited.
+ * @returns {void}
+ */
+function _persistSubtaskEdit(item) {
+  const input = item.querySelector(".edit-subtask-input");
+  if (input.value.trim() === "") return;
+  _subtasks[item.getAttribute("data-index")] = input.value.trim();
+  renderSubtasks();
+}
+
+/**
+ * Wires confirm-buttons on subtask edit inputs to save the new value and re-render.
+ *
+ * @returns {void}
+ */
+function confirmSubtaskEdit() {
+  document.querySelectorAll(".subtask-list-item-edit").forEach((item) => {
+    item.querySelector(".confirm-subtask-edit-btn").addEventListener("click", () => {
+      _persistSubtaskEdit(item);
+    });
+  });
+}
+
+/**
+ * Adds the current input value as a new subtask and re-renders the list.
+ *
+ * @returns {void}
+ */
+function addSubtask() {
+  const value = _subtaskInput.value.trim();
+  if (value === "") return;
+  _subtasks.push(value);
+  renderSubtasks();
+  _resetSubtaskInputMode();
+}
+
+/**
+ * Handles Enter keydown on the subtask input by adding a new subtask.
+ *
+ * @param {KeyboardEvent} event - The keydown event on the subtask input.
+ * @returns {void}
+ */
+function _onSubtaskInputKeydown(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addSubtask();
+  }
+}
+
+/**
+ * Renders every entry of the local subtasks array into the subtasks list.
+ *
+ * @returns {void}
+ */
+function renderSubtasks() {
+  const subtasksList = document.querySelector(".list-subtasks");
+  subtasksList.innerHTML = "";
+  _subtasks.forEach((item, index) => {
+    subtasksList.innerHTML += createSubtaskListItemAddTaskTemplate(index, item);
+  });
+  editSubTask();
+  deleteSubtask();
+}
+
+/**
+ * Wires the check button and Enter key of the subtask input to addSubtask.
+ *
+ * @returns {void}
+ */
+function _wireSubtaskConfirmTriggers() {
+  _subtaskCheckBtn.addEventListener("click", addSubtask);
+  _subtaskInput.addEventListener("keydown", _onSubtaskInputKeydown);
+}
+
+/**
+ * Exposes a global reset for the Add-Task subtasks state (used from clearForm).
+ *
+ * @returns {void}
+ */
+function _installSubtasksResetHook() {
   window.__resetAddTaskSubtasks = () => {
-    subtasks.length = 0;
+    _subtasks.length = 0;
     renderSubtasks();
   };
+}
 
+/**
+ * Initialises the subtask UI on Add-Task: caches refs and wires all handlers.
+ *
+ * @returns {void}
+ */
+function initSubtaskUI() {
+  _cacheSubtaskRefs();
+  if (!_subtaskInput) return;
   styleSubtaskInput();
-});
+  _wireSubtaskConfirmTriggers();
+  _installSubtasksResetHook();
+}
 
-document.addEventListener("DOMContentLoaded", function () {
+/**
+ * Sets the "min" attribute of the due-date input to today's date (YYYY-MM-DD).
+ *
+ * @returns {void}
+ */
+function initDueDateMin() {
   const dateInput = document.getElementById("due-date-input");
-
+  if (!dateInput) return;
   const today = new Date().toISOString().split("T")[0];
-
   dateInput.setAttribute("min", today);
-});
+}
 
-/** Sets the displayed category to "Technical Task". */
+document.addEventListener("DOMContentLoaded", initSubtaskUI);
+document.addEventListener("DOMContentLoaded", initDueDateMin);
+
+/**
+ * Sets the displayed category to "Technical Task".
+ *
+ * @returns {void}
+ */
 function selectTechnicalStack() {
-  let categoryTechnicalStack = document.getElementById(
-    "categoryTechnicalStack"
-  ).innerHTML;
-
+  let categoryTechnicalStack = document.getElementById("categoryTechnicalStack").innerHTML;
   let selectCategory = document.getElementById("category-displayed");
   selectCategory.innerHTML = "";
   selectCategory.innerHTML = categoryTechnicalStack;
 }
 
-/** Sets the displayed category to "User Story". */
+/**
+ * Sets the displayed category to "User Story".
+ *
+ * @returns {void}
+ */
 function selectUserStory() {
-  let categoryselectUserStory =
-    document.getElementById("categoryUserStory").innerHTML;
-
+  let categoryselectUserStory = document.getElementById("categoryUserStory").innerHTML;
   let selectCategory = document.getElementById("category-displayed");
   selectCategory.innerHTML = "";
   selectCategory.innerHTML = categoryselectUserStory;
 }
 
-/** Validates the task title (non-empty); toggles required message. @return {boolean} */
+/**
+ * Validates the task title (non-empty) and toggles its required message.
+ *
+ * @returns {boolean} True if the title is filled in, otherwise false.
+ */
 function validateTitle() {
   const title = document.getElementById("title");
   const titleRequired = document.getElementById("title-required");
   if (title.value.trim() === "") {
     titleRequired.style.display = "block";
     return false;
-  } else {
-    titleRequired.style.display = "none";
-    return true;
   }
+  titleRequired.style.display = "none";
+  return true;
 }
 
-/** Validates the due date (non-empty); toggles required message. @return {boolean} */
+/**
+ * Validates the due date (non-empty) and toggles its required message.
+ *
+ * @returns {boolean} True if a due date is filled in, otherwise false.
+ */
 function validateDueDate() {
   const dueDate = document.getElementById("due-date-input");
   const dateRequired = document.getElementById("date-required");
   if (dueDate.value.trim() === "") {
     dateRequired.style.display = "block";
     return false;
-  } else {
-    dateRequired.style.display = "none";
-    return true;
   }
+  dateRequired.style.display = "none";
+  return true;
 }
 
-/** Validates that a task category has been chosen. @return {boolean} */
+/**
+ * Validates that a task category has been chosen and toggles its required message.
+ *
+ * @returns {boolean} True if a category has been chosen, otherwise false.
+ */
 function validateCategory() {
   const categoryContainer = document.getElementById("category-container");
   const categoryRequired = document.getElementById("category-required");
   if (categoryContainer.textContent.trim() === "Select task category") {
     categoryRequired.style.display = "block";
     return false;
-  } else {
-    categoryRequired.style.display = "none";
-    return true;
   }
+  categoryRequired.style.display = "none";
+  return true;
 }
 
-/** Validates the description (non-empty); toggles required message. @return {boolean} */
+/**
+ * Validates the description (non-empty) and toggles its required message.
+ *
+ * @returns {boolean} True if the description is filled in, otherwise false.
+ */
 function validateDescription() {
   const description = document.getElementById("description").value.trim();
   const descriptionError = document.getElementById("description-required");
   if (description === "") {
     descriptionError.style.display = "block";
     return false;
-  } else {
-    descriptionError.style.display = "none";
-    return true;
   }
+  descriptionError.style.display = "none";
+  return true;
 }
 
-/** Validates that at least one user is assigned. @param {string} id @return {boolean} */
+/**
+ * Validates that at least one user has been assigned and toggles the required message.
+ *
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {boolean} True if at least one user is assigned, otherwise false.
+ */
 function validateAssignedTo(id) {
   const assignedToError = document.getElementById("assigned-to-required");
   const assignedUsers = getAssignedUsers(id);
   if (assignedUsers === "") {
     assignedToError.style.display = "block";
     return false;
-  } else {
-    assignedToError.style.display = "none";
-    return true;
   }
+  assignedToError.style.display = "none";
+  return true;
 }
 
-/** Validates that a priority (not "None") has been chosen. @param {string} id @return {boolean} */
+/**
+ * Validates that a priority other than "None" has been chosen.
+ *
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {boolean} True if a priority has been chosen, otherwise false.
+ */
 function validatePriority(id) {
   const priority = getTaskPrio(id);
   const priorityError = document.getElementById("prio-required");
   if (priority === "None") {
     priorityError.style.display = "block";
     return false;
-  } else {
-    priorityError.style.display = "none";
-    return true;
   }
+  priorityError.style.display = "none";
+  return true;
 }
 
-/** Validates all task fields; calls createTask if everything is valid. @param {Event} event @param {string} id */
-function validateAndCreateTask(event, id = "") {
-  event.preventDefault();
-
-  if (
+/**
+ * Runs all form validators and returns whether every one of them passes.
+ *
+ * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {boolean} True if every validator passes.
+ */
+function runAllTaskValidators(id) {
+  return (
     validateTitle() &&
     validateDueDate() &&
     validateCategory() &&
     validateDescription() &&
     validateAssignedTo(id) &&
     validatePriority(id)
-  ) {
+  );
+}
+
+/**
+ * Validates all task fields and creates the task if everything is valid.
+ *
+ * @param {Event} event - The form submit event.
+ * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
+ * @returns {void}
+ */
+function validateAndCreateTask(event, id = "") {
+  event.preventDefault();
+  if (runAllTaskValidators(id)) {
     createTask(id);
   }
 }

@@ -18,6 +18,7 @@
     <script src="./js/templates.js"></script>
     <script src="./js/taskAttachments.js"></script>
     <script src="./js/firebaseDatabaseFunctions.js"></script>
+    <script src="./js/navigationAndHeader.js"></script>
     <script src="./js/firebaseUserRendering.js"></script>
     <script src="./js/taskBackendRest.js"></script>
     <script src="./js/taskUIandBackend.js"></script>
@@ -150,7 +151,7 @@
         <h1>Add Task</h1>
       </div>
 
-      <form>
+      <form id="addTaskForm" novalidate onsubmit="validateAndCreateTask(event); return false;">
           <div class="addTaskLeft">
             <div class="inputGroup">
               <label for="title">Title<span class="starFromRequired">*</span></label>
@@ -161,7 +162,7 @@
             </div>
             <div class="inputGroup">
               <label for="description">Description<span class="starFromRequired">*</span></label>
-              <input id="description" class="inputDescription" placeholder="Enter a description"/>
+              <textarea id="description" class="inputDescription" placeholder="Enter a description"></textarea>
               <div id="description-required" class="requiredMessage">
                 This field is required
               </div>
@@ -288,24 +289,24 @@
             </div>
             <!-- End Anhänge Upload -->
           </div>
+
+          <div class="bottom-form">
+            <p class="required-note">
+              <p class="starFromRequired">*</p>
+              <span class="required">Required</span>
+            </p>
+            <div class="actions-form">
+              <button onclick="renderAssignedTo(); clearForm()" type="button" class="btn-clear" id="clear-btn">
+                Clear
+                <img id="cancel-icon" src="./img/close.png" alt=""/>
+              </button>
+              <button type="submit" class="btn-create">
+                Create Task
+                <img src="./img/check_white.svg" alt=""/>
+              </button>
+            </div>
+          </div>
       </form>
-      
-      <div class="bottom-form">
-        <p class="required-note">
-          <p class="starFromRequired">*</p>
-          <span class="required">Required</span>
-        </p>
-        <div class="actions-form">
-          <button onclick="renderAssignedTo(); clearForm()" type="button" class="btn-clear" id="clear-btn">
-            Clear
-            <img id="cancel-icon" src="./img/close.png" alt=""/>
-          </button>
-          <button type="button" class="btn-create" onclick="validateAndCreateTask(event)">
-            Create Task
-            <img src="./img/check_white.svg" alt=""/>
-          </button>
-        </div>
-      </div>
     </div>
     <div class="msg-task-added">Task added to board</div>
     <!-- End Task Container -->

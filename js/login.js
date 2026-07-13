@@ -1,4 +1,6 @@
-/** Initializes login page: runs logo intro and reveals card after 1.5s. */
+/**
+ * Initialisiert die Login-Seite: startet die Logo-Animation und zeigt die Card nach 1.5s.
+ */
 function init() {
   const logo = document.getElementById("logo-container");
   const body = document.getElementById("myBody");
@@ -7,7 +9,9 @@ function init() {
   setTimeout(showLoginContainer, 1500);
 }
 
-/** Reveals the login container, or redirects to summary if a user is logged in. */
+/**
+ * Zeigt die Login-Card oder leitet zum Summary weiter, wenn ein User eingeloggt ist.
+ */
 function showLoginContainer() {
   let loggedInAccount = localStorage.getItem("loggedInAccount");
   if (loggedInAccount && loggedInAccount != "") {
@@ -17,7 +21,9 @@ function showLoginContainer() {
   revealLoginElements();
 }
 
-/** Removes the initial `d-none`/animation classes from the login layout elements. */
+/**
+ * Entfernt die `d-none`- und Animations-Klassen von den Login-Layout-Elementen.
+ */
 function revealLoginElements() {
   const ids = ["main_wrapper", "footerID", "authOpt", "logo-container", "login_section"];
   ids.forEach((id) => {
@@ -28,22 +34,26 @@ function revealLoginElements() {
   if (logo) logo.classList.remove("transition2s");
 }
 
-/** Logs in as guest and redirects to the summary page. */
+/**
+ * Loggt den User als Gast ein und leitet zur Summary-Seite weiter.
+ */
 function guestLogin() {
   sessionStorage.setItem("guestLoggedIn", "true");
   window.location.href = "summary.html";
 }
 
-/** Shows a login message; redirects to summary on success after 3s. @param {string} messageText @param {number} success */
+/**
+ * Zeigt eine Login-Nachricht an und leitet bei Erfolg nach 3 Sekunden zur Summary weiter.
+ *
+ * @param {string} messageText - Der anzuzeigende Nachrichtentext.
+ * @param {number} success - Truthy wenn nach 3s zur Summary weitergeleitet werden soll.
+ */
 function showLoginMessage(messageText, success) {
   const successMessage = document.querySelector(".msg-login");
   successMessage.style.display = "flex";
   document.getElementById("loginMessage").textContent = messageText;
-
   setTimeout(() => {
     successMessage.style.display = "none";
-    if (success) {
-      window.location.href = "summary.html";
-    }
+    if (success) window.location.href = "summary.html";
   }, 3000);
 }

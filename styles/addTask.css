@@ -119,6 +119,19 @@ form {
   cursor: auto;
   width: 440px;
   height: 120px;
+  min-height: 120px;
+  resize: vertical;
+  box-sizing: content-box;
+}
+
+textarea.inputDescription {
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+textarea.inputDescription:focus {
+  outline: none;
+  border-color: rgba(43, 169, 227, 1);
 }
 
 .input::-webkit-inner-spin-button,

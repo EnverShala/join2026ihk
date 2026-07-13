@@ -1,10 +1,11 @@
 /**
- * Returns HTML for a task card. `progress` is a computed object with doneCount, totalCount, widthPercent, emptyClass.
- * @param {string} uniqueId @param {number} i @param {string} assignedUsersHTML @param {Object} progress @return {string}
+ * Liefert das HTML für den oberen Bereich einer Task-Card (Kategorie, Move-Icons, Dropdown).
+ *
+ * @param {number} i - Der Index des Tasks im tasks-Array.
+ * @returns {string} Das gerenderte HTML-Fragment.
  */
-function taskCardTemplate(uniqueId, i, assignedUsersHTML, progress) {
+function _taskCardTopTemplate(i) {
   return `
-                <div draggable="true" id="${uniqueId}" class="taskCard">
                 <div class="taskCardTop">
                   <label class="categoryGreen">${tasks[i].category}</label>
                   <div class="ResponsiveMenuOnTaskCards">
@@ -23,7 +24,19 @@ function taskCardTemplate(uniqueId, i, assignedUsersHTML, progress) {
                       <p onclick="">Awaiting Feedback</p>
                     </div>
                   </div>
-                </div>
+                </div>`;
+}
+
+/**
+ * Liefert das HTML für den Body einer Task-Card (Titel, Beschreibung, Progress, Footer).
+ *
+ * @param {number} i - Der Index des Tasks im tasks-Array.
+ * @param {string} assignedUsersHTML - Bereits gerendertes HTML der zugewiesenen User-Badges.
+ * @param {Object} progress - Berechnetes Progress-Objekt (doneCount, totalCount, widthPercent, emptyClass).
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
+function _taskCardBodyTemplate(i, assignedUsersHTML, progress) {
+  return `
                 <div class="cardBody" onclick="openDialog(); popupValueImplementFromTask(${i})">
                   <p id="titelCardID" class="titleCard">${tasks[i].title}</p>
                   <p id="descriptionCardID" class="descriptionCard">${tasks[i].description}</p>
@@ -43,27 +56,44 @@ function taskCardTemplate(uniqueId, i, assignedUsersHTML, progress) {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>`;
+}
+
+/**
+ * Liefert das HTML für eine komplette Task-Card.
+ *
+ * @param {string} uniqueId - Die eindeutige DOM-ID der Card.
+ * @param {number} i - Der Index des Tasks im tasks-Array.
+ * @param {string} assignedUsersHTML - Bereits gerendertes HTML der zugewiesenen User-Badges.
+ * @param {Object} progress - Berechnetes Progress-Objekt (doneCount, totalCount, widthPercent, emptyClass).
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
+function taskCardTemplate(uniqueId, i, assignedUsersHTML, progress) {
+  return `
+                <div draggable="true" id="${uniqueId}" class="taskCard">
+                ${_taskCardTopTemplate(i)}
+                ${_taskCardBodyTemplate(i, assignedUsersHTML, progress)}
               </div>
                   `;
 }
 
-/** Returns HTML for a contact list item. @param {number} i @param {number} j @param {number} x @return {string} */
+/**
+ * Liefert das HTML für einen Kontakt-Listeneintrag.
+ *
+ * @param {number} i - Der Index des Users im users-Array.
+ * @param {number} j - Der Farb-Index (initialsColor{j}).
+ * @param {number} x - Die laufende Positionsnummer im Listen-Rendering.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function contactTemplate(i, j, x) {
   return `<div id="user-container${i}">
             <div id="contact-containerID${x}" class="contact-container" onclick="loadUserInformation(${i}); hideContactsListInResponsiveMode()">
             <div class="contact-list-ellipse">
-               <div id="userColor${i}" class="ellipse-list initialsColor${j}">${getUserInitials(
-    users[i].name
-  )}</div>
+               <div id="userColor${i}" class="ellipse-list initialsColor${j}">${getUserInitials(users[i].name)}</div>
             </div>
             <div class="contact">
-                <div class="contact-list-name" id="contactName">${
-                  users[i].name
-                }</div>
-                <div class="contact-list-email" id="contactEmail">${
-                  users[i].email
-                }</div>
+                <div class="contact-list-name" id="contactName">${users[i].name}</div>
+                <div class="contact-list-email" id="contactEmail">${users[i].email}</div>
             </div>
             </div>
             </div>
@@ -71,16 +101,16 @@ function contactTemplate(i, j, x) {
 }
 
 /**
- * Returns HTML for an assigned-to dropdown list item.
- * @param {number} i @param {number} j @param {string} userInitials @param {string} userName @param {string} id @return {string}
+ * Liefert das HTML für einen Eintrag in der "Assigned To"-Dropdown-Liste.
+ *
+ * @param {number} i - Der Index des Users.
+ * @param {number} j - Der Farb-Index (initialsColor{j}).
+ * @param {string} userInitials - Die Initialen des Users.
+ * @param {string} userName - Der vollständige Name des Users.
+ * @param {string} [id=""] - Optionaler Kontext-Suffix für die Element-IDs.
+ * @returns {string} Das gerenderte HTML-Fragment.
  */
-function createRenderAssignedToUserTemplate(
-  i,
-  j,
-  userInitials,
-  userName,
-  id = ""
-) {
+function createRenderAssignedToUserTemplate(i, j, userInitials, userName, id = "") {
   return `
         <label onclick="event.stopPropagation()"><li class="list-item assigned-to"></label>
             <div class="list-item-name" onclick="toggleCheckbox('AssignedContact${id}${i}', '${id}')">
@@ -92,11 +122,15 @@ function createRenderAssignedToUserTemplate(
     `;
 }
 
-/** Returns HTML for a subtask list item in the "add task" context. @param {number} index @param {string} item @return {string} */
+/**
+ * Liefert das HTML für einen Subtask-Listeneintrag im "Add Task"-Kontext.
+ *
+ * @param {number} index - Der Index des Subtasks.
+ * @param {string} item - Der Text des Subtasks.
+ * @returns {string} Das gerenderte HTML-Fragment oder ein leerer String.
+ */
 function createSubtaskListItemAddTaskTemplate(index, item) {
-  if (item == "") {
-    return "";
-  }
+  if (item == "") return "";
   return `
             <li class="subtask-list-item" data-index="${index}">
                 <div class="li-text">${item}</div>
@@ -109,11 +143,15 @@ function createSubtaskListItemAddTaskTemplate(index, item) {
         `;
 }
 
-/** Returns HTML for a subtask list item (edit form context). @param {number} index @param {string} item @return {string} */
+/**
+ * Liefert das HTML für einen Subtask-Listeneintrag im Edit-Formular-Kontext.
+ *
+ * @param {number} index - Der Index des Subtasks.
+ * @param {string} item - Der Text des Subtasks.
+ * @returns {string} Das gerenderte HTML-Fragment oder ein leerer String.
+ */
 function createSubtaskListItemTemplate(index, item) {
-  if (item == "") {
-    return "";
-  }
+  if (item == "") return "";
   return `
             <li class="subtask-list-item" data-index="${index}">
                 <div class="li-text">${item}</div>
@@ -126,7 +164,13 @@ function createSubtaskListItemTemplate(index, item) {
         `;
 }
 
-/** Returns HTML for a popup-context subtask list item. @param {number} index @param {string} item @return {string} */
+/**
+ * Liefert das HTML für einen Subtask-Listeneintrag im Popup-Kontext.
+ *
+ * @param {number} index - Der Index des Subtasks.
+ * @param {string} item - Der Text des Subtasks.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function createSubtaskListItemPopupTemplate(index, item) {
   return `
             <li class="subtask-list-item" data-index="${index}">
@@ -140,7 +184,13 @@ function createSubtaskListItemPopupTemplate(index, item) {
         `;
 }
 
-/** Reverts a subtask edit input back to its display markup. @param {number} index @param {string} item @return {string} */
+/**
+ * Setzt ein Subtask-Edit-Feld auf das ursprüngliche Listen-Item-Markup zurück.
+ *
+ * @param {number} index - Der Index des Subtasks.
+ * @param {string} item - Der Text des Subtasks.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function changeSubtaskInputFieldBackToListElement(index, item) {
   return `
                 <div class="li-text">${item}</div>
@@ -152,7 +202,13 @@ function changeSubtaskInputFieldBackToListElement(index, item) {
         `;
 }
 
-/** Popup variant of `changeSubtaskInputFieldBackToListElement`. @param {number} index @param {string} item @return {string} */
+/**
+ * Popup-Variante von `changeSubtaskInputFieldBackToListElement`.
+ *
+ * @param {number} index - Der Index des Subtasks.
+ * @param {string} item - Der Text des Subtasks.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function changeSubtaskInputFieldBackToListElementPopup(index, item) {
   return `
                 <div class="li-text">${item}</div>
@@ -164,7 +220,13 @@ function changeSubtaskInputFieldBackToListElementPopup(index, item) {
         `;
 }
 
-/** Returns HTML for a subtask edit input with cancel/confirm buttons. @param {number} position @param {string} actualContent @return {string} */
+/**
+ * Liefert das HTML für ein Subtask-Edit-Input mit Cancel/Confirm-Buttons.
+ *
+ * @param {number} position - Die Position des Subtasks in der Liste.
+ * @param {string} actualContent - Der aktuelle Textinhalt des Subtasks.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function changeSubtaskContentToInputForEditTemplate(position, actualContent) {
   return `
     <input id="editSubtaskInput${position}" class="edit-subtask-input" type="text" value="${actualContent}" onkeydown = "subtaskOnKeyDown(${position})">
@@ -176,11 +238,14 @@ function changeSubtaskContentToInputForEditTemplate(position, actualContent) {
 `;
 }
 
-/** Popup variant of `changeSubtaskContentToInputForEditTemplate`. @param {number} position @param {string} actualContent @return {string} */
-function changeSubtaskContentToInputForEditPopupTemplate(
-  position,
-  actualContent
-) {
+/**
+ * Popup-Variante von `changeSubtaskContentToInputForEditTemplate`.
+ *
+ * @param {number} position - Die Position des Subtasks in der Liste.
+ * @param {string} actualContent - Der aktuelle Textinhalt des Subtasks.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
+function changeSubtaskContentToInputForEditPopupTemplate(position, actualContent) {
   return `
     <input id="editSubtaskInputPopup${position}" class="edit-subtask-input" type="text" value="${actualContent}" onkeydown = "subtaskOnKeyDownPopup(${position})">
     <div class="edit-subtask-button-div">
@@ -191,7 +256,12 @@ function changeSubtaskContentToInputForEditPopupTemplate(
 `;
 }
 
-/** Returns HTML for a generic list-item edit input (no handlers). @param {string} textContent @return {string} */
+/**
+ * Liefert das HTML für ein generisches Listen-Item-Edit-Input ohne Handler.
+ *
+ * @param {string} textContent - Der Ausgangswert des Eingabefeldes.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function createListItemTextContentTemplate(textContent) {
   return `
                     <input class="edit-subtask-input" type="text" value="${textContent}">
@@ -203,13 +273,22 @@ function createListItemTextContentTemplate(textContent) {
                 `;
 }
 
-/** Returns HTML for a contacts letter-group header. @param {string} firstLetter @return {string} */
+/**
+ * Liefert das HTML für eine Buchstabengruppen-Überschrift in der Kontaktliste.
+ *
+ * @param {string} firstLetter - Der Anfangsbuchstabe der Gruppe.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function contactsFirstLetterTemplate(firstLetter) {
   return `<div class="contacts-first-letter-container"><span id="firstLetterOfContactName" class="contacts-first-letter">${firstLetter}</span></div>
                 <div class="border-container"> <div class="border"></div></div>`;
 }
 
-/** Returns HTML for the attachment lightbox root element. @return {string} */
+/**
+ * Liefert das HTML für das Lightbox-Root-Element mit Bild-, Meta- und Navigations-Bereich.
+ *
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function lightboxTemplate() {
   return `
     <div class="lightbox-backdrop" onclick="closeImageViewer()"></div>
@@ -231,7 +310,14 @@ function lightboxTemplate() {
     </div>`;
 }
 
-/** Returns HTML for one upload-preview thumbnail. @param {Object} att @param {number} i @param {string} context @return {string} */
+/**
+ * Liefert das HTML für ein Upload-Vorschau-Thumbnail.
+ *
+ * @param {Object} att - Das Attachment-Objekt (base64, name).
+ * @param {number} i - Der Index des Attachments in der Liste.
+ * @param {string} context - Der Kontext-Bezeichner ("add" oder "edit").
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function attachmentPreviewItemTemplate(att, i, context) {
   return `<div class="attachment-preview-item">
     <img class="attachment-thumb" src="${att.base64}" alt="${_esc(att.name)}"
@@ -244,7 +330,13 @@ function attachmentPreviewItemTemplate(att, i, context) {
   </div>`;
 }
 
-/** Returns HTML for one attachment list item in the task detail view. @param {Object} att @param {number} i @return {string} */
+/**
+ * Liefert das HTML für einen Attachment-Listeneintrag in der Task-Detailansicht.
+ *
+ * @param {Object} att - Das Attachment-Objekt (base64, name).
+ * @param {number} i - Der Index des Attachments in der Liste.
+ * @returns {string} Das gerenderte HTML-Fragment.
+ */
 function attachmentListItemTemplate(att, i) {
   return `<li class="attachment-list-item">
     <img class="attachment-list-thumb" src="${att.base64}" alt="${_esc(att.name || 'Bild')}"

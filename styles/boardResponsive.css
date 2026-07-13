@@ -85,8 +85,9 @@
     }
     #myModal {
       width: 500px;
-      height: 80%;
+      max-height: min(90vh, calc(100dvh - 32px));
       overflow-x: hidden;
+      overflow-y: auto;
     }
     .ResponsiveMenuOnTaskCards {
       display: flex;
@@ -299,8 +300,9 @@
     }
     #myModal {
       width: 300px;
-      height: 80%;
+      max-height: min(90vh, calc(100dvh - 32px));
       padding: 24px 10px 24px 10px;
+      overflow-y: auto;
     }
     /* PopUp-STANDARD */
     .popupOnTaskSelectionMainContainer,

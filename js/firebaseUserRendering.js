@@ -1,7 +1,11 @@
-/** Mobile breakpoint kept in sync with the sidebar/contacts CSS. */
 const CONTACTS_MOBILE_MAX = 800;
 
-/** Deletes a user and removes them from every task's assigned list. @param {string} id */
+/**
+ * Deletes a user and removes them from every task's assigned list.
+ *
+ * @param {string} id - The Firebase id of the user to delete.
+ * @returns {Promise<void>}
+ */
 async function deleteUser(id) {
   await loadTasks("/tasks");
   const user = users.find((u) => u.id == id);
@@ -12,7 +16,12 @@ async function deleteUser(id) {
   if (typeof closePopup === "function") closePopup();
 }
 
-/** Strips the given name from every task's `assigned` field and persists. @param {string} userName */
+/**
+ * Strips the given name from every task's `assigned` field and persists.
+ *
+ * @param {string} userName - The name to remove from all assigned lists.
+ * @returns {Promise<void>}
+ */
 async function removeUserFromAssignedTasks(userName) {
   for (let j = 0; j < tasks.length; j++) {
     if (!tasks[j].assigned.includes(userName)) continue;
@@ -21,7 +30,12 @@ async function removeUserFromAssignedTasks(userName) {
   }
 }
 
-/** Cleans double/leading/trailing commas from an assigned-users string. @param {string} str @return {string} */
+/**
+ * Cleans double, leading and trailing commas from an assigned-users string.
+ *
+ * @param {string} str - The raw assigned-users string.
+ * @returns {string} The normalized assigned-users string.
+ */
 function normalizeAssignedString(str) {
   let out = str.replace(",,", ",");
   if (out[out.length - 1] == ",") out = out.slice(0, -1);
@@ -29,24 +43,43 @@ function normalizeAssignedString(str) {
   return out;
 }
 
-/** Updates user `id` from the edit form and persists to Firebase. @param {string} id @param {Object} data */
+/**
+ * Updates user `id` from the edit form and persists to Firebase.
+ *
+ * @param {string} id - The Firebase id of the user to update.
+ * @param {Object} [data={}] - The user payload to update, mutated with form values.
+ * @returns {Promise<void>}
+ */
 async function editUser(id, data = {}) {
-  data.name = document.getElementById("name").value;
-  data.email = document.getElementById("email").value;
-  data.phone = document.getElementById("phone").value;
-
+  readEditUserForm(data);
   await fetch(FIREBASE_URL + `/users/${id}` + ".json", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-
   await renderContacts();
   loadUserInformation(currentUser);
   closePopup();
 }
 
-/** Returns the id of the user with `email`, or -1 if not found. @param {string} email @return {string|number} */
+/**
+ * Reads the edit-user form fields into the given data object.
+ *
+ * @param {Object} data - The user payload to be enriched with form values.
+ * @returns {void}
+ */
+function readEditUserForm(data) {
+  data.name = document.getElementById("name").value;
+  data.email = document.getElementById("email").value;
+  data.phone = document.getElementById("phone").value;
+}
+
+/**
+ * Returns the id of the user with `email`, or -1 if not found.
+ *
+ * @param {string} email - The email address to look up.
+ * @returns {string|number} The user id, or -1 if there are no users.
+ */
 function getUserId(email) {
   if (users.length > 0) {
     for (let i = 0; i < users.length; i++) {
@@ -57,28 +90,48 @@ function getUserId(email) {
   }
 }
 
-/** Renders the contact list grouped by first letter of the name. */
+/**
+ * Renders the contact list grouped by first letter of the name.
+ *
+ * @returns {Promise<void>}
+ */
 async function renderContacts() {
   await loadUsers("/users");
-  let html = "", firstLetter = "0", j = 1;
-  for (let i = 0; i < users.length; i++) {
-    const initial = users[i].name[0].toUpperCase();
-    if (initial != firstLetter) { html += contactsFirstLetterTemplate(initial); firstLetter = initial; }
-    html += contactTemplate(i, j);
-    j = j >= 15 ? 1 : j + 1;
-  }
+  const html = buildContactsHtml();
   const list = document.getElementById("contact-list");
   if (!list) return;
   list.innerHTML = html;
   removeHover();
 }
 
-/** Returns 1-2 character initials from a full name. @param {string} username @return {string} */
+/**
+ * Builds the HTML string for the grouped contact list.
+ *
+ * @returns {string} The concatenated HTML for all contacts.
+ */
+function buildContactsHtml() {
+  let html = "", firstLetter = "0", j = 1;
+  for (let i = 0; i < users.length; i++) {
+    const initial = users[i].name[0].toUpperCase();
+    if (initial != firstLetter) {
+      html += contactsFirstLetterTemplate(initial);
+      firstLetter = initial;
+    }
+    html += contactTemplate(i, j);
+    j = j >= 15 ? 1 : j + 1;
+  }
+  return html;
+}
+
+/**
+ * Returns 1-2 character initials from a full name.
+ *
+ * @param {string} username - The full name to derive initials from.
+ * @returns {string} The uppercase initials, or an empty string for blank input.
+ */
 function getUserInitials(username) {
   if (username.trim() == "") return "";
-
   let result = username.trim().split(" ").map((wort) => wort[0].toUpperCase());
-
   if (username.split(" ").length > 1) {
     result = result[0] + result[result.length - 1];
   } else {
@@ -87,24 +140,53 @@ function getUserInitials(username) {
   return result;
 }
 
-/** Loads user info into the contact detail UI (id=-1 clears). @param {number} id */
+/**
+ * Loads user info into the contact detail UI. Passing id === -1 clears the view.
+ *
+ * @param {number} id - The index of the user in `users`, or -1 to clear.
+ * @returns {Promise<void>}
+ */
 async function loadUserInformation(id) {
   if (!document.getElementById("contact-name")) return;
-  document.getElementById("contact-name").innerHTML = id == -1 ? "" : users[id].name;
-  document.getElementById("contact-email").innerHTML = id == -1 ? "" : users[id].email;
-  document.getElementById("contact-phone").innerHTML = id == -1 ? "" : users[id].phone;
-  document.getElementById("ellipse").innerHTML = id == -1 ? "" : getUserInitials(users[id].name);
+  fillContactDetailFields(id);
   document.getElementById("display-contactID").classList.toggle("d-none", id == -1);
   if (id != -1) {
-    const color = document.getElementById(`userColor${id}`).className.split(" ")[1];
-    document.getElementById("ellipse").className = `ellipse ${color}`;
+    applyContactDetailColor(id);
     highlightUser(id);
     fitNameToContainer();
   }
   currentUser = id;
 }
 
-/** Hides the list and shows the back-arrow when opening a contact on mobile. */
+/**
+ * Fills the contact detail text fields for the user at `id`, or clears them for -1.
+ *
+ * @param {number} id - The index of the user in `users`, or -1 to clear.
+ * @returns {void}
+ */
+function fillContactDetailFields(id) {
+  document.getElementById("contact-name").innerHTML = id == -1 ? "" : users[id].name;
+  document.getElementById("contact-email").innerHTML = id == -1 ? "" : users[id].email;
+  document.getElementById("contact-phone").innerHTML = id == -1 ? "" : users[id].phone;
+  document.getElementById("ellipse").innerHTML = id == -1 ? "" : getUserInitials(users[id].name);
+}
+
+/**
+ * Applies the color class of the user's swatch to the detail ellipse.
+ *
+ * @param {number} id - The index of the user in `users`.
+ * @returns {void}
+ */
+function applyContactDetailColor(id) {
+  const color = document.getElementById(`userColor${id}`).className.split(" ")[1];
+  document.getElementById("ellipse").className = `ellipse ${color}`;
+}
+
+/**
+ * Hides the list and shows the back-arrow when opening a contact on mobile.
+ *
+ * @returns {void}
+ */
 function hideContactsListInResponsiveMode() {
   if (window.innerWidth <= CONTACTS_MOBILE_MAX) {
     document.getElementById("contact-list").classList.add("d-none");
@@ -114,7 +196,11 @@ function hideContactsListInResponsiveMode() {
   }
 }
 
-/** Applies contacts layout for the current viewport and selection. */
+/**
+ * Applies contacts layout for the current viewport and selection.
+ *
+ * @returns {void}
+ */
 function applyContactsLayoutForWidth() {
   const els = getContactsLayoutElements();
   if (!els) return;
@@ -128,7 +214,11 @@ function applyContactsLayoutForWidth() {
   }
 }
 
-/** Collects the DOM elements needed by `applyContactsLayoutForWidth`. */
+/**
+ * Collects the DOM elements needed by `applyContactsLayoutForWidth`.
+ *
+ * @returns {Object|null} An object with the referenced elements, or null if any is missing.
+ */
 function getContactsLayoutElements() {
   const els = {
     header: document.getElementById("display-contact-headerID"),
@@ -141,7 +231,13 @@ function getContactsLayoutElements() {
   return els;
 }
 
-/** Desktop layout: everything visible; refit the name if a contact is selected. @param {Object} els @param {boolean} hasSelection */
+/**
+ * Applies the desktop contacts layout, refitting the name if a contact is selected.
+ *
+ * @param {Object} els - The layout elements returned by `getContactsLayoutElements`.
+ * @param {boolean} hasSelection - Whether a contact is currently selected.
+ * @returns {void}
+ */
 function applyDesktopContactsLayout(els, hasSelection) {
   els.header.style.display = "";
   els.detail.style.display = "";
@@ -151,7 +247,12 @@ function applyDesktopContactsLayout(els, hasSelection) {
   if (hasSelection) fitNameToContainer();
 }
 
-/** Mobile with selection: detail visible, list hidden, back-arrow shown. @param {Object} els */
+/**
+ * Applies the mobile layout when a contact is selected (detail visible, list hidden).
+ *
+ * @param {Object} els - The layout elements returned by `getContactsLayoutElements`.
+ * @returns {void}
+ */
 function applyMobileContactsDetailLayout(els) {
   els.header.style.display = "flex";
   els.detail.style.display = "flex";
@@ -161,7 +262,12 @@ function applyMobileContactsDetailLayout(els) {
   fitNameToContainer();
 }
 
-/** Mobile without selection: list visible, detail hidden. @param {Object} els */
+/**
+ * Applies the mobile layout without a selection (list visible, detail hidden).
+ *
+ * @param {Object} els - The layout elements returned by `getContactsLayoutElements`.
+ * @returns {void}
+ */
 function applyMobileContactsListLayout(els) {
   els.header.style.display = "flex";
   els.detail.style.display = "none";
@@ -175,14 +281,22 @@ window.onresize = function showContactListOnExitResponsiveMode() {
   applyContactsLayoutForWidth();
 };
 
-/** Displays the contact detail section on mobile. */
+/**
+ * Displays the contact detail section on mobile.
+ *
+ * @returns {void}
+ */
 function showContactsInDetailInResponsiveMode() {
   document.getElementById("display-contact-headerID").style.display = "flex";
   document.getElementById("display-contactID").style.display = "flex";
   fitNameToContainer();
 }
 
-/** Back-arrow handler: returns to the contact list on mobile. */
+/**
+ * Back-arrow handler that returns to the contact list on mobile.
+ *
+ * @returns {void}
+ */
 function showContactListAgainInResponsiveMode() {
   if (window.innerWidth <= CONTACTS_MOBILE_MAX) {
     document.getElementById("display-contact-headerID").style.display = "flex";
@@ -193,18 +307,32 @@ function showContactListAgainInResponsiveMode() {
   }
 }
 
-/** Highlights the given contact container as selected. @param {number} id */
+/**
+ * Highlights the given contact container as selected.
+ *
+ * @param {number} id - The index of the selected contact (currently unused).
+ * @returns {void}
+ */
 function changeBgOnSelectedUser(id) {
   document.getElementById("contact-containerID").classList.add("selected-user-color");
 }
 
-/** Renders the contacts and clears the detail view. */
+/**
+ * Renders the contacts and clears the detail view.
+ *
+ * @returns {Promise<void>}
+ */
 async function initContacts() {
   await renderContacts();
   loadUserInformation(-1);
 }
 
-/** Highlights a single user in the list. @param {number} userIndex */
+/**
+ * Highlights a single user in the list.
+ *
+ * @param {number} userIndex - The index of the user to highlight.
+ * @returns {void}
+ */
 function highlightUser(userIndex) {
   for (let i = 0; i < users.length; i++) {
     document.getElementById(`user-container${i}`).classList.remove("highlightUser");
@@ -212,7 +340,11 @@ function highlightUser(userIndex) {
   document.getElementById(`user-container${userIndex}`).classList.add("highlightUser");
 }
 
-/** Marks the last-clicked contact container so hover styles don't stick to it. */
+/**
+ * Marks the last-clicked contact container so hover styles don't stick to it.
+ *
+ * @returns {void}
+ */
 function removeHover() {
   document.querySelectorAll(".contact-container").forEach((selContact) =>
     selContact.addEventListener("click", () => {

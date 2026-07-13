@@ -21,16 +21,19 @@
 /*Pop up Addtask*/
 #myModal {
   width: 525px;
-  max-height: 80%;
+  max-height: min(90vh, calc(100dvh - 32px));
   padding: 48px 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
   border: 0;
   border-radius: 15px;
   background-color: #ffffff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 #myModal::-webkit-scrollbar {
   width: 8px;
@@ -56,6 +59,22 @@
   font-family: inherit;
   font-size: 20px;
   cursor: auto;
+}
+
+textarea.inputPopup {
+  min-height: 96px;
+  resize: vertical;
+  vertical-align: top;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+textarea.editDescriptionInput {
+  min-height: 96px;
+  resize: vertical;
+  vertical-align: top;
+  line-height: 1.4;
+  font-family: inherit;
 }
 
 .selectPopup {
