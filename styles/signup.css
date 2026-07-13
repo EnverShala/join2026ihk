@@ -60,7 +60,7 @@ a {
   justify-content: center;
   align-items: center;
   width: 590px;
-  min-height: 640px;
+  height: 590px;
   padding: 20px 0;
   border-radius: 30px;
   background-color: #ffffff;
@@ -263,7 +263,7 @@ a {
   color: red;
   font-size: 14px;
   line-height: 18px;
-  margin: 4px 8px 4px;
+  margin: 0 8px;
   height: 24px;
   display: flex;
   align-items: center;
@@ -366,7 +366,7 @@ a {
     height: 22px;
     font-size: 14px;
     line-height: 18px;
-    margin: 4px 8px;
+    margin: 0 8px;
   }
   .checkbox__wrapper {
     margin: 8px 0;
@@ -424,7 +424,6 @@ a {
     height: 20px;
     font-size: 13px;
     line-height: 16px;
-    margin: 2px 8px;
   }
   .submit__button,
   .submit__button__disabled {
