@@ -1,12 +1,12 @@
 const CONTACT_PHONE_REGEX = /^[0-9]{6,16}$/;
 
-/** Strips any non-digit characters from a phone input so only 0-9 remain. */
+/** Strips any non-digit characters from a phone input so only 0-9 remain. @param {HTMLInputElement} input */
 function filterPhoneInput(input) {
   const cleaned = input.value.replace(/[^0-9]/g, "");
   if (input.value !== cleaned) input.value = cleaned;
 }
 
-/** Validates a contact-form field and toggles its inline error. */
+/** Validates a contact-form field and toggles its inline error. @param {string} field @return {boolean} */
 function validateContactField(field) {
   const input = document.getElementById(field);
   const errorEl = document.getElementById(field + "-error");
@@ -20,7 +20,7 @@ function validateContactField(field) {
   return valid;
 }
 
-/** Runs all three contact field validators. */
+/** Runs all three contact field validators. @return {boolean} */
 function validateContactForm() {
   const nameOk = validateContactField("name");
   const emailOk = validateContactField("email");
@@ -28,14 +28,14 @@ function validateContactForm() {
   return nameOk && emailOk && phoneOk;
 }
 
-/** Form submit handler for Add Contact: validate, save, then close popup. */
+/** Form submit handler for Add Contact: validate, save, then close popup. @return {boolean} */
 function handleAddContact() {
   if (!validateContactForm()) return false;
   addUser().then(() => closePopup());
   return false;
 }
 
-/** Form submit handler for Edit Contact: validate, then save. */
+/** Form submit handler for Edit Contact: validate, then save. @return {boolean} */
 function handleEditContact() {
   if (!validateContactForm()) return false;
   editUser(users[currentUser].id, users[currentUser]);

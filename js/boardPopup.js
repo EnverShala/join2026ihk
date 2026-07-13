@@ -11,7 +11,7 @@ function addSubtaskPopup() {
   document.getElementById("addSubtaskInputPopup").value = "";
 }
 
-/** Turns a popup subtask item matching `item` into an edit input. */
+/** Turns a popup subtask item matching `item` into an edit input. @param {string} item */
 function editSubtaskPopup(item) {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
   let listLength = subtasksListPopup.getElementsByTagName("li").length;
@@ -25,7 +25,7 @@ function editSubtaskPopup(item) {
   }
 }
 
-/** Removes a subtask matching `item` from the popup list. */
+/** Removes a subtask matching `item` from the popup list. @param {string} item */
 function deleteSubtaskPopup(item) {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
   let listLength = subtasksListPopup.getElementsByTagName("li").length;
@@ -40,7 +40,7 @@ function deleteSubtaskPopup(item) {
   }
 }
 
-/** Saves the popup subtask edit at `position`. */
+/** Saves the popup subtask edit at `position`. @param {number} position */
 function confirmSubtaskEditPopup(position) {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
   let subtask = document.getElementById(`editSubtaskInputPopup${position}`).value.trim();
@@ -51,7 +51,7 @@ function confirmSubtaskEditPopup(position) {
   subtasksArrayPopup[position] = subtask;
 }
 
-/** Cancels the popup subtask edit at `position`. */
+/** Cancels the popup subtask edit at `position`. @param {number} position */
 function cancelSubtaskEditPopup(position) {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
 
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/** Opens the modal and sets task-level from the triggering button id. */
+/** Opens the modal and sets task-level from the triggering button id. @param {string} buttonid */
 function openModal(buttonid) {
   if (buttonid == "alsoOpenModal2") taskLevel = "In Progress";
   else if (buttonid == "alsoOpenModal3") taskLevel = "Awaiting Feedback";
@@ -128,12 +128,12 @@ function searchTasks() {
   }
 }
 
-/** Hides the task card at index `i`. */
+/** Hides the task card at index `i`. @param {number} i */
 function hideTaskCard(i) {
   document.getElementById(`taskCard-${i}`).classList.add("d-none");
 }
 
-/** Shows the task card at index `i`. */
+/** Shows the task card at index `i`. @param {number} i */
 function showTaskCard(i) {
   document.getElementById(`taskCard-${i}`).classList.remove("d-none");
 }

@@ -34,7 +34,7 @@ function guestLogin() {
   window.location.href = "summary.html";
 }
 
-/** Shows a login message; redirects to summary on success after 3s. */
+/** Shows a login message; redirects to summary on success after 3s. @param {string} messageText @param {number} success */
 function showLoginMessage(messageText, success) {
   const successMessage = document.querySelector(".msg-login");
   successMessage.style.display = "flex";

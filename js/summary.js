@@ -10,7 +10,10 @@ async function loadSummaryInfos() {
   greetUser();
 }
 
-/** Writes the summary counts and the upcoming deadline into the DOM. */
+/**
+ * Writes the summary counts and the upcoming deadline into the DOM.
+ * @param {number} sumTodo @param {number} sumDone @param {number} sumUrgent @param {number} sumTasks @param {number} sumProgress @param {number} sumFeedback
+ */
 function updateSummaryInfos(sumTodo, sumDone, sumUrgent, sumTasks, sumProgress, sumFeedback) {
   if (!document.getElementById("summary__todo")) return;
   document.getElementById("summary__todo").innerHTML = sumTodo;
@@ -23,7 +26,7 @@ function updateSummaryInfos(sumTodo, sumDone, sumUrgent, sumTasks, sumProgress, 
   document.getElementById("summary__date").innerHTML = getUpcomingDeadline();
 }
 
-/** Returns the earliest date across urgent tasks (formatted), or "". */
+/** Returns the earliest date across urgent tasks (formatted), or "". @return {string} */
 function getUpcomingDeadline() {
   const dates = tasks
     .filter(t => t.priority == "Urgent")
@@ -33,7 +36,7 @@ function getUpcomingDeadline() {
   return formatted == 0 ? "" : formatted;
 }
 
-/** Formats a YYYYMMDD string as "Month DD, YYYY". */
+/** Formats a YYYYMMDD string as "Month DD, YYYY". @param {string} numberDate @return {string} */
 function numberToDate(numberDate) {
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 

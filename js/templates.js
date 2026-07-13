@@ -1,4 +1,7 @@
-/** Returns HTML for a task card. `progress` is a computed object with doneCount, totalCount, widthPercent, emptyClass. */
+/**
+ * Returns HTML for a task card. `progress` is a computed object with doneCount, totalCount, widthPercent, emptyClass.
+ * @param {string} uniqueId @param {number} i @param {string} assignedUsersHTML @param {Object} progress @return {string}
+ */
 function taskCardTemplate(uniqueId, i, assignedUsersHTML, progress) {
   return `
                 <div draggable="true" id="${uniqueId}" class="taskCard">
@@ -45,7 +48,7 @@ function taskCardTemplate(uniqueId, i, assignedUsersHTML, progress) {
                   `;
 }
 
-/** Returns HTML for a contact list item. */
+/** Returns HTML for a contact list item. @param {number} i @param {number} j @param {number} x @return {string} */
 function contactTemplate(i, j, x) {
   return `<div id="user-container${i}">
             <div id="contact-containerID${x}" class="contact-container" onclick="loadUserInformation(${i}); hideContactsListInResponsiveMode()">
@@ -67,7 +70,10 @@ function contactTemplate(i, j, x) {
             `;
 }
 
-/** Returns HTML for an assigned-to dropdown list item. */
+/**
+ * Returns HTML for an assigned-to dropdown list item.
+ * @param {number} i @param {number} j @param {string} userInitials @param {string} userName @param {string} id @return {string}
+ */
 function createRenderAssignedToUserTemplate(
   i,
   j,
@@ -86,7 +92,7 @@ function createRenderAssignedToUserTemplate(
     `;
 }
 
-/** Returns HTML for a subtask list item in the "add task" context. */
+/** Returns HTML for a subtask list item in the "add task" context. @param {number} index @param {string} item @return {string} */
 function createSubtaskListItemAddTaskTemplate(index, item) {
   if (item == "") {
     return "";
@@ -103,7 +109,7 @@ function createSubtaskListItemAddTaskTemplate(index, item) {
         `;
 }
 
-/** Returns HTML for a subtask list item (edit form context). */
+/** Returns HTML for a subtask list item (edit form context). @param {number} index @param {string} item @return {string} */
 function createSubtaskListItemTemplate(index, item) {
   if (item == "") {
     return "";
@@ -120,7 +126,7 @@ function createSubtaskListItemTemplate(index, item) {
         `;
 }
 
-/** Returns HTML for a popup-context subtask list item. */
+/** Returns HTML for a popup-context subtask list item. @param {number} index @param {string} item @return {string} */
 function createSubtaskListItemPopupTemplate(index, item) {
   return `
             <li class="subtask-list-item" data-index="${index}">
@@ -134,7 +140,7 @@ function createSubtaskListItemPopupTemplate(index, item) {
         `;
 }
 
-/** Reverts a subtask edit input back to its display markup. */
+/** Reverts a subtask edit input back to its display markup. @param {number} index @param {string} item @return {string} */
 function changeSubtaskInputFieldBackToListElement(index, item) {
   return `
                 <div class="li-text">${item}</div>
@@ -146,7 +152,7 @@ function changeSubtaskInputFieldBackToListElement(index, item) {
         `;
 }
 
-/** Popup variant of `changeSubtaskInputFieldBackToListElement`. */
+/** Popup variant of `changeSubtaskInputFieldBackToListElement`. @param {number} index @param {string} item @return {string} */
 function changeSubtaskInputFieldBackToListElementPopup(index, item) {
   return `
                 <div class="li-text">${item}</div>
@@ -158,7 +164,7 @@ function changeSubtaskInputFieldBackToListElementPopup(index, item) {
         `;
 }
 
-/** Returns HTML for a subtask edit input with cancel/confirm buttons. */
+/** Returns HTML for a subtask edit input with cancel/confirm buttons. @param {number} position @param {string} actualContent @return {string} */
 function changeSubtaskContentToInputForEditTemplate(position, actualContent) {
   return `
     <input id="editSubtaskInput${position}" class="edit-subtask-input" type="text" value="${actualContent}" onkeydown = "subtaskOnKeyDown(${position})">
@@ -170,7 +176,7 @@ function changeSubtaskContentToInputForEditTemplate(position, actualContent) {
 `;
 }
 
-/** Popup variant of `changeSubtaskContentToInputForEditTemplate`. */
+/** Popup variant of `changeSubtaskContentToInputForEditTemplate`. @param {number} position @param {string} actualContent @return {string} */
 function changeSubtaskContentToInputForEditPopupTemplate(
   position,
   actualContent
@@ -185,7 +191,7 @@ function changeSubtaskContentToInputForEditPopupTemplate(
 `;
 }
 
-/** Returns HTML for a generic list-item edit input (no handlers). */
+/** Returns HTML for a generic list-item edit input (no handlers). @param {string} textContent @return {string} */
 function createListItemTextContentTemplate(textContent) {
   return `
                     <input class="edit-subtask-input" type="text" value="${textContent}">
@@ -197,13 +203,13 @@ function createListItemTextContentTemplate(textContent) {
                 `;
 }
 
-/** Returns HTML for a contacts letter-group header. */
+/** Returns HTML for a contacts letter-group header. @param {string} firstLetter @return {string} */
 function contactsFirstLetterTemplate(firstLetter) {
   return `<div class="contacts-first-letter-container"><span id="firstLetterOfContactName" class="contacts-first-letter">${firstLetter}</span></div>
                 <div class="border-container"> <div class="border"></div></div>`;
 }
 
-/** Returns HTML for the attachment lightbox root element. */
+/** Returns HTML for the attachment lightbox root element. @return {string} */
 function lightboxTemplate() {
   return `
     <div class="lightbox-backdrop" onclick="closeImageViewer()"></div>
@@ -225,7 +231,7 @@ function lightboxTemplate() {
     </div>`;
 }
 
-/** Returns HTML for one upload-preview thumbnail. */
+/** Returns HTML for one upload-preview thumbnail. @param {Object} att @param {number} i @param {string} context @return {string} */
 function attachmentPreviewItemTemplate(att, i, context) {
   return `<div class="attachment-preview-item">
     <img class="attachment-thumb" src="${att.base64}" alt="${_esc(att.name)}"
@@ -238,7 +244,7 @@ function attachmentPreviewItemTemplate(att, i, context) {
   </div>`;
 }
 
-/** Returns HTML for one attachment list item in the task detail view. */
+/** Returns HTML for one attachment list item in the task detail view. @param {Object} att @param {number} i @return {string} */
 function attachmentListItemTemplate(att, i) {
   return `<li class="attachment-list-item">
     <img class="attachment-list-thumb" src="${att.base64}" alt="${_esc(att.name || 'Bild')}"

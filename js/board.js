@@ -12,14 +12,14 @@ function addDragAndDropEvents() {
   dropZones.forEach((zone) => bindDropZone(zone));
 }
 
-/** Wires the dragstart event on a task card so it sets its own id as payload. */
+/** Wires the dragstart event on a task card so it sets its own id as payload. @param {HTMLElement} card */
 function bindDragStart(card) {
   card.ondragstart = (event) => {
     event.dataTransfer.setData("text", event.target.id);
   };
 }
 
-/** Wires dragover/dragleave/drop handlers on a single drop zone. */
+/** Wires dragover/dragleave/drop handlers on a single drop zone. @param {HTMLElement} zone */
 function bindDropZone(zone) {
   zone.ondragover = (event) => {
     event.preventDefault();
@@ -32,7 +32,7 @@ function bindDropZone(zone) {
   zone.ondrop = handleDropZoneDrop;
 }
 
-/** Handles a drop: appends the card, resets styles, updates the task level. */
+/** Handles a drop: appends the card, resets styles, updates the task level. @param {DragEvent} event */
 function handleDropZoneDrop(event) {
   event.preventDefault();
   event.currentTarget.style.backgroundColor = "";
@@ -43,7 +43,7 @@ function handleDropZoneDrop(event) {
   dragAndDropOnDrop(event.currentTarget.id, data);
 }
 
-/** Sets data of the dropped card for drag and drop. */
+/** Sets data of the dropped card for drag and drop. @param {string} targetId @param {string} data */
 function dragAndDropOnDrop(targetId, data) {
   let newLevel = getNewDragAndDropContainerName(targetId);
 
@@ -56,7 +56,7 @@ function dragAndDropOnDrop(targetId, data) {
   checkTaskLevels();
 }
 
-/** Moves task at index `i` one level up in the workflow. */
+/** Moves task at index `i` one level up in the workflow. @param {number} i */
 async function moveTaskUp(i) {
   if (tasks[i].level == "In Progress") {
     tasks[i].level = "To do";
@@ -71,7 +71,7 @@ async function moveTaskUp(i) {
   renderTaskCards();
 }
 
-/** Moves task at index `i` one level down in the workflow. */
+/** Moves task at index `i` one level down in the workflow. @param {number} i */
 async function moveTaskDown(i) {
   if (tasks[i].level == "Awaiting Feedback") {
     tasks[i].level = "Done";
@@ -86,7 +86,7 @@ async function moveTaskDown(i) {
   renderTaskCards();
 }
 
-/** Returns the level name for a drop container id. */
+/** Returns the level name for a drop container id. @param {string} targetId @return {string} */
 function getNewDragAndDropContainerName(targetId) {
   if (targetId.includes("cardContainertoDo")) {
     return "To do";
@@ -107,7 +107,7 @@ function checkTaskLevels() {
   toggleEmptyState("cardContainerdone", "emptyTaskDone");
 }
 
-/** Shows the empty-state hint if the container has no child cards, hides otherwise. */
+/** Shows the empty-state hint if the container has no child cards, hides otherwise. @param {string} containerId @param {string} emptyHintId */
 function toggleEmptyState(containerId, emptyHintId) {
   const isEmpty = document.getElementById(containerId).childElementCount == 0;
   document.getElementById(emptyHintId).classList.toggle("d-none", !isEmpty);
@@ -124,14 +124,14 @@ function addNewSubtask() {
   }
 }
 
-/** Removes the subtask at `position` and re-renders the list. */
+/** Removes the subtask at `position` and re-renders the list. @param {number} position */
 function deleteSubtask(position) {
   subtasksArray.splice(position, 1);
 
   renderSubtasks();
 }
 
-/** Reverts subtask input at `position` back to its display element. */
+/** Reverts subtask input at `position` back to its display element. @param {number} position */
 function cancelSubtaskEdit(position) {
   let listItem = document.querySelector(`ul li[data-index="${position}"]`);
   listItem.innerHTML = changeSubtaskInputFieldBackToListElement(
@@ -140,7 +140,7 @@ function cancelSubtaskEdit(position) {
   );
 }
 
-/** Saves the edited subtask at `position`; cancels if input is empty. */
+/** Saves the edited subtask at `position`; cancels if input is empty. @param {number} position */
 function confirmSubtaskEdit(position) {
   if (document.getElementById(`editSubtaskInput${position}`).value.trim() == "") {
     cancelSubtaskEdit(position);
@@ -158,7 +158,7 @@ function confirmSubtaskEdit(position) {
   );
 }
 
-/** Replaces the subtask display at `position` with an edit input. */
+/** Replaces the subtask display at `position` with an edit input. @param {number} position */
 function editSubtask(position) {
   let listItem = document.querySelector(`ul li[data-index="${position}"]`);
   listItem.innerHTML = changeSubtaskContentToInputForEditTemplate(
@@ -177,7 +177,7 @@ function renderSubtasks() {
   }
 }
 
-/** Toggles a subtask done-flag on task `taskNr` and persists it. */
+/** Toggles a subtask done-flag on task `taskNr` and persists it. @param {number} taskNr @param {string} subtaskName @param {number} checkBoxNr */
 async function toggleSubtaskDone(taskNr, subtaskName, checkBoxNr) {
   if (document.getElementById(`subtaskCheckbox${checkBoxNr}`).hasAttribute("checked")) {
     if (tasks[taskNr].subtasksDone.includes(subtaskName)) {
@@ -194,7 +194,7 @@ async function toggleSubtaskDone(taskNr, subtaskName, checkBoxNr) {
   await renderTaskCards();
 }
 
-/** Normalizes the "subtasksDone" pipe-separated string. */
+/** Normalizes the "subtasksDone" pipe-separated string. @param {string} str @return {string} */
 function cleanSubtasksDoneString(str) {
   let result = str;
 
@@ -210,7 +210,7 @@ function cleanSubtasksDoneString(str) {
   return result;
 }
 
-/** Checks the assigned-user checkboxes matching `assignedUsers`. */
+/** Checks the assigned-user checkboxes matching `assignedUsers`. @param {string[]} assignedUsers @param {string} id */
 function toggleAssignedUsers(assignedUsers, id = "") {
   for (let c = 0; c < users.length; c++) {
     for (let a = 0; a < assignedUsers.length; a++) {
@@ -221,7 +221,7 @@ function toggleAssignedUsers(assignedUsers, id = "") {
   }
 }
 
-/** Handles Escape/Enter for subtask edit/add (position -1 = add). */
+/** Handles Escape/Enter for subtask edit/add (position -1 = add). @param {number} position */
 function subtaskOnKeyDown(position) {
   if (position != -1) {
     if (event.key == "Escape") cancelSubtaskEdit(position);
@@ -232,7 +232,7 @@ function subtaskOnKeyDown(position) {
   if (event.key == "Enter") addNewSubtask();
 }
 
-/** Same as subtaskOnKeyDown but for the popup context. */
+/** Same as subtaskOnKeyDown but for the popup context. @param {number} position */
 function subtaskOnKeyDownPopup(position) {
   if (position != -1) {
     if (event.key == "Escape") cancelSubtaskEditPopup(position);
@@ -253,7 +253,7 @@ function editPopupTask() {
   document.getElementById("editPopUpID").classList.remove("d-none");
 }
 
-/** Fills the edit-popup form fields and controls from a task record. */
+/** Fills the edit-popup form fields and controls from a task record. @param {Object} task */
 function applyTaskToEditForm(task) {
   document.getElementById("inputEdit").value = task.title;
   document.getElementById("inputDescription").value = task.description;
@@ -268,7 +268,7 @@ function applyTaskToEditForm(task) {
   }
 }
 
-/** Activates the priority button matching `prioName`. */
+/** Activates the priority button matching `prioName`. @param {string} prioName @param {string} id */
 function activatePrioButton(prioName, id = "") {
   if (prioName == "Urgent") {
     clickOnUrgent(id);

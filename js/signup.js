@@ -1,7 +1,7 @@
 /** Tracks blurred signup fields so required errors only show after blur. */
 const touchedSignupFields = new Set();
 
-/** Marks a signup field as touched and re-runs validation. */
+/** Marks a signup field as touched and re-runs validation. @param {string} fieldId */
 function markSignupFieldTouched(fieldId) {
   touchedSignupFields.add(fieldId);
   checkSignUpButton();
@@ -13,7 +13,7 @@ function toggleSignUpButton() {
     document.getElementById("registerButton").disabled == true ? false : true;
 }
 
-/** Returns true if privacy checkbox is checked; else marks text red. */
+/** Returns true if privacy checkbox is checked; else marks text red. @return {boolean} */
 function checkPrivacyPolicy() {
   let agreeCheckbox = document.getElementById("agreeCheckbox").checked;
 
@@ -29,7 +29,7 @@ function checkPrivacyPolicy() {
   return false;
 }
 
-/** Enables/disables the register button based on signup conditions. */
+/** Enables/disables the register button based on signup conditions. @return {boolean} */
 function checkSignUpButton() {
   let registerButton = document.getElementById("registerButton");
 
@@ -44,7 +44,7 @@ function checkSignUpButton() {
   }
 }
 
-/** Submit handler: validates all fields, calls registerUser if valid. */
+/** Submit handler: validates all fields, calls registerUser if valid. @param {Event} event @return {boolean} */
 function handleSignUpSubmit(event) {
   event.preventDefault();
   ["fullName", "userEmail", "userPassword", "confirmPassword"].forEach(function (id) {
@@ -54,13 +54,16 @@ function handleSignUpSubmit(event) {
   return false;
 }
 
-/** Returns true if name, email, password and privacy are all valid. */
+/** Returns true if name, email, password and privacy are all valid. @return {boolean} */
 function checkSignUpConditions() {
   return checkName() && checkEmail() && checkPassword() &&
     clearPasswordMismatchMessage() && checkPrivacyPolicy();
 }
 
-/** Applies the shared show/hide-error pattern to a signup field. */
+/**
+ * Applies the shared show/hide-error pattern to a signup field.
+ * @param {string} boxId @param {string} msgId @param {string} fieldId @param {boolean} isValid @param {boolean} isEmpty
+ */
 function _applySignupFieldState(boxId, msgId, fieldId, isValid, isEmpty) {
   const box = document.getElementById(boxId);
   const msg = document.getElementById(msgId);
@@ -69,7 +72,7 @@ function _applySignupFieldState(boxId, msgId, fieldId, isValid, isEmpty) {
   box.classList.toggle("margin-bottom24px", !showError);
 }
 
-/** Validates the signup email and toggles its required message. */
+/** Validates the signup email and toggles its required message. @return {boolean} */
 function checkEmail() {
   const email = document.getElementById("userEmail").value.trim();
   const valid = isEmailValid(email);
@@ -77,7 +80,7 @@ function checkEmail() {
   return valid;
 }
 
-/** Returns true if password and confirmation match (or confirm empty). */
+/** Returns true if password and confirmation match (or confirm empty). @return {boolean} */
 function clearPasswordMismatchMessage() {
   let messageContainer = document.getElementById("requiredConfirmation");
   let confirmBox = document.getElementById("confirmPasswordBox");
@@ -92,14 +95,14 @@ function clearPasswordMismatchMessage() {
   return false;
 }
 
-/** Hides the confirm-password error and returns the given result flag. */
+/** Hides the confirm-password error and returns the given result flag. @param {HTMLElement} messageContainer @param {HTMLElement} confirmBox @param {boolean} result @return {boolean} */
 function hideConfirmError(messageContainer, confirmBox, result) {
   messageContainer.classList.add("d-none");
   confirmBox.classList.add("margin-bottom24px");
   return result;
 }
 
-/** Validates the signup password (min. 6 chars) and toggles error. */
+/** Validates the signup password (min. 6 chars) and toggles error. @return {boolean} */
 function checkPassword() {
   const password = document.getElementById("userPassword").value;
   const valid = password.length >= 6;
@@ -108,7 +111,7 @@ function checkPassword() {
   return valid;
 }
 
-/** Validates the signup name (>=5 chars, contains space). */
+/** Validates the signup name (>=5 chars, contains space). @return {boolean} */
 function checkName() {
   const name = document.getElementById("fullName").value.trim();
   const valid = name.length >= 5 && name.split(" ").length > 1;
@@ -116,7 +119,7 @@ function checkName() {
   return valid;
 }
 
-/** Toggles password visibility and its lock/unlock icon. */
+/** Toggles password visibility and its lock/unlock icon. @param {string} iconId @param {string} passwordInputfieldId */
 function togglePasswordIcon(iconId, passwordInputfieldId) {
   let icon = document.getElementById(iconId);
   inputField = document.getElementById(passwordInputfieldId);
@@ -130,7 +133,7 @@ function togglePasswordIcon(iconId, passwordInputfieldId) {
   }
 }
 
-/** Toggles a checkbox's data-checked state and visual style. */
+/** Toggles a checkbox's data-checked state and visual style. @param {string} checkboxId */
 function toggleCheckbox(checkboxId) {
   const checkbox = document.getElementById(checkboxId);
   checkbox.dataset.checked = checkbox.dataset.checked == true ? false : true;
@@ -144,7 +147,7 @@ function toggleCheckbox(checkboxId) {
   }
 }
 
-/** Shows a signup toast; redirects to login on success after 3s. */
+/** Shows a signup toast; redirects to login on success after 3s. @param {string} messageText @param {number} success */
 function showSignupMessage(messageText, success) {
   const successMessage = document.querySelector(".msg-signup");
   successMessage.style.display = "flex";

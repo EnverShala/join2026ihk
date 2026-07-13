@@ -1,7 +1,7 @@
 let popupIdString = "";
 let taskLevel = "To do";
 
-/** Reads all task-form fields into a plain object. */
+/** Reads all task-form fields into a plain object. @param {string} id @return {Object} */
 function readTaskFormValues(id) {
   return {
     title: document.getElementById("title").value,
@@ -14,7 +14,7 @@ function readTaskFormValues(id) {
   };
 }
 
-/** Creates a new task from the form fields and saves it to Firebase. */
+/** Creates a new task from the form fields and saves it to Firebase. @param {string} id */
 async function createTask(id = "") {
   const ctx = id === "Popup" ? "popup" : "";
   const attachment = typeof getAttachmentJson === "function" ? getAttachmentJson(ctx) : "";
@@ -26,7 +26,7 @@ async function createTask(id = "") {
   if (typeof clearAttachmentState === "function") clearAttachmentState(ctx);
 }
 
-/** Joins the text of an <ul>'s children with "|" separators. */
+/** Joins the text of an <ul>'s children with "|" separators. @param {HTMLCollection} listChildren @return {string} */
 function subtaskListToString(listChildren = []) {
   let taskSubtasks = "";
   if (listChildren.length > 0) {
@@ -38,7 +38,10 @@ function subtaskListToString(listChildren = []) {
   return taskSubtasks;
 }
 
-/** Builds a plain task object from the given field values. */
+/**
+ * Builds a plain task object from the given field values.
+ * @param {string} newTitle @param {string} newDescription @param {string} newDate @param {string} oldCategory @param {string} newPrio @param {string} oldLevel @param {string} newSubtasks @param {string} newAssigned @param {string} subtasksDone @param {string} attachments @return {Object}
+ */
 function createTaskArray(newTitle, newDescription, newDate, oldCategory, newPrio, oldLevel, newSubtasks, newAssigned, subtasksDone = "", attachments = "") {
   return {
     title: newTitle,
@@ -54,7 +57,7 @@ function createTaskArray(newTitle, newDescription, newDate, oldCategory, newPrio
   };
 }
 
-/** Returns the currently selected task priority ("Urgent" / "Medium" / "Low" / "None"). */
+/** Returns the currently selected task priority ("Urgent" / "Medium" / "Low" / "None"). @param {string} id @return {string} */
 function getTaskPrio(id = "") {
   if (document.getElementById("urgent" + id).className.includes("btn-bg-change-urgent-onclick")) return "Urgent";
   if (document.getElementById("medium" + id).className.includes("btn-bg-change-medium-onclick")) return "Medium";
@@ -62,7 +65,7 @@ function getTaskPrio(id = "") {
   return "None";
 }
 
-/** Resets all priority buttons to their default styling. */
+/** Resets all priority buttons to their default styling. @param {string} id */
 function clearPrioButtons(id = "") {
   document.getElementById('urgent' + id).className = "btn-prio";
   document.getElementById('urgent-whiteID' + id).className = "d-none";
@@ -80,7 +83,7 @@ function clearPrioButtons(id = "") {
   document.getElementById('low' + id).style.boxShadow = "";
 }
 
-/** Toggles the "Urgent" priority button. */
+/** Toggles the "Urgent" priority button. @param {string} id */
 function clickOnUrgent(id = "") {
   if (getTaskPrio(id) == "Urgent") { clearPrioButtons(id); return; }
   clearPrioButtons(id);
@@ -90,7 +93,7 @@ function clickOnUrgent(id = "") {
   document.getElementById("urgent-whiteID" + id).className = "";
 }
 
-/** Toggles the "Medium" priority button. */
+/** Toggles the "Medium" priority button. @param {string} id */
 function clickOnMedium(id = "") {
   if (getTaskPrio(id) == "Medium") { clearPrioButtons(id); return; }
   clearPrioButtons(id);
@@ -100,7 +103,7 @@ function clickOnMedium(id = "") {
   document.getElementById("medium-whiteID" + id).className = "";
 }
 
-/** Toggles the "Low" priority button. */
+/** Toggles the "Low" priority button. @param {string} id */
 function clickOnLow(id = "") {
   if (getTaskPrio(id) == "Low") { clearPrioButtons(id); return; }
   clearPrioButtons(id);
@@ -110,7 +113,7 @@ function clickOnLow(id = "") {
   document.getElementById("low-whiteID" + id).className = "";
 }
 
-/** Adds a one-shot capture-phase outside-click listener to close a dropdown. */
+/** Adds a one-shot capture-phase outside-click listener to close a dropdown. @param {HTMLElement} dropdown @param {HTMLElement} container */
 function bindDropdownOutsideClose(dropdown, container) {
   const handler = (event) => {
     if (container && container.contains(event.target)) return;
@@ -122,7 +125,7 @@ function bindDropdownOutsideClose(dropdown, container) {
   setTimeout(() => document.addEventListener("click", handler, true), 0);
 }
 
-/** Toggles the assigned-to dropdown. */
+/** Toggles the assigned-to dropdown. @param {string} id */
 function toggleDropdown(id = "") {
   const dropdown = document.getElementById("myDropdown" + id);
   const container = document.getElementById("contacts-list" + id);
@@ -150,7 +153,7 @@ function toggleDropdownCategory() {
   if (willOpen) bindDropdownOutsideClose(dropdown, container);
 }
 
-/** Returns a comma-separated string of names of assigned users. */
+/** Returns a comma-separated string of names of assigned users. @param {string} id @return {string} */
 function getAssignedUsers(id = "") {
   let newAssigned = "";
   if (users.length > 0) {
@@ -163,7 +166,7 @@ function getAssignedUsers(id = "") {
   return newAssigned;
 }
 
-/** Renders the assigned-to user list in the dropdown. Deduplicates by email. */
+/** Renders the assigned-to user list in the dropdown. Deduplicates by email. @param {string} id */
 async function renderAssignedTo(id = "") {
   await loadUsers("/users");
   const seen = new Set();
@@ -176,14 +179,14 @@ async function renderAssignedTo(id = "") {
   document.getElementById("myDropdown" + id).innerHTML = html;
 }
 
-/** Toggles a checkbox and updates its background/text styling. */
+/** Toggles a checkbox and updates its background/text styling. @param {string} checkboxId */
 function toggleCheckbox(checkboxId) {
   const checkbox = document.getElementById(checkboxId);
   checkbox.checked = !checkbox.checked;
   toggleBackground(checkbox);
 }
 
-/** Applies background/text color changes for the assigned-contact list item. */
+/** Applies background/text color changes for the assigned-contact list item. @param {HTMLInputElement} checkbox */
 function toggleBackground(checkbox) {
   const listItem = checkbox.closest(".list-item");
   const circle = listItem.querySelector(".circle").cloneNode(true);
@@ -200,7 +203,7 @@ function toggleBackground(checkbox) {
   applySelectedContactsOverflow(container);
 }
 
-/** Shows max 5 contact circles + a "+N" overflow chip. */
+/** Shows max 5 contact circles + a "+N" overflow chip. @param {HTMLElement} container */
 function applySelectedContactsOverflow(container) {
   if (!container) return;
   const MAX_VISIBLE = 5;
@@ -215,7 +218,7 @@ function applySelectedContactsOverflow(container) {
   }
 }
 
-/** Clears the primary form field values and hides all "required" hints. */
+/** Clears the primary form field values and hides all "required" hints. @param {string} id */
 function clearFormFields(id) {
   document.getElementById('title').value = '';
   document.getElementById('description').value = '';
@@ -229,7 +232,7 @@ function clearFormFields(id) {
   document.getElementById('subtaskList' + id).innerHTML = '';
 }
 
-/** Clears the entire task input form, resetting all fields and states. */
+/** Clears the entire task input form, resetting all fields and states. @param {string} id */
 function clearForm(id = "") {
   clearFormFields(id);
   document.getElementById('category-displayed').textContent = 'Select task category';
@@ -243,7 +246,7 @@ function clearForm(id = "") {
   if (typeof removeAttachment === "function") removeAttachment(attachCtx);
 }
 
-/** Clears the subtask input field and any subtask-array state for the form. */
+/** Clears the subtask input field and any subtask-array state for the form. @param {string} id */
 function clearSubtaskInputAndState(id) {
   const inputId = id == "Popup" ? "addSubtaskInputPopup" : "addNewSubtaskInput";
   document.getElementById(inputId).value = '';
@@ -255,7 +258,7 @@ function clearSubtaskInputAndState(id) {
   }
 }
 
-/** Unchecks every assigned-user checkbox in the given form and resets item styling. */
+/** Unchecks every assigned-user checkbox in the given form and resets item styling. @param {string} id */
 function resetAssignedCheckboxes(id) {
   const checkboxes = document.querySelectorAll(`#myDropdown${id} input[type="checkbox"]`);
   checkboxes.forEach((checkbox) => {

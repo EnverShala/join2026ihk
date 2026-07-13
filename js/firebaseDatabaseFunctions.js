@@ -17,7 +17,7 @@ function indexHtmlInit() {
   }
 }
 
-/** Loads users from Firebase into the global `users` array (sorted by name). */
+/** Loads users from Firebase into the global `users` array (sorted by name). @param {string} path */
 async function loadUsers(path = "/users") {
   users = [];
   let userResponse = await fetch(FIREBASE_URL + path + ".json");
@@ -35,7 +35,7 @@ async function loadUsers(path = "/users") {
   }
 }
 
-/** Loads tasks from Firebase into the global `tasks` array. */
+/** Loads tasks from Firebase into the global `tasks` array. @param {string} path */
 async function loadTasks(path = "/tasks") {
   tasks = [];
   let userResponse = await fetch(FIREBASE_URL + path + ".json");
@@ -46,7 +46,7 @@ async function loadTasks(path = "/tasks") {
   });
 }
 
-/** Builds a task object from a raw Firebase record. */
+/** Builds a task object from a raw Firebase record. @param {string} id @param {Object} raw @return {Object} */
 function mapTaskRecord(id, raw) {
   return {
     id: id,
@@ -63,7 +63,7 @@ function mapTaskRecord(id, raw) {
   };
 }
 
-/** Saves task data to Firebase using POST. */
+/** Saves task data to Firebase using POST. @param {string} path @param {Object} data */
 async function saveTasks(path = "", data = {}) {
   await fetch(FIREBASE_URL + path + ".json", {
     method: "POST",
@@ -72,7 +72,7 @@ async function saveTasks(path = "", data = {}) {
   });
 }
 
-/** Updates a task in Firebase using PUT. */
+/** Updates a task in Firebase using PUT. @param {string} id @param {Object} data */
 async function editTask(id, data = {}) {
   await fetch(FIREBASE_URL + `/tasks/${id}` + ".json", {
     method: "PUT",
@@ -81,14 +81,14 @@ async function editTask(id, data = {}) {
   });
 }
 
-/** Deletes a task by id and redirects to board. No-op for id === -1. */
+/** Deletes a task by id and redirects to board. No-op for id === -1. @param {string} id */
 async function deleteTask(id) {
   if (id == -1) return;
   await fetch(FIREBASE_URL + `/tasks/${id}` + ".json", { method: "DELETE" });
   window.location.href = "board.html";
 }
 
-/** Stores an email in localStorage.remember (comma-joined) if not already present. */
+/** Stores an email in localStorage.remember (comma-joined) if not already present. @param {string} accountEmail */
 function rememberUserAccount(accountEmail) {
   let rememberedUsers = localStorage.getItem("remember");
   if (rememberedUsers) {
@@ -101,7 +101,7 @@ function rememberUserAccount(accountEmail) {
   }
 }
 
-/** Removes an email from localStorage.remember if it is stored. */
+/** Removes an email from localStorage.remember if it is stored. @param {string} userEmail */
 function dontRememberUserAccount(userEmail) {
   let rememberedAccounts = localStorage.getItem("remember");
   if (rememberedAccounts && rememberedAccounts.includes(userEmail)) {
@@ -110,7 +110,7 @@ function dontRememberUserAccount(userEmail) {
   }
 }
 
-/** Basic email format check: local@domain.tld (min 2-char TLD). */
+/** Basic email format check: local@domain.tld (min 2-char TLD). @param {string} email @return {boolean} */
 function isEmailValid(email) {
   return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim());
 }
@@ -132,14 +132,14 @@ async function loginOnInput() {
   document.getElementById("loginButton").disabled = !(password.length >= 6 && isEmailValid(email));
 }
 
-/** Fills the login form fields for a remembered account. */
+/** Fills the login form fields for a remembered account. @param {number} accountIndex */
 function activateRememberedAccount(accountIndex) {
   document.getElementById("userPassword").value = accounts[accountIndex].password;
   document.getElementById("rememberMeButton").checked = true;
   document.getElementById("loginButton").disabled = false;
 }
 
-/** Persists login state (email + username) to localStorage. */
+/** Persists login state (email + username) to localStorage. @param {string} accountEmail */
 function logInUserAccount(accountEmail) {
   let accountAsText = JSON.stringify(accountEmail);
   for (let i = 0; i < accounts.length; i++) {
@@ -158,7 +158,7 @@ function logOutUserAccount() {
   setTimeout(() => {}, 500);
 }
 
-/** Returns the currently logged-in email from localStorage, or "". */
+/** Returns the currently logged-in email from localStorage, or "". @return {string} */
 function getLoggedInUser() {
   let loggedInUserAsText = localStorage.getItem("loggedInAccount");
   if (loggedInUserAsText) return JSON.parse(loggedInUserAsText);
@@ -179,7 +179,7 @@ async function loginUser() {
   showLoginMessage("Zu dieser E-Mail existiert kein Account!", 0);
 }
 
-/** Handles a login attempt once the matching account is found. */
+/** Handles a login attempt once the matching account is found. @param {Object} account @param {string} userEmail @param {string} userPassword */
 function finalizeLoginAttempt(account, userEmail, userPassword) {
   if (account.password != userPassword) {
     showLoginMessage("Login fehlgeschlagen!", 0);
@@ -194,7 +194,7 @@ function finalizeLoginAttempt(account, userEmail, userPassword) {
   showLoginMessage("Login erfolgreich!", 1);
 }
 
-/** Signs up a new user unless an account with the same email already exists. */
+/** Signs up a new user unless an account with the same email already exists. @param {Object} data */
 async function signUpUser(data = {}) {
   await loadAccounts();
   const exists = accounts.some(a => a.email.toLowerCase() == data.email.toLowerCase());
@@ -256,7 +256,7 @@ function fitNameToContainer() {
   }
 }
 
-/** Marks the sidebar/nav link matching the current URL as active. */
+/** Marks the sidebar/nav link matching the current URL as active. @param {string} selector @param {string} currentPage */
 function markActiveNavLink(selector, currentPage) {
   document.querySelectorAll(selector).forEach(a => {
     let href = (a.getAttribute("href") || "").toLowerCase();
@@ -329,7 +329,7 @@ async function addUser() {
   await renderContacts();
 }
 
-/** Posts JSON data to the given Firebase path. */
+/** Posts JSON data to the given Firebase path. @param {string} path @param {Object} data */
 async function postData(path = "", data = {}) {
   await fetch(FIREBASE_URL + path + ".json", {
     method: "POST",

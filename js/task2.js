@@ -129,7 +129,7 @@ function selectUserStory() {
   selectCategory.innerHTML = categoryselectUserStory;
 }
 
-/** Validates the task title (non-empty); toggles required message. */
+/** Validates the task title (non-empty); toggles required message. @return {boolean} */
 function validateTitle() {
   const title = document.getElementById("title");
   const titleRequired = document.getElementById("title-required");
@@ -142,7 +142,7 @@ function validateTitle() {
   }
 }
 
-/** Validates the due date (non-empty); toggles required message. */
+/** Validates the due date (non-empty); toggles required message. @return {boolean} */
 function validateDueDate() {
   const dueDate = document.getElementById("due-date-input");
   const dateRequired = document.getElementById("date-required");
@@ -155,7 +155,7 @@ function validateDueDate() {
   }
 }
 
-/** Validates that a task category has been chosen. */
+/** Validates that a task category has been chosen. @return {boolean} */
 function validateCategory() {
   const categoryContainer = document.getElementById("category-container");
   const categoryRequired = document.getElementById("category-required");
@@ -168,7 +168,7 @@ function validateCategory() {
   }
 }
 
-/** Validates the description (non-empty); toggles required message. */
+/** Validates the description (non-empty); toggles required message. @return {boolean} */
 function validateDescription() {
   const description = document.getElementById("description").value.trim();
   const descriptionError = document.getElementById("description-required");
@@ -181,7 +181,7 @@ function validateDescription() {
   }
 }
 
-/** Validates that at least one user is assigned. */
+/** Validates that at least one user is assigned. @param {string} id @return {boolean} */
 function validateAssignedTo(id) {
   const assignedToError = document.getElementById("assigned-to-required");
   const assignedUsers = getAssignedUsers(id);
@@ -194,7 +194,7 @@ function validateAssignedTo(id) {
   }
 }
 
-/** Validates that a priority (not "None") has been chosen. */
+/** Validates that a priority (not "None") has been chosen. @param {string} id @return {boolean} */
 function validatePriority(id) {
   const priority = getTaskPrio(id);
   const priorityError = document.getElementById("prio-required");
@@ -207,7 +207,7 @@ function validatePriority(id) {
   }
 }
 
-/** Validates all task fields; calls createTask if everything is valid. */
+/** Validates all task fields; calls createTask if everything is valid. @param {Event} event @param {string} id */
 function validateAndCreateTask(event, id = "") {
   event.preventDefault();
 

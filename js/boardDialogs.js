@@ -1,11 +1,11 @@
-/** Returns the index of the task whose id matches `currentId`. */
+/** Returns the index of the task whose id matches `currentId`. @return {number} */
 function getTaskNrFromCurrentId() {
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].id == currentId) return i;
   }
 }
 
-/** Pipe-joins all subtask <li> texts (optional id suffix). */
+/** Pipe-joins all subtask <li> texts (optional id suffix). @param {string} id @return {string} */
 function getSubtaskItems(id = "") {
   let subtaskItems = document.getElementById("subtaskList" + id).getElementsByTagName("li");
   let newSubtasks = "";
@@ -20,7 +20,7 @@ function getSubtaskItems(id = "") {
   return newSubtasks;
 }
 
-/** Returns comma-joined names of checked assigned-user checkboxes. */
+/** Returns comma-joined names of checked assigned-user checkboxes. @param {string} id @return {string} */
 function getAssignedUsers(id = "") {
   let newAssigned = "";
 
@@ -51,7 +51,10 @@ async function editCurrentTask() {
   closeDialog();
 }
 
-/** Builds a task object from the given edit-form fields. */
+/**
+ * Builds a task object from the given edit-form fields.
+ * @param {string} newTitle @param {string} newDescription @param {string} newDate @param {string} oldCategory @param {string} newPrio @param {string} oldLevel @param {string} newSubtasks @param {string} newAssigned @return {Object}
+ */
 function createTaskArray(newTitle, newDescription, newDate, oldCategory, newPrio, oldLevel, newSubtasks, newAssigned) {
   return {
     title: newTitle,
@@ -86,7 +89,7 @@ function closeDialog() {
   }, 250);
 }
 
-/** Loads task data into the popup display elements. */
+/** Loads task data into the popup display elements. @param {number} taskNr @param {string} contactEllipse */
 function loadPopupValueData(taskNr, contactEllipse) {
   document.getElementById("popUpUserStory").innerHTML = tasks[taskNr].category;
   document.getElementById("popupHeaderID").innerHTML = tasks[taskNr].title;
@@ -97,7 +100,7 @@ function loadPopupValueData(taskNr, contactEllipse) {
   document.getElementById("popupContactEllipseID").innerHTML = contactEllipse;
 }
 
-/** Populates the task-detail popup: fields, ellipses, subtasks, attachments. */
+/** Populates the task-detail popup: fields, ellipses, subtasks, attachments. @param {number} taskNr */
 async function popupValueImplementFromTask(taskNr) {
   await loadTasks();
   subtasksArray = tasks[taskNr].subtasks.split("|");
@@ -111,7 +114,7 @@ async function popupValueImplementFromTask(taskNr) {
   }
 }
 
-/** Builds badge HTML for a list of assigned user names. */
+/** Builds badge HTML for a list of assigned user names. @param {string[]} names @return {string} */
 async function buildContactEllipseHtml(names) {
   let html = "";
   for (const n of names) {
@@ -120,7 +123,7 @@ async function buildContactEllipseHtml(names) {
   return html;
 }
 
-/** Renders the assigned-user names into their popup container. */
+/** Renders the assigned-user names into their popup container. @param {string[]} assignedNames */
 function renderValueFromNames(assignedNames = []) {
   let valueFromName = document.getElementById("popupContactNameID");
   valueFromName.innerHTML = "";
@@ -129,7 +132,7 @@ function renderValueFromNames(assignedNames = []) {
   }
 }
 
-/** Renders subtasks with checkboxes; pre-checks items in `subtasksDone`. */
+/** Renders subtasks with checkboxes; pre-checks items in `subtasksDone`. @param {string[]} subtasksArray @param {number} taskNr */
 function renderSubtasksDoneCheckboxes(subtasksArray = [], taskNr) {
   const list = document.getElementById("showSubtasksContainer");
   list.innerHTML = "";
@@ -140,7 +143,7 @@ function renderSubtasksDoneCheckboxes(subtasksArray = [], taskNr) {
   }
 }
 
-/** Returns color index (1..15) for a user by name; 1 when not found. */
+/** Returns color index (1..15) for a user by name; 1 when not found. @param {string} userName @return {number} */
 async function getUserColor(userName) {
   await loadUsers("/users");
   let returnColor = 1;
@@ -161,7 +164,7 @@ const CARD_CONTAINER_MAP = {
   "Done": { container: "cardContainerdone", empty: "emptyTaskDone" },
 };
 
-/** Returns card container id for a level and hides its empty-state. */
+/** Returns card container id for a level and hides its empty-state. @param {string} cardContainerIdName @return {string} */
 function getCardContainerId(cardContainerIdName) {
   const entry = CARD_CONTAINER_MAP[cardContainerIdName];
   if (!entry) return "";
@@ -183,7 +186,7 @@ async function renderTaskCards() {
   addDragAndDropEvents();
 }
 
-/** Computes progress-bar values for a task card from its subtasks and done-marks. */
+/** Computes progress-bar values for a task card from its subtasks and done-marks. @param {string} subtasksDoneStr @param {string[]} subTasksArray @return {Object} */
 function computeTaskProgress(subtasksDoneStr, subTasksArray) {
   let raw = subtasksDoneStr || "";
   if (raw.endsWith("|")) raw = raw.slice(0, -1);
@@ -197,7 +200,7 @@ function computeTaskProgress(subtasksDoneStr, subTasksArray) {
   };
 }
 
-/** Renders up to 4 user-circles for a card; overflow becomes a "+N" chip. */
+/** Renders up to 4 user-circles for a card; overflow becomes a "+N" chip. @param {string[]} assignedUsersArray @return {string} */
 async function renderTaskCardUserCircles(assignedUsersArray = []) {
   const total = assignedUsersArray.length;
   const shown = Math.min(total, 4);

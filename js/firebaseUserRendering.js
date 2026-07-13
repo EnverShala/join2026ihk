@@ -1,4 +1,7 @@
-/** Deletes a user and removes them from every task's assigned list. */
+/** Mobile breakpoint kept in sync with the sidebar/contacts CSS. */
+const CONTACTS_MOBILE_MAX = 800;
+
+/** Deletes a user and removes them from every task's assigned list. @param {string} id */
 async function deleteUser(id) {
   await loadTasks("/tasks");
   const user = users.find((u) => u.id == id);
@@ -9,7 +12,7 @@ async function deleteUser(id) {
   if (typeof closePopup === "function") closePopup();
 }
 
-/** Strips the given name from every task's `assigned` field and persists. */
+/** Strips the given name from every task's `assigned` field and persists. @param {string} userName */
 async function removeUserFromAssignedTasks(userName) {
   for (let j = 0; j < tasks.length; j++) {
     if (!tasks[j].assigned.includes(userName)) continue;
@@ -18,7 +21,7 @@ async function removeUserFromAssignedTasks(userName) {
   }
 }
 
-/** Cleans double/leading/trailing commas from an assigned-users string. */
+/** Cleans double/leading/trailing commas from an assigned-users string. @param {string} str @return {string} */
 function normalizeAssignedString(str) {
   let out = str.replace(",,", ",");
   if (out[out.length - 1] == ",") out = out.slice(0, -1);
@@ -26,7 +29,7 @@ function normalizeAssignedString(str) {
   return out;
 }
 
-/** Updates user `id` from the edit form and persists to Firebase. */
+/** Updates user `id` from the edit form and persists to Firebase. @param {string} id @param {Object} data */
 async function editUser(id, data = {}) {
   data.name = document.getElementById("name").value;
   data.email = document.getElementById("email").value;
@@ -43,7 +46,7 @@ async function editUser(id, data = {}) {
   closePopup();
 }
 
-/** Returns the id of the user with `email`, or -1 if not found. */
+/** Returns the id of the user with `email`, or -1 if not found. @param {string} email @return {string|number} */
 function getUserId(email) {
   if (users.length > 0) {
     for (let i = 0; i < users.length; i++) {
@@ -70,7 +73,7 @@ async function renderContacts() {
   removeHover();
 }
 
-/** Returns 1-2 character initials from a full name. */
+/** Returns 1-2 character initials from a full name. @param {string} username @return {string} */
 function getUserInitials(username) {
   if (username.trim() == "") return "";
 
@@ -84,7 +87,7 @@ function getUserInitials(username) {
   return result;
 }
 
-/** Loads user info into the contact detail UI (id=-1 clears). */
+/** Loads user info into the contact detail UI (id=-1 clears). @param {number} id */
 async function loadUserInformation(id) {
   if (!document.getElementById("contact-name")) return;
   document.getElementById("contact-name").innerHTML = id == -1 ? "" : users[id].name;
@@ -100,9 +103,6 @@ async function loadUserInformation(id) {
   }
   currentUser = id;
 }
-
-/** Mobile breakpoint kept in sync with the sidebar/contacts CSS. */
-const CONTACTS_MOBILE_MAX = 800;
 
 /** Hides the list and shows the back-arrow when opening a contact on mobile. */
 function hideContactsListInResponsiveMode() {
@@ -141,7 +141,7 @@ function getContactsLayoutElements() {
   return els;
 }
 
-/** Desktop layout: everything visible; refit the name if a contact is selected. */
+/** Desktop layout: everything visible; refit the name if a contact is selected. @param {Object} els @param {boolean} hasSelection */
 function applyDesktopContactsLayout(els, hasSelection) {
   els.header.style.display = "";
   els.detail.style.display = "";
@@ -151,7 +151,7 @@ function applyDesktopContactsLayout(els, hasSelection) {
   if (hasSelection) fitNameToContainer();
 }
 
-/** Mobile with selection: detail visible, list hidden, back-arrow shown. */
+/** Mobile with selection: detail visible, list hidden, back-arrow shown. @param {Object} els */
 function applyMobileContactsDetailLayout(els) {
   els.header.style.display = "flex";
   els.detail.style.display = "flex";
@@ -161,7 +161,7 @@ function applyMobileContactsDetailLayout(els) {
   fitNameToContainer();
 }
 
-/** Mobile without selection: list visible, detail hidden. */
+/** Mobile without selection: list visible, detail hidden. @param {Object} els */
 function applyMobileContactsListLayout(els) {
   els.header.style.display = "flex";
   els.detail.style.display = "none";
@@ -193,7 +193,7 @@ function showContactListAgainInResponsiveMode() {
   }
 }
 
-/** Highlights the given contact container as selected. */
+/** Highlights the given contact container as selected. @param {number} id */
 function changeBgOnSelectedUser(id) {
   document.getElementById("contact-containerID").classList.add("selected-user-color");
 }
@@ -204,7 +204,7 @@ async function initContacts() {
   loadUserInformation(-1);
 }
 
-/** Highlights a single user in the list. */
+/** Highlights a single user in the list. @param {number} userIndex */
 function highlightUser(userIndex) {
   for (let i = 0; i < users.length; i++) {
     document.getElementById(`user-container${i}`).classList.remove("highlightUser");
