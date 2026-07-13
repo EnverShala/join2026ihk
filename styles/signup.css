@@ -253,7 +253,7 @@ a {
 
 .error__message {
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 15.6px;
   color: var(--orange);
 }
@@ -381,7 +381,7 @@ a {
   }
   .checkbox__wrapper {
     margin: 8px 0;
-    font-size: 13px;
+    font-size: 14px;
   }
   .submit__button,
   .submit__button__disabled {
@@ -398,7 +398,7 @@ a {
     padding: 8px 0;
   }
   .site__footer a {
-    font-size: 13px;
+    font-size: 14px;
     padding-bottom: 12px;
     min-width: 100px;
   }
@@ -433,7 +433,7 @@ a {
   }
   .requiredMessage {
     height: 20px;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 16px;
   }
   .submit__button,

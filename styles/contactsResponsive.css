@@ -691,7 +691,7 @@
     }
     .edit,
     .delete {
-      font-size: 13px;
+      font-size: 14px;
     }
   }
   @media (max-width: 425px) and (max-height: 730px) {

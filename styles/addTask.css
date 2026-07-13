@@ -251,7 +251,7 @@ form {
   border-radius: 50%;
   width: 42px;
   height: 42px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .circle.overflow-chip {
@@ -509,7 +509,7 @@ label {
 
 .requiredMessage {
   color: red;
-  font-size: 0.9em;
+  font-size: 14px;
   display: none;
 }
 

@@ -47,7 +47,7 @@
     font-size: 26px;
   }
   .popUpBannerContent p {
-    font-size: 13px;
+    font-size: 14px;
   }
   .popUpBannerContent span {
     width: 52px;
@@ -108,7 +108,7 @@
     font-size: 22px;
   }
   .popUpBannerContent p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .popUpBannerContent span {
     width: 44px;
@@ -151,7 +151,7 @@
   }
   .cancelButton,
   .createContactButton {
-    font-size: 13px;
+    font-size: 14px;
     padding: 7px 10px;
   }
   .cancelButton:hover {
@@ -440,7 +440,7 @@
 
   .createContactButton,
   .cancelButton {
-    font-size: 13px;
+    font-size: 14px;
     padding: 6px 12px;
   }
 }
@@ -473,7 +473,7 @@
 
   .createContactButton,
   .cancelButton {
-    font-size: 12px;
+    font-size: 14px;
     padding: 5px 10px;
   }
 }

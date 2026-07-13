@@ -297,7 +297,7 @@ button:disabled:hover {
 .error_password_message,
 .error_email_message {
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 15.6px;
   color: #ff8190;
 }

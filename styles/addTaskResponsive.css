@@ -107,7 +107,7 @@
       align-items: center;
       z-index: 5;
       box-sizing: border-box;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     body.task-page .taskContainer .bottom-form .required-note {
@@ -118,12 +118,12 @@
     }
 
     body.task-page .taskContainer .bottom-form .required {
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.2;
     }
 
     body.task-page .taskContainer .bottom-form .starFromRequired {
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.2;
       margin: 0;
     }
@@ -135,7 +135,7 @@
     body.task-page .taskContainer .bottom-form .btn-clear,
     body.task-page .taskContainer .bottom-form .btn-create {
       padding: 6px 10px;
-      font-size: 13px;
+      font-size: 14px;
       gap: 4px;
       border-radius: 8px;
     }
@@ -186,7 +186,7 @@
       font-size: 14px;
     }
     .bottom-form {
-      font-size: 12px;
+      font-size: 14px;
     }
     button {
       padding-block: 0;
@@ -211,7 +211,7 @@
     }
     body.task-page .taskContainer .bottom-form .btn-clear,
     body.task-page .taskContainer .bottom-form .btn-create {
-      font-size: 13px;
+      font-size: 14px;
       padding: 6px 10px;
     }
     .circle {
@@ -243,7 +243,7 @@
       font-size: 14px;
     }
     .bottom-form {
-      font-size: 12px;
+      font-size: 14px;
     }
     .header {
       text-wrap: nowrap;
@@ -254,7 +254,7 @@
     }
     body.task-page .taskContainer .bottom-form .btn-clear,
     body.task-page .taskContainer .bottom-form .btn-create {
-      font-size: 12px;
+      font-size: 14px;
       height: auto;
       padding: 6px 8px;
       margin-top: 0;

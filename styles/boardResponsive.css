@@ -285,7 +285,7 @@
     }
     .searchBar {
       width: 60px;
-      font-size: 12px;
+      font-size: 14px;
     }
     .addBtn {
       margin-left: -70px;
@@ -401,7 +401,7 @@
 
     .buttonsPrioOnEditPopUp .btn-prio {
       padding: 10px 4px;
-      font-size: 13px;
+      font-size: 14px;
       gap: 4px;
     }
 

@@ -39,7 +39,7 @@
   
   .requiredMessage {
     color: red;
-    font-size: 0.9em;
+    font-size: 14px;
     display: none;
   }
   
@@ -129,7 +129,7 @@
     }
     .error_email_message,
     .error_password_message {
-      font-size: 12px;
+      font-size: 14px;
       line-height: 16px;
     }
     .checkbox_area {
@@ -207,7 +207,7 @@
       margin-bottom: 8px;
     }
     .auth_options_mobile p {
-      font-size: 13px;
+      font-size: 14px;
     }
     .btn_login,
     .btn_guest {
