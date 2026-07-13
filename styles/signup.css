@@ -464,6 +464,9 @@ a {
   .input__box input {
     font-size: 16px;
   }
+  .back__button {
+    margin-left: 24px;
+  }
 }
 
 @media (min-width: 320px) {
