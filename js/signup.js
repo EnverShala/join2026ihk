@@ -53,13 +53,31 @@ function checkSignUpButton() {
 
   if (checkSignUpConditions()) {
     registerButton.className = "submit__button";
-    registerButton.onclick = registerUser;
+    registerButton.disabled = false;
     return true;
   } else {
     registerButton.className = "submit__button__disabled";
-    registerButton.onclick = "";
+    registerButton.disabled = true;
     return false;
   }
+}
+
+/**
+ * Form submit handler for the signup form. Prevents native submission,
+ * revalidates all fields, and calls registerUser when all custom conditions
+ * are met. The custom required messages remain the sole validation feedback
+ * (the form uses `novalidate` to suppress native browser validation).
+ *
+ * @param {Event} event The submit event.
+ * @returns {boolean} Always false to fully cancel default submission.
+ */
+function handleSignUpSubmit(event) {
+  event.preventDefault();
+  ["fullName", "userEmail", "userPassword", "confirmPassword"].forEach(function (id) {
+    touchedSignupFields.add(id);
+  });
+  if (checkSignUpButton()) registerUser();
+  return false;
 }
 
 /**
