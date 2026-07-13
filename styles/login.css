@@ -228,12 +228,12 @@ button:disabled:hover {
 
 .checkbox_area {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   gap: 8px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   width: clamp(240px, 422px, 80%);
-  margin-top: 20.4px;
+  margin-top: 8px;
 }
 
 .checkbox_area img {
