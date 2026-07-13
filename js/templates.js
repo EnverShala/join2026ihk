@@ -294,3 +294,29 @@ function contactsFirstLetterTemplate(firstLetter) {
   return `<div class="contacts-first-letter-container"><span id="firstLetterOfContactName" class="contacts-first-letter">${firstLetter}</span></div>
                 <div class="border-container"> <div class="border"></div></div>`;
 }
+
+/**
+ * Generates the HTML template for the attachment lightbox root element.
+ *
+ * @returns {string} The HTML template for the lightbox overlay.
+ */
+function lightboxTemplate() {
+  return `
+    <div class="lightbox-backdrop" onclick="closeImageViewer()"></div>
+    <div class="lightbox-content">
+      <button type="button" class="lightbox-close-btn" onclick="closeImageViewer()" aria-label="Schließen">&#x2715;</button>
+      <div class="lightbox-nav-wrapper">
+        <button type="button" class="lightbox-nav-btn lightbox-prev" onclick="_navigateLightbox(-1)" aria-label="Vorheriges Bild">&#x276E;</button>
+        <div class="lightbox-inner">
+          <img id="lightboxImg" class="lightbox-img" src="" alt="Anhang">
+          <div class="lightbox-meta">
+            <span id="lightboxName" class="lightbox-meta-name"></span>
+            <span id="lightboxType" class="lightbox-meta-type"></span>
+            <span id="lightboxSize" class="lightbox-meta-size"></span>
+            <a id="lightboxDownload" class="lightbox-download-btn" href="#" download="">&#x2913; Download</a>
+          </div>
+        </div>
+        <button type="button" class="lightbox-nav-btn lightbox-next" onclick="_navigateLightbox(1)" aria-label="Nächstes Bild">&#x276F;</button>
+      </div>
+    </div>`;
+}
