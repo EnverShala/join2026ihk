@@ -1,35 +1,16 @@
-/**
- * Loads tasks and calculates summary information (To Do, Done, Urgent, Total, In Progress, Awaiting Feedback).
- * Then, updates the summary information display and greets the user.
- */
+/** Loads tasks, computes summary counts, updates UI, greets the user. */
 async function loadSummaryInfos() {
   await loadTasks();
-
-  let sumTodo = 0, sumDone = 0, sumUrgent = 0, sumTasks = 0, sumProgress = 0, sumFeedback = 0;
-
-  for (let i = 0; i < tasks.length; i++) {
-    sumTodo = tasks[i].level == "To do" ? sumTodo + 1 : sumTodo;
-    sumDone = tasks[i].level == "Done" ? sumDone + 1 : sumDone;
-    sumUrgent = tasks[i].priority == "Urgent" ? sumUrgent + 1 : sumUrgent;
-    sumTasks = tasks.length;
-    sumProgress = tasks[i].level == "In Progress" ? sumProgress + 1 : sumProgress;
-    sumFeedback = tasks[i].level == "Awaiting Feedback" ? sumFeedback + 1 : sumFeedback;
-  }
-
-  updateSummaryInfos(sumTodo, sumDone, sumUrgent, sumTasks, sumProgress, sumFeedback);
+  const c = (fn) => tasks.filter(fn).length;
+  updateSummaryInfos(
+    c(t => t.level == "To do"), c(t => t.level == "Done"),
+    c(t => t.priority == "Urgent"), tasks.length,
+    c(t => t.level == "In Progress"), c(t => t.level == "Awaiting Feedback")
+  );
   greetUser();
 }
 
-/**
- * Updates the summary information display with the provided values.
- *
- * @param {number} sumTodo The number of "To Do" tasks.
- * @param {number} sumDone The number of "Done" tasks.
- * @param {number} sumUrgent The number of "Urgent" tasks.
- * @param {number} sumTasks The total number of tasks.
- * @param {number} sumProgress The number of "In Progress" tasks.
- * @param {number} sumFeedback The number of "Awaiting Feedback" tasks.
- */
+/** Writes the summary counts and the upcoming deadline into the DOM. */
 function updateSummaryInfos(sumTodo, sumDone, sumUrgent, sumTasks, sumProgress, sumFeedback) {
   if (!document.getElementById("summary__todo")) return;
   document.getElementById("summary__todo").innerHTML = sumTodo;
@@ -42,64 +23,29 @@ function updateSummaryInfos(sumTodo, sumDone, sumUrgent, sumTasks, sumProgress, 
   document.getElementById("summary__date").innerHTML = getUpcomingDeadline();
 }
 
-/**
- * Retrieves the upcoming deadline from urgent tasks.
- *
- * @returns {string} The upcoming deadline as a formatted date string, or an empty string if no urgent tasks are found.
- */
+/** Returns the earliest date across urgent tasks (formatted), or "". */
 function getUpcomingDeadline() {
-  let upcomingDeadline = "0";
-  let allDates = [];
-  let taskDate = "";
-
-  for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].priority == "Urgent") {
-      taskDate = tasks[i].date.toString().replace("-", "");
-      taskDate = taskDate.replace("-", "");
-      allDates.push(taskDate);
-    }
-  }
-
-  upcomingDeadline = Math.min(...allDates);
-  upcomingDeadline = numberToDate(upcomingDeadline.toString());
-
-  if (upcomingDeadline == 0 || allDates.length == 0) return "";
-  return upcomingDeadline;
+  const dates = tasks
+    .filter(t => t.priority == "Urgent")
+    .map(t => t.date.toString().replaceAll("-", ""));
+  if (dates.length == 0) return "";
+  const formatted = numberToDate(Math.min(...dates).toString());
+  return formatted == 0 ? "" : formatted;
 }
 
-/**
- * Formats a date represented as a number string (YYYYMMDD) into a human-readable date string.
- *
- * @param {string} numberDate The date as a number string (YYYYMMDD).
- * @returns {string} The formatted date string (e.g., "January 01, 2024"), or "Invalid Date" if the input is invalid.
- */
+/** Formats a YYYYMMDD string as "Month DD, YYYY". */
 function numberToDate(numberDate) {
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   return `${months[numberDate.slice(-4, -2) - 1]} ${numberDate.slice(-2)}, ${numberDate.slice(0, 4)}`;
 }
 
-/**
- * Sets the greeting message and displays the user's name (or "Guest") in the header.
- */
+/** Sets the header greeting text and user name (or "Guest"). */
 function greetUser() {
-  const now = new Date();
-  const hour = now.getHours();
-  let greeting;
-  let userName = localStorage.getItem("username");
-
-  if (hour < 12) {
-    greeting = "Good Morning,";
-  } else if (hour < 18) {
-    greeting = "Good Afternoon,";
-  } else {
-    greeting = "Good Evening,";
-  }
-
-  if (!document.getElementById("greeting__text")) return;
-  document.getElementById("greeting__text").innerText = greeting;
-
-  if (userName) {
-    document.getElementById("user__name").innerHTML = userName == "" ? "Guest" : userName;
-  }
+  const greetingEl = document.getElementById("greeting__text");
+  if (!greetingEl) return;
+  const hour = new Date().getHours();
+  greetingEl.innerText = hour < 12 ? "Good Morning," : hour < 18 ? "Good Afternoon," : "Good Evening,";
+  const userName = localStorage.getItem("username");
+  if (userName) document.getElementById("user__name").innerHTML = userName == "" ? "Guest" : userName;
 }

@@ -99,26 +99,13 @@ function handleImageUpload(inputId, context) {
   input.value = '';
 }
 
-/** Builds HTML for one upload-preview thumbnail. */
-function _buildPreviewItemHtml(att, i, context) {
-  return `<div class="attachment-preview-item">
-    <img class="attachment-thumb" src="${att.base64}" alt="${_esc(att.name)}"
-         onclick="openUploadPreview('${context}', ${i})" role="button" tabindex="0"
-         aria-label="Vorschau öffnen: ${_esc(att.name)}">
-    <span class="attachment-file-name">${_esc(att.name)}</span>
-    <button type="button" class="attachment-remove-btn"
-            onclick="removeAttachment('${context}', ${i})"
-            aria-label="${_esc(att.name)} entfernen">&#x2715;</button>
-  </div>`;
-}
-
 /** Renders all upload-preview items into `containerId`. */
 function _renderAllPreviews(containerId, attachments, context) {
   const el = document.getElementById(containerId);
   if (!el) return;
   if (attachments.length === 0) { el.innerHTML = ''; return; }
   el.innerHTML = attachments.map(function (att, i) {
-    return _buildPreviewItemHtml(att, i, context);
+    return attachmentPreviewItemTemplate(att, i, context);
   }).join('');
 }
 
@@ -231,22 +218,11 @@ function _parseAttachmentsJson(json) {
   return parsed;
 }
 
-/** Builds HTML for one attachment list item in the task detail view. */
-function _buildListItemHtml(att, i) {
-  return `<li class="attachment-list-item">
-    <img class="attachment-list-thumb" src="${att.base64}" alt="${_esc(att.name || 'Bild')}"
-         onclick="openImageViewer(${i})" aria-label="Vorschau: ${_esc(att.name || 'Bild')}">
-    <span class="attachment-list-name" onclick="openImageViewer(${i})">${_esc(att.name || 'Bild')}</span>
-    <a class="attachment-download-btn" href="${att.base64}" download="${_esc(att.name || 'download')}"
-       aria-label="${_esc(att.name || 'Bild')} herunterladen">&#x2913;</a>
-  </li>`;
-}
-
 /** Renders attachment list items inside the dropdown (initially collapsed). */
 function _renderAttachmentList(attachments) {
   const list = document.getElementById('attachmentDropdownList');
   if (!list) return;
-  list.innerHTML = attachments.map(function (att, i) { return _buildListItemHtml(att, i); }).join('');
+  list.innerHTML = attachments.map(function (att, i) { return attachmentListItemTemplate(att, i); }).join('');
   list.style.display = 'none';
 }
 

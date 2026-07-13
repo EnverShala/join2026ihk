@@ -6,13 +6,7 @@ function filterPhoneInput(input) {
   if (input.value !== cleaned) input.value = cleaned;
 }
 
-/**
- * Validates a single contact-form field and shows/hides its error message.
- * Used for onblur/oninput on the name/email/phone inputs so the user gets
- * inline feedback without the browser's default HTML5 popup.
- * @param {"name"|"email"|"phone"} field
- * @returns {boolean} whether the field is currently valid
- */
+/** Validates a contact-form field and toggles its inline error. */
 function validateContactField(field) {
   const input = document.getElementById(field);
   const errorEl = document.getElementById(field + "-error");
@@ -48,12 +42,7 @@ function handleEditContact() {
   return false;
 }
 
-/**
- * Loads the content of "addContacts.html" and displays it in a pop-up.
- *
- * The function fetches the HTML file, sets its content inside the element
- * with the ID "popup-body," and makes the pop-up with the ID "popup" visible.
- */
+/** Fetches "addContacts.html" and shows it as a popup. */
 function addNewUser() {
   fetch("addContacts.html")
     .then((response) => response.text())
@@ -64,22 +53,14 @@ function addNewUser() {
     });
 }
 
-/**
- * Closes the pop-up and clears its content.
- *
- * The function sets the inner HTML of the element with the ID "popup-body"
- * to an empty string and hides the pop-up with the ID "popup."
- */
+/** Hides the popup and clears its body content. */
 function closePopup() {
   fetch("addContacts.html").then((response) => response.text());
   document.getElementById("popup-body").innerHTML = "";
   document.getElementById("popup").style.display = "none";
 }
 
-/**
- * Loads "editContacts.html" into the pop-up and pre-fills user data.
- * Assumes `users[currentUser]` contains the selected user's details.
- */
+/** Opens "editContacts.html" popup and pre-fills the current user. */
 function editUserPopup() {
   fetch("editContacts.html")
     .then((response) => response.text())
@@ -96,10 +77,7 @@ function editUserPopup() {
     });
 }
 
-/**
- * Replaces the placeholder image inside the edit-contact popup with the current
- * contact's initials and background color, sourced from the sidebar list entry.
- */
+/** Sets the edit-popup avatar to the current contact's initials/color. */
 function renderEditPopupAvatar() {
   const popUpImg = document.querySelector(".popUpImg");
   if (!popUpImg || currentUser == null || !users[currentUser]) return;
@@ -111,12 +89,7 @@ function renderEditPopupAvatar() {
   popUpImg.style.backgroundColor = window.getComputedStyle(listAvatarEl).backgroundColor;
 }
 
-/**
- * Adds a new user and closes the pop-up.
- *
- * Calls the `addUser` function asynchronously, then hides the pop-up
- * by calling `closePopup()`.
- */
+/** Adds a new user and closes the popup. */
 async function addUserButton() {
   await addUser();
   closePopup();

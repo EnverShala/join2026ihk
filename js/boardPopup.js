@@ -1,6 +1,4 @@
-/**
- * Adds a new subtask to the subtask list in the popup.
- */
+/** Adds a new subtask to the popup subtask list. */
 function addSubtaskPopup() {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
   let subtask = document.getElementById("addSubtaskInputPopup").value.trim();
@@ -13,10 +11,7 @@ function addSubtaskPopup() {
   document.getElementById("addSubtaskInputPopup").value = "";
 }
 
-/**
- * Turns a subtask list item in the popup into an input field for editing.
- * @param {string} item The current subtask text to match.
- */
+/** Turns a popup subtask item matching `item` into an edit input. */
 function editSubtaskPopup(item) {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
   let listLength = subtasksListPopup.getElementsByTagName("li").length;
@@ -30,10 +25,7 @@ function editSubtaskPopup(item) {
   }
 }
 
-/**
- * Deletes a subtask from the subtask list in the popup.
- * @param {string} item The subtask text to remove.
- */
+/** Removes a subtask matching `item` from the popup list. */
 function deleteSubtaskPopup(item) {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
   let listLength = subtasksListPopup.getElementsByTagName("li").length;
@@ -48,10 +40,7 @@ function deleteSubtaskPopup(item) {
   }
 }
 
-/**
- * Confirms the editing of a subtask in the popup at the specified position.
- * @param {number} position The index of the subtask being edited.
- */
+/** Saves the popup subtask edit at `position`. */
 function confirmSubtaskEditPopup(position) {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
   let subtask = document.getElementById(`editSubtaskInputPopup${position}`).value.trim();
@@ -62,10 +51,7 @@ function confirmSubtaskEditPopup(position) {
   subtasksArrayPopup[position] = subtask;
 }
 
-/**
- * Cancels the editing of a subtask in the popup at the specified position.
- * @param {number} position The index of the subtask being edited.
- */
+/** Cancels the popup subtask edit at `position`. */
 function cancelSubtaskEditPopup(position) {
   let subtasksListPopup = document.getElementById("subtaskListPopup");
 
@@ -73,9 +59,7 @@ function cancelSubtaskEditPopup(position) {
     changeSubtaskInputFieldBackToListElementPopup(position, subtasksArrayPopup[position]);
 }
 
-/**
- * AddTask popup modal open/close wiring.
- */
+/** AddTask popup modal open/close wiring. */
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.querySelector("dialog[data-modal]");
   const openModalButton = document.getElementById("openModal");
@@ -111,10 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/**
- * Opens the modal and sets task-level based on which button triggered it.
- * @param {string} buttonid The id of the button that opened the modal.
- */
+/** Opens the modal and sets task-level from the triggering button id. */
 function openModal(buttonid) {
   if (buttonid == "alsoOpenModal2") taskLevel = "In Progress";
   else if (buttonid == "alsoOpenModal3") taskLevel = "Awaiting Feedback";
@@ -128,48 +109,31 @@ function openModal(buttonid) {
   clearForm("Popup");
 }
 
-/**
- * Closes the modal and resets popup state.
- */
+/** Closes the modal and resets popup state. */
 function closeModal() {
   document.getElementById("htmlID").style.overflow = "auto";
   popupIdString = "";
   taskLevel = "To do";
 }
 
-/**
- * Filters task cards by the current search bar value (min 3 chars).
- */
+/** Filters task cards by the search bar value (min 3 chars). */
 function searchTasks() {
-  let searchBar = document.getElementById("searchBar").value;
-
-  if (searchBar.trim().length > 2) {
-    hideAllTaskCards();
-    for (let i = 0; i < tasks.length; i++) {
-      if (
-        tasks[i].title.toLowerCase().includes(searchBar.toLowerCase()) ||
-        tasks[i].description.toLowerCase().includes(searchBar.toLowerCase())
-      ) {
-        showTaskCard(i);
-      }
+  const q = document.getElementById("searchBar").value.trim().toLowerCase();
+  if (q.length <= 2) { showAllTaskCards(); return; }
+  hideAllTaskCards();
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].title.toLowerCase().includes(q) || tasks[i].description.toLowerCase().includes(q)) {
+      showTaskCard(i);
     }
-  } else {
-    showAllTaskCards();
   }
 }
 
-/**
- * Hides the task card at the specified index.
- * @param {number} i The index of the task card to hide.
- */
+/** Hides the task card at index `i`. */
 function hideTaskCard(i) {
   document.getElementById(`taskCard-${i}`).classList.add("d-none");
 }
 
-/**
- * Shows the task card at the specified index.
- * @param {number} i The index of the task card to show.
- */
+/** Shows the task card at index `i`. */
 function showTaskCard(i) {
   document.getElementById(`taskCard-${i}`).classList.remove("d-none");
 }

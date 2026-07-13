@@ -2,13 +2,7 @@ let subtasksArray;
 let subtasksArrayPopup = [];
 let pos;
 
-/**
- * Adds drag-and-drop functionality to task cards and drop zones.
- *
- * - Makes elements with the class "taskCard" draggable.
- * - Sets up drop zones to allow dropping and provide visual feedback.
- * - Updates task levels and triggers necessary updates on drop.
- */
+/** Wires drag/drop on all task cards and drop zones. */
 function addDragAndDropEvents() {
   const draggedCards = document.querySelectorAll(".taskCard");
   const dropZones = document.querySelectorAll(
@@ -49,9 +43,7 @@ function handleDropZoneDrop(event) {
   dragAndDropOnDrop(event.currentTarget.id, data);
 }
 
-/**
- * sets the Data of the dropped Card for the drag and drop function
- */
+/** Sets data of the dropped card for drag and drop. */
 function dragAndDropOnDrop(targetId, data) {
   let newLevel = getNewDragAndDropContainerName(targetId);
 
@@ -64,13 +56,7 @@ function dragAndDropOnDrop(targetId, data) {
   checkTaskLevels();
 }
 
-/**
- * Moves a task up one level in the workflow and updates the UI.
- *
- * @async
- * @param {number} i - Index of the task in the tasks array.
- * @returns {Promise<void>}
- */
+/** Moves task at index `i` one level up in the workflow. */
 async function moveTaskUp(i) {
   if (tasks[i].level == "In Progress") {
     tasks[i].level = "To do";
@@ -85,13 +71,7 @@ async function moveTaskUp(i) {
   renderTaskCards();
 }
 
-/**
- * Moves a task down one level in the workflow and updates the UI.
- *
- * @async
- * @param {number} i - Index of the task in the tasks array.
- * @returns {Promise<void>}
- */
+/** Moves task at index `i` one level down in the workflow. */
 async function moveTaskDown(i) {
   if (tasks[i].level == "Awaiting Feedback") {
     tasks[i].level = "Done";
@@ -106,12 +86,7 @@ async function moveTaskDown(i) {
   renderTaskCards();
 }
 
-/**
- * Returns a user-friendly name for a drag-and-drop container based on its ID.
- *
- * @param {string} targetId The ID of the drag-and-drop container.
- * @returns {string} The user-friendly name of the container (e.g., "To do", "In Progress").
- */
+/** Returns the level name for a drop container id. */
 function getNewDragAndDropContainerName(targetId) {
   if (targetId.includes("cardContainertoDo")) {
     return "To do";
@@ -124,10 +99,7 @@ function getNewDragAndDropContainerName(targetId) {
   }
 }
 
-/**
- * Checks the number of child elements in each task container (To Do, In Progress, Awaiting Feedback, Done)
- * and shows or hides corresponding "empty task" messages based on whether the containers are empty.
- */
+/** Toggles empty-state hints for all four task-level containers. */
 function checkTaskLevels() {
   toggleEmptyState("cardContainertoDo", "emptyTaskTodo");
   toggleEmptyState("cardContainerinProgress", "emptyTaskInProgress");
@@ -141,9 +113,7 @@ function toggleEmptyState(containerId, emptyHintId) {
   document.getElementById(emptyHintId).classList.toggle("d-none", !isEmpty);
 }
 
-/**
- * Adds a new subtask to the subtasks array and updates the displayed subtask list.
- */
+/** Appends the current input value as a new subtask. */
 function addNewSubtask() {
   let newSubtask = document.getElementById("addNewSubtaskInput").value.trim();
 
@@ -154,22 +124,14 @@ function addNewSubtask() {
   }
 }
 
-/**
- * Deletes a subtask from the subtasks array at the specified position and re-renders the subtask list.
- *
- * @param {number} position The index of the subtask to delete in the subtasksArray.
- */
+/** Removes the subtask at `position` and re-renders the list. */
 function deleteSubtask(position) {
   subtasksArray.splice(position, 1);
 
   renderSubtasks();
 }
 
-/**
- * Cancels the editing of a subtask at the specified position and reverts the list item back to its original display.
- *
- * @param {number} position The index of the subtask being edited.
- */
+/** Reverts subtask input at `position` back to its display element. */
 function cancelSubtaskEdit(position) {
   let listItem = document.querySelector(`ul li[data-index="${position}"]`);
   listItem.innerHTML = changeSubtaskInputFieldBackToListElement(
@@ -178,12 +140,7 @@ function cancelSubtaskEdit(position) {
   );
 }
 
-/**
- * Confirms the editing of a subtask at the specified position, updating the subtasks array and the displayed list item.
- * If the input is empty after trimming, the edit is canceled.
- *
- * @param {number} position The index of the subtask being edited.
- */
+/** Saves the edited subtask at `position`; cancels if input is empty. */
 function confirmSubtaskEdit(position) {
   if (document.getElementById(`editSubtaskInput${position}`).value.trim() == "") {
     cancelSubtaskEdit(position);
@@ -201,11 +158,7 @@ function confirmSubtaskEdit(position) {
   );
 }
 
-/**
- * Turns a subtask list item into an input field for editing.
- *
- * @param {number} position The index of the subtask to be edited.
- */
+/** Replaces the subtask display at `position` with an edit input. */
 function editSubtask(position) {
   let listItem = document.querySelector(`ul li[data-index="${position}"]`);
   listItem.innerHTML = changeSubtaskContentToInputForEditTemplate(
@@ -214,34 +167,17 @@ function editSubtask(position) {
   );
 }
 
-/**
- * Renders the subtask list based on the current subtasksArray.
- */
+/** Renders the subtask list from `subtasksArray`. */
 function renderSubtasks() {
   let subtasksList = document.getElementById("subtaskList");
-
-  if (subtasksArray == "") {
-    subtasksList.innerHTML = "";
-    return;
-  }
-
   subtasksList.innerHTML = "";
-
+  if (subtasksArray == "") return;
   for (let j = 0; j < subtasksArray.length; j++) {
-    subtasksList.innerHTML += createSubtaskListItemTemplate(
-      j,
-      subtasksArray[j]
-    );
+    subtasksList.innerHTML += createSubtaskListItemTemplate(j, subtasksArray[j]);
   }
 }
 
-/**
- * Toggles the "done" status of a subtask and updates the task data.
- *
- * @param {number} taskNr The index of the task in the tasks array.
- * @param {string} subtaskName The name of the subtask.
- * @param {number} checkBoxNr The number of the checkbox associated with the subtask.
- */
+/** Toggles a subtask done-flag on task `taskNr` and persists it. */
 async function toggleSubtaskDone(taskNr, subtaskName, checkBoxNr) {
   if (document.getElementById(`subtaskCheckbox${checkBoxNr}`).hasAttribute("checked")) {
     if (tasks[taskNr].subtasksDone.includes(subtaskName)) {
@@ -258,9 +194,7 @@ async function toggleSubtaskDone(taskNr, subtaskName, checkBoxNr) {
   await renderTaskCards();
 }
 
-/**
- * cleans the subtasksdone string from errors for saving on firebase
- */
+/** Normalizes the "subtasksDone" pipe-separated string. */
 function cleanSubtasksDoneString(str) {
   let result = str;
 
@@ -276,12 +210,7 @@ function cleanSubtasksDoneString(str) {
   return result;
 }
 
-/**
- * Toggles the checkboxes for assigned users based on the provided list.
- *
- * @param {string[]} assignedUsers An array of user names that are assigned to the task.
- * @param {string} [id=""] An optional ID to be included in the checkbox ID.
- */
+/** Checks the assigned-user checkboxes matching `assignedUsers`. */
 function toggleAssignedUsers(assignedUsers, id = "") {
   for (let c = 0; c < users.length; c++) {
     for (let a = 0; a < assignedUsers.length; a++) {
@@ -292,55 +221,29 @@ function toggleAssignedUsers(assignedUsers, id = "") {
   }
 }
 
-/**
- * Handles keyboard events (Escape and Enter) for subtask editing and adding.
- *
- * @param {number} position The index of the subtask being edited, or -1 if adding a new subtask.
- */
+/** Handles Escape/Enter for subtask edit/add (position -1 = add). */
 function subtaskOnKeyDown(position) {
   if (position != -1) {
-    if (event.key == "Escape") {
-      cancelSubtaskEdit(position);
-    }
-    if (event.key == "Enter") {
-      confirmSubtaskEdit(position);
-    }
-  } else {
-    if (event.key == "Escape") {
-      document.getElementById("addNewSubtaskInput").value = "";
-    }
-    if (event.key == "Enter") {
-      addNewSubtask();
-    }
+    if (event.key == "Escape") cancelSubtaskEdit(position);
+    if (event.key == "Enter") confirmSubtaskEdit(position);
+    return;
   }
+  if (event.key == "Escape") document.getElementById("addNewSubtaskInput").value = "";
+  if (event.key == "Enter") addNewSubtask();
 }
 
-/**
- * Handles keyboard events (Escape and Enter) for subtask editing and adding within a popup.
- *
- * @param {number} position The index of the subtask being edited, or -1 if adding a new subtask.
- */
+/** Same as subtaskOnKeyDown but for the popup context. */
 function subtaskOnKeyDownPopup(position) {
   if (position != -1) {
-    if (event.key == "Escape") {
-      cancelSubtaskEditPopup(position);
-    }
-    if (event.key == "Enter") {
-      confirmSubtaskEditPopup(position);
-    }
-  } else {
-    if (event.key == "Escape") {
-      document.getElementById("addSubtaskInputPopup").value = "";
-    }
-    if (event.key == "Enter") {
-      addSubtaskPopup();
-    }
+    if (event.key == "Escape") cancelSubtaskEditPopup(position);
+    if (event.key == "Enter") confirmSubtaskEditPopup(position);
+    return;
   }
+  if (event.key == "Escape") document.getElementById("addSubtaskInputPopup").value = "";
+  if (event.key == "Enter") addSubtaskPopup();
 }
 
-/**
- * Populates the edit task popup form with the data of the currently selected task.
- */
+/** Fills the edit popup with the currently selected task's data. */
 function editPopupTask() {
   clearForm();
   for (let i = 0; i < tasks.length; i++) {
@@ -365,12 +268,7 @@ function applyTaskToEditForm(task) {
   }
 }
 
-/**
- * Activates the priority button corresponding to the given priority name.
- *
- * @param {string} prioName The name of the priority ("Urgent", "Medium", or "Low").
- * @param {string} [id=""] An optional ID to be included in the button ID.
- */
+/** Activates the priority button matching `prioName`. */
 function activatePrioButton(prioName, id = "") {
   if (prioName == "Urgent") {
     clickOnUrgent(id);

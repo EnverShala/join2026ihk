@@ -1,23 +1,29 @@
 let popupIdString = "";
 let taskLevel = "To do";
 
+/** Reads all task-form fields into a plain object. */
+function readTaskFormValues(id) {
+  return {
+    title: document.getElementById("title").value,
+    description: document.getElementById("description").value,
+    date: document.getElementById("due-date-input").value,
+    category: document.getElementById("category-displayed").textContent.trim(),
+    prio: getTaskPrio(id),
+    subtasks: subtaskListToString(document.getElementById("subtaskList" + id).children),
+    assigned: getAssignedUsers(id),
+  };
+}
+
 /** Creates a new task from the form fields and saves it to Firebase. */
 async function createTask(id = "") {
-  let taskTitle = document.getElementById("title").value;
-  let taskDescription = document.getElementById("description").value;
-  let taskDate = document.getElementById("due-date-input").value;
-  let taskCategory = document.getElementById("category-displayed").textContent.trim();
-  let taskPrio = getTaskPrio(id);
-  let subtaskItems = document.getElementById("subtaskList" + id).children;
-  let taskSubtasks = subtaskListToString(subtaskItems);
-  let assignedTo = getAssignedUsers(id);
-  let attachmentCtx = id === "Popup" ? "popup" : "";
-  let attachment = typeof getAttachmentJson === "function" ? getAttachmentJson(attachmentCtx) : "";
-  let newTask = createTaskArray(taskTitle, taskDescription, taskDate, taskCategory, taskPrio, taskLevel, taskSubtasks, assignedTo, "", attachment);
+  const ctx = id === "Popup" ? "popup" : "";
+  const attachment = typeof getAttachmentJson === "function" ? getAttachmentJson(ctx) : "";
+  const f = readTaskFormValues(id);
+  const newTask = createTaskArray(f.title, f.description, f.date, f.category, f.prio, taskLevel, f.subtasks, f.assigned, "", attachment);
   await saveTasks("/tasks", newTask);
   showSuccessMessage();
   clearForm(id);
-  if (typeof clearAttachmentState === "function") clearAttachmentState(attachmentCtx);
+  if (typeof clearAttachmentState === "function") clearAttachmentState(ctx);
 }
 
 /** Joins the text of an <ul>'s children with "|" separators. */
@@ -104,11 +110,7 @@ function clickOnLow(id = "") {
   document.getElementById("low-whiteID" + id).className = "";
 }
 
-/**
- * Binds a one-shot capture-phase click listener that closes the dropdown when
- * the click lands outside both the trigger container and the dropdown itself.
- * Capture-phase fires even when ancestors call stopPropagation() in the bubble phase.
- */
+/** Adds a one-shot capture-phase outside-click listener to close a dropdown. */
 function bindDropdownOutsideClose(dropdown, container) {
   const handler = (event) => {
     if (container && container.contains(event.target)) return;
@@ -163,23 +165,15 @@ function getAssignedUsers(id = "") {
 
 /** Renders the assigned-to user list in the dropdown. Deduplicates by email. */
 async function renderAssignedTo(id = "") {
-  let assignedMenu = document.getElementById("myDropdown" + id);
-  let j = 1;
-  assignedMenu.innerHTML = "";
   await loadUsers("/users");
-  let uniqueUsers = [];
-  users.forEach(user => {
-    if (!uniqueUsers.some(uniqueUser => uniqueUser.email == user.email)) {
-      uniqueUsers.push(user.name.trim());
-    }
-  });
-  let htmlContent = "";
-  for (let i = 0; i < uniqueUsers.length; i++) {
-    htmlContent += createRenderAssignedToUserTemplate(i, j, getUserInitials(uniqueUsers[i]), uniqueUsers[i], id);
-    j++;
-    if (j > 15) j = 1;
+  const seen = new Set();
+  const uniqueNames = users.filter(u => !seen.has(u.email) && seen.add(u.email)).map(u => u.name.trim());
+  let html = "", j = 1;
+  for (let i = 0; i < uniqueNames.length; i++) {
+    html += createRenderAssignedToUserTemplate(i, j, getUserInitials(uniqueNames[i]), uniqueNames[i], id);
+    j = j >= 15 ? 1 : j + 1;
   }
-  assignedMenu.innerHTML = htmlContent;
+  document.getElementById("myDropdown" + id).innerHTML = html;
 }
 
 /** Toggles a checkbox and updates its background/text styling. */
@@ -192,23 +186,18 @@ function toggleCheckbox(checkboxId) {
 /** Applies background/text color changes for the assigned-contact list item. */
 function toggleBackground(checkbox) {
   const listItem = checkbox.closest(".list-item");
-  const contactCircle = listItem.querySelector(".circle").cloneNode(true);
-  const selectedContactsContainer = document.getElementById("selected-contacts-container" + popupIdString);
+  const circle = listItem.querySelector(".circle").cloneNode(true);
+  const container = document.getElementById("selected-contacts-container" + popupIdString);
+  listItem.style.backgroundColor = checkbox.checked ? "#2a3647" : "";
+  listItem.style.color = checkbox.checked ? "white" : "black";
   if (checkbox.checked) {
-    listItem.style.backgroundColor = "#2a3647";
-    listItem.style.color = "white";
-    selectedContactsContainer.appendChild(contactCircle);
+    container.appendChild(circle);
   } else {
-    listItem.style.backgroundColor = "";
-    listItem.style.color = "black";
-    const circles = selectedContactsContainer.querySelectorAll(".circle:not(.overflow-chip)");
-    circles.forEach((circle) => {
-      if (circle.textContent.trim() === contactCircle.textContent.trim()) {
-        selectedContactsContainer.removeChild(circle);
-      }
+    container.querySelectorAll(".circle:not(.overflow-chip)").forEach(c => {
+      if (c.textContent.trim() === circle.textContent.trim()) container.removeChild(c);
     });
   }
-  applySelectedContactsOverflow(selectedContactsContainer);
+  applySelectedContactsOverflow(container);
 }
 
 /** Shows max 5 contact circles + a "+N" overflow chip. */

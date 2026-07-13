@@ -196,22 +196,18 @@ function finalizeLoginAttempt(account, userEmail, userPassword) {
 
 /** Signs up a new user unless an account with the same email already exists. */
 async function signUpUser(data = {}) {
-  let stopSignUp = false;
   await loadAccounts();
-  for (let i = 0; i < accounts.length; i++) {
-    if (accounts[i].email.toLowerCase() == data.email.toLowerCase()) {
-      showSignupMessage("Zu dieser E-Mail-Adresse besteht bereits ein Account!", 0);
-      stopSignUp = true;
-    }
+  const exists = accounts.some(a => a.email.toLowerCase() == data.email.toLowerCase());
+  if (exists) {
+    showSignupMessage("Zu dieser E-Mail-Adresse besteht bereits ein Account!", 0);
+    return;
   }
-  if (stopSignUp == false) {
-    await fetch(FIREBASE_URL + "/accounts" + ".json", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    showSignupMessage("Signup erfolgreich!", 1);
-  }
+  await fetch(FIREBASE_URL + "/accounts.json", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  showSignupMessage("Signup erfolgreich!", 1);
 }
 
 /** Loads accounts from Firebase into the global `accounts` array. */
@@ -236,18 +232,13 @@ function loadAccountInitials() {
   const icons = document.querySelectorAll("#header-profile-icon");
   if (!icons.length) return;
   const loggedInAccount = localStorage.getItem("loggedInAccount");
-  const guestLoggedIn = sessionStorage.getItem("guestLoggedIn") === "true";
   const isRealUser = loggedInAccount && loggedInAccount !== "";
+  const guestLoggedIn = sessionStorage.getItem("guestLoggedIn") === "true";
   if (!isRealUser && !guestLoggedIn) return;
   document.querySelectorAll(".desktop-header .header-icons").forEach(el => (el.style.display = "flex"));
   document.querySelectorAll(".mobile-header .profile-icon").forEach(el => (el.style.display = "flex"));
-  let initials;
-  if (isRealUser) {
-    const accountName = localStorage.getItem("username");
-    initials = getUserInitials(accountName && accountName !== "" ? accountName : "Guest");
-  } else {
-    initials = "G";
-  }
+  const name = localStorage.getItem("username");
+  const initials = isRealUser ? getUserInitials(name && name !== "" ? name : "Guest") : "G";
   icons.forEach(icon => (icon.innerHTML = initials));
 }
 
@@ -298,19 +289,12 @@ function injectGuestLoginLink() {
 /** Restructures nav for guest visitors on privacy/legal/help pages. */
 function hideNavIfNotLoggedIn() {
   const currentPage = (window.location.pathname.split("/").pop() || "").toLowerCase();
-  markActiveNavLink(".nav-links-footer a", currentPage);
-  markActiveNavLink(".menu-sidebar .nav-links", currentPage);
-  markActiveNavLink(".mobile-nav .container-nav-links > a", currentPage);
-  markActiveNavLink(".sub-menu a", currentPage);
-
-  const loggedInAccount = localStorage.getItem("loggedInAccount");
-  const guestLoggedIn = sessionStorage.getItem("guestLoggedIn");
-  const isLoggedIn = (loggedInAccount && loggedInAccount !== "") || guestLoggedIn === "true";
-  if (isLoggedIn) {
-    document.body.classList.add("logged-in");
-    return;
-  }
-
+  [".nav-links-footer a", ".menu-sidebar .nav-links",
+   ".mobile-nav .container-nav-links > a", ".sub-menu a"
+  ].forEach(sel => markActiveNavLink(sel, currentPage));
+  const loggedIn = (localStorage.getItem("loggedInAccount") || "") !== "" ||
+    sessionStorage.getItem("guestLoggedIn") === "true";
+  if (loggedIn) { document.body.classList.add("logged-in"); return; }
   document.body.classList.add("guest-view");
   document.querySelectorAll(".desktop-sidebar .menu-sidebar").forEach(el => el.remove());
   injectGuestLoginLink();

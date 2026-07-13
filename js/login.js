@@ -1,7 +1,4 @@
-/**
- * Initializes the login page: kicks off the logo intro animation and reveals
- * the login card after 1.5s. Safe against missing elements.
- */
+/** Initializes login page: runs logo intro and reveals card after 1.5s. */
 function init() {
   const logo = document.getElementById("logo-container");
   const body = document.getElementById("myBody");
@@ -31,20 +28,13 @@ function revealLoginElements() {
   if (logo) logo.classList.remove("transition2s");
 }
 
-/**
- * Logs in the user as a guest and redirects to the summary page.
- */
+/** Logs in as guest and redirects to the summary page. */
 function guestLogin() {
   sessionStorage.setItem("guestLoggedIn", "true");
   window.location.href = "summary.html";
 }
 
-/**
- * Displays a login message to the user.
- *
- * @param {string} messageText The text of the message to display.
- * @param {boolean} success Whether the login was successful. If true, redirects to summary.html after message display.
- */
+/** Shows a login message; redirects to summary on success after 3s. */
 function showLoginMessage(messageText, success) {
   const successMessage = document.querySelector(".msg-login");
   successMessage.style.display = "flex";

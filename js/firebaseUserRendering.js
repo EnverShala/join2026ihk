@@ -1,8 +1,4 @@
-/**
- * Deletes a user and removes them from every task's assigned list.
- * @param {string} id The Firebase id of the user to delete.
- * @returns {Promise<void>}
- */
+/** Deletes a user and removes them from every task's assigned list. */
 async function deleteUser(id) {
   await loadTasks("/tasks");
   const user = users.find((u) => u.id == id);
@@ -30,12 +26,7 @@ function normalizeAssignedString(str) {
   return out;
 }
 
-/**
- * Edits an existing user with values from the edit form and updates Firebase.
- * @param {string} id The user id.
- * @param {object} [data={}] The user data object (will be mutated).
- * @returns {Promise<void>}
- */
+/** Updates user `id` from the edit form and persists to Firebase. */
 async function editUser(id, data = {}) {
   data.name = document.getElementById("name").value;
   data.email = document.getElementById("email").value;
@@ -52,11 +43,7 @@ async function editUser(id, data = {}) {
   closePopup();
 }
 
-/**
- * Returns the id of a user matching the given email, or -1 if not found.
- * @param {string} email The email to search for.
- * @returns {string|number} User id, or -1 when not found.
- */
+/** Returns the id of the user with `email`, or -1 if not found. */
 function getUserId(email) {
   if (users.length > 0) {
     for (let i = 0; i < users.length; i++) {
@@ -67,40 +54,23 @@ function getUserId(email) {
   }
 }
 
-/**
- * Renders the contact list grouped by first letter of the name.
- * @returns {Promise<void>}
- */
+/** Renders the contact list grouped by first letter of the name. */
 async function renderContacts() {
-  let html = "";
-  let firstLetter = "0";
-  let j = 1;
-
   await loadUsers("/users");
-
+  let html = "", firstLetter = "0", j = 1;
   for (let i = 0; i < users.length; i++) {
-    if (users[i].name[0].toUpperCase() != firstLetter.toUpperCase()) {
-      html += contactsFirstLetterTemplate(users[i].name[0].toUpperCase());
-      firstLetter = users[i].name[0].toUpperCase();
-    }
-
+    const initial = users[i].name[0].toUpperCase();
+    if (initial != firstLetter) { html += contactsFirstLetterTemplate(initial); firstLetter = initial; }
     html += contactTemplate(i, j);
-
-    j++;
-    if (j > 15) j = 1;
+    j = j >= 15 ? 1 : j + 1;
   }
-
-  const contactList = document.getElementById("contact-list");
-  if (!contactList) return;
-  contactList.innerHTML = html;
+  const list = document.getElementById("contact-list");
+  if (!list) return;
+  list.innerHTML = html;
   removeHover();
 }
 
-/**
- * Generates 1-2 character initials from a full name.
- * @param {string} username The name to derive initials from.
- * @returns {string} The initials (empty when name is empty).
- */
+/** Returns 1-2 character initials from a full name. */
 function getUserInitials(username) {
   if (username.trim() == "") return "";
 
@@ -114,23 +84,17 @@ function getUserInitials(username) {
   return result;
 }
 
-/**
- * Loads user info into the contact detail UI. Pass id=-1 to clear.
- * @param {number} id User index in `users`, or -1 to clear.
- */
+/** Loads user info into the contact detail UI (id=-1 clears). */
 async function loadUserInformation(id) {
   if (!document.getElementById("contact-name")) return;
   document.getElementById("contact-name").innerHTML = id == -1 ? "" : users[id].name;
   document.getElementById("contact-email").innerHTML = id == -1 ? "" : users[id].email;
   document.getElementById("contact-phone").innerHTML = id == -1 ? "" : users[id].phone;
   document.getElementById("ellipse").innerHTML = id == -1 ? "" : getUserInitials(users[id].name);
-
-  if (id == -1) {
-    document.getElementById("display-contactID").classList.add("d-none");
-  } else {
-    document.getElementById("display-contactID").classList.remove("d-none");
-    let userEllipseColor = document.getElementById(`userColor${id}`).className.split(" ")[1];
-    document.getElementById("ellipse").className = `ellipse ${userEllipseColor}`;
+  document.getElementById("display-contactID").classList.toggle("d-none", id == -1);
+  if (id != -1) {
+    const color = document.getElementById(`userColor${id}`).className.split(" ")[1];
+    document.getElementById("ellipse").className = `ellipse ${color}`;
     highlightUser(id);
     fitNameToContainer();
   }
@@ -150,12 +114,7 @@ function hideContactsListInResponsiveMode() {
   }
 }
 
-/**
- * Reconciles the contacts layout for the current viewport width and selection.
- * - Desktop: list + detail visible via CSS.
- * - Mobile with selection: detail visible, list + add-button hidden, back arrow shown.
- * - Mobile without selection: list visible, detail hidden.
- */
+/** Applies contacts layout for the current viewport and selection. */
 function applyContactsLayoutForWidth() {
   const els = getContactsLayoutElements();
   if (!els) return;

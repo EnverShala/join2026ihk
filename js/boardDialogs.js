@@ -1,18 +1,11 @@
-/**
- * Returns the index of the task whose id matches `currentId`.
- * @returns {number|undefined} Index of the task, or undefined when not found.
- */
+/** Returns the index of the task whose id matches `currentId`. */
 function getTaskNrFromCurrentId() {
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].id == currentId) return i;
   }
 }
 
-/**
- * Concatenates the innerText of all subtask <li> children, "|" separated.
- * @param {string} [id=""] Optional id suffix on the subtask list element.
- * @returns {string} Joined subtask text, or "" when there are no items.
- */
+/** Pipe-joins all subtask <li> texts (optional id suffix). */
 function getSubtaskItems(id = "") {
   let subtaskItems = document.getElementById("subtaskList" + id).getElementsByTagName("li");
   let newSubtasks = "";
@@ -27,11 +20,7 @@ function getSubtaskItems(id = "") {
   return newSubtasks;
 }
 
-/**
- * Returns a comma-joined string of names for all checked assigned-user checkboxes.
- * @param {string} [id=""] Optional id suffix on the checkbox ids.
- * @returns {string} Comma-joined names, or "" when nothing is checked.
- */
+/** Returns comma-joined names of checked assigned-user checkboxes. */
 function getAssignedUsers(id = "") {
   let newAssigned = "";
 
@@ -46,40 +35,23 @@ function getAssignedUsers(id = "") {
   return newAssigned;
 }
 
-/**
- * Persists the edit form values back onto the currently selected task.
- * @returns {Promise<void>}
- */
+/** Persists the edit form values back onto the currently selected task. */
 async function editCurrentTask() {
-  let newTitle = document.getElementById("inputEdit").value.trim();
-  let newDescription = document.getElementById("inputDescription").value.trim();
-  let newDate = document.getElementById("inputDueDate").value;
-  let newPrio = getTaskPrio();
-  let currentTask = getTaskNrFromCurrentId();
-
-  let oldLevel = tasks[currentTask].level;
-  let oldCategory = tasks[currentTask].category;
-  let subtasksDone = tasks[currentTask].subtasksDone;
-
-  let newSubtasks = getSubtaskItems();
-  let newAssigned = getAssignedUsers();
-
-  let attachment = typeof getAttachmentJson === "function" ? getAttachmentJson("edit") : "";
-
-  let newTask = createTaskArray(
-    newTitle, newDescription, newDate, oldCategory, newPrio,
-    oldLevel, newSubtasks, newAssigned, subtasksDone, attachment
+  const t = tasks[getTaskNrFromCurrentId()];
+  const attachment = typeof getAttachmentJson === "function" ? getAttachmentJson("edit") : "";
+  const newTask = createTaskArray(
+    document.getElementById("inputEdit").value.trim(),
+    document.getElementById("inputDescription").value.trim(),
+    document.getElementById("inputDueDate").value,
+    t.category, getTaskPrio(), t.level,
+    getSubtaskItems(), getAssignedUsers(), t.subtasksDone, attachment
   );
-
   await editTask(currentId, newTask);
   await renderTaskCards();
   closeDialog();
 }
 
-/**
- * Builds a task object from the given fields. Used by the edit flow.
- * @returns {object} A new task object.
- */
+/** Builds a task object from the given edit-form fields. */
 function createTaskArray(newTitle, newDescription, newDate, oldCategory, newPrio, oldLevel, newSubtasks, newAssigned) {
   return {
     title: newTitle,
@@ -114,11 +86,7 @@ function closeDialog() {
   }, 250);
 }
 
-/**
- * Loads task data into the popup display elements.
- * @param {number} taskNr Task index in `tasks`.
- * @param {string} contactEllipse Prebuilt HTML for the contact ellipse row.
- */
+/** Loads task data into the popup display elements. */
 function loadPopupValueData(taskNr, contactEllipse) {
   document.getElementById("popUpUserStory").innerHTML = tasks[taskNr].category;
   document.getElementById("popupHeaderID").innerHTML = tasks[taskNr].title;
@@ -129,31 +97,27 @@ function loadPopupValueData(taskNr, contactEllipse) {
   document.getElementById("popupContactEllipseID").innerHTML = contactEllipse;
 }
 
-/**
- * Populates the task-detail popup: fields, ellipses, subtasks, attachments.
- * @param {number} taskNr Task index in `tasks`.
- */
+/** Populates the task-detail popup: fields, ellipses, subtasks, attachments. */
 async function popupValueImplementFromTask(taskNr) {
   await loadTasks();
   subtasksArray = tasks[taskNr].subtasks.split("|");
-
-  let contactEllipse = "";
-  let assignedUsers = tasks[taskNr].assigned.split(",");
-  while (assignedUsers.length > 0) {
-    contactEllipse += `<div class="badgeImg initialsColor${await getUserColor(assignedUsers[0])}">${getUserInitials(assignedUsers[0])}</div>`;
-    assignedUsers.splice(0, 1);
-  }
-
-  loadPopupValueData(taskNr, contactEllipse);
-
-  let assignedNames = tasks[taskNr].assigned.split(",");
+  const assignedNames = tasks[taskNr].assigned.split(",");
   currentId = tasks[taskNr].id;
-
+  loadPopupValueData(taskNr, await buildContactEllipseHtml(assignedNames.slice()));
   renderValueFromNames(assignedNames);
   renderSubtasksDoneCheckboxes(subtasksArray, taskNr);
   if (typeof renderAttachmentsSection === "function") {
     renderAttachmentsSection(tasks[taskNr].attachments || "");
   }
+}
+
+/** Builds badge HTML for a list of assigned user names. */
+async function buildContactEllipseHtml(names) {
+  let html = "";
+  for (const n of names) {
+    html += `<div class="badgeImg initialsColor${await getUserColor(n)}">${getUserInitials(n)}</div>`;
+  }
+  return html;
 }
 
 /** Renders the assigned-user names into their popup container. */
@@ -165,30 +129,18 @@ function renderValueFromNames(assignedNames = []) {
   }
 }
 
-/**
- * Renders subtasks with checkboxes; pre-checks items that are in `subtasksDone`.
- * @param {string[]} [subtasksArray=[]] Subtasks to render.
- * @param {number} taskNr Task index in `tasks`.
- */
+/** Renders subtasks with checkboxes; pre-checks items in `subtasksDone`. */
 function renderSubtasksDoneCheckboxes(subtasksArray = [], taskNr) {
-  let subtasksList = document.getElementById("showSubtasksContainer");
-  subtasksList.innerHTML = "";
+  const list = document.getElementById("showSubtasksContainer");
+  list.innerHTML = "";
   if (tasks[taskNr].subtasks.trim() == "") return;
-
   for (let j = 0; j < subtasksArray.length; j++) {
-    if (tasks[taskNr].subtasksDone.includes(subtasksArray[j])) {
-      subtasksList.innerHTML += `<p class="subtasksP"><input type="checkbox" id="subtaskCheckbox${j}" onclick="toggleSubtaskDone(${taskNr}, '${subtasksArray[j]}', ${j})" checked>${subtasksArray[j]}<p>`;
-    } else {
-      subtasksList.innerHTML += `<p class="subtasksP"><input type="checkbox" id="subtaskCheckbox${j}" onclick="toggleSubtaskDone(${taskNr}, '${subtasksArray[j]}', ${j})">${subtasksArray[j]}<p>`;
-    }
+    const done = tasks[taskNr].subtasksDone.includes(subtasksArray[j]) ? "checked" : "";
+    list.innerHTML += `<p class="subtasksP"><input type="checkbox" id="subtaskCheckbox${j}" onclick="toggleSubtaskDone(${taskNr}, '${subtasksArray[j]}', ${j})" ${done}>${subtasksArray[j]}<p>`;
   }
 }
 
-/**
- * Returns a color index (1..15) for a user by name. Loads users first if needed.
- * @param {string} userName The user's name.
- * @returns {Promise<number>} Color index; 1 when user is not found.
- */
+/** Returns color index (1..15) for a user by name; 1 when not found. */
 async function getUserColor(userName) {
   await loadUsers("/users");
   let returnColor = 1;
@@ -202,11 +154,6 @@ async function getUserColor(userName) {
   return returnColor;
 }
 
-/**
- * Returns the id of the card container matching the given task level and hides its empty-state.
- * @param {string} cardContainerIdName "To do" | "In Progress" | "Awaiting Feedback" | "Done".
- * @returns {string} The container element id, or "" when the name is invalid.
- */
 const CARD_CONTAINER_MAP = {
   "To do": { container: "cardContainertoDo", empty: "emptyTaskTodo" },
   "In Progress": { container: "cardContainerinProgress", empty: "emptyTaskInProgress" },
@@ -214,6 +161,7 @@ const CARD_CONTAINER_MAP = {
   "Done": { container: "cardContainerdone", empty: "emptyTaskDone" },
 };
 
+/** Returns card container id for a level and hides its empty-state. */
 function getCardContainerId(cardContainerIdName) {
   const entry = CARD_CONTAINER_MAP[cardContainerIdName];
   if (!entry) return "";
@@ -225,43 +173,41 @@ function getCardContainerId(cardContainerIdName) {
 async function renderTaskCards() {
   await loadTasks("/tasks");
   clearCardContainersInnerHtml();
-
   for (let i = 0; i < tasks.length; i++) {
-    const uniqueId = `taskCard-${i}`;
-    let assignedUsers = tasks[i].assigned.split(",");
-    let subTasksArray = tasks[i].subtasks.split("|") == "" ? [] : tasks[i].subtasks.split("|");
-    let cardContainerIdName = getCardContainerId(tasks[i].level);
-    let assignedUsersHTML = await renderTaskCardUserCircles(assignedUsers);
-
-    document.getElementById(cardContainerIdName).innerHTML += taskCardTemplate(
-      uniqueId, i, subTasksArray, assignedUsersHTML
-    );
+    const subs = tasks[i].subtasks.split("|") == "" ? [] : tasks[i].subtasks.split("|");
+    const cardId = getCardContainerId(tasks[i].level);
+    const html = await renderTaskCardUserCircles(tasks[i].assigned.split(","));
+    const progress = computeTaskProgress(tasks[i].subtasksDone, subs);
+    document.getElementById(cardId).innerHTML += taskCardTemplate(`taskCard-${i}`, i, html, progress);
   }
   addDragAndDropEvents();
 }
 
-/**
- * Renders up to 4 user-circles for a task card; overflow becomes a "+N" chip.
- * @param {string[]} [assignedUsersArray=[]] User names assigned to the task.
- * @returns {Promise<string>} The generated HTML.
- */
+/** Computes progress-bar values for a task card from its subtasks and done-marks. */
+function computeTaskProgress(subtasksDoneStr, subTasksArray) {
+  let raw = subtasksDoneStr || "";
+  if (raw.endsWith("|")) raw = raw.slice(0, -1);
+  const doneCount = raw == "" ? 0 : raw.split("|").length;
+  const totalCount = subTasksArray.length;
+  return {
+    doneCount: doneCount,
+    totalCount: totalCount,
+    widthPercent: totalCount > 0 ? (100 / totalCount) * doneCount : 0,
+    emptyClass: totalCount > 0 ? "" : "d-none",
+  };
+}
+
+/** Renders up to 4 user-circles for a card; overflow becomes a "+N" chip. */
 async function renderTaskCardUserCircles(assignedUsersArray = []) {
-  let assignedUsersHTML = "";
-  let assignedUsers = assignedUsersArray;
-  let counter = 0;
-  let taskUsers = assignedUsers.length;
-
-  while (assignedUsers.length > 0) {
-    assignedUsersHTML += `<div class="badgeImg initialsColor${await getUserColor(assignedUsers[0])}">${getUserInitials(assignedUsers[0])}</div>`;
-    assignedUsers.splice(0, 1);
-    counter++;
-
-    if (counter == 4 && taskUsers > 4) {
-      assignedUsersHTML += `<div class="badgeImg initialsColor0">+${taskUsers - counter}</div>`;
-      return assignedUsersHTML;
-    }
+  const total = assignedUsersArray.length;
+  const shown = Math.min(total, 4);
+  let html = "";
+  for (let i = 0; i < shown; i++) {
+    const n = assignedUsersArray[i];
+    html += `<div class="badgeImg initialsColor${await getUserColor(n)}">${getUserInitials(n)}</div>`;
   }
-  return assignedUsersHTML;
+  if (total > 4) html += `<div class="badgeImg initialsColor0">+${total - 4}</div>`;
+  return html;
 }
 
 /** Clears the inner HTML of every card container column. */
