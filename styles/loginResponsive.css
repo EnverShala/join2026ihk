@@ -119,18 +119,21 @@
       font-size: 17px;
     }
     .field_group-margin32 {
-      margin-bottom: 10px;
+      margin-bottom: 0;
     }
     .error_email_wrapper,
     .error_password_wrapper {
       width: 88%;
-      margin-top: 4px;
-      height: 16px;
+      margin-top: 2px;
+      height: 20px;
+    }
+    .error_email_wrapper {
+      margin-bottom: 8px;
     }
     .error_email_message,
     .error_password_message {
       font-size: 14px;
-      line-height: 16px;
+      line-height: 18px;
     }
     .checkbox_area {
       display: none;

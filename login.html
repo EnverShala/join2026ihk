@@ -27,21 +27,21 @@
         <img class="login_divider" src="./img/login/seperator.svg" alt="separator"/>
         <div id="authForm" class="login_form">
           <div id="email_wrapper" class="field_group field_group-margin32">
-            <input id="userEmail" oninput="loginOnInput()" type="email" placeholder="Email" autocomplete="email" style="cursor: auto;"/>
+            <input id="userEmail" oninput="loginOnInput()" onblur="loginEmailOnBlur()" type="email" placeholder="Email" autocomplete="email" style="cursor: auto;"/>
             <img class="field_icon-email" src="./img/login/mail.svg" alt="mail"/>
           </div>
 
           <div class="error_email_wrapper d-none" id="error_email_message">
-            <div class="error_email_message">required</div>
+            <div class="error_email_message">Bitte gültige Email eingeben</div>
           </div>
 
           <div id="password_wrapper" class="field_group">
-            <input oninput="loginOnInput()" id="userPassword" type="password" placeholder="Password" autocomplete="current-password" style="cursor: auto;"/>
+            <input oninput="loginOnInput()" onblur="loginPasswordOnBlur()" id="userPassword" type="password" placeholder="Password" autocomplete="current-password" style="cursor: auto;"/>
             <img id="password_toggle" class="field_icon-password" src="./img/login/lock.svg" alt="lock" onclick="togglePasswordIcon('password_toggle','userPassword')"/>
           </div>
 
           <div class="error_password_wrapper d-none" id="error_password_message">
-            <div class="error_password_message">required</div>
+            <div class="error_password_message">Mindestens 6 Zeichen</div>
           </div>
 
           <div class="checkbox_area">

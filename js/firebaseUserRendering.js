@@ -69,9 +69,9 @@ async function editUser(id, data = {}) {
  * @returns {void}
  */
 function readEditUserForm(data) {
-  data.name = document.getElementById("name").value;
-  data.email = document.getElementById("email").value;
-  data.phone = document.getElementById("phone").value;
+  data.name = document.getElementById("name").value.trim();
+  data.email = document.getElementById("email").value.trim();
+  data.phone = document.getElementById("phone").value.trim();
 }
 
 /**

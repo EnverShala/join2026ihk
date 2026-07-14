@@ -61,6 +61,12 @@ body {
   }
 }
 
+@media (min-width: 801px) and (max-width: 1024px) {
+  .addContactContainer {
+    padding-left: 0;
+  }
+}
+
 .popUpContainer {
   position: relative;
   top: 0px;
@@ -307,7 +313,7 @@ button {
 .popup {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;

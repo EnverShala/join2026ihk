@@ -8,8 +8,8 @@ let taskLevel = "To do";
  */
 function readTaskFormValues(id) {
   return {
-    title: document.getElementById("title").value,
-    description: document.getElementById("description").value,
+    title: document.getElementById("title").value.trim(),
+    description: document.getElementById("description").value.trim(),
     date: document.getElementById("due-date-input").value,
     category: document.getElementById("category-displayed").textContent.trim(),
     prio: getTaskPrio(id),

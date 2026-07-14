@@ -151,12 +151,16 @@ function dontRememberUserAccount(userEmail) {
 }
 
 /**
- * Basic email format check for the pattern local@domain.tld.
+ * Strict email format check. Requires local@domain.tld, forbids consecutive dots
+ * and leading/trailing dots in local part and domain.
  * @param {string} email - The email address to validate.
  * @returns {boolean} True if the email matches the expected pattern.
  */
 function isEmailValid(email) {
-  return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim());
+  const trimmed = (email || "").trim();
+  if (trimmed.includes("..")) return false;
+  const re = /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/;
+  return re.test(trimmed);
 }
 
 /**
@@ -250,7 +254,7 @@ async function loginUser() {
       return;
     }
   }
-  showLoginMessage("Zu dieser E-Mail existiert kein Account!", 0);
+  showLoginMessage("Username oder Passwort falsch!", 0);
 }
 
 /**
@@ -262,7 +266,7 @@ async function loginUser() {
  */
 function finalizeLoginAttempt(account, userEmail, userPassword) {
   if (account.password != userPassword) {
-    showLoginMessage("Login fehlgeschlagen!", 0);
+    showLoginMessage("Username oder Passwort falsch!", 0);
     return;
   }
   if (document.getElementById("rememberMeButton").checked) {
@@ -340,9 +344,9 @@ async function registerUser() {
  * @returns {Promise<void>}
  */
 async function addUser() {
-  const nameValue = document.getElementById("name").value;
-  const phoneValue = document.getElementById("phone").value;
-  const emailValue = document.getElementById("email").value;
+  const nameValue = document.getElementById("name").value.trim();
+  const phoneValue = document.getElementById("phone").value.trim();
+  const emailValue = document.getElementById("email").value.trim();
   const newUser = { name: nameValue, email: emailValue, phone: phoneValue };
   document.getElementById("name").value = "";
   document.getElementById("phone").value = "";

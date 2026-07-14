@@ -308,14 +308,14 @@
   <!-- Begin Titel -->
    <div class="editPopupTitelMainContainer">
     <span class="editPopupTitelTxt">Title</span>
-    <input id="inputEdit" class="editTitelInput" type="text">
+    <input id="inputEdit" class="editTitelInput" type="text" onblur="this.value = this.value.trim()">
   </div>
   <!-- End Titel -->
 
   <!-- Begin Description -->
    <div class="editPopupDescriptionMainContainer">
     <span class="editPopupDescriptionTxt">Description</span>
-    <textarea id="inputDescription" class="editDescriptionInput"></textarea>
+    <textarea id="inputDescription" class="editDescriptionInput" onblur="this.value = this.value.trim()"></textarea>
   </div>
   <!-- End Description -->
 
@@ -371,7 +371,7 @@
   <div class="editPopupSubtasksMainContainer">
     <p class="editPopupSubtasksTxt">Subtask</p>
     <div class="input-container-subtask">
-      <input id="addNewSubtaskInput" class="inputOnEditPopup subtask" type="text" placeholder="Add new subtask" onkeydown="subtaskOnKeyDown(-1)"/>
+      <input id="addNewSubtaskInput" class="inputOnEditPopup subtask" type="text" placeholder="Add new subtask" onkeydown="subtaskOnKeyDown(-1)" onblur="this.value = this.value.trim()"/>
       <div class="btn-subtask add">
         <img src="./img/add.png" alt="Add" />
       </div>
@@ -423,7 +423,7 @@
             
         <div class="inputGroupOnPopUp">
                 <label>Title<span class="required">*</span></label>
-                <input class="inputPopup" type="text" id="title" placeholder="Enter a title" />
+                <input class="inputPopup" type="text" id="title" placeholder="Enter a title" onblur="this.value = this.value.trim()" />
                 <div id="title-required" class="requiredMessage">
                   Required
                 </div>
@@ -431,7 +431,7 @@
 
         <div class="inputGroupOnPopUp">
                 <label for="description">Description<span class="required">*</span></label>
-                <textarea id="description" class="inputPopup" placeholder="Enter a description"></textarea>
+                <textarea id="description" class="inputPopup" placeholder="Enter a description" onblur="this.value = this.value.trim()"></textarea>
                 <div id="description-required" class="requiredMessage">
                   Required
                 </div>
@@ -514,7 +514,7 @@
         <div class="inputGroupOnPopUp">
           <label for="subtasks">Subtasks<span class="required"></span></label>
           <div class="input-container-subtask">
-            <input id="addSubtaskInputPopup" class="inputPopup" type="text" placeholder="Add new subtask" onkeydown="subtaskOnKeyDownPopup(-1)"/>
+            <input id="addSubtaskInputPopup" class="inputPopup" type="text" placeholder="Add new subtask" onkeydown="subtaskOnKeyDownPopup(-1)" onblur="this.value = this.value.trim()"/>
             <div class="btn-subtask add" style="cursor: pointer" onclick="addSubtaskPopup()">
               <img src="./img/add.png" alt="Add" />
             </div>

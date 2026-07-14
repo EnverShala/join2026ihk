@@ -84,12 +84,12 @@ function checkSignUpConditions() {
  * @param {string} msgId - Die ID des Fehlermeldung-Elements.
  * @param {string} fieldId - Die ID des Formularfeldes.
  * @param {boolean} isValid - Ob der aktuelle Wert gültig ist.
- * @param {boolean} isEmpty - Ob das Feld leer ist.
+ * @param {boolean} _isEmpty - Ungenutzt; wird beibehalten für Signatur-Kompatibilität.
  */
-function _applySignupFieldState(boxId, msgId, fieldId, isValid, isEmpty) {
+function _applySignupFieldState(boxId, msgId, fieldId, isValid, _isEmpty) {
   const box = document.getElementById(boxId);
   const msg = document.getElementById(msgId);
-  const showError = !isValid && !isEmpty && touchedSignupFields.has(fieldId);
+  const showError = !isValid && touchedSignupFields.has(fieldId);
   msg.classList.toggle("d-none", !showError);
   box.classList.toggle("margin-bottom24px", !showError);
 }

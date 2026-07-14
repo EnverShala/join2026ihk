@@ -155,14 +155,14 @@
           <div class="addTaskLeft">
             <div class="inputGroup">
               <label for="title">Title<span class="starFromRequired">*</span></label>
-              <input class="input" type="text" id="title" placeholder="Enter a title"/>
+              <input class="input" type="text" id="title" placeholder="Enter a title" onblur="this.value = this.value.trim()"/>
               <div id="title-required" class="requiredMessage">
                 This field is required
               </div>
             </div>
             <div class="inputGroup">
               <label for="description">Description<span class="starFromRequired">*</span></label>
-              <textarea id="description" class="inputDescription" placeholder="Enter a description"></textarea>
+              <textarea id="description" class="inputDescription" placeholder="Enter a description" onblur="this.value = this.value.trim()"></textarea>
               <div id="description-required" class="requiredMessage">
                 This field is required
               </div>
@@ -255,7 +255,7 @@
               <label for="subtasks"
                 >Subtasks<span class="starFromRequired">*</span></label>
               <div class="input-container-subtask">
-                <input id="addNewSubtaskInput" class="input subtask" type="text" placeholder="Add new subtask"/>
+                <input id="addNewSubtaskInput" class="input subtask" type="text" placeholder="Add new subtask" onblur="this.value = this.value.trim()"/>
                 <div class="btn-subtask add">
                   <img src="./img/add.png" alt="Add" />
                 </div>

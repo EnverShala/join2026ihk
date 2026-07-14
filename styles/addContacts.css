@@ -63,6 +63,14 @@ body {
   }
 }
 
+/* On narrow notebooks (≤1024px) center the popup on the whole screen — the overlay
+   already sits above the sidebar (z-index 3 > 2), so it visually reads better. */
+@media (min-width: 801px) and (max-width: 1024px) {
+  .addContactContainer {
+    padding-left: 0;
+  }
+}
+
 .popUpContainer {
   position: relative;
   top: 0px;
@@ -324,7 +332,7 @@ button {
 .popup {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;

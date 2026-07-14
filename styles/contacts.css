@@ -234,7 +234,7 @@ body {
 .contact-name-main-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 461px;
   height: 120px;
   gap: 54px;

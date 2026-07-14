@@ -1,6 +1,14 @@
 
 /* Mirror addContactsResponsive.css so both popups shrink identically. */
 
+/* Edit-only: das X-Icon (top: 12–18px, ~24px hoch) sitzt sonst im oberen Rand
+   des ersten Input-Felds — Content-Bereich weiter unten starten. */
+@media (min-width: 761px) and (max-width: 1180px) {
+  .addContactContainer:not(.add-contact-dialog) .popUpContent {
+    padding-top: 48px;
+  }
+}
+
 @media (max-width: 1180px) {
   .popUpBanner {
     padding: 32px;

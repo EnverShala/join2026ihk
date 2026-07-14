@@ -363,6 +363,45 @@ label {
   margin-top: 8px;
 }
 
+.editDropdown {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.popupOnTaskEdit .editDropdown .dropdown-content {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Add-Task-Popup: inputGroup auf visuelle Breite der Inputs (360 + 2×21 padding = 402px);
+   dropdown füllt diese Breite und die aufgeklappte Liste bleibt innerhalb. */
+#myModal .inputGroupOnPopUp {
+  width: 402px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#myModal .inputGroupOnPopUp .dropdown {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+#myModal .selectOnEditPopUp {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#myModal .dropdownContentPopup {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 .editClosePopupMainContainer {
   position: sticky;
   display: flex;

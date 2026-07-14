@@ -316,6 +316,53 @@
       width: auto;
     }
   }
+  /* Desktop-schmaler Bereich: mehr Luft zwischen Detail-Sektionen, verhindert
+     zugleich horizontales Scrollen (Name-Container schrumpft mit flex:1). */
+  @media (min-width: 801px) and (max-width: 1140px) {
+    .display-contact-header {
+      margin-top: 32px;
+    }
+    .display-contact {
+      gap: 26px;
+      overflow-x: hidden;
+    }
+    .contact-name-main-container {
+      width: 100%;
+      gap: 32px;
+      margin-top: 32px;
+      box-sizing: border-box;
+    }
+    .contact-name-container {
+      width: auto;
+      max-width: 100%;
+      min-width: 0;
+      flex: 1;
+      height: auto;
+    }
+    .contact-name,
+    .span-contact-name {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .email-and-phone-container {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      height: auto;
+    }
+    .email-container,
+    .phone-container {
+      width: 100%;
+      height: auto;
+    }
+    .contact-information-container {
+      height: auto;
+      padding-top: 8px;
+    }
+  }
+  /* 801–960: Header wird zur column (Titel + Trenner + Text), Detail-Section
+     braucht deshalb nochmal 24px extra Luft nach oben (=56 gesamt). */
   @media (min-width: 801px) and (max-width: 960px) {
     .display-contact-header {
       flex-direction: column;
@@ -329,6 +376,57 @@
       height: 0;
       border: none;
       border-top: 3px solid #29abe2;
+    }
+    .contact-name-main-container {
+      margin-top: 56px;
+    }
+  }
+  /* Notebook-Höhe (z. B. 1024×600): kompaktere Sizes, aber nicht zu gedrängt. */
+  @media (min-width: 801px) and (max-width: 1140px) and (max-height: 720px) {
+    .display-contact-header {
+      top: 110px;
+      height: auto;
+      gap: 12px;
+    }
+    .h1Contacts {
+      font-size: 38px;
+      line-height: 1.1;
+    }
+    .span-txt {
+      font-size: 18px;
+    }
+    .display-contact {
+      top: 195px;
+      height: auto;
+      max-height: calc(100dvh - 210px);
+      gap: 18px;
+      overflow-y: auto;
+    }
+    .contact-name-main-container {
+      height: auto;
+      gap: 24px;
+    }
+    .ellipse-container {
+      width: 80px;
+      height: 80px;
+    }
+    .ellipse {
+      width: 72px;
+      height: 72px;
+      font-size: 30px;
+    }
+    .contact-name,
+    .span-contact-name {
+      font-size: 28px;
+      line-height: 1.15;
+      height: auto;
+    }
+    .contact-information-container {
+      height: auto;
+      padding-top: 6px;
+    }
+    .email-and-phone-container {
+      gap: 14px;
     }
   }
   @media (max-width: 800px) {

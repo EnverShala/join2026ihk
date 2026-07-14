@@ -346,6 +346,9 @@ function editPopupTask() {
   }
   document.getElementById("popupOnTaskSelectionMainContainerID").classList.add("d-none");
   document.getElementById("editPopUpID").classList.remove("d-none");
+  if (typeof applyDueDateBounds === "function") {
+    applyDueDateBounds(document.getElementById("inputDueDate"));
+  }
 }
 
 /**

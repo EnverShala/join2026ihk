@@ -57,3 +57,62 @@ function showLoginMessage(messageText, success) {
     if (success) window.location.href = "summary.html";
   }, 3000);
 }
+
+/**
+ * Setzt die Sichtbarkeit einer Fehlermeldung sowie den Fehler-Rahmen des Feldes.
+ *
+ * @param {string} wrapperId - Die ID des Message-Wrappers.
+ * @param {string} textElId - Die ID des Textelements innerhalb des Wrappers.
+ * @param {string} inputId - Die ID des zugehörigen Eingabefelds.
+ * @param {string} errorClass - CSS-Klasse für den Fehler-Rahmen des Feldes.
+ * @param {string} message - Der Nachrichtentext (leer = kein Fehler).
+ */
+function setLoginFieldError(wrapperId, textElId, inputId, errorClass, message) {
+  const wrapper = document.getElementById(wrapperId);
+  const text = document.getElementById(textElId) || wrapper?.querySelector("div");
+  const input = document.getElementById(inputId);
+  const fieldGroup = input?.closest(".field_group");
+  if (!wrapper || !input) return;
+  if (message) {
+    if (text) text.textContent = message;
+    wrapper.classList.remove("d-none");
+    fieldGroup?.classList.add(errorClass);
+  } else {
+    wrapper.classList.add("d-none");
+    fieldGroup?.classList.remove(errorClass);
+  }
+}
+
+/**
+ * Blur-Handler für das Login-Email-Feld. Zeigt Feedback bei ungültiger Email.
+ */
+function loginEmailOnBlur() {
+  const emailField = document.getElementById("userEmail");
+  const email = emailField.value.trim();
+  emailField.value = email;
+  if (email === "") {
+    setLoginFieldError("error_email_message", null, "userEmail", "wrongMail", "");
+    return;
+  }
+  if (!isEmailValid(email)) {
+    setLoginFieldError("error_email_message", null, "userEmail", "wrongMail", "Bitte gültige Email eingeben");
+    return;
+  }
+  setLoginFieldError("error_email_message", null, "userEmail", "wrongMail", "");
+}
+
+/**
+ * Blur-Handler für das Login-Passwort-Feld. Zeigt Feedback bei zu kurzem Passwort.
+ */
+function loginPasswordOnBlur() {
+  const password = document.getElementById("userPassword").value;
+  if (password === "") {
+    setLoginFieldError("error_password_message", null, "userPassword", "wrongPassword", "");
+    return;
+  }
+  if (password.length < 6) {
+    setLoginFieldError("error_password_message", null, "userPassword", "wrongPassword", "Mindestens 6 Zeichen");
+    return;
+  }
+  setLoginFieldError("error_password_message", null, "userPassword", "wrongPassword", "");
+}

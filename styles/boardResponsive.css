@@ -77,6 +77,34 @@
     .popupOnTaskEdit {
       width: 500px;
     }
+    .popupOnTaskEdit {
+      padding: 24px 0;
+    }
+    .popupOnTaskEdit .editPopupTitelMainContainer,
+    .popupOnTaskEdit .editPopupDateMainContainer,
+    .popupOnTaskEdit .editPopupAssignedToMainContainer,
+    .popupOnTaskEdit .editPopupDescriptionMainContainer,
+    .popupOnTaskEdit .editPopupSubtasksMainContainer,
+    .popupOnTaskEdit .editPrio {
+      width: min(90%, 400px);
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+    .popupOnTaskEdit .okButtonMainContainer,
+    .popupOnTaskEdit .editClosePopupMainContainer {
+      width: min(90%, 440px);
+      max-width: 440px;
+      box-sizing: border-box;
+    }
+    .popupOnTaskEdit .editInputGroup,
+    .popupOnTaskEdit .editTitelInput,
+    .popupOnTaskEdit .editDescriptionInput,
+    .popupOnTaskEdit .editDateInput,
+    .popupOnTaskEdit .selectOnEditPopUp,
+    .popupOnTaskEdit .inputOnEditPopup {
+      width: 100%;
+      max-width: 100%;
+    }
     .statusHeader p {
       font-size: 20px;
     }
@@ -439,4 +467,72 @@
       width: 245px;
     }
   }
-  
+
+  /* Ultra-narrow phones (320x658) — keep add-task modal + cards inside the viewport
+     with a bit more breathing room. */
+  @media (max-width: 360px) {
+    #myModal {
+      width: calc(100vw - 20px);
+      max-width: calc(100vw - 20px);
+      padding: 20px 12px;
+    }
+    .headerPopupText {
+      font-size: 28px;
+    }
+    .mainContainerPopUp {
+      gap: 16px;
+    }
+    .inputGroupOnPopUp {
+      width: 100%;
+    }
+    .inputPopup,
+    .selectPopup {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .buttonsPrioOnPopUp {
+      width: 100%;
+      gap: 4px;
+    }
+    .buttonsPrioOnPopUp .btn-prio {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 4px;
+      font-size: 14px;
+      gap: 3px;
+    }
+    .buttonsPrioOnPopUp .btn-prio img {
+      width: 14px;
+      height: 14px;
+    }
+    .createClearButtonContainer {
+      width: 100%;
+      margin-top: 24px;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btnClearOnPopup,
+    .btnCreateOnPopup {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+    .addTaskPopupClose {
+      top: 20px;
+      right: 16px;
+    }
+    /* Task-Karten: mehr Innenabstand, damit Inhalte nicht am Rand kleben */
+    .cardContainer {
+      width: 100%;
+      padding: 4px 8px 12px;
+    }
+    .taskCard {
+      width: 100% !important;
+      max-width: 288px;
+      padding: 12px 14px;
+      box-sizing: border-box;
+    }
+    .boardSection {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }

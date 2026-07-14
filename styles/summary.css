@@ -225,11 +225,11 @@ svg.circle:hover {
   display: none;
 }
 
-.summary__two_tiles:hover .hoverImg {
+.firstSectionContainer:hover .hoverImg {
   display: block;
 }
 
-.summary__two_tiles:hover .onloadImg {
+.firstSectionContainer:hover .onloadImg {
   display: none;
 }
 

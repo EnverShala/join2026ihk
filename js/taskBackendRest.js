@@ -197,15 +197,59 @@ function initSubtaskUI() {
 }
 
 /**
- * Sets the "min" attribute of the due-date input to today's date (YYYY-MM-DD).
+ * Setzt sinnvolle min/max-Grenzen für ein Datumsfeld (heute bis +100 Jahre).
+ *
+ * @param {HTMLInputElement|null} el - Das Datumsfeld.
+ * @returns {void}
+ */
+function applyDueDateBounds(el) {
+  if (!el) return;
+  const today = new Date();
+  const min = today.toISOString().split("T")[0];
+  const maxDate = new Date(today.getFullYear() + 100, today.getMonth(), today.getDate());
+  const max = maxDate.toISOString().split("T")[0];
+  el.setAttribute("min", min);
+  el.setAttribute("max", max);
+  blockManualDateEntry(el);
+}
+
+/**
+ * Verhindert manuelle Tastatur-Eingaben; Datum darf nur per Kalender gewählt werden.
+ *
+ * @param {HTMLInputElement} el - Das Datumsfeld.
+ * @returns {void}
+ */
+function blockManualDateEntry(el) {
+  if (!el || el.dataset.calendarOnly === "true") return;
+  el.dataset.calendarOnly = "true";
+  el.addEventListener("keydown", (e) => e.preventDefault());
+  el.addEventListener("paste", (e) => e.preventDefault());
+  el.addEventListener("drop", (e) => e.preventDefault());
+}
+
+/**
+ * Setzt min/max-Grenzen auf allen bekannten Datums-Feldern der Task-Formulare.
  *
  * @returns {void}
  */
 function initDueDateMin() {
-  const dateInput = document.getElementById("due-date-input");
-  if (!dateInput) return;
-  const today = new Date().toISOString().split("T")[0];
-  dateInput.setAttribute("min", today);
+  ["due-date-input", "inputDueDate"].forEach(id => applyDueDateBounds(document.getElementById(id)));
+}
+
+/**
+ * Prüft, ob ein Datumsstring (YYYY-MM-DD) im gültigen Bereich (heute .. +100 Jahre) liegt.
+ *
+ * @param {string} value - Das eingegebene Datum.
+ * @returns {boolean} True wenn plausibel und nicht in der Vergangenheit.
+ */
+function isDueDateInRange(value) {
+  if (!value) return false;
+  const d = new Date(value);
+  if (isNaN(d.getTime())) return false;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const maxDate = new Date(today.getFullYear() + 100, today.getMonth(), today.getDate());
+  return d >= today && d <= maxDate;
 }
 
 document.addEventListener("DOMContentLoaded", initSubtaskUI);
@@ -259,7 +303,14 @@ function validateTitle() {
 function validateDueDate() {
   const dueDate = document.getElementById("due-date-input");
   const dateRequired = document.getElementById("date-required");
-  if (dueDate.value.trim() === "") {
+  const value = dueDate.value.trim();
+  if (value === "") {
+    dateRequired.textContent = "This field is required";
+    dateRequired.style.display = "block";
+    return false;
+  }
+  if (!isDueDateInRange(value)) {
+    dateRequired.textContent = "Bitte ein gültiges Datum wählen";
     dateRequired.style.display = "block";
     return false;
   }

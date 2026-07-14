@@ -36,7 +36,7 @@ body {
 }
 
 .site__footer a {
-  color: #a8a8a8;
+  color: #6b6b6b;
   font-weight: 400;
   font-size: 16px;
   line-height: 19.2px;
@@ -211,7 +211,7 @@ a {
   justify-content: center;
   align-items: center;
   gap: 8px;
-  color: #a8a8a8;
+  color: #4a4a4a;
   margin-bottom: 32px;
 }
 
@@ -255,7 +255,7 @@ a {
   font-weight: 400;
   font-size: 14px;
   line-height: 15.6px;
-  color: var(--orange);
+  color: red;
 }
 
 .d-none {

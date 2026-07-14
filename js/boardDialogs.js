@@ -58,12 +58,17 @@ function getAssignedUsers(id = "") {
  * @returns {Promise<void>} Resolves after the task is saved and the board is rerendered.
  */
 async function editCurrentTask() {
+  const dateValue = document.getElementById("inputDueDate").value;
+  if (typeof isDueDateInRange === "function" && !isDueDateInRange(dateValue)) {
+    document.getElementById("inputDueDate").focus();
+    return;
+  }
   const t = tasks[getTaskNrFromCurrentId()];
   const attachment = typeof getAttachmentJson === "function" ? getAttachmentJson("edit") : "";
   const newTask = createTaskArray(
     document.getElementById("inputEdit").value.trim(),
     document.getElementById("inputDescription").value.trim(),
-    document.getElementById("inputDueDate").value,
+    dateValue,
     t.category, getTaskPrio(), t.level,
     getSubtaskItems(), getAssignedUsers(), t.subtasksDone, attachment
   );

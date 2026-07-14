@@ -131,7 +131,7 @@ a {
 }
 
 .field_group-margin32 {
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .field_group-margin44 {
@@ -283,14 +283,22 @@ button:disabled:hover {
 .error_password_wrapper,
 .error_email_wrapper {
   width: clamp(240px, 422px, 80%);
-  margin-top: 4px;
-  height: 16px;
+  margin-top: 2px;
+  height: 20px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   content: none;
+}
+
+.error_email_wrapper {
+  margin-bottom: 10px;
 }
 
 .error_password_wrapper.d-none,
 .error_email_wrapper.d-none {
-  display: block;
+  display: flex;
   visibility: hidden;
 }
 
@@ -298,13 +306,13 @@ button:disabled:hover {
 .error_email_message {
   font-weight: 400;
   font-size: 14px;
-  line-height: 15.6px;
-  color: #ff8190;
+  line-height: 18px;
+  color: red;
 }
 
 .wrongPassword,
 .wrongMail {
-  border-color: #ff8190 !important;
+  border-color: red !important;
 }
 
 .field__group:has(input:focus) {
