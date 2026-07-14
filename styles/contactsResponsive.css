@@ -190,11 +190,13 @@
       left: 600px;
     }
     .display-contact-header {
+      top: 132px;
       width: auto;
       max-width: 420px;
       gap: 20px;
     }
     .display-contact {
+      top: 237px;
       width: auto;
       right: 24px;
       max-width: 461px;
