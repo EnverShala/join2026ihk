@@ -304,15 +304,16 @@
     /* Modal */
     #myModal {
       width: 380px;
+      padding: 32px 16px;
+      box-sizing: border-box;
     }
-    .inputGroupOnPopUp {
-      width: 320px;
+    #myModal .inputGroupOnPopUp {
+      width: 100%;
     }
-    .inputPopup {
-      width: 280px;
-    }
+    .inputPopup,
     .selectPopup {
-      width: 290px;
+      width: 100%;
+      box-sizing: border-box;
     }
   }
   @media (max-width: 800px) {
