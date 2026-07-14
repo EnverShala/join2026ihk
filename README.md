@@ -118,3 +118,7 @@ Dieses Repository entsteht im Rahmen einer Ausbildung; PRs werden trotzdem gerne
 ## Lizenz
 
 Dieses Projekt entstand zu Ausbildungszwecken. Für die Nutzung außerhalb des Kurses bitte den Autor kontaktieren.
+
+---
+
+Stand: 2026-07-15
