@@ -43,14 +43,7 @@ async function createTask(id = "") {
  * @returns {string} Pipe-separated subtask string.
  */
 function subtaskListToString(listChildren = []) {
-  let taskSubtasks = "";
-  if (listChildren.length > 0) {
-    for (let i = 0; i < listChildren.length; i++) {
-      taskSubtasks += listChildren[i].textContent.trim() + "|";
-    }
-    taskSubtasks = taskSubtasks.slice(0, -1);
-  }
-  return taskSubtasks;
+  return Array.from(listChildren).map(el => el.textContent.trim()).join("|");
 }
 
 /**
