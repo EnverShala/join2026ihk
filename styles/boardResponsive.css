@@ -220,6 +220,11 @@
       width: 320px;
     }
 
+    .okButtonOnEditPopUp {
+      padding: 10px 20px;
+      font-size: 18px;
+    }
+
     .editPopupTitelMainContainer,
     .editPopupDateMainContainer,
     .editPopupAssignedToMainContainer,
