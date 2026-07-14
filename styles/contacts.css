@@ -205,6 +205,8 @@ body {
   left: 750px;
   gap: 21px;
   animation: slideIn 1s forwards;
+  overflow-x: hidden;
+  min-width: 0;
 }
 
 .ellipse-container {
