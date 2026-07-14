@@ -219,7 +219,7 @@
     .okButtonMainContainer {
       width: 320px;
     }
-  
+
     .editPopupTitelMainContainer,
     .editPopupDateMainContainer,
     .editPopupAssignedToMainContainer,
@@ -465,7 +465,7 @@
 
     .buttonsPrioOnEditPopUp .btn-prio {
       padding: 10px 4px;
-      font-size: 14px;
+      font-size: 16px;
       gap: 4px;
     }
 
@@ -548,7 +548,7 @@
       flex: 1;
       min-width: 0;
       padding: 8px 4px;
-      font-size: 14px;
+      font-size: 16px;
       gap: 3px;
     }
     .buttonsPrioOnPopUp .btn-prio img {
@@ -564,7 +564,7 @@
     .btnClearOnPopup,
     .btnCreateOnPopup {
       padding: 8px 10px;
-      font-size: 14px;
+      font-size: 16px;
     }
     .addTaskPopupClose {
       top: 20px;

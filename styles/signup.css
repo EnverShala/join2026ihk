@@ -387,7 +387,7 @@ a {
   .submit__button__disabled {
     width: 170px;
     height: 48px;
-    font-size: 15px;
+    font-size: 16px;
     padding: 8px 20px;
   }
   .button__box {
@@ -439,7 +439,7 @@ a {
   .submit__button,
   .submit__button__disabled {
     height: 44px;
-    font-size: 14px;
+    font-size: 16px;
   }
   .site__footer {
     padding: 4px 0;

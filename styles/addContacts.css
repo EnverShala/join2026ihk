@@ -295,7 +295,7 @@ button {
   gap: 4px;
   border: 1px solid #2a3647;
   color: #2a3647;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 100;
   white-space: nowrap;
 }
@@ -317,7 +317,7 @@ button {
   padding: 10px 14px;
   color: white;
   background-color: #2a3647;
-  font-size: 15px;
+  font-size: 16px;
   white-space: nowrap;
 }
 

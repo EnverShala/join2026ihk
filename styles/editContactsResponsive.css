@@ -100,7 +100,7 @@
   }
   .cancelButton,
   .createContactButton {
-    font-size: 14px;
+    font-size: 16px;
     padding: 9px 12px;
   }
   .cancelButton:hover {
@@ -159,7 +159,7 @@
   }
   .cancelButton,
   .createContactButton {
-    font-size: 14px;
+    font-size: 16px;
     padding: 7px 10px;
   }
   .cancelButton:hover {
@@ -388,7 +388,7 @@
     height: auto;
     width: auto;
     padding: 8px 14px;
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -448,7 +448,7 @@
 
   .createContactButton,
   .cancelButton {
-    font-size: 14px;
+    font-size: 16px;
     padding: 6px 12px;
   }
 }
@@ -481,7 +481,7 @@
 
   .createContactButton,
   .cancelButton {
-    font-size: 14px;
+    font-size: 16px;
     padding: 5px 10px;
   }
 }
