@@ -169,7 +169,6 @@
     }
     .taskContainer .addTaskLeft,
     .taskContainer .inputGroup,
-    .taskContainer .bottom-form,
     .taskContainer .header,
     .taskContainer form {
       width: 100% !important;
@@ -226,7 +225,6 @@
     }
     .taskContainer .addTaskLeft,
     .taskContainer .inputGroup,
-    .taskContainer .bottom-form,
     .taskContainer .header,
     .taskContainer form {
       width: 100% !important;

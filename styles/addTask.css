@@ -534,16 +534,22 @@ label {
   display: none;
   justify-content: center;
   align-items: center;
+  gap: 8px;
   position: fixed;
-  bottom: 250px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   background-color: rgba(43, 169, 227, 1);
   color: white;
   padding: 16px 24px;
   border-radius: 10px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
   z-index: 99;
+  white-space: nowrap;
+}
+
+.msg-task-added p {
+  margin: 0;
 }
 
 .warning-landscape {
