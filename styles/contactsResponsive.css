@@ -347,6 +347,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .contact-name {
+      height: auto;
+    }
     .email-and-phone-container {
       display: flex;
       flex-direction: column;
