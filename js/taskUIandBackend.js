@@ -31,7 +31,7 @@ async function createTask(id = "") {
   const f = readTaskFormValues(id);
   const newTask = createTaskArray(f.title, f.description, f.date, f.category, f.prio, taskLevel, f.subtasks, f.assigned, "", attachment);
   await saveTasks("/tasks", newTask);
-  showSuccessMessage();
+  showSuccessMessage(id);
   clearForm(id);
   if (typeof clearAttachmentState === "function") clearAttachmentState(ctx);
 }
@@ -384,13 +384,24 @@ function resetAssignedCheckboxes(id) {
 }
 
 /**
- * Shows the "task added" toast and redirects to the board after 3 seconds.
+ * Shows the "task added" toast. On the board popup, closes the modal and
+ * re-renders the board cards in place; on the standalone task page, redirects
+ * to the board.
+ *
+ * @param {string} [id=""] - Context suffix ("" = standalone task page, "Popup" = board modal).
  */
-function showSuccessMessage() {
+function showSuccessMessage(id = "") {
   const successMessage = document.querySelector('.msg-task-added');
   successMessage.style.display = 'flex';
   setTimeout(() => {
     successMessage.style.display = 'none';
-    window.location.href = "board.html";
+    if (id === "Popup") {
+      const modal = document.getElementById("myModal");
+      if (modal && typeof modal.close === "function") modal.close();
+      if (typeof closeModal === "function") closeModal();
+      if (typeof renderTaskCards === "function") renderTaskCards();
+    } else {
+      window.location.href = "board.html";
+    }
   }, 3000);
 }
