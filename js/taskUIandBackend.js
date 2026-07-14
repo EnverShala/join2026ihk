@@ -306,12 +306,8 @@ function toggleBackground(checkbox) {
  * Hides all "required" hint messages of the task form.
  */
 function hideRequiredHints() {
-  document.getElementById('title-required').style.display = 'none';
-  document.getElementById('date-required').style.display = 'none';
-  document.getElementById('category-required').style.display = 'none';
-  document.getElementById('description-required').style.display = 'none';
-  document.getElementById('assigned-to-required').style.display = 'none';
-  document.getElementById('prio-required').style.display = 'none';
+  ['title-required', 'date-required', 'category-required', 'description-required', 'assigned-to-required', 'prio-required']
+    .forEach(id => document.getElementById(id).style.display = 'none');
 }
 
 /**
@@ -385,15 +381,19 @@ function resetAssignedCheckboxes(id) {
  */
 function showSuccessMessage(id = "") {
   const successMessage = document.querySelector('.msg-task-added');
+  if (successMessage.parentElement !== document.body) {
+    document.body.appendChild(successMessage);
+  }
+  if (id === "Popup") {
+    const modal = document.getElementById("myModal");
+    if (modal && typeof modal.close === "function") modal.close();
+    if (typeof closeModal === "function") closeModal();
+    if (typeof renderTaskCards === "function") renderTaskCards();
+  }
   successMessage.style.display = 'flex';
   setTimeout(() => {
     successMessage.style.display = 'none';
-    if (id === "Popup") {
-      const modal = document.getElementById("myModal");
-      if (modal && typeof modal.close === "function") modal.close();
-      if (typeof closeModal === "function") closeModal();
-      if (typeof renderTaskCards === "function") renderTaskCards();
-    } else {
+    if (id !== "Popup") {
       window.location.href = "board.html";
     }
   }, 3000);
