@@ -116,7 +116,8 @@ async function editTask(id, data = {}) {
 }
 
 /**
- * Deletes a task by id and redirects to board. No-op for id === -1.
+ * Deletes a task by id, closes the detail dialog and re-renders the board
+ * in place. No-op for id === -1.
  *
  * @param {string} id - The Firebase id of the task to delete.
  * @returns {Promise<void>}
@@ -124,7 +125,8 @@ async function editTask(id, data = {}) {
 async function deleteTask(id) {
   if (id == -1) return;
   await fetch(FIREBASE_URL + `/tasks/${id}` + ".json", { method: "DELETE" });
-  window.location.href = "board.html";
+  if (typeof closeDialog === "function") closeDialog();
+  if (typeof renderTaskCards === "function") await renderTaskCards();
 }
 
 /**
