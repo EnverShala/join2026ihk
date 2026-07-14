@@ -218,3 +218,16 @@ function hideAllTaskCards() {
 function showAllTaskCards() {
   for (let i = 0; i < tasks.length; i++) showTaskCard(i);
 }
+
+/**
+ * Activates the priority button matching `prioName`.
+ *
+ * @param {string} prioName - The priority label ("Urgent", "Medium", "Low").
+ * @param {string} [id=""] - Optional suffix identifying the form context.
+ * @returns {void}
+ */
+function activatePrioButton(prioName, id = "") {
+  if (prioName == "Urgent") clickOnUrgent(id);
+  if (prioName == "Medium") clickOnMedium(id);
+  if (prioName == "Low") clickOnLow(id);
+}

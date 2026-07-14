@@ -58,9 +58,23 @@
     }
   }
   @media (max-width: 800px) {
+    #main_wrapper .login_section,
     .login_section {
-      margin-left: 50px;
-      margin-right: 50px;
+      width: 90%;
+      max-width: 652px;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
+    }
+  }
+  @media (max-width: 615px) {
+    #main_wrapper .login_section,
+    .login_section {
+      width: 90%;
+      max-width: 396px;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
     }
   }
   @media (max-width: 600px) {
@@ -92,13 +106,15 @@
     .login_form {
       width: auto;
     }
+    #main_wrapper .login_section,
     .login_section {
-      margin-top: 8px;
-      width: 90dvw;
+      margin: 8px auto 0;
+      width: 92%;
       max-width: 396px;
       height: auto;
       padding: 28px 16px 28px;
       gap: 12px;
+      box-sizing: border-box;
     }
     .login_section h1 {
       width: auto;

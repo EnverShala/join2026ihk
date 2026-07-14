@@ -35,6 +35,21 @@ function revealLoginElements() {
 }
 
 /**
+ * Submit-Handler des Login-Formulars; validiert Felder und ruft loginUser auf.
+ *
+ * @param {Event} event - Das Submit-Event.
+ * @returns {boolean} Immer false, um das native Submit zu unterdrücken.
+ */
+function handleLoginSubmit(event) {
+  event.preventDefault();
+  loginEmailOnBlur();
+  loginPasswordOnBlur();
+  const button = document.getElementById("loginButton");
+  if (button && !button.disabled) loginUser();
+  return false;
+}
+
+/**
  * Loggt den User als Gast ein und leitet zur Summary-Seite weiter.
  */
 function guestLogin() {

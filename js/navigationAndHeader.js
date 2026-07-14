@@ -1,4 +1,15 @@
 /**
+ * Entfernt Ziffern aus dem Wert eines Namens-Eingabefeldes.
+ *
+ * @param {HTMLInputElement} input - Das Namens-Eingabefeld.
+ * @returns {void}
+ */
+function filterNameInput(input) {
+  const cleaned = input.value.replace(/[0-9]/g, "");
+  if (input.value !== cleaned) input.value = cleaned;
+}
+
+/**
  * Displays the logged-in user's initials (or "G" for guests) in header icons.
  *
  * @returns {void}

@@ -353,3 +353,39 @@ function removeHover() {
     })
   );
 }
+
+/**
+ * Adds or removes the contact-chip in the selected-contacts container.
+ *
+ * @param {HTMLElement} container - The selected-contacts container.
+ * @param {HTMLElement} circle - The cloned circle element for the contact.
+ * @param {boolean} checked - Whether the checkbox is checked.
+ */
+function syncSelectedContactChip(container, circle, checked) {
+  if (checked) {
+    container.appendChild(circle);
+    return;
+  }
+  container.querySelectorAll(".circle:not(.overflow-chip)").forEach(c => {
+    if (c.textContent.trim() === circle.textContent.trim()) container.removeChild(c);
+  });
+}
+
+/**
+ * Shows max 5 contact circles and hides the rest, then appends a "+N" overflow chip.
+ *
+ * @param {HTMLElement} container - The selected-contacts container.
+ */
+function applySelectedContactsOverflow(container) {
+  if (!container) return;
+  const MAX_VISIBLE = 5;
+  container.querySelectorAll(".circle.overflow-chip").forEach(chip => chip.remove());
+  const circles = Array.from(container.querySelectorAll(".circle"));
+  circles.forEach((c, i) => { c.style.display = (i < MAX_VISIBLE) ? "" : "none"; });
+  if (circles.length > MAX_VISIBLE) {
+    const chip = document.createElement("div");
+    chip.className = "circle overflow-chip";
+    chip.textContent = "+" + (circles.length - MAX_VISIBLE);
+    container.appendChild(chip);
+  }
+}

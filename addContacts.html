@@ -39,7 +39,7 @@
                 <div class="form">
                     <form id="addContactForm" novalidate onsubmit="return handleAddContact();">
                         <div class="input">
-                            <input id="name" class="inputInput" type="text" placeholder="Name" onblur="this.value = this.value.trim(); validateContactField('name')" oninput="validateContactField('name')">
+                            <input id="name" class="inputInput" type="text" placeholder="Name" onkeypress="return !/\d/.test(event.key)" onblur="this.value = this.value.trim(); validateContactField('name')" oninput="filterNameInput(this); validateContactField('name')">
                             <div class="iconContainer">
                                 <img src="./img/person.svg" alt="Name Icon">
                             </div>

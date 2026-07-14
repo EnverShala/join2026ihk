@@ -4,6 +4,7 @@ let pos;
 
 /**
  * Wires drag/drop on all task cards and drop zones.
+ *
  * @returns {void}
  */
 function addDragAndDropEvents() {
@@ -17,6 +18,7 @@ function addDragAndDropEvents() {
 
 /**
  * Wires the dragstart event on a task card so it sets its own id as payload.
+ *
  * @param {HTMLElement} card - The task card element to make draggable.
  * @returns {void}
  */
@@ -28,6 +30,7 @@ function bindDragStart(card) {
 
 /**
  * Wires dragover/dragleave/drop handlers on a single drop zone.
+ *
  * @param {HTMLElement} zone - The drop zone element to configure.
  * @returns {void}
  */
@@ -45,6 +48,7 @@ function bindDropZone(zone) {
 
 /**
  * Handles a drop: appends the card, resets styles, updates the task level.
+ *
  * @param {DragEvent} event - The drop event fired by the drop zone.
  * @returns {void}
  */
@@ -60,6 +64,7 @@ function handleDropZoneDrop(event) {
 
 /**
  * Sets data of the dropped card for drag and drop.
+ *
  * @param {string} targetId - The id of the container the card was dropped on.
  * @param {string} data - The id of the dropped card element.
  * @returns {void}
@@ -74,6 +79,7 @@ function dragAndDropOnDrop(targetId, data) {
 
 /**
  * Moves task at index `i` one level up in the workflow.
+ *
  * @param {number} i - The index of the task in the tasks array.
  * @returns {Promise<void>} Resolves when the task is persisted and rerendered.
  */
@@ -87,6 +93,7 @@ async function moveTaskUp(i) {
 
 /**
  * Returns the workflow level directly above the given level.
+ *
  * @param {string} level - The current level of the task.
  * @returns {string|null} The next level up, or null when already at the top.
  */
@@ -99,6 +106,7 @@ function _levelUp(level) {
 
 /**
  * Moves task at index `i` one level down in the workflow.
+ *
  * @param {number} i - The index of the task in the tasks array.
  * @returns {Promise<void>} Resolves when the task is persisted and rerendered.
  */
@@ -112,6 +120,7 @@ async function moveTaskDown(i) {
 
 /**
  * Returns the workflow level directly below the given level.
+ *
  * @param {string} level - The current level of the task.
  * @returns {string|null} The next level down, or null when already at the bottom.
  */
@@ -124,6 +133,7 @@ function _levelDown(level) {
 
 /**
  * Returns the level name for a drop container id.
+ *
  * @param {string} targetId - The id of the drop container element.
  * @returns {string|undefined} The workflow level string, or undefined when unknown.
  */
@@ -136,6 +146,7 @@ function getNewDragAndDropContainerName(targetId) {
 
 /**
  * Toggles empty-state hints for all four task-level containers.
+ *
  * @returns {void}
  */
 function checkTaskLevels() {
@@ -147,6 +158,7 @@ function checkTaskLevels() {
 
 /**
  * Shows the empty-state hint if the container has no child cards, hides otherwise.
+ *
  * @param {string} containerId - The id of the card container element.
  * @param {string} emptyHintId - The id of the empty-state hint element.
  * @returns {void}
@@ -158,6 +170,7 @@ function toggleEmptyState(containerId, emptyHintId) {
 
 /**
  * Appends the current input value as a new subtask.
+ *
  * @returns {void}
  */
 function addNewSubtask() {
@@ -171,6 +184,7 @@ function addNewSubtask() {
 
 /**
  * Removes the subtask at `position` and re-renders the list.
+ *
  * @param {number} position - The index of the subtask to delete.
  * @returns {void}
  */
@@ -181,6 +195,7 @@ function deleteSubtask(position) {
 
 /**
  * Reverts subtask input at `position` back to its display element.
+ *
  * @param {number} position - The index of the subtask being edited.
  * @returns {void}
  */
@@ -194,6 +209,7 @@ function cancelSubtaskEdit(position) {
 
 /**
  * Saves the edited subtask at `position`; cancels if input is empty.
+ *
  * @param {number} position - The index of the subtask being confirmed.
  * @returns {void}
  */
@@ -210,6 +226,7 @@ function confirmSubtaskEdit(position) {
 
 /**
  * Replaces the subtask display at `position` with an edit input.
+ *
  * @param {number} position - The index of the subtask to edit.
  * @returns {void}
  */
@@ -223,6 +240,7 @@ function editSubtask(position) {
 
 /**
  * Renders the subtask list from `subtasksArray`.
+ *
  * @returns {void}
  */
 function renderSubtasks() {
@@ -236,6 +254,7 @@ function renderSubtasks() {
 
 /**
  * Toggles a subtask done-flag on task `taskNr` and persists it.
+ *
  * @param {number} taskNr - The index of the task in the tasks array.
  * @param {string} subtaskName - The subtask label to toggle.
  * @param {number} checkBoxNr - The index of the associated checkbox element.
@@ -251,6 +270,7 @@ async function toggleSubtaskDone(taskNr, subtaskName, checkBoxNr) {
 
 /**
  * Marks a subtask as not done and removes it from the done-string.
+ *
  * @param {number} taskNr - The index of the task in the tasks array.
  * @param {string} subtaskName - The subtask label to clear.
  * @param {HTMLElement} box - The checkbox element to uncheck.
@@ -266,6 +286,7 @@ function _uncheckSubtask(taskNr, subtaskName, box) {
 
 /**
  * Marks a subtask as done and appends it to the done-string.
+ *
  * @param {number} taskNr - The index of the task in the tasks array.
  * @param {string} subtaskName - The subtask label to add.
  * @param {HTMLElement} box - The checkbox element to check.
@@ -278,6 +299,7 @@ function _checkSubtask(taskNr, subtaskName, box) {
 
 /**
  * Normalizes the "subtasksDone" pipe-separated string.
+ *
  * @param {string} str - The raw pipe-separated done-string.
  * @returns {string} The normalized done-string without double or trailing pipes.
  */
@@ -291,6 +313,7 @@ function cleanSubtasksDoneString(str) {
 
 /**
  * Checks the assigned-user checkboxes matching `assignedUsers`.
+ *
  * @param {string[]} assignedUsers - Names of users to mark as assigned.
  * @param {string} [id=""] - Optional suffix identifying the form context.
  * @returns {void}
@@ -307,6 +330,7 @@ function toggleAssignedUsers(assignedUsers, id = "") {
 
 /**
  * Handles Escape/Enter for subtask edit/add (position -1 = add).
+ *
  * @param {number} position - The subtask index, or -1 for the add-input.
  * @returns {void}
  */
@@ -322,6 +346,7 @@ function subtaskOnKeyDown(position) {
 
 /**
  * Same as subtaskOnKeyDown but for the popup context.
+ *
  * @param {number} position - The subtask index, or -1 for the add-input.
  * @returns {void}
  */
@@ -337,6 +362,7 @@ function subtaskOnKeyDownPopup(position) {
 
 /**
  * Fills the edit popup with the currently selected task's data.
+ *
  * @returns {void}
  */
 function editPopupTask() {
@@ -353,6 +379,7 @@ function editPopupTask() {
 
 /**
  * Fills the edit-popup form fields and controls from a task record.
+ *
  * @param {Object} task - The task whose values are copied into the form.
  * @returns {void}
  */
@@ -370,14 +397,3 @@ function applyTaskToEditForm(task) {
   }
 }
 
-/**
- * Activates the priority button matching `prioName`.
- * @param {string} prioName - The priority label ("Urgent", "Medium", "Low").
- * @param {string} [id=""] - Optional suffix identifying the form context.
- * @returns {void}
- */
-function activatePrioButton(prioName, id = "") {
-  if (prioName == "Urgent") clickOnUrgent(id);
-  if (prioName == "Medium") clickOnMedium(id);
-  if (prioName == "Low") clickOnLow(id);
-}

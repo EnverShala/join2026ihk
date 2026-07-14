@@ -136,6 +136,11 @@ label {
   margin-bottom: 5px;
 }
 
+#addTaskFormPopup,
+#editTaskForm {
+  display: contents;
+}
+
 .bottomAddTaskContainer {
   display: flex;
   justify-content: center;

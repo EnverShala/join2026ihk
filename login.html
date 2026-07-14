@@ -25,7 +25,7 @@
       <div id="login_section" class="login_section d-none">
         <h1>Log in</h1>
         <img class="login_divider" src="./img/login/seperator.svg" alt="separator"/>
-        <div id="authForm" class="login_form">
+        <form id="authForm" class="login_form" novalidate onsubmit="return handleLoginSubmit(event)">
           <div id="email_wrapper" class="field_group field_group-margin32">
             <input id="userEmail" oninput="loginOnInput()" onblur="loginEmailOnBlur()" type="email" placeholder="Email" autocomplete="email" style="cursor: auto;"/>
             <img class="field_icon-email" src="./img/login/mail.svg" alt="mail"/>
@@ -50,10 +50,10 @@
           </div>
 
           <div class="auth_buttons">
-            <button disabled type="submit" id="loginButton" class="btn_login" onclick="loginUser()">Log in</button>
-            <button id="guestButton" class="btn_guest" onclick="guestLogin()">Guest Log in</button>
+            <button disabled type="submit" id="loginButton" class="btn_login">Log in</button>
+            <button type="button" id="guestButton" class="btn_guest" onclick="guestLogin()">Guest Log in</button>
           </div>
-        </div>
+        </form>
       </div>
 
       <nav class="auth_options_mobile d-none">

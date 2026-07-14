@@ -10,6 +10,7 @@ let _currentLightboxIndex = -1;
 
 /**
  * Formats a byte count as a human-readable string in B, KB, or MB.
+ *
  * @param {number} bytes - The size in bytes.
  * @returns {string} The formatted size (e.g. "512 B", "3.4 KB", "1.2 MB").
  */
@@ -21,6 +22,7 @@ function _formatFileSize(bytes) {
 
 /**
  * Scales (w, h) so the larger side equals _MAX_DIMENSION, preserving aspect ratio.
+ *
  * @param {number} w - Original image width.
  * @param {number} h - Original image height.
  * @returns {{w: number, h: number}} The scaled width and height.
@@ -32,6 +34,7 @@ function _scaleDimensions(w, h) {
 
 /**
  * Draws the given image onto a canvas at the target size and returns a data URL.
+ *
  * @param {HTMLImageElement} img - The source image element.
  * @param {File} file - The original file (used to detect the target MIME type).
  * @returns {string} The compressed image as a base64 data URL.
@@ -50,6 +53,7 @@ function _drawCompressedCanvas(img, file) {
 
 /**
  * Compresses an image file via canvas and resolves with a base64 data URL.
+ *
  * @param {File} file - The image file to compress.
  * @returns {Promise<string>} Resolves with the compressed base64 data URL.
  */
@@ -69,6 +73,7 @@ function _compressImage(file) {
 
 /**
  * Validates the MIME type, extension, and size of a file for attachment upload.
+ *
  * @param {File} file - The file to validate.
  * @param {string} context - The upload context ("", "popup" or "edit").
  * @returns {boolean} True if the file is a valid attachment, otherwise false.
@@ -92,6 +97,7 @@ function _validateFile(file, context) {
 
 /**
  * Stores a compressed attachment for its context and re-renders the preview area.
+ *
  * @param {string} base64 - The compressed base64 data URL.
  * @param {File} file - The original file (for name/type/size metadata).
  * @param {string} context - The upload context ("", "popup" or "edit").
@@ -110,6 +116,7 @@ function _storeAttachment(base64, file, context) {
 
 /**
  * Validates a single file, then compresses and stores it on success.
+ *
  * @param {File} file - The file to process.
  * @param {string} context - The upload context ("", "popup" or "edit").
  */
@@ -125,6 +132,7 @@ function _processFile(file, context) {
 
 /**
  * Entry point for the file input's change event; processes each selected file.
+ *
  * @param {string} inputId - The DOM id of the file input element.
  * @param {string} context - The upload context ("", "popup" or "edit").
  */
@@ -137,6 +145,7 @@ function handleImageUpload(inputId, context) {
 
 /**
  * Renders all upload preview items for the given attachments array.
+ *
  * @param {string} containerId - The DOM id of the preview container.
  * @param {Array} attachments - The attachments to render.
  * @param {string} context - The upload context ("", "popup" or "edit").
@@ -152,6 +161,7 @@ function _renderAllPreviews(containerId, attachments, context) {
 
 /**
  * Opens the lightbox from an upload preview for the given attachment index.
+ *
  * @param {string} context - The upload context ("", "popup" or "edit").
  * @param {number} index - The zero-based attachment index.
  */
@@ -162,6 +172,7 @@ function openUploadPreview(context, index) {
 
 /**
  * Removes an attachment from its context store and re-renders the preview.
+ *
  * @param {string} context - The upload context ("", "popup" or "edit").
  * @param {number} index - The zero-based attachment index to remove.
  */
@@ -178,6 +189,7 @@ function removeAttachment(context, index) {
 
 /**
  * Returns the current attachments for the given context as a JSON string.
+ *
  * @param {string} context - The upload context ("", "popup" or "edit").
  * @returns {string} A JSON string of attachments, or an empty string if none.
  */
@@ -188,6 +200,7 @@ function getAttachmentJson(context) {
 
 /**
  * Clears the attachments array and preview DOM for the given context.
+ *
  * @param {string} context - The upload context ("", "popup" or "edit").
  */
 function clearAttachmentState(context) {
@@ -205,6 +218,7 @@ function clearAttachmentState(context) {
 
 /**
  * Shows an inline attachment error message for the given context.
+ *
  * @param {string} context - The upload context ("", "popup" or "edit").
  * @param {string} msg - The message to display.
  */
@@ -216,6 +230,7 @@ function _showAttachmentError(context, msg) {
 
 /**
  * Hides the inline attachment error message for the given context.
+ *
  * @param {string} context - The upload context ("", "popup" or "edit").
  */
 function _hideAttachmentError(context) {
@@ -226,6 +241,7 @@ function _hideAttachmentError(context) {
 
 /**
  * Updates the lightbox's download link and file name.
+ *
  * @param {Object} att - The attachment object.
  */
 function _updateLightboxDownload(att) {
@@ -236,6 +252,7 @@ function _updateLightboxDownload(att) {
 
 /**
  * Updates the lightbox navigation button visibility for the given index.
+ *
  * @param {number} index - The current attachment index.
  */
 function _updateLightboxNav(index) {
@@ -246,6 +263,7 @@ function _updateLightboxNav(index) {
 
 /**
  * Updates the lightbox image, metadata, download link, and navigation visibility.
+ *
  * @param {number} index - The zero-based attachment index to display.
  */
 function _updateLightboxContent(index) {
@@ -260,6 +278,7 @@ function _updateLightboxContent(index) {
 
 /**
  * Creates and appends the lightbox DOM element to the document body.
+ *
  * @returns {HTMLElement} The created lightbox element.
  */
 function _createLightboxElement() {
@@ -273,6 +292,7 @@ function _createLightboxElement() {
 
 /**
  * Opens the lightbox for the given attachment index.
+ *
  * @param {number} index - The zero-based attachment index to display.
  */
 function openImageViewer(index) {
@@ -285,6 +305,7 @@ function openImageViewer(index) {
 
 /**
  * Moves the lightbox by the given direction (-1 for previous, 1 for next).
+ *
  * @param {number} direction - Navigation direction (-1 or 1).
  */
 function _navigateLightbox(direction) {
@@ -304,6 +325,7 @@ function closeImageViewer() {
 
 /**
  * Parses an attachments JSON string, normalizing the legacy single-object format.
+ *
  * @param {string} json - The attachments JSON string.
  * @returns {Array} The parsed attachments array (may be empty).
  */
@@ -316,6 +338,7 @@ function _parseAttachmentsJson(json) {
 
 /**
  * Renders attachment list items into the collapsible dropdown list.
+ *
  * @param {Array} attachments - The attachments to render.
  */
 function _renderAttachmentList(attachments) {
@@ -327,6 +350,7 @@ function _renderAttachmentList(attachments) {
 
 /**
  * Renders the attachments section in the task detail popup.
+ *
  * @param {string} attachmentsJson - The task's attachments JSON string.
  */
 function renderAttachmentsSection(attachmentsJson) {
@@ -357,6 +381,7 @@ function toggleAttachmentsDropdown() {
 
 /**
  * Restores attachments into the edit context from a JSON string.
+ *
  * @param {string} attachmentsJson - The attachments JSON string to restore.
  */
 function loadAttachmentForEdit(attachmentsJson) {
@@ -372,13 +397,3 @@ function loadAttachmentForEdit(attachmentsJson) {
   } catch (e) { /* ungültiges JSON, ignorieren */ }
 }
 
-/**
- * HTML-escapes a string to prevent XSS injection.
- * @param {string} str - The value to escape.
- * @returns {string} The HTML-escaped string.
- */
-function _esc(str) {
-  return String(str).replace(/[&<>"']/g, function (m) {
-    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
-  });
-}

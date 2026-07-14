@@ -79,6 +79,7 @@ ul {
 form {
   display: flex;
   gap: 48px;
+  flex-wrap: wrap;
 }
 
 .addTaskLeft,
@@ -466,6 +467,8 @@ textarea.inputDescription:focus {
   margin-bottom: 40px;
   font-size: 20px;
   max-width: 976px;
+  width: 100%;
+  flex-basis: 100%;
 }
 
 .actions-form {

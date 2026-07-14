@@ -227,31 +227,6 @@ function blockManualDateEntry(el) {
   el.addEventListener("drop", (e) => e.preventDefault());
 }
 
-/**
- * Setzt min/max-Grenzen auf allen bekannten Datums-Feldern der Task-Formulare.
- *
- * @returns {void}
- */
-function initDueDateMin() {
-  ["due-date-input", "inputDueDate"].forEach(id => applyDueDateBounds(document.getElementById(id)));
-}
-
-/**
- * Prüft, ob ein Datumsstring (YYYY-MM-DD) im gültigen Bereich (heute .. +100 Jahre) liegt.
- *
- * @param {string} value - Das eingegebene Datum.
- * @returns {boolean} True wenn plausibel und nicht in der Vergangenheit.
- */
-function isDueDateInRange(value) {
-  if (!value) return false;
-  const d = new Date(value);
-  if (isNaN(d.getTime())) return false;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const maxDate = new Date(today.getFullYear() + 100, today.getMonth(), today.getDate());
-  return d >= today && d <= maxDate;
-}
-
 document.addEventListener("DOMContentLoaded", initSubtaskUI);
 document.addEventListener("DOMContentLoaded", initDueDateMin);
 

@@ -304,6 +304,7 @@
     <img onclick="closeDialog()" id="closePopupID" src="./img/close.svg" style="cursor: pointer;" alt="">
   </div>
 
+<form id="editTaskForm" novalidate onsubmit="editCurrentTask(); return false;">
 <div onclick="closeAssignedto()" class="scrollbar">
   <!-- Begin Titel -->
    <div class="editPopupTitelMainContainer">
@@ -404,8 +405,9 @@
 </div>
 
 <div class="okButtonMainContainer" >
-  <button onclick="editCurrentTask()" class="okButtonOnEditPopUp">OK</button>
+  <button type="submit" class="okButtonOnEditPopUp">OK</button>
 </div>
+</form>
 </div>
 <!-- END Edit Popup -->
 </section>
@@ -415,7 +417,8 @@
   <!-- Start AddTask PopUp Container -->
   <section class="boardSectionPopup">
     <dialog data-modal id="myModal">
-      <button class="addTaskPopupClose" id="closeModal">X</button>
+      <button type="button" class="addTaskPopupClose" id="closeModal">X</button>
+      <form id="addTaskFormPopup" novalidate onsubmit="validateAndCreateTask(event, 'Popup'); return false;">
       <div onclick="closeCategory(),closeAssignedto()" class="mainContainerPopUp">
         <div class="headerPopupContainer">
             <h1 class="headerPopupText">Add Task</h1>
@@ -555,11 +558,12 @@
             <button onclick="clearForm('Popup')" type="button" class="btnClearOnPopup" id="clear-btn">Clear
                 <img id="cancel-icon" src="./img/close.png" alt="">
             </button>
-            <button type="button" class="btnCreateOnPopup" onclick="validateAndCreateTask(event, 'Popup')">Create Task
+            <button type="submit" class="btnCreateOnPopup">Create Task
                 <img src="./img/check_white.svg" alt="" />
             </button>
           </div>
         </div>
+      </form>
 
     <div class="msg-task-added" style="display:none;">
       <p>Task added to board</p>

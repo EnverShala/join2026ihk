@@ -3,6 +3,7 @@ let taskLevel = "To do";
 
 /**
  * Reads all task-form fields into a plain object.
+ *
  * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
  * @returns {Object} Object with title, description, date, category, prio, subtasks and assigned.
  */
@@ -20,6 +21,7 @@ function readTaskFormValues(id) {
 
 /**
  * Creates a new task from the form fields and saves it to Firebase.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  * @returns {Promise<void>} Resolved after the task has been saved.
  */
@@ -36,6 +38,7 @@ async function createTask(id = "") {
 
 /**
  * Joins the text of an ul's children with "|" separators.
+ *
  * @param {HTMLCollection} listChildren - The child elements of a subtask list.
  * @returns {string} Pipe-separated subtask string.
  */
@@ -52,6 +55,7 @@ function subtaskListToString(listChildren = []) {
 
 /**
  * Builds a plain task object from the given field values.
+ *
  * @param {string} newTitle - The task title.
  * @param {string} newDescription - The task description.
  * @param {string} newDate - The due date (YYYY-MM-DD).
@@ -81,6 +85,7 @@ function createTaskArray(newTitle, newDescription, newDate, oldCategory, newPrio
 
 /**
  * Returns the currently selected task priority.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  * @returns {string} One of "Urgent", "Medium", "Low" or "None".
  */
@@ -93,6 +98,7 @@ function getTaskPrio(id = "") {
 
 /**
  * Resets a single priority button (urgent/medium/low) to its default styling.
+ *
  * @param {string} name - The priority name ("urgent", "medium" or "low").
  * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
  */
@@ -105,6 +111,7 @@ function resetPrioButton(name, id) {
 
 /**
  * Resets all priority buttons to their default styling.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function clearPrioButtons(id = "") {
@@ -115,6 +122,7 @@ function clearPrioButtons(id = "") {
 
 /**
  * Activates a single priority button visually.
+ *
  * @param {string} name - The priority name ("urgent", "medium" or "low").
  * @param {string} activeClass - The active CSS class ("btn-bg-change-urgent-onclick" ...).
  * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
@@ -130,6 +138,7 @@ function _setPrioButtonActive(name, activeClass, id) {
 
 /**
  * Toggles the "Urgent" priority button.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function clickOnUrgent(id = "") {
@@ -140,6 +149,7 @@ function clickOnUrgent(id = "") {
 
 /**
  * Toggles the "Medium" priority button.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function clickOnMedium(id = "") {
@@ -150,6 +160,7 @@ function clickOnMedium(id = "") {
 
 /**
  * Toggles the "Low" priority button.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function clickOnLow(id = "") {
@@ -160,6 +171,7 @@ function clickOnLow(id = "") {
 
 /**
  * Adds a one-shot capture-phase outside-click listener to close a dropdown.
+ *
  * @param {HTMLElement} dropdown - The dropdown element that should close on outside click.
  * @param {HTMLElement} container - The container element wrapping the dropdown trigger.
  */
@@ -176,6 +188,7 @@ function bindDropdownOutsideClose(dropdown, container) {
 
 /**
  * Toggles the assigned-to dropdown open/closed.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function toggleDropdown(id = "") {
@@ -190,6 +203,7 @@ function toggleDropdown(id = "") {
 
 /**
  * Kept for backward compatibility with inline onclick handlers.
+ *
  * @param {string} [id=""] - Context suffix (unused).
  */
 function closeAssignedto(id = "") {}
@@ -214,6 +228,7 @@ function toggleDropdownCategory() {
 
 /**
  * Returns a comma-separated string of names of assigned users.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  * @returns {string} Comma-separated user names.
  */
@@ -231,6 +246,7 @@ function getAssignedUsers(id = "") {
 
 /**
  * Builds the deduplicated list of unique assigned-user names.
+ *
  * @returns {string[]} Array of unique trimmed user names.
  */
 function getUniqueAssignedNames() {
@@ -242,6 +258,7 @@ function getUniqueAssignedNames() {
 
 /**
  * Renders the assigned-to user list in the dropdown, deduplicated by email.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  * @returns {Promise<void>} Resolves after users are loaded and rendered.
  */
@@ -258,6 +275,7 @@ async function renderAssignedTo(id = "") {
 
 /**
  * Toggles a checkbox and updates its background/text styling.
+ *
  * @param {string} checkboxId - The DOM id of the checkbox to toggle.
  */
 function toggleCheckbox(checkboxId) {
@@ -268,6 +286,7 @@ function toggleCheckbox(checkboxId) {
 
 /**
  * Applies the visual "selected" state to the list item of a checkbox.
+ *
  * @param {HTMLElement} listItem - The list item element.
  * @param {boolean} checked - Whether the checkbox is checked.
  */
@@ -277,23 +296,8 @@ function applyListItemSelectedStyle(listItem, checked) {
 }
 
 /**
- * Adds or removes the contact-chip in the selected-contacts container.
- * @param {HTMLElement} container - The selected-contacts container.
- * @param {HTMLElement} circle - The cloned circle element for the contact.
- * @param {boolean} checked - Whether the checkbox is checked.
- */
-function syncSelectedContactChip(container, circle, checked) {
-  if (checked) {
-    container.appendChild(circle);
-    return;
-  }
-  container.querySelectorAll(".circle:not(.overflow-chip)").forEach(c => {
-    if (c.textContent.trim() === circle.textContent.trim()) container.removeChild(c);
-  });
-}
-
-/**
  * Applies background/text color changes for the assigned-contact list item.
+ *
  * @param {HTMLInputElement} checkbox - The checkbox element that was toggled.
  */
 function toggleBackground(checkbox) {
@@ -303,24 +307,6 @@ function toggleBackground(checkbox) {
   applyListItemSelectedStyle(listItem, checkbox.checked);
   syncSelectedContactChip(container, circle, checkbox.checked);
   applySelectedContactsOverflow(container);
-}
-
-/**
- * Shows max 5 contact circles and hides the rest, then appends a "+N" overflow chip.
- * @param {HTMLElement} container - The selected-contacts container.
- */
-function applySelectedContactsOverflow(container) {
-  if (!container) return;
-  const MAX_VISIBLE = 5;
-  container.querySelectorAll(".circle.overflow-chip").forEach(chip => chip.remove());
-  const circles = Array.from(container.querySelectorAll(".circle"));
-  circles.forEach((c, i) => { c.style.display = (i < MAX_VISIBLE) ? "" : "none"; });
-  if (circles.length > MAX_VISIBLE) {
-    const chip = document.createElement("div");
-    chip.className = "circle overflow-chip";
-    chip.textContent = "+" + (circles.length - MAX_VISIBLE);
-    container.appendChild(chip);
-  }
 }
 
 /**
@@ -337,6 +323,7 @@ function hideRequiredHints() {
 
 /**
  * Clears the primary form field values and hides all "required" hints.
+ *
  * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function clearFormFields(id) {
@@ -349,6 +336,7 @@ function clearFormFields(id) {
 
 /**
  * Clears the entire task input form, resetting all fields and states.
+ *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function clearForm(id = "") {
@@ -366,6 +354,7 @@ function clearForm(id = "") {
 
 /**
  * Clears the subtask input field and any subtask-array state for the form.
+ *
  * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function clearSubtaskInputAndState(id) {
@@ -381,6 +370,7 @@ function clearSubtaskInputAndState(id) {
 
 /**
  * Unchecks every assigned-user checkbox in the given form and resets item styling.
+ *
  * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function resetAssignedCheckboxes(id) {

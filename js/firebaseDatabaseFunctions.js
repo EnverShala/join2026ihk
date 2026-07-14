@@ -22,6 +22,7 @@ function indexHtmlInit() {
 
 /**
  * Loads users from Firebase into the global `users` array sorted by name.
+ *
  * @param {string} [path="/users"] - The Firebase path from which to load users.
  * @returns {Promise<void>}
  */
@@ -38,6 +39,7 @@ async function loadUsers(path = "/users") {
 
 /**
  * Builds a user object from a raw Firebase record.
+ *
  * @param {string} id - The Firebase key of the user record.
  * @param {Object} raw - The raw Firebase record.
  * @returns {Object} The mapped user object.
@@ -53,6 +55,7 @@ function mapUserRecord(id, raw) {
 
 /**
  * Loads tasks from Firebase into the global `tasks` array.
+ *
  * @param {string} [path="/tasks"] - The Firebase path from which to load tasks.
  * @returns {Promise<void>}
  */
@@ -68,6 +71,7 @@ async function loadTasks(path = "/tasks") {
 
 /**
  * Builds a task object from a raw Firebase record.
+ *
  * @param {string} id - The Firebase key of the task record.
  * @param {Object} raw - The raw Firebase record.
  * @returns {Object} The mapped task object.
@@ -83,6 +87,7 @@ function mapTaskRecord(id, raw) {
 
 /**
  * Saves task data to Firebase using POST.
+ *
  * @param {string} [path=""] - The Firebase path to POST to.
  * @param {Object} [data={}] - The task data to persist.
  * @returns {Promise<void>}
@@ -97,6 +102,7 @@ async function saveTasks(path = "", data = {}) {
 
 /**
  * Updates a task in Firebase using PUT.
+ *
  * @param {string} id - The Firebase id of the task to update.
  * @param {Object} [data={}] - The updated task data.
  * @returns {Promise<void>}
@@ -111,6 +117,7 @@ async function editTask(id, data = {}) {
 
 /**
  * Deletes a task by id and redirects to board. No-op for id === -1.
+ *
  * @param {string} id - The Firebase id of the task to delete.
  * @returns {Promise<void>}
  */
@@ -122,6 +129,7 @@ async function deleteTask(id) {
 
 /**
  * Stores an email in localStorage.remember if it is not already present.
+ *
  * @param {string} accountEmail - The email address to remember.
  * @returns {void}
  */
@@ -139,6 +147,7 @@ function rememberUserAccount(accountEmail) {
 
 /**
  * Removes an email from localStorage.remember if it is stored.
+ *
  * @param {string} userEmail - The email address to forget.
  * @returns {void}
  */
@@ -153,6 +162,7 @@ function dontRememberUserAccount(userEmail) {
 /**
  * Strict email format check. Requires local@domain.tld, forbids consecutive dots
  * and leading/trailing dots in local part and domain.
+ *
  * @param {string} email - The email address to validate.
  * @returns {boolean} True if the email matches the expected pattern.
  */
@@ -165,6 +175,7 @@ function isEmailValid(email) {
 
 /**
  * Login input handler that reacts to remembered accounts and toggles submit state.
+ *
  * @returns {Promise<void>}
  */
 async function loginOnInput() {
@@ -180,6 +191,7 @@ async function loginOnInput() {
 
 /**
  * Attempts to activate a remembered account matching the given email.
+ *
  * @param {string} email - The email address to look up in `accounts`.
  * @returns {boolean} True if a remembered account was activated.
  */
@@ -195,6 +207,7 @@ function tryActivateRemembered(email) {
 
 /**
  * Fills the login form fields for a remembered account.
+ *
  * @param {number} accountIndex - The index of the account inside `accounts`.
  * @returns {void}
  */
@@ -206,6 +219,7 @@ function activateRememberedAccount(accountIndex) {
 
 /**
  * Persists login state (email and username) to localStorage.
+ *
  * @param {string} accountEmail - The email of the account being logged in.
  * @returns {void}
  */
@@ -221,6 +235,7 @@ function logInUserAccount(accountEmail) {
 
 /**
  * Clears login state on logout.
+ *
  * @returns {void}
  */
 function logOutUserAccount() {
@@ -232,6 +247,7 @@ function logOutUserAccount() {
 
 /**
  * Returns the currently logged-in email from localStorage.
+ *
  * @returns {string} The stored email, or an empty string if none is stored.
  */
 function getLoggedInUser() {
@@ -242,6 +258,7 @@ function getLoggedInUser() {
 
 /**
  * Logs a user in by matching form email/password against stored accounts.
+ *
  * @returns {Promise<void>}
  */
 async function loginUser() {
@@ -259,6 +276,7 @@ async function loginUser() {
 
 /**
  * Handles a login attempt once the matching account is found.
+ *
  * @param {Object} account - The account record to validate against.
  * @param {string} userEmail - The email entered by the user.
  * @param {string} userPassword - The password entered by the user.
@@ -280,6 +298,7 @@ function finalizeLoginAttempt(account, userEmail, userPassword) {
 
 /**
  * Signs up a new user unless an account with the same email already exists.
+ *
  * @param {Object} [data={}] - The signup payload with name, email and password.
  * @returns {Promise<void>}
  */
@@ -296,6 +315,7 @@ async function signUpUser(data = {}) {
 
 /**
  * Loads accounts from Firebase into the global `accounts` array.
+ *
  * @returns {Promise<void>}
  */
 async function loadAccounts() {
@@ -310,6 +330,7 @@ async function loadAccounts() {
 
 /**
  * Builds an account object from a raw Firebase record.
+ *
  * @param {string} id - The Firebase key of the account record.
  * @param {Object} raw - The raw Firebase record.
  * @returns {Object} The mapped account object.
@@ -325,6 +346,7 @@ function mapAccountRecord(id, raw) {
 
 /**
  * Registers a new user if signup conditions are met, otherwise shows an inline error.
+ *
  * @returns {Promise<void>}
  */
 async function registerUser() {
@@ -341,6 +363,7 @@ async function registerUser() {
 
 /**
  * Adds a new user from the contact form, clears inputs, saves, then re-renders.
+ *
  * @returns {Promise<void>}
  */
 async function addUser() {
@@ -357,6 +380,7 @@ async function addUser() {
 
 /**
  * Posts JSON data to the given Firebase path.
+ *
  * @param {string} [path=""] - The Firebase path to POST to.
  * @param {Object} [data={}] - The JSON body to send.
  * @returns {Promise<void>}

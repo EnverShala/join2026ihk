@@ -235,6 +235,28 @@
       font-size: 16px;
     }
 
+    .popupOnTaskSelection .popupSpan,
+    .popupOnTaskSelection .popupDateTxt,
+    .popupOnTaskSelection .popUpDate,
+    .popupOnTaskSelection .popupPrioTxt,
+    .popupOnTaskSelection .popupPrio,
+    .popupOnTaskSelection .assignedToTxt,
+    .popupOnTaskSelection .assignedToContainer,
+    .popupOnTaskSelection .subtasksTxt,
+    .popupOnTaskSelection .popupContactName,
+    .popupOnTaskSelection .attachmentsTxt {
+      font-size: 16px;
+    }
+
+    .popupOnTaskSelection .popupAssignedUsersNameContainer {
+      width: auto;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .popupOnTaskSelection .popupContactName {
+      width: auto;
+    }
+
     /* Inputs / selects match Add Task popup at @560 (popup 380, inputs 280) */
     .editInputGroup,
     .editTitelInput,
@@ -306,6 +328,12 @@
       overflow-y: auto;
       justify-content: flex-start;
     }
+    .popupOnTaskSelection .popupTest {
+      max-height: 200px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      align-items: flex-start;
+    }
   }
   @media (max-width: 480px) {
     .headerTitle h1 {
@@ -324,18 +352,25 @@
       width: 100% !important;
     }
     .taskCard {
-      width: 240px !important;
+      width: 100% !important;
+      max-width: 300px;
+      box-sizing: border-box;
     }
     #myModal {
-      width: 300px;
+      width: min(calc(100vw - 16px), 360px);
+      max-width: 360px;
       max-height: min(90vh, calc(100dvh - 32px));
-      padding: 24px 10px 24px 10px;
+      padding: 24px 16px;
+      box-sizing: border-box;
       overflow-y: auto;
     }
     /* PopUp-STANDARD */
     .popupOnTaskSelectionMainContainer,
     .popupOnTaskEdit {
-      width: 300px;
+      width: min(calc(100vw - 16px), 360px);
+      max-width: 360px;
+      padding: 32px 16px;
+      box-sizing: border-box;
     }
     .popupKategorieOnTopMainContainer,
     .popupHeader,
@@ -353,21 +388,23 @@
     .deleteAndEditMainContainer,
     .editClosePopupMainContainer,
     .okButtonMainContainer {
-      width: 280px;
+      width: 100%;
     }
     /* END POPUP-STANDARD */
-  
+
     .inputGroupOnPopUp {
-      width: 240px;
+      width: 100%;
+      box-sizing: border-box;
     }
     .inputPopup {
-      width: 240px;
+      width: 100%;
+      box-sizing: border-box;
     }
     .buttonsPrioOnEditPopUp {
-      width: 260px;
+      width: 100%;
     }
     .buttonsPrioOnPopUp {
-      width: 280px;
+      width: 100%;
     }
     .btnClearOnPopup,
     .btnCreateOnPopup {
@@ -379,19 +416,14 @@
       right: 20px;
       top: 30px;
     }
-  
-    /* editPopup — match Add Task popup widths at @480 (popup 300px, content 240px) */
-    .popupOnTaskSelectionMainContainer,
-    .popupOnTaskEdit {
-      width: 300px;
-    }
 
     .editPopupTitelMainContainer,
     .editPopupDateMainContainer,
     .editPopupAssignedToMainContainer,
     .editPopupDescriptionMainContainer,
     .editPopupSubtasksMainContainer {
-      width: 260px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .editInputGroup,
@@ -400,8 +432,8 @@
     .editDateInput,
     .editAssignedInput,
     .editSubtaskInput {
-      width: 240px;
-      max-width: 240px;
+      width: 100%;
+      max-width: 100%;
       box-sizing: border-box;
       padding: 10px 14px;
       font-size: 15px;
@@ -409,23 +441,23 @@
 
     .selectOnEditPopUp,
     .inputOnEditPopup  {
-      width: 240px;
-      max-width: 240px;
+      width: 100%;
+      max-width: 100%;
       box-sizing: border-box;
       padding: 10px 14px;
       font-size: 15px;
     }
 
     .editDropdown {
-      width: 240px;
+      width: 100%;
     }
 
     .editPrio {
-      width: 240px;
+      width: 100%;
     }
 
     .buttonsPrioOnEditPopUp {
-      width: 240px;
+      width: 100%;
       gap: 6px;
     }
 
@@ -447,24 +479,40 @@
     .editPopupSubtasksTxt {
       font-size: 16px;
     }
-  
+
+    .popupOnTaskSelection .popupSpan,
+    .popupOnTaskSelection .popupDateTxt,
+    .popupOnTaskSelection .popUpDate,
+    .popupOnTaskSelection .popupPrioTxt,
+    .popupOnTaskSelection .popupPrio,
+    .popupOnTaskSelection .assignedToTxt,
+    .popupOnTaskSelection .assignedToContainer,
+    .popupOnTaskSelection .subtasksTxt,
+    .popupOnTaskSelection .popupContactName,
+    .popupOnTaskSelection .attachmentsTxt,
+    .popupOnTaskSelection .deleteTxt,
+    .popupOnTaskSelection .editTxt {
+      font-size: 16px;
+    }
+
+    .popupOnTaskSelection .popupAssignedUsersNameContainer {
+      width: auto;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .popupOnTaskSelection .popupContactName {
+      width: auto;
+    }
+
     .okButtonMainContainer {
       display: flex;
       justify-content: center;
     }
-  
+
     /* Modal */
-    #myModal {
-      width: 300px;
-    }
-    .inputGroupOnPopUp {
-      width: 280px;
-    }
-    .inputPopup {
-      width: 235px;
-    }
     .selectPopup {
-      width: 245px;
+      width: 100%;
+      box-sizing: border-box;
     }
   }
 

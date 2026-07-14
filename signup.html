@@ -27,7 +27,7 @@
     
             <form id="register" class="registration__form" onsubmit="return handleSignUpSubmit(event)" novalidate>
                 <div id="nameBox" class="input__box input__box--spaced margin-bottom24px" style="cursor: auto;">
-                    <input id="fullName" onblur="this.value = this.value.trim(); markSignupFieldTouched('fullName'); checkName(); checkSignUpButton()" type="text" placeholder="Name" autocomplete="name" style="cursor: auto;"/>
+                    <input id="fullName" oninput="filterNameInput(this)" onkeypress="return !/\d/.test(event.key)" onblur="this.value = this.value.trim(); markSignupFieldTouched('fullName'); checkName(); checkSignUpButton()" type="text" placeholder="Name" autocomplete="name" style="cursor: auto;"/>
                     <img class="input__icon" src="./img/person.svg" alt="person" />
                 </div>
                 <div id="requiredName" class="requiredMessage d-none">Bitte Vor- und Nachname eingeben</div>
