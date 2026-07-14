@@ -80,6 +80,7 @@ form {
   display: flex;
   gap: 48px;
   flex-wrap: wrap;
+  max-width: 1080px;
 }
 
 .addTaskLeft,
