@@ -245,14 +245,14 @@
       padding: 8px 12px;
       width: calc(100% + 24px);
       gap: 6px;
-      font-size: 13px;
+      font-size: 14px;
     }
     body.task-page .taskContainer .bottom-form .required-note {
       gap: 1px;
     }
     body.task-page .taskContainer .bottom-form .required,
     body.task-page .taskContainer .bottom-form .starFromRequired {
-      font-size: 12px;
+      font-size: 14px;
     }
     body.task-page .taskContainer .bottom-form .actions-form {
       gap: 6px;
@@ -271,7 +271,7 @@
     }
     body.task-page .taskContainer .bottom-form .btn-clear,
     body.task-page .taskContainer .bottom-form .btn-create {
-      font-size: 12px;
+      font-size: 14px;
       height: auto;
       padding: 5px 8px;
       gap: 3px;
