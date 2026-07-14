@@ -101,7 +101,8 @@
     .popupOnTaskEdit .editDescriptionInput,
     .popupOnTaskEdit .editDateInput,
     .popupOnTaskEdit .selectOnEditPopUp,
-    .popupOnTaskEdit .inputOnEditPopup {
+    .popupOnTaskEdit .inputOnEditPopup,
+    .popupOnTaskEdit .editDropdown {
       width: 100%;
       max-width: 100%;
     }
