@@ -38,6 +38,7 @@
       height: auto;
       flex-wrap: wrap;
       row-gap: 16px;
+      margin-top: 56px;
     }
     .inputTaskBtn {
       display: contents;
