@@ -181,13 +181,14 @@ function checkTaskLevels() {
 }
 
 /**
- * Shows the empty-state hint if the container has no child cards, hides otherwise.
+ * Shows the empty-state hint if the container has no visible cards (e.g. all
+ * filtered out by the search), hides otherwise.
  *
  * @param {string} containerId - The id of the card container element.
  * @param {string} emptyHintId - The id of the empty-state hint element.
  * @returns {void}
  */
 function toggleEmptyState(containerId, emptyHintId) {
-  const isEmpty = document.getElementById(containerId).childElementCount == 0;
-  document.getElementById(emptyHintId).classList.toggle("d-none", !isEmpty);
+  const visibleCards = document.getElementById(containerId).querySelectorAll(".taskCard:not(.d-none)").length;
+  document.getElementById(emptyHintId).classList.toggle("d-none", visibleCards > 0);
 }

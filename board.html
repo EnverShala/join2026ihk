@@ -149,7 +149,7 @@
           </div>
           <div class="inputTaskBtn">
             <div class="searchContainer">
-              <input id="searchBar" onkeyup="searchTasks()" class="searchBar" type="search" placeholder="Find Task">
+              <input id="searchBar" oninput="searchTasks()" class="searchBar" type="search" placeholder="Find Task">
               <div class="seperator"></div>
               <button class="searchIcon" onclick="searchTasks()" aria-label="Find task" title="Suchen">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2a3647" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -370,7 +370,7 @@
 
   <!--Begin subtask-->
   <div class="editPopupSubtasksMainContainer">
-    <p class="editPopupSubtasksTxt">Subtask</p>
+    <p class="editPopupSubtasksTxt">Subtasks</p>
     <div class="input-container-subtask">
       <input id="addNewSubtaskInput" class="inputOnEditPopup subtask" type="text" placeholder="Add new subtask" onkeydown="subtaskOnKeyDown(-1)" onblur="this.value = this.value.trim()"/>
       <div class="btn-subtask add">

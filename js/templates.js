@@ -45,11 +45,11 @@ function _taskCardTopTemplate(i) {
   return `
                 <div class="taskCardTop">
                   <label class="categoryGreen">${tasks[i].category}</label>
-                  <div class="ResponsiveMenuOnTaskCards">
+                  <div class="ResponsiveMenuOnTaskCards" onclick="event.stopPropagation()">
                     <img onclick="moveTaskUp(${i})" src="./img/board/arrow_up.svg" class=arrowUp></img>
                     <img onclick="moveTaskDown(${i})" src="./img/board/arrow_down.svg" class=arrowDown></img>
                   </div>
-                  <div class="dropdownCard">
+                  <div class="dropdownCard" onclick="event.stopPropagation()">
                     <button onclick="toggleDropdown('dropdown-content')" class="dropdown-btn">
                       <div class="dropdownBtnContainer">
                         <img src="" alt="Dropdown Arrow">
@@ -74,7 +74,7 @@ function _taskCardTopTemplate(i) {
  */
 function _taskCardBodyTemplate(i, assignedUsersHTML, progress) {
   return `
-                <div class="cardBody" onclick="openDialog(); popupValueImplementFromTask(${i})">
+                <div class="cardBody">
                   <p id="titelCardID" class="titleCard">${tasks[i].title}</p>
                   <p id="descriptionCardID" class="descriptionCard">${tasks[i].description}</p>
                   <div>
@@ -107,7 +107,7 @@ function _taskCardBodyTemplate(i, assignedUsersHTML, progress) {
  */
 function taskCardTemplate(uniqueId, i, assignedUsersHTML, progress) {
   return `
-                <div draggable="true" id="${uniqueId}" class="taskCard">
+                <div draggable="true" id="${uniqueId}" class="taskCard" onclick="openDialog(); popupValueImplementFromTask(${i})">
                 ${_taskCardTopTemplate(i)}
                 ${_taskCardBodyTemplate(i, assignedUsersHTML, progress)}
               </div>

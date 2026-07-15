@@ -122,6 +122,10 @@ button {
   cursor: pointer;
 }
 
+.taskCard * {
+  cursor: pointer;
+}
+
 .categoryBlue {
   background-color: #0038ff;
   padding: 4px 16px 4px 16px;

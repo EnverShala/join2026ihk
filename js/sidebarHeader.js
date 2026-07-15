@@ -13,6 +13,7 @@ function _initSidebarHeader() {
     btn.addEventListener("click", () => onHeaderButtonClick(desktopModal, mobileModal, btn))
   );
   [desktopModal, mobileModal].forEach((m) => { if (m) onHeaderModalBackdropClick(m); });
+  document.addEventListener("click", (e) => closeHeaderMenusOnOutsideClick(e, desktopModal, mobileModal));
 }
 
 document.addEventListener("DOMContentLoaded", _initSidebarHeader);
@@ -36,4 +37,18 @@ function onHeaderButtonClick(desktopModal, mobileModal, btn) {
  */
 function onHeaderModalBackdropClick(modal) {
   modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); });
+}
+
+/**
+ * Schließt offene Header-Untermenüs, wenn außerhalb von Menü und Toggle-Button geklickt wird.
+ *
+ * @param {MouseEvent} event - Das Click-Event auf dem Dokument.
+ * @param {HTMLDialogElement} desktopModal - Das Desktop-Modal-Dialog-Element.
+ * @param {HTMLDialogElement} mobileModal - Das Mobile-Modal-Dialog-Element.
+ */
+function closeHeaderMenusOnOutsideClick(event, desktopModal, mobileModal) {
+  if (event.target.closest(".openModalHeader")) return;
+  [desktopModal, mobileModal].forEach((m) => {
+    if (m && m.open && !m.contains(event.target)) m.close();
+  });
 }

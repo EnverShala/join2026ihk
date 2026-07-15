@@ -5,13 +5,14 @@
  */
 function searchTasks() {
   const q = document.getElementById("searchBar").value.trim().toLowerCase();
-  if (q.length <= 2) { showAllTaskCards(); return; }
+  if (q.length <= 2) { showAllTaskCards(); checkTaskLevels(); return; }
   hideAllTaskCards();
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].title.toLowerCase().includes(q) || tasks[i].description.toLowerCase().includes(q)) {
       showTaskCard(i);
     }
   }
+  checkTaskLevels();
 }
 
 /**
