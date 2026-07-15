@@ -34,8 +34,30 @@
     .addBtnText {
       display: none;
     }
+    .boardHeader {
+      height: auto;
+      flex-wrap: wrap;
+      row-gap: 16px;
+    }
+    .inputTaskBtn {
+      display: contents;
+    }
+    .headerTitle {
+      order: 1;
+    }
     #openModal {
-      display: none;
+      order: 2;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      font-size: 32px;
+      line-height: 1;
+      margin: 0;
+    }
+    .searchContainer {
+      order: 3;
+      width: 100%;
+      box-sizing: border-box;
     }
     .statusItem {
       width: 100%;
@@ -68,10 +90,8 @@
       padding: 4px 4px 12px 4px;
     }
     .searchBar {
-      width: 130px;
-    }
-    .addBtn {
-      margin-left: -80px;
+      flex: 1;
+      min-width: 0;
     }
     .popupOnTaskSelectionMainContainer,
     .popupOnTaskEdit {
@@ -337,11 +357,7 @@
       margin-right: 16px;
     }
     .searchBar {
-      width: 60px;
-      font-size: 14px;
-    }
-    .addBtn {
-      margin-left: -70px;
+      font-size: 16px;
     }
     .statuses,
     .statusItem {

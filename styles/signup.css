@@ -193,7 +193,7 @@ a {
 }
 
 .redFont {
-  color: red !important;
+  color: #E60026 !important;
 }
 
 .margin-bottom24px {
@@ -255,7 +255,7 @@ a {
   font-weight: 400;
   font-size: 14px;
   line-height: 15.6px;
-  color: red;
+  color: #E60026;
 }
 
 .d-none {
@@ -263,7 +263,7 @@ a {
 }
 
 .requiredMessage {
-  color: red;
+  color: #E60026;
   font-size: 14px;
   line-height: 18px;
   margin: 0 8px;

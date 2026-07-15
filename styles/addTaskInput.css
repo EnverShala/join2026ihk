@@ -8,12 +8,12 @@
 }
 
 .field-required {
-border-color: red;
+border-color: #E60026;
 }
 
 .field-required-msg {
     opacity: 0;
-    color: red;
+    color: #E60026;
     font-size: 14px;
     margin-top: -4px;
 }
@@ -31,7 +31,7 @@ margin-top: 16px;
     margin-bottom: -16px;
 }
 .category-required-border {
-    border: 1px solid red;
+    border: 1px solid #E60026;
 }
 
 

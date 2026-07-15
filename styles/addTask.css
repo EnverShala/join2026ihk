@@ -525,7 +525,7 @@ label {
 }
 
 .requiredMessage {
-  color: red;
+  color: #E60026;
   font-size: 14px;
   display: none;
 }

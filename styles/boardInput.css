@@ -298,7 +298,7 @@ label {
   width: 450px;
   bottom: 0%;
   display: flex;
-  justify-content: end;
+  justify-content: center;
   z-index: 99999;
 }
 

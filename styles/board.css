@@ -111,7 +111,7 @@ button {
   border-radius: 30px;
   width: 103%;
   gap: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 600px;
 }
 
 .taskCard {
@@ -314,6 +314,20 @@ button {
   height: 32px;
   border: none;
   background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.searchIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.searchIcon:hover svg {
+  stroke: #29abe2;
 }
 
 .searchBar {

@@ -130,7 +130,7 @@ function hideNavIfNotLoggedIn() {
     document.body.classList.add("logged-in");
     return;
   }
-  applyGuestNavLayout();
+  applyGuestNavLayout(currentPage);
 }
 
 /**
@@ -161,13 +161,35 @@ function isCurrentlyLoggedIn() {
 /**
  * Applies the guest-view DOM tweaks for privacy/legal/help pages.
  *
+ * @param {string} currentPage - The current page filename (lowercase).
  * @returns {void}
  */
-function applyGuestNavLayout() {
+function applyGuestNavLayout(currentPage) {
   document.body.classList.add("guest-view");
   document.querySelectorAll(".desktop-sidebar .menu-sidebar").forEach(el => el.remove());
   injectGuestLoginLink();
   document.querySelectorAll(".desktop-header .header-icons").forEach(el => (el.style.display = "none"));
   document.querySelectorAll(".mobile-header .profile-icon").forEach(el => (el.style.display = "none"));
-  document.querySelectorAll(".mobile-nav").forEach(el => (el.style.display = "none"));
+  buildGuestMobileNav(currentPage);
+}
+
+/**
+ * Replaces the mobile bottom nav with the guest menu (Log In, Privacy
+ * Policy, Legal notice) using the same colors and active/hover styling
+ * as the desktop sidebar.
+ *
+ * @param {string} currentPage - The current page filename (lowercase).
+ * @returns {void}
+ */
+function buildGuestMobileNav(currentPage) {
+  const nav = document.querySelector(".mobile-nav");
+  if (!nav) return;
+  const loginIcon = buildGuestLoginLink().querySelector("svg").outerHTML;
+  nav.innerHTML = `
+    <ul class="container-nav-links">
+      <a href="./login.html"><div class="nav-links">${loginIcon}<li>Log In</li></div></a>
+      <a href="./privacy.html"><div class="nav-links"><li>Privacy Policy</li></div></a>
+      <a href="./legalNotice.html"><div class="nav-links"><li>Legal notice</li></div></a>
+    </ul>`;
+  markActiveNavLink(".mobile-nav .container-nav-links > a", currentPage);
 }

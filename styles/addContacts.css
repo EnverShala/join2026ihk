@@ -254,7 +254,7 @@ input {
 }
 
 .input-error {
-  color: red;
+  color: #E60026;
   font-size: 14px;
   line-height: 1;
   min-height: 12px;

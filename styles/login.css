@@ -307,12 +307,12 @@ button:disabled:hover {
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
-  color: red;
+  color: #E60026;
 }
 
 .wrongPassword,
 .wrongMail {
-  border-color: red !important;
+  border-color: #E60026 !important;
 }
 
 .field__group:has(input:focus) {

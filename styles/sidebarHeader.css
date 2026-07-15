@@ -93,8 +93,8 @@ header {
   display: flex;
   flex-direction: column;
   z-index: 3;
-  top: 96px;
-  right: 20px;
+  top: 84px;
+  right: 50px;
   border-radius: 20px 0px 20px 20px;
   padding: 10px;
   background-color: rgba(42, 54, 71, 1);
@@ -330,6 +330,10 @@ a {
     background-color: #2a3647;
     width: 100%;
     z-index: 100;
+  }
+  .sub-menu {
+    top: 62px;
+    right: 16px;
   }
   .logo-join-mobile {
     width: 32px;
