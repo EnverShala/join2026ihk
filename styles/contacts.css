@@ -51,6 +51,9 @@ body {
   font-weight: 400;
   line-height: 24px;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ellipse-list {
@@ -74,6 +77,9 @@ body {
   line-height: 19.2px;
   text-align: left;
   color: #007cee;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .border-container {
@@ -111,10 +117,10 @@ body {
 }
 
 .contact {
-  width: 140px;
+  flex: 1;
+  min-width: 0;
   height: 48px;
   gap: 5px;
-  opacity: 0px;
 }
 
 /* Button zum Hinzufügen neuer Kontakte */
@@ -197,13 +203,14 @@ body {
 .display-contact {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   position: fixed;
-  width: 461px;
-  height: 364px;
+  width: auto;
+  max-width: 520px;
+  height: auto;
   top: 311px;
   left: 750px;
-  gap: 21px;
+  right: 48px;
+  gap: 24px;
   animation: slideIn 1s forwards;
   overflow-x: hidden;
   min-width: 0;
@@ -237,15 +244,20 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 461px;
-  height: 120px;
-  gap: 54px;
+  width: 100%;
+  height: auto;
+  min-height: 120px;
+  gap: 40px;
 }
 
 .contact-name-container {
-  width: 287px;
-  height: 88px;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  height: auto;
 }
 .edit:hover,
 .delete:hover {
@@ -260,31 +272,29 @@ body {
 }
 
 .contact-name {
-  width: 287px;
-  height: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: auto;
   font-size: 40px;
   font-weight: 500;
-  line-height: 56.4px;
+  line-height: 1.2;
   text-align: left;
   white-space: nowrap;
+  min-width: 0;
 }
 
 .edit-delete-container {
-  width: 159px;
+  display: flex;
+  align-items: center;
+  width: auto;
   height: 24px;
   gap: 16px;
-}
-
-.edit-delete-container {
   font-size: 14px;
   font-weight: 400;
   line-height: 19.2px;
   text-align: left;
-  display: flex;
-  width: 62px;
-  height: 24px;
-  gap: 13px;
-  opacity: 0px;
 }
 
 .edit,
@@ -313,11 +323,9 @@ body {
 }
 
 .contact-information-container {
-  width: 207px;
-  height: 74px;
-  padding-top: 15px;
-  gap: 59px;
-  opacity: 0px;
+  width: auto;
+  height: auto;
+  padding-top: 8px;
   box-sizing: border-box;
 }
 
@@ -329,24 +337,22 @@ body {
 }
 
 .email-and-phone-container {
-  width: 140px;
-  height: 128px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
   gap: 22px;
-  opacity: 0px;
+  min-width: 0;
 }
 
-.email-container {
-  width: 140px;
-  height: 53px;
-  gap: 15px;
-  opacity: 0px;
-}
-
+.email-container,
 .phone-container {
-  width: 124px;
-  height: 53px;
-  gap: 15px;
-  opacity: 0px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  gap: 12px;
+  min-width: 0;
 }
 
 .email-headtxt {
@@ -357,6 +363,8 @@ body {
 }
 
 .email {
+  display: block;
+  max-width: 100%;
   font-size: 14px;
   font-weight: 400;
   line-height: 19.2px;
