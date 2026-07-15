@@ -1,172 +1,5 @@
 let subtasksArray;
-let subtasksArrayPopup = [];
 let pos;
-
-/**
- * Wires drag/drop on all task cards and drop zones.
- *
- * @returns {void}
- */
-function addDragAndDropEvents() {
-  const draggedCards = document.querySelectorAll(".taskCard");
-  const dropZones = document.querySelectorAll(
-    "#cardContainertoDo, #cardContainerinProgress, #cardContainerawaitingFeedback, #cardContainerdone"
-  );
-  draggedCards.forEach((card) => bindDragStart(card));
-  dropZones.forEach((zone) => bindDropZone(zone));
-}
-
-/**
- * Wires the dragstart event on a task card so it sets its own id as payload.
- *
- * @param {HTMLElement} card - The task card element to make draggable.
- * @returns {void}
- */
-function bindDragStart(card) {
-  card.ondragstart = (event) => {
-    event.dataTransfer.setData("text", event.target.id);
-  };
-}
-
-/**
- * Wires dragover/dragleave/drop handlers on a single drop zone.
- *
- * @param {HTMLElement} zone - The drop zone element to configure.
- * @returns {void}
- */
-function bindDropZone(zone) {
-  zone.ondragover = (event) => {
-    event.preventDefault();
-    event.currentTarget.style.border = "dotted 2px grey";
-  };
-  zone.ondragleave = (event) => {
-    event.currentTarget.style.backgroundColor = "";
-    event.currentTarget.style.border = "none";
-  };
-  zone.ondrop = handleDropZoneDrop;
-}
-
-/**
- * Handles a drop: appends the card, resets styles, updates the task level.
- *
- * @param {DragEvent} event - The drop event fired by the drop zone.
- * @returns {void}
- */
-function handleDropZoneDrop(event) {
-  event.preventDefault();
-  event.currentTarget.style.backgroundColor = "";
-  const data = event.dataTransfer.getData("text");
-  const card = document.getElementById(data);
-  event.currentTarget.appendChild(card);
-  event.currentTarget.style.border = "none";
-  dragAndDropOnDrop(event.currentTarget.id, data);
-}
-
-/**
- * Sets data of the dropped card for drag and drop.
- *
- * @param {string} targetId - The id of the container the card was dropped on.
- * @param {string} data - The id of the dropped card element.
- * @returns {void}
- */
-function dragAndDropOnDrop(targetId, data) {
-  let newLevel = getNewDragAndDropContainerName(targetId);
-  let taskNr = data.split("-")[1];
-  tasks[taskNr].level = newLevel;
-  editTask(tasks[taskNr].id, tasks[taskNr]);
-  checkTaskLevels();
-}
-
-/**
- * Moves task at index `i` one level up in the workflow.
- *
- * @param {number} i - The index of the task in the tasks array.
- * @returns {Promise<void>} Resolves when the task is persisted and rerendered.
- */
-async function moveTaskUp(i) {
-  const nextLevel = _levelUp(tasks[i].level);
-  if (!nextLevel) return;
-  tasks[i].level = nextLevel;
-  await editTask(tasks[i].id, tasks[i]);
-  renderTaskCards();
-}
-
-/**
- * Returns the workflow level directly above the given level.
- *
- * @param {string} level - The current level of the task.
- * @returns {string|null} The next level up, or null when already at the top.
- */
-function _levelUp(level) {
-  if (level == "In Progress") return "To do";
-  if (level == "Awaiting Feedback") return "In Progress";
-  if (level == "Done") return "Awaiting Feedback";
-  return null;
-}
-
-/**
- * Moves task at index `i` one level down in the workflow.
- *
- * @param {number} i - The index of the task in the tasks array.
- * @returns {Promise<void>} Resolves when the task is persisted and rerendered.
- */
-async function moveTaskDown(i) {
-  const nextLevel = _levelDown(tasks[i].level);
-  if (!nextLevel) return;
-  tasks[i].level = nextLevel;
-  await editTask(tasks[i].id, tasks[i]);
-  renderTaskCards();
-}
-
-/**
- * Returns the workflow level directly below the given level.
- *
- * @param {string} level - The current level of the task.
- * @returns {string|null} The next level down, or null when already at the bottom.
- */
-function _levelDown(level) {
-  if (level == "Awaiting Feedback") return "Done";
-  if (level == "In Progress") return "Awaiting Feedback";
-  if (level == "To do") return "In Progress";
-  return null;
-}
-
-/**
- * Returns the level name for a drop container id.
- *
- * @param {string} targetId - The id of the drop container element.
- * @returns {string|undefined} The workflow level string, or undefined when unknown.
- */
-function getNewDragAndDropContainerName(targetId) {
-  if (targetId.includes("cardContainertoDo")) return "To do";
-  if (targetId.includes("cardContainerinProgress")) return "In Progress";
-  if (targetId.includes("cardContainerawaitingFeedback")) return "Awaiting Feedback";
-  if (targetId.includes("cardContainerdone")) return "Done";
-}
-
-/**
- * Toggles empty-state hints for all four task-level containers.
- *
- * @returns {void}
- */
-function checkTaskLevels() {
-  toggleEmptyState("cardContainertoDo", "emptyTaskTodo");
-  toggleEmptyState("cardContainerinProgress", "emptyTaskInProgress");
-  toggleEmptyState("cardContainerawaitingFeedback", "emptyTaskAwait");
-  toggleEmptyState("cardContainerdone", "emptyTaskDone");
-}
-
-/**
- * Shows the empty-state hint if the container has no child cards, hides otherwise.
- *
- * @param {string} containerId - The id of the card container element.
- * @param {string} emptyHintId - The id of the empty-state hint element.
- * @returns {void}
- */
-function toggleEmptyState(containerId, emptyHintId) {
-  const isEmpty = document.getElementById(containerId).childElementCount == 0;
-  document.getElementById(emptyHintId).classList.toggle("d-none", !isEmpty);
-}
 
 /**
  * Appends the current input value as a new subtask.
@@ -345,19 +178,19 @@ function subtaskOnKeyDown(position) {
 }
 
 /**
- * Same as subtaskOnKeyDown but for the popup context.
+ * Resets all fields and controls of the edit-popup form.
  *
- * @param {number} position - The subtask index, or -1 for the add-input.
  * @returns {void}
  */
-function subtaskOnKeyDownPopup(position) {
-  if (position != -1) {
-    if (event.key == "Escape") cancelSubtaskEditPopup(position);
-    if (event.key == "Enter") confirmSubtaskEditPopup(position);
-    return;
-  }
-  if (event.key == "Escape") document.getElementById("addSubtaskInputPopup").value = "";
-  if (event.key == "Enter") addSubtaskPopup();
+function clearEditForm() {
+  document.getElementById("inputEdit").value = "";
+  document.getElementById("inputDescription").value = "";
+  document.getElementById("inputDueDate").value = "";
+  document.getElementById("subtaskList").innerHTML = "";
+  document.getElementById("addNewSubtaskInput").value = "";
+  document.getElementById("selected-contacts-container").innerHTML = "";
+  clearPrioButtons();
+  resetAssignedCheckboxes("");
 }
 
 /**
@@ -366,7 +199,7 @@ function subtaskOnKeyDownPopup(position) {
  * @returns {void}
  */
 function editPopupTask() {
-  clearForm();
+  clearEditForm();
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].id == currentId) applyTaskToEditForm(tasks[i]);
   }

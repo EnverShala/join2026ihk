@@ -96,6 +96,9 @@
       max-width: 440px;
       box-sizing: border-box;
     }
+    .popupOnTaskEdit .okButtonMainContainer {
+      justify-content: center;
+    }
     .popupOnTaskEdit .editInputGroup,
     .popupOnTaskEdit .editTitelInput,
     .popupOnTaskEdit .editDescriptionInput,
@@ -111,12 +114,6 @@
     }
     .emptyTask {
       font-size: 16px;
-    }
-    #myModal {
-      width: 500px;
-      max-height: min(90vh, calc(100dvh - 32px));
-      overflow-x: hidden;
-      overflow-y: auto;
     }
     .ResponsiveMenuOnTaskCards {
       display: flex;
@@ -308,14 +305,6 @@
       font-size: 18px;
     }
     /* Modal */
-    #myModal {
-      width: 380px;
-      padding: 32px 16px;
-      box-sizing: border-box;
-    }
-    #myModal .inputGroupOnPopUp {
-      width: 100%;
-    }
     .inputPopup,
     .selectPopup {
       width: 100%;
@@ -362,14 +351,6 @@
       width: 100% !important;
       max-width: 300px;
       box-sizing: border-box;
-    }
-    #myModal {
-      width: min(calc(100vw - 16px), 360px);
-      max-width: 360px;
-      max-height: min(90vh, calc(100dvh - 32px));
-      padding: 24px 16px;
-      box-sizing: border-box;
-      overflow-y: auto;
     }
     /* PopUp-STANDARD */
     .popupOnTaskSelectionMainContainer,
@@ -526,11 +507,6 @@
   /* Ultra-narrow phones (320x658) — keep add-task modal + cards inside the viewport
      with a bit more breathing room. */
   @media (max-width: 360px) {
-    #myModal {
-      width: calc(100vw - 20px);
-      max-width: calc(100vw - 20px);
-      padding: 20px 12px;
-    }
     .headerPopupText {
       font-size: 28px;
     }

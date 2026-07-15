@@ -1,5 +1,16 @@
-let popupIdString = "";
 let taskLevel = "To do";
+
+/**
+ * Reads the "level" URL parameter and presets the board column for new tasks.
+ * Used by the add-task page when opened via the board's column plus-buttons.
+ *
+ * @returns {void}
+ */
+function applyTaskLevelFromUrl() {
+  const level = new URLSearchParams(window.location.search).get("level");
+  const allowed = ["To do", "In Progress", "Awaiting Feedback", "Done"];
+  if (allowed.includes(level)) taskLevel = level;
+}
 
 /**
  * Reads all task-form fields into a plain object.
@@ -26,14 +37,13 @@ function readTaskFormValues(id) {
  * @returns {Promise<void>} Resolved after the task has been saved.
  */
 async function createTask(id = "") {
-  const ctx = id === "Popup" ? "popup" : "";
-  const attachment = typeof getAttachmentJson === "function" ? getAttachmentJson(ctx) : "";
+  const attachment = typeof getAttachmentJson === "function" ? getAttachmentJson("") : "";
   const f = readTaskFormValues(id);
   const newTask = createTaskArray(f.title, f.description, f.date, f.category, f.prio, taskLevel, f.subtasks, f.assigned, "", attachment);
   await saveTasks("/tasks", newTask);
   showSuccessMessage(id);
   clearForm(id);
-  if (typeof clearAttachmentState === "function") clearAttachmentState(ctx);
+  if (typeof clearAttachmentState === "function") clearAttachmentState("");
 }
 
 /**
@@ -296,7 +306,7 @@ function applyListItemSelectedStyle(listItem, checked) {
 function toggleBackground(checkbox) {
   const listItem = checkbox.closest(".list-item");
   const circle = listItem.querySelector(".circle").cloneNode(true);
-  const container = document.getElementById("selected-contacts-container" + popupIdString);
+  const container = document.getElementById("selected-contacts-container");
   applyListItemSelectedStyle(listItem, checkbox.checked);
   syncSelectedContactChip(container, circle, checkbox.checked);
   applySelectedContactsOverflow(container);
@@ -347,13 +357,9 @@ function clearForm(id = "") {
  * @param {string} id - Context suffix ("" for the main page, "Popup" for the overlay).
  */
 function clearSubtaskInputAndState(id) {
-  const inputId = id == "Popup" ? "addSubtaskInputPopup" : "addNewSubtaskInput";
-  document.getElementById(inputId).value = '';
+  document.getElementById("addNewSubtaskInput").value = '';
   if (id === "" && typeof window.__resetAddTaskSubtasks === "function") {
     window.__resetAddTaskSubtasks();
-  }
-  if (id === "Popup" && typeof subtasksArrayPopup !== "undefined") {
-    subtasksArrayPopup.length = 0;
   }
 }
 
@@ -373,28 +379,18 @@ function resetAssignedCheckboxes(id) {
 }
 
 /**
- * Shows the "task added" toast. On the board popup, closes the modal and
- * re-renders the board cards in place; on the standalone task page, redirects
- * to the board.
+ * Shows the "task added" toast, then redirects to the board.
  *
- * @param {string} [id=""] - Context suffix ("" = standalone task page, "Popup" = board modal).
+ * @param {string} [id=""] - Context suffix (kept for signature compatibility).
  */
 function showSuccessMessage(id = "") {
   const successMessage = document.querySelector('.msg-task-added');
   if (successMessage.parentElement !== document.body) {
     document.body.appendChild(successMessage);
   }
-  if (id === "Popup") {
-    const modal = document.getElementById("myModal");
-    if (modal && typeof modal.close === "function") modal.close();
-    if (typeof closeModal === "function") closeModal();
-    if (typeof renderTaskCards === "function") renderTaskCards();
-  }
   successMessage.style.display = 'flex';
   setTimeout(() => {
     successMessage.style.display = 'none';
-    if (id !== "Popup") {
-      window.location.href = "board.html";
-    }
+    window.location.href = "board.html";
   }, 3000);
 }

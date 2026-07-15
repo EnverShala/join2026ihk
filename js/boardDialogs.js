@@ -78,32 +78,6 @@ async function editCurrentTask() {
 }
 
 /**
- * Builds a task object from the given edit-form fields.
- *
- * @param {string} newTitle - The updated task title.
- * @param {string} newDescription - The updated task description.
- * @param {string} newDate - The updated due date string.
- * @param {string} oldCategory - The unchanged task category.
- * @param {string} newPrio - The updated priority label.
- * @param {string} oldLevel - The unchanged workflow level.
- * @param {string} newSubtasks - The pipe-joined subtasks string.
- * @param {string} newAssigned - The comma-joined assigned users string.
- * @returns {Object} The task object shaped for persistence.
- */
-function createTaskArray(newTitle, newDescription, newDate, oldCategory, newPrio, oldLevel, newSubtasks, newAssigned) {
-  return {
-    title: newTitle,
-    description: newDescription,
-    date: newDate,
-    category: oldCategory,
-    priority: newPrio,
-    level: oldLevel,
-    subtasks: newSubtasks,
-    assigned: newAssigned,
-  };
-}
-
-/**
  * Opens the task-selection popup dialog.
  *
  * @returns {void}
@@ -220,7 +194,7 @@ function renderSubtasksDoneCheckboxes(subtasksArray = [], taskNr) {
  * @returns {Promise<number>} Resolves with the color index between 1 and 15.
  */
 async function getUserColor(userName) {
-  await loadUsers("/users");
+  if (users.length === 0) await loadUsers("/users");
   let returnColor = 1;
   for (let i = 0; i < users.length; i++) {
     if (users[i].name == userName) {
@@ -233,33 +207,35 @@ async function getUserColor(userName) {
 }
 
 /**
- * Returns card container id for a level and hides its empty-state.
+ * Returns card container id for a level.
  *
  * @param {string} cardContainerIdName - The workflow level name.
  * @returns {string} The card container id, or an empty string when unknown.
  */
 function getCardContainerId(cardContainerIdName) {
   const entry = CARD_CONTAINER_MAP[cardContainerIdName];
-  if (!entry) return "";
-  document.getElementById(entry.empty).classList.add("d-none");
-  return entry.container;
+  return entry ? entry.container : "";
 }
 
 /**
- * Renders all task cards from the loaded tasks list.
+ * Renders all task cards from the loaded tasks list, then refreshes the
+ * empty-state hints and drag/drop wiring.
  *
  * @returns {Promise<void>} Resolves once every task card has been rendered.
  */
 async function renderTaskCards() {
   await loadTasks("/tasks");
+  await loadUsers("/users");
   clearCardContainersInnerHtml();
   for (let i = 0; i < tasks.length; i++) {
     const subs = tasks[i].subtasks.split("|") == "" ? [] : tasks[i].subtasks.split("|");
     const cardId = getCardContainerId(tasks[i].level);
+    if (!cardId) continue;
     const html = await renderTaskCardUserCircles(tasks[i].assigned.split(","));
     const progress = computeTaskProgress(tasks[i].subtasksDone, subs);
     document.getElementById(cardId).innerHTML += taskCardTemplate(`taskCard-${i}`, i, html, progress);
   }
+  checkTaskLevels();
   addDragAndDropEvents();
 }
 

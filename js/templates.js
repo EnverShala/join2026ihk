@@ -202,26 +202,6 @@ function createSubtaskListItemTemplate(index, item) {
 }
 
 /**
- * Liefert das HTML für einen Subtask-Listeneintrag im Popup-Kontext.
- *
- * @param {number} index - Der Index des Subtasks.
- * @param {string} item - Der Text des Subtasks.
- * @returns {string} Das gerenderte HTML-Fragment.
- */
-function createSubtaskListItemPopupTemplate(index, item) {
-  return `
-            <li class="subtask-list-item" data-index="${index}">
-                <div class="li-text">${item}</div>
-                <div class="subtask-edit-icon-div">
-                    <img onclick="editSubtaskPopup('${item}')" id="editTaskPopup${index}" class="edit-subtask-btn" src="./img/edit.png" alt="">
-                    <div class="subtask-divider-2"></div>
-                    <img onclick="deleteSubtaskPopup('${item}')" id="deleteSubtaskPopup${index}"class="delete-subtask-btn" src="./img/delete.png" alt="">
-                </div>
-            </li>
-        `;
-}
-
-/**
  * Setzt ein Subtask-Edit-Feld auf das ursprüngliche Listen-Item-Markup zurück.
  *
  * @param {number} index - Der Index des Subtasks.
@@ -240,24 +220,6 @@ function changeSubtaskInputFieldBackToListElement(index, item) {
 }
 
 /**
- * Popup-Variante von `changeSubtaskInputFieldBackToListElement`.
- *
- * @param {number} index - Der Index des Subtasks.
- * @param {string} item - Der Text des Subtasks.
- * @returns {string} Das gerenderte HTML-Fragment.
- */
-function changeSubtaskInputFieldBackToListElementPopup(index, item) {
-  return `
-                <div class="li-text">${item}</div>
-                <div class="subtask-edit-icon-div">
-                    <img onclick="editSubtaskPopup('${item}')" id="editTaskPopup${index}" class="edit-subtask-btn" src="./img/edit.png" alt="">
-                    <div class="subtask-divider-2"></div>
-                    <img onclick="deleteSubtaskPopup('${item}')" id="deleteSubtaskPopup${index}"class="delete-subtask-btn" src="./img/delete.png" alt="">
-                </div>
-        `;
-}
-
-/**
  * Liefert das HTML für ein Subtask-Edit-Input mit Cancel/Confirm-Buttons.
  *
  * @param {number} position - Die Position des Subtasks in der Liste.
@@ -271,24 +233,6 @@ function changeSubtaskContentToInputForEditTemplate(position, actualContent) {
     <span onclick="cancelSubtaskEdit(${position})" id="cancelSubtaskEdit${position}" class="delete-subtask-btn edit"><img src="./img/delete.png"></span>
     <div class="subtask-divider"></div>
     <span onclick="confirmSubtaskEdit(${position})" id="confirmSubtaskEdit${position}" class="confirm-subtask-edit-btn edit"><img src="./img/check.png"></span>
-    </div>
-`;
-}
-
-/**
- * Popup-Variante von `changeSubtaskContentToInputForEditTemplate`.
- *
- * @param {number} position - Die Position des Subtasks in der Liste.
- * @param {string} actualContent - Der aktuelle Textinhalt des Subtasks.
- * @returns {string} Das gerenderte HTML-Fragment.
- */
-function changeSubtaskContentToInputForEditPopupTemplate(position, actualContent) {
-  return `
-    <input id="editSubtaskInputPopup${position}" class="edit-subtask-input" type="text" value="${actualContent}" onkeydown = "subtaskOnKeyDownPopup(${position})">
-    <div class="edit-subtask-button-div">
-    <span onclick="cancelSubtaskEditPopup(${position})" id="cancelSubtaskEditPopup${position}" class="delete-subtask-btn edit"><img src="./img/delete.png"></span>
-    <div class="subtask-divider"></div>
-    <span onclick="confirmSubtaskEditPopup(${position})" id="confirmSubtaskEditPopup${position}" class="confirm-subtask-edit-btn edit"><img src="./img/check.png"></span>
     </div>
 `;
 }

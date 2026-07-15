@@ -64,7 +64,7 @@
             <a href="task.html" class="nav-links">
                 <img class="nav-icons" src="img/contacts/addTask_icon.svg" alt="icon add task">
                 <li>Add Task</li>
-            </div>
+            </a>
             <a href="board.html" class="nav-links">
                 <img class="nav-icons" src="img/contacts/board_icon.svg" alt="icon board">
                 <li>Board</li>
@@ -151,11 +151,11 @@
             <div class="searchContainer">
               <input id="searchBar" onkeyup="searchTasks()" class="searchBar" type="search" placeholder="Find Task">
               <div class="seperator"></div>
-              <button class="searchIcon alsoOpenModal">
+              <button class="searchIcon" onclick="location.href='task.html'">
                 <img src="img/board/plus button.png" alt="">
               </button>
             </div>
-            <button id="openModal" class="addBtn"><span class="addBtnText">Add task </span><span>+</span></button>
+            <button id="openModal" class="addBtn" onclick="location.href='task.html'"><span class="addBtnText">Add task </span><span>+</span></button>
           </div>
         </div>
 
@@ -164,7 +164,7 @@
           <div class="statusItem">
             <div class="statusHeader">
               <p>To do</p>
-              <button id="alsoOpenModal1" class="alsoOpenModal">
+              <button id="alsoOpenModal1" class="alsoOpenModal" onclick="location.href='task.html'">
                 <img src="img/board/plus button.png" alt="">
               </button>
             </div>
@@ -182,7 +182,7 @@
           <div class="statusItem">
             <div class="statusHeader">
               <p>In progress</p>
-              <button id="alsoOpenModal2" class="alsoOpenModal">
+              <button id="alsoOpenModal2" class="alsoOpenModal" onclick="location.href='task.html?level=In%20Progress'">
                 <img src="img/board/plus button.png" alt="">
               </button>
             </div>
@@ -200,12 +200,12 @@
           <div class="statusItem">
             <div class="statusHeader">
               <p>Await feedback</p>
-              <button id="alsoOpenModal3" class="alsoOpenModal">
+              <button id="alsoOpenModal3" class="alsoOpenModal" onclick="location.href='task.html?level=Awaiting%20Feedback'">
                 <img src="img/board/plus button.png" alt="">
               </button>
             </div>
-            <div id="emptyTaskAwait" class="taskBoard">
-              <div class="emptyTask">No tasks await feedback</div>
+            <div class="taskBoard">
+              <div id="emptyTaskAwait" class="emptyTask">No tasks await feedback</div>
             </div>
             <div id="cardContainerawaitingFeedback" class="cardContainer">
               <!-- Card Layout Start -->
@@ -218,12 +218,12 @@
           <div class="statusItem">
             <div class="statusHeader">
               <p>Done</p>
-              <button id="alsoOpenModal4" class="alsoOpenModal">
+              <button id="alsoOpenModal4" class="alsoOpenModal" onclick="location.href='task.html?level=Done'">
                 <img src="img/board/plus button.png" alt="">
               </button>
             </div>
-            <div id="emptyTaskDone" class="taskBoard">
-              <div class="emptyTask">No tasks done</div>
+            <div class="taskBoard">
+              <div id="emptyTaskDone" class="emptyTask">No tasks done</div>
             </div>
             <div id="cardContainerdone" class="cardContainer">
               <!-- Card Layout Start -->
@@ -414,168 +414,13 @@
 
 
 
-  <!-- Start AddTask PopUp Container -->
-  <section class="boardSectionPopup">
-    <dialog data-modal id="myModal">
-      <button type="button" class="addTaskPopupClose" id="closeModal">X</button>
-      <form id="addTaskFormPopup" novalidate onsubmit="validateAndCreateTask(event, 'Popup'); return false;">
-      <div onclick="closeCategory(),closeAssignedto()" class="mainContainerPopUp">
-        <div class="headerPopupContainer">
-            <h1 class="headerPopupText">Add Task</h1>
-        </div>
-            
-        <div class="inputGroupOnPopUp">
-                <label>Title<span class="required">*</span></label>
-                <input class="inputPopup" type="text" id="title" placeholder="Enter a title" onblur="this.value = this.value.trim()" />
-                <div id="title-required" class="requiredMessage">
-                  Required
-                </div>
-        </div>
 
-        <div class="inputGroupOnPopUp">
-                <label for="description">Description<span class="required">*</span></label>
-                <textarea id="description" class="inputPopup" placeholder="Enter a description" onblur="this.value = this.value.trim()"></textarea>
-                <div id="description-required" class="requiredMessage">
-                  Required
-                </div>
-        </div>
-
-        <div class="inputGroupOnPopUp">
-                <label class="margin" for="dropdown-container"
-                  >Assigned to<span class="required">*</span></label>
-                <div class="dropdown">
-                  <div id="contacts-listPopup" class="selectOnEditPopUp assigned-to" onclick="toggleDropdown('Popup')">
-                    <input class="select-input placeholder" type="text" placeholder="Select contacts to assign" readonly/>
-                    <span class="down-arrow" >
-                      <img src="img/arrow_drop_downaa.svg" alt="">
-                    </span>
-                  </div>
-                  <div id="selected-contacts-containerPopup" class="selectedContactsPopup"></div>
-
-                  <!-- Begin Contacts Assigned to-->
-                  <ul id="myDropdownPopup" class="dropdownContentPopup ">
-                  </ul>
-                  <!-- End Contacts Assigned to-->
-                  <div class="selected-contacts"></div>
-                </div>
-        </div>
-
-        <div id="assigned-to-required" class="requiredMessage">
-            Required
-        </div>
-       
-        <div class="inputGroupOnPopUp">
-            <label class="due-date" for="due-date-input"> Due date <span class="required">*</span></label>
-            <input class="inputPopup" type="date" id="due-date-input"/>
-            <div id="date-required" class="requiredMessage">Required</div>
-        </div>
-
-        <div class="inputGroupOnPopUp">
-            <label>Prio*</label>
-            <div class="buttonsPrioOnPopUp">
-              <button onclick="clickOnUrgent('Popup')" type="button" id="urgentPopup" class="btn-prio">
-                Urgent<img id="urgentIDPopup" src="./img/urgent.svg"/>
-                      <img id="urgent-whiteIDPopup" class="d-none" src="./img/urgent-white.svg"/>
-              </button>
-                  
-              <button onclick="clickOnMedium('Popup')" type="button" id="mediumPopup" class="btn-prio">
-                Medium<img id="mediumIDPopup" src="./img/medium.svg"/>
-                      <img id="medium-whiteIDPopup" class="d-none" src="./img/medium-white.svg"/>
-              </button>
-                
-              <button onclick="clickOnLow('Popup')" type="button" id="lowPopup" class="btn-prio">
-                Low<img id="lowIDPopup" src="./img/low.svg"/>
-                    <img id="low-whiteIDPopup" class="d-none" src="./img/low-white.svg"/>
-              </button>
-            </div>
-            <div id="prio-required" class="requiredMessage">Required
-            </div>  
-        </div>
-              
-        <div class="inputGroupOnPopUp">
-          <label for="category-selected">Category<span class="required">*</span></label>
-          <div class="dropdown">
-            <div id="category-container" class="selectPopup" onclick="toggleDropdownCategory()" >
-              <span id="category-displayed" class="btn-text">Select task category</span>
-              <span class="down-arrow" >
-                <img src="img/arrow_drop_downaa.svg" alt="">
-              </span>
-            </div>
-            <div id="category-required" class="requiredMessage">Required
-            </div>
-            <ul class="category scroll-disabled dropdown-content" id="myDropdownCategory" >
-              <li onclick="selectTechnicalStack(); toggleDropdownCategory()" id="categoryTechnicalStack" data-value="Technical stack" class="item category">
-                <span>Technical stack</span>
-              </li>
-              <li onclick="selectUserStory(); toggleDropdownCategory()" id="categoryUserStory" data-value="User-story" class="item category">
-                <span>User Story</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="inputGroupOnPopUp">
-          <label for="subtasks">Subtasks<span class="required"></span></label>
-          <div class="input-container-subtask">
-            <input id="addSubtaskInputPopup" class="inputPopup" type="text" placeholder="Add new subtask" onkeydown="subtaskOnKeyDownPopup(-1)" onblur="this.value = this.value.trim()"/>
-            <div class="btn-subtask add" style="cursor: pointer" onclick="addSubtaskPopup()">
-              <img src="./img/add.png" alt="Add" />
-            </div>
-            <div class="btn-subtask check-cancel">
-              <div class="cancel-subtask">
-                <img src="./img/close.png" alt="Cancel" />
-              </div>
-              <div class="divider-subtask"></div>
-              <div class="check-subtask">
-                <img src="./img/check.png" alt="Check" />
-              </div>
-            </div>
-          </div>
-          <div class="container-subtasks-display">
-            <ul id="subtaskListPopup" class="list-subtasks"></ul>
-          </div>
-          <div id="subtasks-requiredPopup" class="requiredMessage">Required
-          </div>
-        </div>
-        <!-- Begin Anhänge Upload Popup -->
-        <div class="inputGroupOnPopUp">
-          <label>Anhänge</label>
-          <div class="attachment-upload-container">
-            <input type="file" id="imageUploadPopup" accept="image/*" multiple class="attachment-input" onchange="handleImageUpload('imageUploadPopup', 'popup')"/>
-            <label for="imageUploadPopup" class="attachment-upload-label">Bild hinzufügen</label>
-          </div>
-          <div id="attachmentPreviewPopup" class="attachment-preview"></div>
-          <div id="attachmentErrorPopup" class="attachment-error" style="display:none;"></div>
-        </div>
-        <!-- End Anhänge Upload Popup -->
-      </div>
-          
-        <div class="bottomAddTaskContainer">
-          <p class="required-note">
-            <span class="required">*Required</span>
-          </p>
-          <div class="createClearButtonContainer">
-            <button onclick="clearForm('Popup')" type="button" class="btnClearOnPopup" id="clear-btn">Clear
-                <img id="cancel-icon" src="./img/close.png" alt="">
-            </button>
-            <button type="submit" class="btnCreateOnPopup">Create Task
-                <img src="./img/check_white.svg" alt="" />
-            </button>
-          </div>
-        </div>
-      </form>
-
-    <div class="msg-task-added" style="display:none;">
-      <p>Task added to board</p>
-      <img src="./img/board.png" alt="" />
-    </div>
-  </dialog>
-</section>
 
 <script src="./js/firebaseDatabaseFunctions.js"></script>
     <script src="./js/navigationAndHeader.js"></script>
 <script src="./js/firebaseUserRendering.js"></script>
   <script src="./js/taskAttachments.js"></script>
+  <script src="./js/boardDragDrop.js"></script>
   <script src="./js/board.js"></script>
   <script src="./js/boardPopup.js"></script>
   <script src="./js/boardDialogs.js"></script>

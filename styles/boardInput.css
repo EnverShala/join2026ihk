@@ -19,30 +19,6 @@
   border: 1px solid #d1d1d1;
 }
 /*Pop up Addtask*/
-#myModal {
-  width: 525px;
-  max-height: min(90vh, calc(100dvh - 32px));
-  padding: 48px 0;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  border: 0;
-  border-radius: 15px;
-  background-color: #ffffff;
-  overflow-y: auto;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-#myModal::-webkit-scrollbar {
-  width: 8px;
-}
-#myModal::-webkit-scrollbar-thumb {
-  background-color: #cccccc;
-  border-radius: 100px;
-}
-
 .headerPopup {
   text-wrap: nowrap;
 }
@@ -381,31 +357,6 @@ label {
 
 /* Add-Task-Popup: inputGroup auf visuelle Breite der Inputs (360 + 2×21 padding = 402px);
    dropdown füllt diese Breite und die aufgeklappte Liste bleibt innerhalb. */
-#myModal .inputGroupOnPopUp {
-  width: 402px;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-#myModal .inputGroupOnPopUp .dropdown {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  position: relative;
-}
-
-#myModal .selectOnEditPopUp {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-#myModal .dropdownContentPopup {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
 .editClosePopupMainContainer {
   position: sticky;
   display: flex;
