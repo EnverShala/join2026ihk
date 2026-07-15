@@ -483,15 +483,11 @@
     .border-container {
       width: 100%;
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       padding: 4px 0 8px;
       margin: 0;
       height: auto;
-    }
-    .border {
-      width: 100%;
-      border-color: #d1d1d1;
     }
     .contacts-first-letter-container {
       width: 100%;
