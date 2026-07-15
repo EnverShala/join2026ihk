@@ -371,6 +371,9 @@ a {
     border-radius: 10px;
     cursor: pointer;
   }
+  .guest-nav-spacer {
+    flex: 1;
+  }
 }
 @media (max-width: 700px) {
   .textContentPrivacy,

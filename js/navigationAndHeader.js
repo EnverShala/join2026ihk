@@ -188,6 +188,7 @@ function buildGuestMobileNav(currentPage) {
   nav.innerHTML = `
     <ul class="container-nav-links">
       <a href="./login.html"><div class="nav-links">${loginIcon}<li>Log In</li></div></a>
+      <span class="guest-nav-spacer"></span>
       <a href="./privacy.html"><div class="nav-links"><li>Privacy Policy</li></div></a>
       <a href="./legalNotice.html"><div class="nav-links"><li>Legal notice</li></div></a>
     </ul>`;
