@@ -1,6 +1,268 @@
 
 
-@media (max-width: 1390px) {
+/* Verkleinerte Desktop-Version (2 Spalten), passt auf 1024x600 ohne Scrollen.
+   Selektoren mit .taskContainer-Präfix, da boardInput.css später lädt und
+   sonst gleichnamige Regeln (z. B. gap der Spalten) gewinnen. */
+@media (min-width: 1024px) and (max-width: 1390px) {
+    .taskContainer {
+      margin-left: 264px;
+      margin-top: 8px;
+    }
+    .taskContainer .header {
+      width: auto;
+      margin-bottom: 8px;
+    }
+    .taskContainer h1 {
+      font-size: 32px;
+    }
+    .taskContainer form {
+      gap: 32px;
+      max-width: 720px;
+    }
+    .taskContainer .addTaskLeft,
+    .taskContainer .col-right {
+      gap: 10px;
+      width: 320px;
+    }
+    .taskContainer .col-middle {
+      height: 300px;
+    }
+    .taskContainer .input,
+    .taskContainer .inputDescription,
+    .taskContainer .select {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    .taskContainer .input {
+      padding: 7px 16px;
+    }
+    .taskContainer .select {
+      height: 38px;
+      padding: 1px 16px;
+    }
+    .taskContainer .select-input {
+      font-size: 16px;
+    }
+    .taskContainer .inputDescription {
+      height: 64px;
+      min-height: 64px;
+    }
+    .taskContainer label {
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+    .taskContainer .inputGroup {
+      gap: 4px;
+    }
+    .taskContainer .btn-prio,
+    .taskContainer .btn-prio.active {
+      font-size: 16px;
+      padding: 7px 6px;
+    }
+    .taskContainer .btn-prio img {
+      width: 18px;
+      height: auto;
+    }
+    .taskContainer .selected-contacts {
+      margin-bottom: 0;
+      padding-top: 2px;
+    }
+    .taskContainer .circle {
+      width: 34px;
+      height: 34px;
+    }
+    .taskContainer .container-subtasks-display {
+      max-height: 60px;
+    }
+    .taskContainer .container-subtasks-display ul {
+      margin-top: 4px;
+    }
+    .taskContainer .dropdown-content {
+      top: 38px;
+      max-height: 180px;
+      font-size: 16px;
+    }
+    .taskContainer .item.category {
+      height: 40px;
+    }
+    .taskContainer .inputGroup:has(> .attachment-upload-container) {
+      margin-top: 0;
+    }
+    .taskContainer .attachment-upload-container {
+      margin: 2px 0 0;
+    }
+    .taskContainer .attachment-upload-label {
+      padding: 6px 12px;
+    }
+    .taskContainer .attachment-preview {
+      margin-top: 2px;
+    }
+    .taskContainer .bottom-form {
+      margin-top: 10px;
+      margin-bottom: 8px;
+      font-size: 16px;
+      max-width: 720px;
+    }
+    .taskContainer .required {
+      font-size: 16px;
+    }
+    .taskContainer .btn-clear,
+    .taskContainer .btn-create {
+      font-size: 16px;
+      padding: 8px 12px;
+    }
+}
+
+/* Zwischenstufe 1: ab 1200px (typisch 1280x720/800) — etwas großzügiger,
+   passt auf 1280x720 ohne Scrollen. Überschreibt die Kompakt-Basis oben. */
+@media (min-width: 1200px) and (max-width: 1390px) {
+    .taskContainer {
+      margin-top: 16px;
+    }
+    .taskContainer .header {
+      margin-bottom: 8px;
+    }
+    .taskContainer h1 {
+      font-size: 40px;
+    }
+    .taskContainer form {
+      gap: 40px;
+      max-width: 800px;
+    }
+    .taskContainer .addTaskLeft,
+    .taskContainer .col-right {
+      gap: 14px;
+      width: 352px;
+    }
+    .taskContainer .col-middle {
+      height: 340px;
+    }
+    .taskContainer .input {
+      padding: 9px 18px;
+    }
+    .taskContainer .select {
+      height: 42px;
+      padding: 1px 18px;
+    }
+    .taskContainer .inputDescription {
+      height: 90px;
+      min-height: 90px;
+    }
+    .taskContainer .btn-prio,
+    .taskContainer .btn-prio.active {
+      padding: 9px 8px;
+    }
+    .taskContainer .circle {
+      width: 38px;
+      height: 38px;
+    }
+    .taskContainer .container-subtasks-display {
+      max-height: 90px;
+    }
+    .taskContainer .dropdown-content {
+      top: 42px;
+      max-height: 220px;
+    }
+    .taskContainer .bottom-form {
+      margin-top: 14px;
+      margin-bottom: 12px;
+      max-width: 800px;
+    }
+    .taskContainer .btn-clear,
+    .taskContainer .btn-create {
+      padding: 10px 14px;
+    }
+}
+
+/* Zwischenstufe 2: ab 1330px (typisch 1366x768) — nah am vollen Desktop,
+   passt auf 1366x768 ohne Scrollen. */
+@media (min-width: 1330px) and (max-width: 1390px) {
+    .taskContainer {
+      margin-top: 24px;
+    }
+    .taskContainer .header {
+      margin-bottom: 16px;
+    }
+    .taskContainer h1 {
+      font-size: 48px;
+    }
+    .taskContainer form {
+      gap: 48px;
+      max-width: 880px;
+    }
+    .taskContainer .addTaskLeft,
+    .taskContainer .col-right {
+      gap: 18px;
+      width: 384px;
+    }
+    .taskContainer .col-middle {
+      height: 370px;
+    }
+    .taskContainer .input,
+    .taskContainer .inputDescription,
+    .taskContainer .select {
+      font-size: 18px;
+    }
+    .taskContainer .input {
+      padding: 10px 18px;
+    }
+    .taskContainer .select {
+      height: 46px;
+    }
+    .taskContainer .select-input {
+      font-size: 18px;
+    }
+    .taskContainer .inputDescription {
+      height: 100px;
+      min-height: 100px;
+    }
+    .taskContainer label {
+      font-size: 18px;
+    }
+    .taskContainer .btn-prio,
+    .taskContainer .btn-prio.active {
+      font-size: 18px;
+      padding: 10px 8px;
+    }
+    .taskContainer .btn-prio img {
+      width: 20px;
+    }
+    .taskContainer .circle {
+      width: 40px;
+      height: 40px;
+    }
+    .taskContainer .container-subtasks-display {
+      max-height: 100px;
+    }
+    .taskContainer .dropdown-content {
+      top: 46px;
+      font-size: 18px;
+    }
+    .taskContainer .item.category {
+      height: 44px;
+    }
+    .taskContainer .attachment-upload-label {
+      padding: 8px 14px;
+      font-size: 15px;
+    }
+    .taskContainer .bottom-form {
+      margin-top: 16px;
+      margin-bottom: 16px;
+      font-size: 18px;
+      max-width: 880px;
+    }
+    .taskContainer .required {
+      font-size: 18px;
+    }
+    .taskContainer .btn-clear,
+    .taskContainer .btn-create {
+      font-size: 18px;
+      padding: 12px 16px;
+    }
+}
+
+@media (max-width: 1023px) {
     .taskContainer {
       margin-bottom: 100px;
       display: flex;
@@ -28,6 +290,41 @@
       position: unset;
       margin-left: -35px;
       transform: unset;
+    }
+  }
+  /* Tablet 801–1023px: platzsparende Sticky-Bar wie mobil, Note unter den Anhängen */
+  @media (min-width: 801px) and (max-width: 1023px) {
+    .taskContainer {
+      margin-bottom: 0;
+    }
+    .bottom-form {
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+      max-width: none;
+      margin: 16px 0 0;
+      padding: 8px 0;
+      background-color: #f6f7f8;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      flex-wrap: nowrap;
+      align-items: center;
+      z-index: 5;
+      box-sizing: border-box;
+    }
+    .bottom-form .required-note {
+      display: none;
+    }
+    .required-note-inline {
+      display: flex;
+      margin-top: 16px;
+    }
+    .required-note-inline .required {
+      font-size: 16px;
+    }
+    .btn-clear,
+    .btn-create {
+      font-size: 16px;
+      padding: 9px 12px;
     }
   }
   @media (max-width: 800px) {
@@ -71,11 +368,13 @@
       font-size: 40px;
     }
 
+    /* padding-bottom == sticky-Offset (96px), sonst wandert die Sticky-Bar
+       am Scroll-Ende noch um die Differenz nach oben. */
     body.task-page .taskContainer form {
       width: 100%;
       align-items: stretch;
       gap: 0;
-      padding-bottom: 120px;
+      padding-bottom: 96px;
     }
 
     body.task-page .taskContainer .addTaskLeft,
@@ -111,18 +410,20 @@
     }
 
     body.task-page .taskContainer .bottom-form .required-note {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      margin: 0;
+      display: none;
     }
 
-    body.task-page .taskContainer .bottom-form .required {
+    body.task-page .taskContainer .required-note-inline {
+      display: flex;
+      margin-top: 12px;
+    }
+
+    body.task-page .taskContainer .required-note-inline .required {
       font-size: 14px;
       line-height: 1.2;
     }
 
-    body.task-page .taskContainer .bottom-form .starFromRequired {
+    body.task-page .taskContainer .required-note-inline .starFromRequired {
       font-size: 14px;
       line-height: 1.2;
       margin: 0;
@@ -130,6 +431,7 @@
 
     body.task-page .taskContainer .bottom-form .actions-form {
       gap: 8px;
+      margin-left: auto;
     }
 
     body.task-page .taskContainer .bottom-form .btn-clear,

@@ -53,6 +53,25 @@ header {
   display: none;
 }
 
+/* Fragezeichen-Icon neben dem Profil-Icon: nur Desktop, nur eingeloggt
+   (Sichtbarkeit steuert showHeaderIcons() über .header-icons). */
+.header-help-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.header-help-icon img {
+  width: 32px;
+  height: 32px;
+}
+
+.header-help-icon:hover img {
+  filter: brightness(0.55);
+}
+
 .profile-icon {
   position: relative;
   display: flex;

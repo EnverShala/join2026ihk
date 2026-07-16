@@ -83,7 +83,6 @@ async function editCurrentTask() {
  * @returns {void}
  */
 function openDialog() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
   document.getElementById("htmlID").style.overflow = "hidden";
   setTimeout(() => {
     document.getElementById("popupOnTaskSelectionID").style.visibility = "visible";

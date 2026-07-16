@@ -488,6 +488,19 @@ textarea.inputDescription:focus {
   color: #ffad00;
 }
 
+.required-note {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0;
+}
+
+/* Inline-Variante unter den Anhängen: nur ≤1023px sichtbar,
+   ersetzt dort die Notiz in der Sticky-Bar. */
+.required-note-inline {
+  display: none;
+}
+
 .btn-clear,
 .btn-create {
   border: 1px solid #2a3647;
