@@ -89,7 +89,7 @@
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 800px), ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px)) {
   .dialogContainer,
   .dialogContainerTask {
     padding-bottom: 96px;

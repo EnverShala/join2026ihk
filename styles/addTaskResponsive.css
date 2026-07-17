@@ -3,7 +3,7 @@
 /* Verkleinerte Desktop-Version (2 Spalten), passt auf 1024x600 ohne Scrollen.
    Selektoren mit .taskContainer-Präfix, da boardInput.css später lädt und
    sonst gleichnamige Regeln (z. B. gap der Spalten) gewinnen. */
-@media (min-width: 1024px) and (max-width: 1390px) {
+@media (min-width: 1024px) and (max-width: 1390px) and (not ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px))) {
     .taskContainer {
       margin-left: 264px;
       margin-top: 8px;
@@ -116,7 +116,7 @@
 
 /* Zwischenstufe 1: ab 1200px (typisch 1280x720/800) — etwas großzügiger,
    passt auf 1280x720 ohne Scrollen. Überschreibt die Kompakt-Basis oben. */
-@media (min-width: 1200px) and (max-width: 1390px) {
+@media (min-width: 1200px) and (max-width: 1390px) and (not ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px))) {
     .taskContainer {
       margin-top: 16px;
     }
@@ -177,7 +177,7 @@
 
 /* Zwischenstufe 2: ab 1330px (typisch 1366x768) — nah am vollen Desktop,
    passt auf 1366x768 ohne Scrollen. */
-@media (min-width: 1330px) and (max-width: 1390px) {
+@media (min-width: 1330px) and (max-width: 1390px) and (not ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px))) {
     .taskContainer {
       margin-top: 24px;
     }
@@ -262,7 +262,7 @@
     }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1023px), ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px)) {
     .taskContainer {
       margin-bottom: 100px;
       display: flex;
@@ -293,7 +293,7 @@
     }
   }
   /* Tablet 801–1023px: platzsparende Sticky-Bar wie mobil, Note unter den Anhängen */
-  @media (min-width: 801px) and (max-width: 1023px) {
+  @media (min-width: 801px) and (max-width: 1023px), ((min-width: 801px) and (orientation: portrait) and (pointer: coarse) and (max-width: 1280px)) {
     .taskContainer {
       margin-bottom: 0;
     }

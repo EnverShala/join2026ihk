@@ -56,7 +56,7 @@ body {
 
 /* Center the popup in the area right of the fixed sidebar (232px wide, visible >800px)
    so it never slides behind the sidebar on medium desktop viewports. */
-@media (min-width: 801px) {
+@media (min-width: 801px) and (not ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px))) {
   .addContactContainer {
     padding-left: 232px;
     box-sizing: border-box;

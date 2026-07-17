@@ -146,7 +146,7 @@ margin-top: 16px;
 }
 
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px)) {
 
     .form-container {
         align-items: center;

@@ -54,7 +54,7 @@ body {
   animation: slideIn 1s forwards;
 }
 
-@media (min-width: 801px) {
+@media (min-width: 801px) and (not ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px))) {
   .addContactContainer {
     padding-left: 232px;
     box-sizing: border-box;
@@ -124,7 +124,7 @@ body {
 
 .closePopUp {
   position: absolute;
-  top: 22px;
+  top: 10px;
   height: 24px;
   width: 24px;
   right: 22px;

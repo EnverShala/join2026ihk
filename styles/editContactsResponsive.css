@@ -3,7 +3,7 @@
 
 /* Edit-only: das X-Icon (top: 12–18px, ~24px hoch) sitzt sonst im oberen Rand
    des ersten Input-Felds — Content-Bereich weiter unten starten. */
-@media (min-width: 761px) and (max-width: 1180px) {
+@media (min-width: 761px) and (max-width: 1180px) and (not ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px))) {
   .addContactContainer:not(.add-contact-dialog) .popUpContent {
     padding-top: 48px;
   }
@@ -32,7 +32,7 @@
     padding: 24px 24px 20px 76px;
   }
   .closePopUp {
-    top: 18px;
+    top: 10px;
     right: 18px;
   }
   .contactImg {
@@ -166,7 +166,7 @@
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px)) {
   .banner-title-row {
     display: flex;
     align-items: center;

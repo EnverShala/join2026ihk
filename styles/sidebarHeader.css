@@ -34,7 +34,7 @@ header {
   z-index: 1;
 }
 
-@media (min-width: 801px) {
+@media (min-width: 801px) and (not ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px))) {
   body {
     padding-top: 96px;
   }
@@ -312,8 +312,9 @@ a {
   cursor: pointer;
 }
 
-/*Mobile Header and Nav*/
-@media (max-width: 800px) {
+/*Mobile Header and Nav — greift zusätzlich auf Portrait-Touch-Geräten bis 1280px
+  (z. B. Tablets hochkant oder Phones im Desktop-Modus mit >800px CSS-Breite) */
+@media (max-width: 800px), ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px)) {
   .desktop-header {
     display: none;
   }
@@ -393,11 +394,12 @@ a {
   .guest-nav-spacer {
     flex: 1;
   }
-}
-@media (max-width: 700px) {
+  /* Statische Textseiten: Desktop-Margin (282px für Sidebar) aufheben,
+     sobald die Sidebar weg ist — sonst hängt der Content rechts raus. */
   .textContentPrivacy,
+  .textContentLegalNotice,
   .textContentHelp {
-    margin: 30px 50px 200px 30px;
+    margin: 30px 30px 200px 30px;
   }
 }
 @media (max-width: 570px) {
@@ -407,9 +409,6 @@ a {
   .textContentPrivacy p,
   .textContentLegalNotice p {
     font-size: 14px;
-  }
-  .textContentLegalNotice {
-    margin: 30px 50px 200px 30px;
   }
 }
 @media (max-width: 400px) {

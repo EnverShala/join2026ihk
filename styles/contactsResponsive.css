@@ -306,7 +306,7 @@
   }
   /* Desktop-schmaler Bereich: mehr Luft zwischen Detail-Sektionen, verhindert
      zugleich horizontales Scrollen (Name-Container schrumpft mit flex:1). */
-  @media (min-width: 801px) and (max-width: 1140px) {
+  @media (min-width: 801px) and (max-width: 1140px) and (not ((orientation: portrait) and (pointer: coarse))) {
     .display-contact-header {
       margin-top: 32px;
     }
@@ -354,7 +354,7 @@
   }
   /* 801–960: Header wird zur column (Titel + Trenner + Text), Detail-Section
      braucht deshalb nochmal 24px extra Luft nach oben (=56 gesamt). */
-  @media (min-width: 801px) and (max-width: 960px) {
+  @media (min-width: 801px) and (max-width: 960px) and (not ((orientation: portrait) and (pointer: coarse))) {
     .display-contact-header {
       flex-direction: column;
       align-items: flex-start;
@@ -420,7 +420,7 @@
       gap: 14px;
     }
   }
-  @media (max-width: 800px) {
+  @media (max-width: 800px), ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px)) {
     .contacts-main-container {
       width: 100%;
       padding: 12px 16px 24px;
@@ -800,7 +800,7 @@
   /* Mobile flow reset for the section header — defeats the legacy fixed-position
      overrides at smaller breakpoints that assumed the header was still absolutely
      positioned to the right of the contact list. */
-  @media (max-width: 800px) {
+  @media (max-width: 800px), ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px)) {
     .display-contact-header {
       position: static;
       top: unset;

@@ -76,6 +76,16 @@
       margin-right: auto;
       box-sizing: border-box;
     }
+    /* Inputs haben desktop 422px Fixbreite und ragen sonst aus der 396px-Karte */
+    .field_group {
+      width: 88%;
+      padding: 10px 16px;
+      box-sizing: border-box;
+    }
+    .error_email_wrapper,
+    .error_password_wrapper {
+      width: 88%;
+    }
   }
   @media (max-width: 600px) {
     html,
