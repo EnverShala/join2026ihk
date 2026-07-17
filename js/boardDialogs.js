@@ -35,21 +35,57 @@ function getSubtaskItems(id = "") {
 }
 
 /**
- * Returns comma-joined names of checked assigned-user checkboxes.
+ * Toggles a required-message element of the edit popup on or off.
  *
- * @param {string} [id=""] - Optional suffix identifying the form context.
- * @returns {string} Comma-joined assigned user names, or an empty string.
+ * @param {string} id - The DOM id of the message element.
+ * @param {boolean} show - Whether the message should be visible.
+ * @returns {void}
  */
-function getAssignedUsers(id = "") {
-  let newAssigned = "";
-  if (users.length > 0) {
-    for (let i = 0; i < users.length; i++) {
-      let checkbox = document.getElementById(`AssignedContact${id}${i}`);
-      if (checkbox.checked == true) newAssigned += users[i].name + ",";
-    }
-    newAssigned = newAssigned.slice(0, -1);
-  }
-  return newAssigned;
+function toggleEditRequired(id, show) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = show ? "block" : "none";
+}
+
+/**
+ * Hides all required-messages of the edit popup.
+ *
+ * @returns {void}
+ */
+function hideEditRequiredHints() {
+  ["editTitleRequired", "editDescriptionRequired", "editDateRequired", "editPrioRequired", "editAssignedRequired"]
+    .forEach(id => toggleEditRequired(id, false));
+}
+
+/**
+ * Validates the edit-popup due date and toggles its error message.
+ *
+ * @param {string} dateValue - The date input value (YYYY-MM-DD).
+ * @returns {boolean} True if the date is today or in the future.
+ */
+function validateEditDueDate(dateValue) {
+  const msg = document.getElementById("editDateRequired");
+  const ok = dateValue !== "" && (typeof isDueDateInRange !== "function" || isDueDateInRange(dateValue));
+  if (msg) msg.textContent = dateValue === "" ? "This field is required" : "Please select today or a future date";
+  toggleEditRequired("editDateRequired", !ok);
+  return ok;
+}
+
+/**
+ * Validates all required fields of the edit popup and toggles their messages.
+ *
+ * @returns {boolean} True if every required field is filled in correctly.
+ */
+function validateEditForm() {
+  const titleOk = document.getElementById("inputEdit").value.trim() !== "";
+  const descOk = document.getElementById("inputDescription").value.trim() !== "";
+  const prioOk = getTaskPrio() !== "None";
+  const assignedOk = getAssignedUsers() !== "";
+  toggleEditRequired("editTitleRequired", !titleOk);
+  toggleEditRequired("editDescriptionRequired", !descOk);
+  toggleEditRequired("editPrioRequired", !prioOk);
+  toggleEditRequired("editAssignedRequired", !assignedOk);
+  const dateOk = validateEditDueDate(document.getElementById("inputDueDate").value);
+  return titleOk && descOk && prioOk && assignedOk && dateOk;
 }
 
 /**
@@ -58,11 +94,8 @@ function getAssignedUsers(id = "") {
  * @returns {Promise<void>} Resolves after the task is saved and the board is rerendered.
  */
 async function editCurrentTask() {
+  if (!validateEditForm()) return;
   const dateValue = document.getElementById("inputDueDate").value;
-  if (typeof isDueDateInRange === "function" && !isDueDateInRange(dateValue)) {
-    document.getElementById("inputDueDate").focus();
-    return;
-  }
   const t = tasks[getTaskNrFromCurrentId()];
   const attachment = typeof getAttachmentJson === "function" ? getAttachmentJson("edit") : "";
   const newTask = createTaskArray(

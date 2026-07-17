@@ -152,12 +152,9 @@ function cleanSubtasksDoneString(str) {
  * @returns {void}
  */
 function toggleAssignedUsers(assignedUsers, id = "") {
-  for (let c = 0; c < users.length; c++) {
-    for (let a = 0; a < assignedUsers.length; a++) {
-      if (users[c].name == assignedUsers[a]) {
-        toggleCheckbox(`AssignedContact${id}${c}`);
-      }
-    }
+  const names = getUniqueAssignedNames();
+  for (let c = 0; c < names.length; c++) {
+    if (assignedUsers.some(a => a.trim() === names[c])) toggleCheckbox(`AssignedContact${id}${c}`);
   }
 }
 
@@ -186,6 +183,7 @@ function clearEditForm() {
   document.getElementById("inputEdit").value = "";
   document.getElementById("inputDescription").value = "";
   document.getElementById("inputDueDate").value = "";
+  if (typeof hideEditRequiredHints === "function") hideEditRequiredHints();
   document.getElementById("subtaskList").innerHTML = "";
   document.getElementById("addNewSubtaskInput").value = "";
   document.getElementById("selected-contacts-container").innerHTML = "";
@@ -200,13 +198,13 @@ function clearEditForm() {
  */
 function editPopupTask() {
   clearEditForm();
-  for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].id == currentId) applyTaskToEditForm(tasks[i]);
-  }
   document.getElementById("popupOnTaskSelectionMainContainerID").classList.add("d-none");
   document.getElementById("editPopUpID").classList.remove("d-none");
   if (typeof applyDueDateBounds === "function") {
     applyDueDateBounds(document.getElementById("inputDueDate"));
+  }
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].id == currentId) applyTaskToEditForm(tasks[i]);
   }
 }
 
@@ -220,11 +218,11 @@ function applyTaskToEditForm(task) {
   document.getElementById("inputEdit").value = task.title;
   document.getElementById("inputDescription").value = task.description;
   document.getElementById("inputDueDate").value = task.date;
-  subtasksArray = task.subtasks.split("|");
+  subtasksArray = (task.subtasks || "").split("|");
   clearPrioButtons();
   activatePrioButton(task.priority);
   renderSubtasks();
-  toggleAssignedUsers(task.assigned.split(","));
+  toggleAssignedUsers((task.assigned || "").split(","));
   if (typeof loadAttachmentForEdit === "function") {
     loadAttachmentForEdit(task.attachments || "");
   }

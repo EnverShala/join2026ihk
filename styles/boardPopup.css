@@ -220,9 +220,13 @@
     margin-bottom: 24px;
   }
   
+  /* Maximal 4 Assigned-Zeilen sichtbar (Badge 32px + 8px Gap), danach scrollen */
   .popupTest {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    max-height: 156px;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
   
   .assignedToTxt {

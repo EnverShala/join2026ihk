@@ -231,20 +231,20 @@ function toggleDropdownCategory() {
 
 /**
  * Returns a comma-separated string of names of assigned users.
+ * Iterates the deduplicated name list because renderAssignedTo() creates
+ * one checkbox per unique name, not per users[] entry.
  *
  * @param {string} [id=""] - Context suffix ("" for the main page, "Popup" for the overlay).
  * @returns {string} Comma-separated user names.
  */
 function getAssignedUsers(id = "") {
+  const names = getUniqueAssignedNames();
   let newAssigned = "";
-  if (users.length > 0) {
-    for (let i = 0; i < users.length; i++) {
-      let checkbox = document.getElementById(`AssignedContact${id}${i}`);
-      if (checkbox.checked == true) newAssigned += users[i].name + ",";
-    }
-    newAssigned = newAssigned.slice(0, -1);
+  for (let i = 0; i < names.length; i++) {
+    const checkbox = document.getElementById(`AssignedContact${id}${i}`);
+    if (checkbox && checkbox.checked) newAssigned += names[i] + ",";
   }
-  return newAssigned;
+  return newAssigned.slice(0, -1);
 }
 
 /**
@@ -283,6 +283,7 @@ async function renderAssignedTo(id = "") {
  */
 function toggleCheckbox(checkboxId) {
   const checkbox = document.getElementById(checkboxId);
+  if (!checkbox) return;
   checkbox.checked = !checkbox.checked;
   toggleBackground(checkbox);
 }

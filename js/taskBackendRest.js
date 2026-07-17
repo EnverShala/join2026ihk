@@ -198,6 +198,8 @@ function initSubtaskUI() {
 
 /**
  * Setzt sinnvolle min/max-Grenzen für ein Datumsfeld (heute bis +100 Jahre).
+ * Manuelle Eingabe bleibt erlaubt; Werte in der Vergangenheit fängt die
+ * Validierung beim Speichern ab (isDueDateInRange).
  *
  * @param {HTMLInputElement|null} el - Das Datumsfeld.
  * @returns {void}
@@ -210,25 +212,23 @@ function applyDueDateBounds(el) {
   const max = maxDate.toISOString().split("T")[0];
   el.setAttribute("min", min);
   el.setAttribute("max", max);
-  blockManualDateEntry(el);
-}
-
-/**
- * Verhindert manuelle Tastatur-Eingaben; Datum darf nur per Kalender gewählt werden.
- *
- * @param {HTMLInputElement} el - Das Datumsfeld.
- * @returns {void}
- */
-function blockManualDateEntry(el) {
-  if (!el || el.dataset.calendarOnly === "true") return;
-  el.dataset.calendarOnly = "true";
-  el.addEventListener("keydown", (e) => e.preventDefault());
-  el.addEventListener("paste", (e) => e.preventDefault());
-  el.addEventListener("drop", (e) => e.preventDefault());
 }
 
 document.addEventListener("DOMContentLoaded", initSubtaskUI);
 document.addEventListener("DOMContentLoaded", initDueDateMin);
+
+/**
+ * Schließt das Category-Dropdown; Klicks auf Einträge liegen innerhalb des
+ * Dropdowns und werden vom Outside-Click-Handler bewusst ignoriert.
+ *
+ * @returns {void}
+ */
+function closeDropdownCategory() {
+  const dropdown = document.getElementById("myDropdownCategory");
+  const container = document.getElementById("category-container");
+  if (dropdown) dropdown.classList.remove("show");
+  if (container) container.classList.remove("dropdown-open");
+}
 
 /**
  * Sets the displayed category to "Technical Task".
@@ -240,6 +240,7 @@ function selectTechnicalStack() {
   let selectCategory = document.getElementById("category-displayed");
   selectCategory.innerHTML = "";
   selectCategory.innerHTML = categoryTechnicalStack;
+  closeDropdownCategory();
 }
 
 /**
@@ -252,6 +253,7 @@ function selectUserStory() {
   let selectCategory = document.getElementById("category-displayed");
   selectCategory.innerHTML = "";
   selectCategory.innerHTML = categoryselectUserStory;
+  closeDropdownCategory();
 }
 
 /**
@@ -285,7 +287,7 @@ function validateDueDate() {
     return false;
   }
   if (!isDueDateInRange(value)) {
-    dateRequired.textContent = "Bitte ein gültiges Datum wählen";
+    dateRequired.textContent = "Please select today or a future date";
     dateRequired.style.display = "block";
     return false;
   }

@@ -308,28 +308,31 @@
 <div onclick="closeAssignedto()" class="scrollbar">
   <!-- Begin Titel -->
    <div class="editPopupTitelMainContainer">
-    <span class="editPopupTitelTxt">Title</span>
+    <span class="editPopupTitelTxt">Title<span class="starFromRequired">*</span></span>
     <input id="inputEdit" class="editTitelInput" type="text" onblur="this.value = this.value.trim()">
+    <div id="editTitleRequired" class="requiredMessage editFieldRequiredMsg">This field is required</div>
   </div>
   <!-- End Titel -->
 
   <!-- Begin Description -->
    <div class="editPopupDescriptionMainContainer">
-    <span class="editPopupDescriptionTxt">Description</span>
+    <span class="editPopupDescriptionTxt">Description<span class="starFromRequired">*</span></span>
     <textarea id="inputDescription" class="editDescriptionInput" onblur="this.value = this.value.trim()"></textarea>
+    <div id="editDescriptionRequired" class="requiredMessage editFieldRequiredMsg">This field is required</div>
   </div>
   <!-- End Description -->
 
   <!-- Begin Date -->
    <div class="editPopupDateMainContainer">
-    <p class="editPopupDateTxt">Due date</p>
+    <p class="editPopupDateTxt">Due date<span class="starFromRequired">*</span></p>
     <input id="inputDueDate" class="editDateInput" type="date">
+    <div id="editDateRequired" class="requiredMessage editFieldRequiredMsg">This field is required</div>
   </div>
   <!-- End Date -->
 
   <!-- Begin Prio Buttons  -->
    <div class="editPrio">
-    <label id="inputPrio"></label>
+    <p class="editPopupPrioTxt">Priority<span class="starFromRequired">*</span></p>
     <div class="buttonsPrioOnEditPopUp">
       <button onclick="clickOnUrgent()" type="button" id="urgent" class="btn-prio">
         Urgent<img id="urgentID" src="./img/urgent.svg" class="">
@@ -346,12 +349,13 @@
         <img id="low-whiteID" class="d-none" src="./img/low-white.svg">
       </button>
     </div>
+    <div id="editPrioRequired" class="requiredMessage">This field is required</div>
   </div>
   <!-- End Prio Buttons  -->
 
   <!-- Begin Assigned to  -->
    <div class="editPopupAssignedToMainContainer">
-    <p class="editAssignedToTxt">Assigned to</p>
+    <p class="editAssignedToTxt">Assigned to<span class="starFromRequired">*</span></p>
     <div class="editDropdown">
       <div id="contacts-list" class="selectOnEditPopUp assigned-to" onclick="toggleDropdown()">
         <input class="select-input placeholder" type="text" placeholder="Select contacts to assign" readonly/>
@@ -363,6 +367,7 @@
       <!-- Begin Contacts Assigned to-->
        <ul id="myDropdown" class="dropdown-content"></ul>
        <!-- End Contacts Assigned to-->
+       <div id="editAssignedRequired" class="requiredMessage">This field is required</div>
        <div id="selected-contacts-container" class="selected-contacts"></div>
       </div>
   </div>
