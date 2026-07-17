@@ -268,7 +268,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-left: 240px;
+      margin-left: 0;
     }
     .taskContainer form {
       display: flex;
@@ -290,6 +290,13 @@
       position: unset;
       margin-left: -35px;
       transform: unset;
+    }
+  }
+  /* Sidebar (240px) nur kompensieren, wenn sie sichtbar ist:
+     schmale Desktop-Fenster ohne forced-mobile (vgl. sidebarHeader.css). */
+  @media (min-width: 801px) and (max-width: 1023px) and (not ((orientation: portrait) and (pointer: coarse) and (max-width: 1280px))) {
+    .taskContainer {
+      margin-left: 240px;
     }
   }
   /* Tablet 801–1023px: platzsparende Sticky-Bar wie mobil, Note unter den Anhängen */
