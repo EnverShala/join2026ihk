@@ -1,94 +1,18 @@
 const CONTACTS_MOBILE_MAX = 800;
 
 /**
- * Deletes a user and removes them from every task's assigned list.
+ * Prüft, ob die Contacts-Seite gerade im Mobile-Layout dargestellt wird —
+ * per Breite (≤800px) oder erzwungen auf Portrait-Touch-Geräten bis 1280px
+ * (gleiche Bedingung wie die Media Queries in contactsResponsive.css).
  *
- * @param {string} id - The Firebase id of the user to delete.
- * @returns {Promise<void>}
+ * @returns {boolean} True im Mobile-Layout.
  */
-async function deleteUser(id) {
-  await loadTasks("/tasks");
-  const user = users.find((u) => u.id == id);
-  if (user) await removeUserFromAssignedTasks(user.name);
-  await fetch(FIREBASE_URL + `/users/${id}` + ".json", { method: "DELETE" });
-  await renderContacts();
-  loadUserInformation(-1);
-  if (typeof closePopup === "function") closePopup();
+function isContactsMobileLayout() {
+  if (window.innerWidth <= CONTACTS_MOBILE_MAX) return true;
+  return window.matchMedia("(orientation: portrait) and (pointer: coarse) and (max-width: 1280px)").matches;
 }
 
-/**
- * Strips the given name from every task's `assigned` field and persists.
- *
- * @param {string} userName - The name to remove from all assigned lists.
- * @returns {Promise<void>}
- */
-async function removeUserFromAssignedTasks(userName) {
-  for (let j = 0; j < tasks.length; j++) {
-    if (!tasks[j].assigned.includes(userName)) continue;
-    tasks[j].assigned = normalizeAssignedString(tasks[j].assigned.replace(userName, ""));
-    await editTask(tasks[j].id, tasks[j]);
-  }
-}
-
-/**
- * Cleans double, leading and trailing commas from an assigned-users string.
- *
- * @param {string} str - The raw assigned-users string.
- * @returns {string} The normalized assigned-users string.
- */
-function normalizeAssignedString(str) {
-  let out = str.replace(",,", ",");
-  if (out[out.length - 1] == ",") out = out.slice(0, -1);
-  if (out[0] == ",") out = out.slice(1);
-  return out;
-}
-
-/**
- * Updates user `id` from the edit form and persists to Firebase.
- *
- * @param {string} id - The Firebase id of the user to update.
- * @param {Object} [data={}] - The user payload to update, mutated with form values.
- * @returns {Promise<void>}
- */
-async function editUser(id, data = {}) {
-  readEditUserForm(data);
-  await fetch(FIREBASE_URL + `/users/${id}` + ".json", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  await renderContacts();
-  loadUserInformation(currentUser);
-  closePopup();
-}
-
-/**
- * Reads the edit-user form fields into the given data object.
- *
- * @param {Object} data - The user payload to be enriched with form values.
- * @returns {void}
- */
-function readEditUserForm(data) {
-  data.name = document.getElementById("name").value.trim();
-  data.email = document.getElementById("email").value.trim();
-  data.phone = document.getElementById("phone").value.trim();
-}
-
-/**
- * Returns the id of the user with `email`, or -1 if not found.
- *
- * @param {string} email - The email address to look up.
- * @returns {string|number} The user id, or -1 if there are no users.
- */
-function getUserId(email) {
-  if (users.length > 0) {
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].email == email) return users[i].id;
-    }
-  } else {
-    return -1;
-  }
-}
+/* User-CRUD (deleteUser, editUser, Task-Propagation) liegt in firebaseUserCrud.js */
 
 /**
  * Renders the contact list grouped by first letter of the name.
@@ -188,7 +112,7 @@ function applyContactDetailColor(id) {
  * @returns {void}
  */
 function hideContactsListInResponsiveMode() {
-  if (window.innerWidth <= CONTACTS_MOBILE_MAX) {
+  if (isContactsMobileLayout()) {
     document.getElementById("contact-list").classList.add("d-none");
     document.getElementById("add-contact-containerID").style.display = "none";
     document.getElementById("back-arrow-on-responsiveID").classList.remove("d-none");
@@ -205,7 +129,7 @@ function applyContactsLayoutForWidth() {
   const els = getContactsLayoutElements();
   if (!els) return;
   const hasSelection = typeof currentUser !== "undefined" && currentUser !== null && currentUser !== -1;
-  if (window.innerWidth > CONTACTS_MOBILE_MAX) {
+  if (!isContactsMobileLayout()) {
     applyDesktopContactsLayout(els, hasSelection);
   } else if (hasSelection) {
     applyMobileContactsDetailLayout(els);
@@ -298,7 +222,7 @@ function showContactsInDetailInResponsiveMode() {
  * @returns {void}
  */
 function showContactListAgainInResponsiveMode() {
-  if (window.innerWidth <= CONTACTS_MOBILE_MAX) {
+  if (isContactsMobileLayout()) {
     document.getElementById("display-contact-headerID").style.display = "flex";
     document.getElementById("display-contactID").style.display = "none";
     document.getElementById("contact-list").classList.remove("d-none");

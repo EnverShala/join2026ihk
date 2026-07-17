@@ -11,6 +11,7 @@
     <script src="./js/firebaseDatabaseFunctions.js"></script>
     <script src="./js/navigationAndHeader.js"></script>
     <script src="./js/firebaseUserRendering.js"></script>
+    <script src="./js/firebaseUserCrud.js"></script>
     <script src="./js/contacts.js"></script>
 </head>
 <body>
@@ -59,7 +60,7 @@
                         </div>
                         <div id="phone-error" class="input-error">Nur Zahlen, 6-16 Stellen</div>
                         <div class="popUpButton">
-                            <button type="button" onclick="deleteUser(getUserId(users[currentUser].email))" class="cancelButton">
+                            <button type="button" onclick="deleteUser(users[currentUser].id)" class="cancelButton">
                                 <p>Delete</p>
                                 <div>
                                     <img class="crossSVG" src="./img/icon_cancel.svg" alt="">

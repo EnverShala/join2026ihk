@@ -16,6 +16,7 @@
     <script src="./js/firebaseDatabaseFunctions.js"></script>
     <script src="./js/navigationAndHeader.js"></script>
     <script src="./js/firebaseUserRendering.js"></script>
+    <script src="./js/firebaseUserCrud.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/sidebarHeader.js"></script>
   </head>
@@ -172,7 +173,7 @@
                           <div class="edit" onclick="editUserPopup()">
                               <img class="edit-icon" src="./img/edit.png" alt="edit.png" />Edit
                           </div>
-                          <div onclick="deleteUser(getUserId(users[currentUser].email))" class="delete">
+                          <div onclick="deleteUser(users[currentUser].id)" class="delete">
                               <img class="delete-icon" src="./img/delete.png" alt="delete.png" />Delete
                           </div>
                       </div>
